@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #85e872;
+}
+
+.custom-segmented-auth {
+  border-radius: 999px !important;
+}
+
+.custom-segmented-auth .ant-segmented-group {
+  display: flex !important;
+}
+
+.custom-segmented-auth .ant-segmented-item {
+  flex: 1 1 50%;
+  text-align: center;
+  justify-content: center;
+}
+
+.custom-segmented-map-list-switch .ant-segmented-item-label {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+  padding: 5px;
+  width: 70px;
+}
+.custom-segmented-map-list-switch .ant-segmented-item-label > :last-child {
+  margin-left: 2px;
+  margin-bottom: -2px;
+  height: fit-content;
+}
+
+.filter-select-box .ant-select-selector {
+  border-radius: 9999px !important;
+  background: #f2f2f2 !important;
+  border: none !important;
+  font-weight: 600;
+  color: #737373 !important;
+  cursor: pointer !important;
+}
+
+span.ant-select-selection-item {
+  border-radius: 999 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.filter-select-box .ant-select-selector:hover {
+  background: #e4e4e4 !important;
+}
+
+.filter-box-container::-webkit-scrollbar {
+  height: 3px;
+}
+
+.filter-box-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 9999px;
+}
+
+.filter-box-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filter-box-container::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+.ant-picker-calendar,
+.ant-picker-panel {
+  background: transparent !important;
+  border: none !important;
+  border-top: none !important;
+}
+
+.booking-gym-calendar
+  .ant-picker-calendar-header
+  .ant-picker-calendar-year-select,
+.booking-gym-calendar .ant-radio-group.ant-radio-group-outline {
+  display: none !important;
+}
+
+.booked-item-calendar
+  .ant-picker-calendar-header
+  .ant-picker-calendar-year-select,
+.booked-item-calendar .ant-radio-group.ant-radio-group-outline {
+  display: none !important;
+}
+
+.ant-image {
+  height: fit-content;
+}
+
+.ant-image-mask {
+  border-radius: 35px;
+  overflow: hidden;
+}

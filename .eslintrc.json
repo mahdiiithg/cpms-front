@@ -1,0 +1,278 @@
+{
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:@graphql-eslint/schema-recommended",
+    "plugin:@graphql-eslint/operations-recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "@graphql-eslint",
+    "import",
+    "unused-imports"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      },
+      "alias": {
+        "map": [
+          ["@", "./src"],
+          ["@/components", "./src/components"],
+          ["@/lib", "./src/lib"],
+          ["@/utils", "./src/utils"]
+        ],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
+    "import/ignore": ["node_modules", "\\.(coffee|scss|css|less|hbs|svg|json)$"]
+  },
+  "rules": {
+    // General JavaScript Rules
+    "no-console": "warn",
+    "no-debugger": "error",
+    "no-unused-vars": "off", // Turned off in favor of unused-imports
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-arrow-callback": "error",
+    "arrow-spacing": "error",
+    "no-duplicate-imports": "error",
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "never"],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "eol-last": "error",
+    "no-trailing-spaces": "error",
+
+    // React Rules
+    "react/react-in-jsx-scope": "off", // Not needed in Next.js 13+
+    "react/prop-types": "off", // Using TypeScript for prop validation
+    "react/jsx-uses-react": "off",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-no-duplicate-props": "error",
+    "react/jsx-no-undef": "error",
+    "react/jsx-pascal-case": "error",
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "parens-new-line",
+        "prop": "parens-new-line"
+      }
+    ],
+    "react/jsx-closing-bracket-location": ["error", "line-aligned"],
+    "react/jsx-closing-tag-location": "error",
+    "react/jsx-curly-spacing": ["error", "never"],
+    "react/jsx-equals-spacing": ["error", "never"],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-key": "error",
+    "react/jsx-max-props-per-line": ["error", { "maximum": 3 }],
+    "react/jsx-no-bind": ["error", { "ignoreRefs": true }],
+    "react/jsx-no-literals": "off",
+    "react/jsx-no-target-blank": "error",
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "closingSlash": "never",
+        "beforeSelfClosing": "always",
+        "afterOpening": "never",
+        "beforeClosing": "never"
+      }
+    ],
+    "react/self-closing-comp": "error",
+    "react/sort-comp": "error",
+    "react/no-array-index-key": "warn",
+    "react/no-deprecated": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-find-dom-node": "error",
+    "react/no-is-mounted": "error",
+    "react/no-render-return-value": "error",
+    "react/no-string-refs": "error",
+    "react/no-unescaped-entities": "error",
+    "react/no-unknown-property": "error",
+    "react/require-render-return": "error",
+
+    // React Hooks Rules
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+
+    // Next.js Specific Rules
+    "@next/next/no-img-element": "error",
+    "@next/next/no-html-link-for-pages": "error",
+    "@next/next/no-sync-scripts": "error",
+    "@next/next/no-document-import-in-page": "error",
+    "@next/next/no-head-import-in-document": "error",
+    "@next/next/no-script-component-in-head": "error",
+    "@next/next/no-css-tags": "error",
+    "@next/next/no-styled-jsx-in-document": "error",
+    "@next/next/no-title-in-document-head": "error",
+    "@next/next/no-unwanted-polyfillio": "error",
+    "@next/next/no-duplicate-head": "error",
+    "@next/next/inline-script-id": "error",
+    "@next/next/next-script-for-ga": "error",
+    "@next/next/no-assign-module-variable": "error",
+    "@next/next/no-before-interactive-script-outside-document": "error",
+    "@next/next/no-head-element": "error",
+    "@next/next/no-page-custom-font": "error",
+
+    // Import Rules
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-duplicates": "error",
+    "import/no-unresolved": "error",
+    "import/named": "error",
+    "import/default": "error",
+    "import/namespace": "error",
+    "import/no-absolute-path": "error",
+    "import/no-self-import": "error",
+    "import/no-cycle": "error",
+    "import/no-useless-path-segments": "error",
+
+    // Unused Imports
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+
+    // Accessibility Rules
+    "jsx-a11y/alt-text": "error",
+    "jsx-a11y/anchor-has-content": "error",
+    "jsx-a11y/anchor-is-valid": "error",
+    "jsx-a11y/aria-activedescendant-has-tabindex": "error",
+    "jsx-a11y/aria-props": "error",
+    "jsx-a11y/aria-proptypes": "error",
+    "jsx-a11y/aria-role": "error",
+    "jsx-a11y/aria-unsupported-elements": "error",
+    "jsx-a11y/heading-has-content": "error",
+    "jsx-a11y/iframe-has-title": "error",
+    "jsx-a11y/img-redundant-alt": "error",
+    "jsx-a11y/no-access-key": "error",
+    "jsx-a11y/no-distracting-elements": "error",
+    "jsx-a11y/no-redundant-roles": "error",
+    "jsx-a11y/role-has-required-aria-props": "error",
+    "jsx-a11y/role-supports-aria-props": "error",
+    "jsx-a11y/scope": "error"
+  },
+  "overrides": [
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "rules": {
+        "@graphql-eslint/known-type-names": "error",
+        "@graphql-eslint/no-anonymous-operations": "error",
+        "@graphql-eslint/no-duplicate-fields": "error",
+        "@graphql-eslint/no-undefined-variables": "error",
+        "@graphql-eslint/no-unused-variables": "error",
+        "@graphql-eslint/unique-operation-name": "error",
+        "@graphql-eslint/unique-variable-names": "error",
+        "@graphql-eslint/value-literals-of-correct-type": "error",
+        "@graphql-eslint/variables-are-input-types": "error",
+        "@graphql-eslint/variables-in-allowed-position": "error",
+        "@graphql-eslint/naming-convention": [
+          "error",
+          {
+            "OperationDefinition": {
+              "style": "PascalCase",
+              "forbiddenPrefixes": ["Query", "Mutation", "Subscription"],
+              "forbiddenSuffixes": ["Query", "Mutation", "Subscription"]
+            },
+            "FragmentDefinition": {
+              "style": "PascalCase",
+              "suffix": "Fragment"
+            },
+            "VariableDefinition": {
+              "style": "camelCase"
+            },
+            "EnumValueDefinition": {
+              "style": "UPPER_CASE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "files": ["app/**/*.js", "app/**/*.jsx"],
+      "rules": {
+        // App Router specific rules
+        "@next/next/no-async-client-component": "error"
+      }
+    },
+    {
+      "files": ["pages/**/*.js", "pages/**/*.jsx"],
+      "rules": {
+        // Pages Router specific rules (if you have legacy pages)
+        "import/no-default-export": "off"
+      }
+    },
+    {
+      "files": ["*.config.js", "*.config.mjs"],
+      "env": {
+        "node": true
+      },
+      "rules": {
+        "import/no-default-export": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "out/",
+    "build/",
+    "dist/",
+    "*.min.js",
+    "public/"
+  ]
+}

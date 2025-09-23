@@ -1,0 +1,15 @@
+/* Place in your global CSS (not a CSS module) */
+
+.custom-carousel .slick-dots li button {
+  background-color: #d1d1d1 !important;
+  border-radius: 50% !important;
+  width: 8px !important;
+  height: 8px !important;
+  padding: 0 !important;
+}
+
+.custom-carousel .slick-dots li.slick-active button {
+  background-color: #85e872 !important;
+  width: 10px !important;
+  height: 10px !important;
+}
