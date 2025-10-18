@@ -82,14 +82,38 @@ export const GET_PROPERTY = gql`
       rentPrice
       bedrooms
       bathrooms
+      propertySize
+      landSize
+      yearBuilt
+      parking
+      features
+      condition
+      orientation
+      floorLevel
+      totalFloors
+      availableFrom
+      leaseTerm
+      bond
+      views
+      inquiries
+      saves
+      listingStatus
+      featured
+      urgent
+      contactPerson
+      contactPhone
+      contactEmail
+      slug
+      tags
       location {
         address
         city
         state
         country
-        coordinates { latitude longitude }
+        zipCode
         suburb
         region
+        coordinates { latitude longitude }
       }
       images
       inspectionTimes { id date startTime endTime type notes }
@@ -116,7 +140,7 @@ export const GET_NEARBY_PROPERTIES = gql`
   }
 `;
 
-// Search properties with text query (compact)
+// Search properties with text query (full fields for consistency)
 export const SEARCH_PROPERTIES = gql`
   query SearchProperties($query: String!, $filters: PropertyFilters) {
     searchProperties(query: $query, filters: $filters) {
@@ -126,11 +150,38 @@ export const SEARCH_PROPERTIES = gql`
         description
         type
         listingType
+        bedrooms
+        bathrooms
         salePrice
         rentPrice
-        location { city state country }
+        propertySize
+        landSize
+        yearBuilt
+        parking
+        features
+        condition
+        orientation
+        floorLevel
+        totalFloors
+        availableFrom
+        leaseTerm
+        bond
+        views
+        inquiries
+        saves
+        listingStatus
+        featured
+        urgent
+        contactPerson
+        contactPhone
+        contactEmail
+        slug
+        tags
+        location { city state country suburb region }
         images
-        agent { name avatar }
+        agent { id name avatar email }
+        createdAt
+        updatedAt
       }
       totalCount
       hasNextPage

@@ -37,6 +37,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
+import Link from 'next/link';
 
 const { Option } = Select;
 const { Search: AntSearch } = Input;
@@ -301,7 +302,9 @@ export default function PropertyListingsPage() {
         <div className="space-y-3">
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
-              {property.title}
+              <Link href={`/property/${property.id}`} className="hover:text-blue-600">
+                {property.title}
+              </Link>
             </h3>
             <p className="text-gray-600 flex items-center gap-1">
               <MapPin className="h-4 w-4" />
@@ -352,6 +355,7 @@ export default function PropertyListingsPage() {
               <Avatar size="small" src={property.agent?.avatar} />
               <span className="text-sm text-gray-600">{property.agent?.name}</span>
             </div>
+            <Link href={`/property/${property.id}`} className="text-blue-600 text-sm">View details</Link>
           </div>
         </div>
       </Card>

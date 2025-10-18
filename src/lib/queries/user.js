@@ -21,14 +21,14 @@ export const GET_WISHLIST_PROPERTIES = gql`
       id
       title
       type
-      pricePerNight
+      listingType
+      salePrice
+      rentPrice
       location {
         city
         state
       }
       images
-      rating
-      reviewCount
     }
   }
 `;

@@ -20,6 +20,7 @@ import {
   Mail,
   Camera,
   ArrowLeft,
+  Home,
 } from 'lucide-react';
 import { GET_PROPERTY, GET_PROPERTIES } from '@/lib/queries/property';
 import PropertyCard from '@/components/ui/PropertyCard';
@@ -101,6 +102,12 @@ export default function PropertyDetailPage() {
       maximumFractionDigits: 0,
     }).format(price);
   };
+
+  const displayPrice = property.listingType === 'rent'
+    ? `${formatPrice(property.rentPrice)} / week`
+    : property.salePrice
+      ? `${formatPrice(property.salePrice)}`
+      : 'Price on request';
 
   // Contact actions
   const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE;
@@ -195,16 +202,11 @@ export default function PropertyDetailPage() {
             <div className="flex-1">
               <div className="mb-3 flex items-center gap-3">
                 <Tag color="blue" className="text-sm font-medium">
-                  {property.type}
+                  {property.listingType}
                 </Tag>
                 {property.featured && (
                   <Tag color="gold" className="text-sm font-medium">
                     Featured Property
-                  </Tag>
-                )}
-                {property.availableForSwap && (
-                  <Tag color="green" className="text-sm font-medium">
-                    Home Swap Available
                   </Tag>
                 )}
               </div>
@@ -218,59 +220,18 @@ export default function PropertyDetailPage() {
                   {property.location?.state} {property.location?.zipCode}
                 </span>
               </div>
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-2">
-                  <Rate
-                    disabled
-                    defaultValue={property.rating}
-                    className="text-sm"
-                  />
-                  <span className="text-sm font-medium text-gray-600">
-                    {property.rating} ({property.reviewCount} reviews)
-                  </span>
-                </div>
-                <div className="text-sm text-gray-500">
-                  Property ID: {property.id}
-                </div>
-              </div>
+              <div className="text-sm text-gray-500">Property ID: {property.id}</div>
             </div>
 
             {/* Price Section */}
-            {/* <div className="mt-6 lg:mt-0 lg:text-right">
+            <div className="mt-6 lg:mt-0 lg:text-right">
               <div className="rounded-lg border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6">
-                <div className="mb-4">
-                  {property.salePrice && (
-                    <>
-                      {' '}
-                      <div className="mb-1 text-3xl font-bold text-blue-700 lg:text-4xl">
-                        {formatPrice(property.pricePerNight)}
-                      </div>
-                      <div className="font-medium text-gray-600">per night</div>
-                      <div className="mt-2 text-xl font-semibold text-gray-700">
-                        Purchase: {formatPrice(property.salePrice)}
-                      </div>
-                    </>
-                  )}
+                <div className="mb-2 text-3xl font-bold text-blue-700 lg:text-4xl">
+                  {displayPrice}
                 </div>
-                <div className="flex justify-end gap-2">
-                  <Button
-                    icon={<Heart className="h-4 w-4" />}
-                    onClick={() => setIsWishlisted(!isWishlisted)}
-                    className={`${isWishlisted ? 'border-red-300 bg-red-50 text-red-600' : 'border-gray-300'} transition-transform hover:scale-105`}
-                    size="large"
-                  >
-                    {isWishlisted ? 'Saved' : 'Save'}
-                  </Button>
-                  <Button
-                    icon={<Share2 className="h-4 w-4" />}
-                    size="large"
-                    className="border-gray-300 transition-transform hover:scale-105"
-                  >
-                    Share
-                  </Button>
-                </div>
+                <div className="text-sm text-gray-600 capitalize">{property.type}</div>
               </div>
-            </div> */}
+            </div>
           </div>
 
           {/* Enhanced Image Gallery */}
@@ -349,22 +310,22 @@ export default function PropertyDetailPage() {
                 </div>
                 <div className="text-center">
                   <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                    <Users className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div className="text-xl font-semibold">
-                    {property.maxGuests}
-                  </div>
-                  <div className="text-sm text-gray-600">Max Guests</div>
-                </div>
-                <div className="text-center">
-                  <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
                     <Car className="h-6 w-6 text-blue-600" />
                   </div>
                   <div className="text-xl font-semibold">
-                    {property.location?.parkingSpaces || 0}
+                    {property.parking || 0}
                   </div>
                   <div className="text-sm text-gray-600">Parking</div>
                 </div>
+                {property.propertySize && (
+                  <div className="text-center">
+                    <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
+                      <Home className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div className="text-xl font-semibold">{property.propertySize} sqm</div>
+                    <div className="text-sm text-gray-600">Internal Size</div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -376,25 +337,17 @@ export default function PropertyDetailPage() {
               </p>
             </div>
 
-            {/* Amenities */}
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-              <h2 className="mb-6 text-2xl font-bold">Amenities & Features</h2>
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                {property.amenities?.map((amenity, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 rounded-lg border p-3 hover:bg-gray-50"
-                  >
-                    <div className="text-xl text-blue-600">
-                      {amenityIcons[amenity] || '✓'}
-                    </div>
-                    <span className="font-medium capitalize">
-                      {amenity.replace(/_/g, ' ')}
-                    </span>
-                  </div>
-                ))}
+            {/* Features */}
+            {property.features?.length > 0 && (
+              <div className="rounded-lg bg-white p-6 shadow-sm">
+                <h2 className="mb-6 text-2xl font-bold">Features</h2>
+                <div className="flex flex-wrap gap-2">
+                  {property.features.map((f) => (
+                    <Tag key={f} className="capitalize">{f.replace(/_/g, ' ')}</Tag>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Location */}
             <div className="rounded-lg bg-white p-6 shadow-sm">
@@ -449,139 +402,29 @@ export default function PropertyDetailPage() {
             </div>
           </div>
 
-          {/* Right Column - Booking Sidebar */}
+          {/* Right Column - Contact Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-8 rounded-lg bg-white p-6 shadow-lg">
               <div className="space-y-6">
-                {/* Price Display */}
-                {/* <div className="border-b pb-4 text-center">
-                  <div className="mb-1 text-3xl font-bold text-gray-900">
-                    {formatPrice(property.pricePerNight)}
-                  </div>
-                  <div className="text-gray-600">per night</div>
-                  {property.salePrice && (
-                    <div className="mt-2 text-lg text-gray-500">
-                      Sale: {formatPrice(property.salePrice)}
-                    </div>
-                  )}
-                </div> */}
-
-                {/* Booking Form */}
-                <div className="space-y-4">
-                  {/* <Button
-                    type="primary"
-                    size="large"
-                    className="h-12 w-full bg-blue-600 text-lg font-medium"
-                    icon={<Calendar className="h-5 w-5" />}
-                  >
-                    Check Availability
-                  </Button> */}
-
-                  {property.availableForSwap && (
-                    <Button
-                      size="large"
-                      className="h-12 w-full border-blue-300 text-lg font-medium text-blue-600 hover:bg-blue-50"
-                      icon={<Heart className="h-5 w-5" />}
-                    >
-                      Propose Home Swap
-                    </Button>
-                  )}
+                <div className="border-b pb-4">
+                  <div className="mb-1 text-3xl font-bold text-gray-900">{displayPrice}</div>
+                  <div className="text-gray-600 capitalize">{property.listingType}</div>
                 </div>
 
-                <Divider />
-
-                {/* Host Information */}
+                {/* Agent Info */}
                 <div className="text-center">
                   <div className="mx-auto mb-4 h-20 w-20 overflow-hidden rounded-full bg-gray-200">
-                    <img
-                      src={
-                        property.host?.avatar || '/images/default-avatar.png'
-                      }
-                      alt={property.host?.name}
-                      className="h-full w-full object-cover"
-                    />
+                    <img src={property.agent?.avatar || '/images/default-avatar.png'} alt={property.agent?.name} className="h-full w-full object-cover" />
                   </div>
-                  <h3 className="mb-1 text-lg font-bold">
-                    {property.host?.name}
-                  </h3>
+                  <h3 className="mb-1 text-lg font-bold">{property.agent?.name || property.contactPerson}</h3>
+                  <div className="text-sm text-gray-500">{property.contactEmail}</div>
                 </div>
 
                 {/* Contact Actions */}
                 <div className="space-y-3">
-                  <Button
-                    size="large"
-                    className="w-full"
-                    icon={<Phone className="h-4 w-4" />}
-                    onClick={handleCallNow}
-                  >
-                    Call Now
-                  </Button>
-                  <Button
-                    size="large"
-                    className="w-full"
-                    icon={<Mail className="h-4 w-4" />}
-                    onClick={handleSendWhatsApp}
-                  >
-                    Send Message
-                  </Button>
+                  <Button size="large" className="w-full" icon={<Phone className="h-4 w-4" />} onClick={handleCallNow}>Call Now</Button>
+                  <Button size="large" className="w-full" icon={<Mail className="h-4 w-4" />} onClick={handleSendWhatsApp}>Send Message</Button>
                 </div>
-
-                {/* Quick Contact Form */}
-                {showContactForm && (
-                  <div className="mt-4 rounded-lg bg-gray-50 p-4">
-                    <Form
-                      form={form}
-                      onFinish={handleContactSubmit}
-                      layout="vertical"
-                    >
-                      <Form.Item
-                        name="name"
-                        rules={[
-                          { required: true, message: 'Please enter your name' },
-                        ]}
-                      >
-                        <Input placeholder="Your Name" />
-                      </Form.Item>
-                      <Form.Item
-                        name="email"
-                        rules={[
-                          {
-                            required: true,
-                            type: 'email',
-                            message: 'Please enter valid email',
-                          },
-                        ]}
-                      >
-                        <Input placeholder="Your Email" />
-                      </Form.Item>
-                      <Form.Item
-                        name="message"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please enter your message',
-                          },
-                        ]}
-                      >
-                        <Input.TextArea
-                          rows={3}
-                          placeholder="Your message..."
-                        />
-                      </Form.Item>
-                      <div className="flex gap-2">
-                        <Button type="primary" htmlType="submit" size="small">
-                          Send
-                        </Button>
-                        <Button
-                          size="small"
-                          onClick={() => setShowContactForm(false)}
-                        >
-                          Cancel
-                        </Button>
-                      </div>
-                    </Form>
-                  </div>
-                )}
               </div>
             </div>
           </div>
