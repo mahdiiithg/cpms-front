@@ -16,7 +16,6 @@ import {
   Calendar,
   CheckCircle
 } from 'lucide-react';
-import Header from '@/components/Header';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -95,11 +94,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <Header />
-
-      {/* Breadcrumb */}
+    <div className="min-h-screen bg-white">      {/* Breadcrumb */}
       <div className="bg-gray-50 py-2 sm:py-3">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-600">
@@ -405,70 +400,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      {/* Footer - Using the same footer from your main page */}
-      <footer className="bg-gray-900 text-white py-8 sm:py-12 lg:py-16">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
-            <div>
-              <div className="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-6">
-                <div className="h-8 w-8 sm:h-10 sm:w-10 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg flex items-center justify-center">
-                  <Globe className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
-                </div>
-                <span className="text-xl sm:text-2xl font-bold">Coast Planet</span>
-              </div>
-              <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6">
-                Vision Tower 42nd floor, Business Bay, Miami
-              </p>
-              <p className="text-sm sm:text-base text-gray-400">+1 (555) 123-4567</p>
-            </div>
-
-            <div>
-              <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Explore</h3>
-              <ul className="space-y-1.5 sm:space-y-2 text-sm sm:text-base text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Buy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Rent</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">New Projects</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Property Developers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">List Your Property</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Services</h3>
-              <ul className="space-y-1.5 sm:space-y-2 text-sm sm:text-base text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Property Management</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Development Sales and Consultancy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Property Valuation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Mortgage Services</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Conveyancing</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Coast Planet</h3>
-              <ul className="space-y-1.5 sm:space-y-2 text-sm sm:text-base text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Our Story</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Our Management</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Our Agents</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="/contact" className="hover:text-white transition-colors">Contact us</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm sm:text-base text-gray-400">
-              © Coast Planet LLC. All Rights Reserved
-            </p>
-            <div className="flex space-x-4 sm:space-x-6 mt-3 sm:mt-4 md:mt-0">
-              <a href="#" className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors">Terms of Use</a>
-              <a href="#" className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors">Sitemap</a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

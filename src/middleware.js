@@ -13,9 +13,7 @@ export default async function middleware(request) {
 
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route),
-  );
-
-  if (!session && isProtectedRoute) {
+  );  if (!session && isProtectedRoute) {
     return NextResponse.redirect(new URL('/signin', request.url));
   }
 

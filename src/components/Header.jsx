@@ -25,14 +25,38 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileExpandedItem, setMobileExpandedItem] = useState(null);
   const { data: session } = useSession();
-
   const navigationItems = [
+    {
+      id: 'listings',
+      label: 'Property Listings',
+      href: '/listings',
+      icon: <Building className="h-5 w-5" />,
+      description: 'Browse all property listings',
+      sections: [
+        {
+          title: 'Management Rights',
+          items: [
+            { label: 'Permanent Management Rights', href: '/management-rights/permanent' },
+            { label: 'Resort | Holiday Management Rights', href: '/management-rights/resort-holiday' },
+            { label: 'Retirement Management Rights', href: '/management-rights/retirement' },
+            { label: 'Off The Plan Management Rights', href: '/management-rights/off-the-plan' },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            { label: 'Investment Property', href: '/investment-property' },
+            { label: 'Rentals Property', href: '/rentals-property' },
+          ],
+        },
+      ],
+    },
     {
       id: 'buy',
       label: 'Buy',
       href: '/buy',
       icon: <Home className="h-5 w-5" />,
-      description: 'Find your dream property',
+      description: 'Properties for sale',
       sections: [
         {
           title: 'Property Types',
@@ -40,225 +64,14 @@ const Header = () => {
         },
       ],
     },
-    // {
-    //   id: 'rent',
-    //   label: 'Rent',
-    //   href: '/rent',
-    //   icon: <Building className="h-5 w-5" />,
-    //   description: 'Discover amazing rental properties',
-    //   sections: [
-    //     {
-    //       title: 'Rental Types',
-    //       items: [
-    //         'Short Term',
-    //         'Long Term',
-    //         'Vacation Rentals',
-    //         'Corporate Housing',
-    //       ],
-    //     },
-    //     {
-    //       title: 'Amenities',
-    //       items: ['Pool', 'Gym', 'Spa', 'Concierge'],
-    //     },
-    //     { title: 'Duration', items: ['Daily', 'Weekly', 'Monthly', 'Yearly'] },
-    //   ],
-    // },
-    // {
-    //   id: 'commercial',
-    //   label: 'Commercial',
-    //   href: '/commercial',
-    //   icon: <Briefcase className="h-5 w-5" />,
-    //   description: 'Commercial real estate opportunities',
-    //   sections: [
-    //     {
-    //       title: 'Property Types',
-    //       items: ['Offices', 'Retail', 'Hotels', 'Restaurants'],
-    //     },
-    //     {
-    //       title: 'Investment',
-    //       items: ['REITs', 'Direct Investment', 'Partnerships', 'Development'],
-    //     },
-    //     {
-    //       title: 'Services',
-    //       items: ['Valuation', 'Management', 'Consultation', 'Analysis'],
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 'off-plan',
-    //   label: 'Off-Plan',
-    //   href: '/off-plan',
-    //   icon: <MapPin className="h-5 w-5" />,
-    //   description: 'Invest in future developments',
-    //   sections: [
-    //     {
-    //       title: 'New Projects',
-    //       items: [
-    //         'Oceanfront Towers',
-    //         'Beach Villas',
-    //         'Marina District',
-    //         'Island Resort',
-    //       ],
-    //     },
-    //     {
-    //       title: 'Developers',
-    //       items: [
-    //         'Premium Builders',
-    //         'Luxury Developers',
-    //         'Eco-Friendly',
-    //         'Smart Homes',
-    //       ],
-    //     },
-    //     {
-    //       title: 'Timeline',
-    //       items: [
-    //         '2024 Delivery',
-    //         '2025 Delivery',
-    //         '2026 Delivery',
-    //         'Future Projects',
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 'luxury',
-    //   label: 'Luxury',
-    //   href: '/luxury',
-    //   icon: <Crown className="h-5 w-5" />,
-    //   description: 'Exclusive luxury properties',
-    //   sections: [
-    //     {
-    //       title: 'Exclusive Properties',
-    //       items: [
-    //         'Private Islands',
-    //         'Mega Mansions',
-    //         'Penthouse Suites',
-    //         'Historic Estates',
-    //       ],
-    //     },
-    //     {
-    //       title: 'Premium Services',
-    //       items: [
-    //         'Concierge',
-    //         'Private Chef',
-    //         'Yacht Access',
-    //         'Helicopter Pad',
-    //       ],
-    //     },
-    //     {
-    //       title: 'Locations',
-    //       items: [
-    //         'Private Beaches',
-    //         'Golf Courses',
-    //         'Wine Estates',
-    //         'Mountain Retreats',
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 'international',
-    //   label: 'International',
-    //   href: '/international',
-    //   icon: <Globe className="h-5 w-5" />,
-    //   description: 'Global coastal properties',
-    //   sections: [
-    //     {
-    //       title: 'Destinations',
-    //       items: [
-    //         'Caribbean',
-    //         'Mediterranean',
-    //         'Pacific Coast',
-    //         'Atlantic Shores',
-    //       ],
-    //     },
-    //     {
-    //       title: 'Countries',
-    //       items: ['United States', 'Spain', 'France', 'Australia'],
-    //     },
-    //     {
-    //       title: 'Investment',
-    //       items: [
-    //         'Citizenship Programs',
-    //         'Residency Permits',
-    //         'Tax Benefits',
-    //         'Portfolio Diversification',
-    //       ],
-    //     },
-    //   ],
-    // },
     {
       id: 'services',
       label: 'Services',
       href: '/services',
       icon: <Settings className="h-5 w-5" />,
       description: 'Professional property services',
-      sections: [
-        // {
-        //   title: 'Property Management',
-        //   items: [
-        //     'Rental Management',
-        //     'Maintenance',
-        //     'Tenant Screening',
-        //     'Financial Reporting',
-        //   ],
-        // },
-        // {
-        //   title: 'Investment Services',
-        //   items: [
-        //     'Market Analysis',
-        //     'Portfolio Management',
-        //     'ROI Optimization',
-        //     'Exit Strategies',
-        //   ],
-        // },
-        // {
-        //   title: 'Additional Services',
-        //   items: [
-        //     'Interior Design',
-        //     'Legal Services',
-        //     'Insurance',
-        //     'Home Staging',
-        //   ],
-        // },
-      ],
+      sections: [],
     },
-    // {
-    //   id: 'insights',
-    //   label: 'Insights',
-    //   href: '/insights',
-    //   icon: <BookOpen className="h-5 w-5" />,
-    //   description: 'Market insights and trends',
-    //   sections: [
-    //     {
-    //       title: 'Market Reports',
-    //       items: [
-    //         'Monthly Reports',
-    //         'Annual Outlook',
-    //         'Price Trends',
-    //         'Investment Forecast',
-    //       ],
-    //     },
-    //     {
-    //       title: 'Research',
-    //       items: [
-    //         'Market Analysis',
-    //         'Neighborhood Guides',
-    //         'Investment Tips',
-    //         'Buyer Guides',
-    //       ],
-    //     },
-    //     {
-    //       title: 'News',
-    //       items: [
-    //         'Market News',
-    //         'Policy Updates',
-    //         'Industry Trends',
-    //         'Expert Opinions',
-    //       ],
-    //     },
-    //   ],
-    // },
     {
       id: 'about',
       label: 'About',
@@ -268,24 +81,8 @@ const Header = () => {
       sections: [
         {
           title: 'Company',
-          items: ['Our Story', 
-            // 'Sustainability', 'Leadership Team',
-             'Awards'],
+          items: ['Our Story', 'Awards'],
         },
-        // {
-        //   title: 'Careers',
-        //   items: ['Job Openings', 'Culture', 'Benefits', 'Internships'],
-        // },
-        // {
-        //   title: 'Contact',
-        //   items: [
-        //     'Contact Us',
-        //     'Office Locations',
-        //     'Support',
-        //     'Partnerships',
-        //     'Media Inquiries',
-        //   ],
-        // },
       ],
     },
   ];
@@ -443,10 +240,10 @@ const Header = () => {
                                       className="transform transition-all duration-300 hover:translate-x-1"
                                     >
                                       <Link
-                                        href={item.href}
+                                        href={typeof subItem === 'string' ? item.href : subItem.href}
                                         className="block transform py-0.5 text-xs text-gray-600 transition-all duration-300 hover:translate-x-1 hover:font-medium hover:text-blue-600 sm:py-1 sm:text-sm"
                                       >
-                                        {subItem}
+                                        {typeof subItem === 'string' ? subItem : subItem.label}
                                       </Link>
                                     </li>
                                   ))}
@@ -617,11 +414,11 @@ const Header = () => {
                                 {section.items.map((subItem, subIndex) => (
                                   <Link
                                     key={subIndex}
-                                    href={item.href}
+                                    href={typeof subItem === 'string' ? item.href : subItem.href}
                                     className="block py-0.5 text-xs text-gray-600 transition-all duration-300 hover:translate-x-1 hover:font-medium hover:text-blue-600 sm:py-1 sm:text-sm"
                                     onClick={() => setMobileMenuOpen(false)}
                                   >
-                                    {subItem}
+                                    {typeof subItem === 'string' ? subItem : subItem.label}
                                   </Link>
                                 ))}
                               </div>

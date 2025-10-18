@@ -103,8 +103,7 @@ const SustainabilityPage = () => {
     }
   ];
 
-  return (
-    <div className="min-h-screen bg-white">
+  return (    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="relative h-screen bg-gradient-to-br from-green-900 via-emerald-800 to-teal-700 overflow-hidden">
         <div className="absolute inset-0 bg-black/30"></div>

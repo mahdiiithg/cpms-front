@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Button } from 'antd';
 import { Play, CheckCircle } from 'lucide-react';
 import Head from 'next/head';
-import Header from '@/components/Header';
 
 // SEO Metadata
 const metadata = {
@@ -126,9 +125,7 @@ const AboutPage = () => {
           content={metadata.twitter.description}
         />
         <meta name="twitter:image" content={metadata.twitter.images[0]} />
-        <link rel="canonical" href="https://coastplanet.com/about" />
-      </Head>
-      <Header />
+        <link rel="canonical" href="https://coastplanet.com/about" />      </Head>
       <div className="min-h-screen bg-white">
         {/* Enhanced Hero Section */}
         <section className="relative h-screen overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-teal-700">
