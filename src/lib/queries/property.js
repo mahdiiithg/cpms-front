@@ -1,34 +1,70 @@
 import { gql } from '@apollo/client';
 
-// Get all properties with filtering options
+// Enhanced properties query aligned with Property Management schema
 export const GET_PROPERTIES = gql`
-  query GetProperties($filters: PropertyFilters, $limit: Int, $offset: Int) {
-    properties(filters: $filters, limit: $limit, offset: $offset) {
-      id
-      title
-      description
-      type
-      mode
-      pricePerNight
-      location {
-        address
-        city
-        state
-        country
-        
-        coastalFeatures
-      }
-      amenities
-      images
-      
-      host {
+  query GetProperties($filters: PropertyFilters) {
+    properties(filters: $filters) {
+      properties {
         id
-        name
-        avatar
+        title
+        description
+        type
+        listingType
+        bedrooms
+        bathrooms
+        salePrice
+        rentPrice
+        propertySize
+        landSize
+        yearBuilt
+        parking
+        features
+        condition
+        orientation
+        floorLevel
+        totalFloors
+        availableFrom
+        leaseTerm
+        bond
+        views
+        inquiries
+        saves
+        listingStatus
+        featured
+        urgent
+        contactPerson
+        contactPhone
+        contactEmail
+        slug
+        tags
+        location {
+          address
+          city
+          state
+          country
+          zipCode
+          suburb
+          region
+          distanceToCBD
+          transportLinks
+          schools
+          shopping
+          hospitals
+          walkScore
+          transitScore
+          coordinates { latitude longitude }
+        }
+        images
+        inspectionTimes { id date startTime endTime type notes }
+        agent { id name avatar email }
+        createdAt
+        updatedAt
       }
-      rating
-      reviewCount
-      createdAt
+      totalCount
+      hasNextPage
+      hasPreviousPage
+      currentPage
+      totalPages
     }
   }
 `;
@@ -41,8 +77,9 @@ export const GET_PROPERTY = gql`
       title
       description
       type
-      pricePerNight
-      maxGuests
+      listingType
+      salePrice
+      rentPrice
       bedrooms
       bathrooms
       location {
@@ -50,28 +87,13 @@ export const GET_PROPERTY = gql`
         city
         state
         country
-        coordinates {
-          latitude
-          longitude
-        }
-        coastalFeatures
-        nearbyAttractions
+        coordinates { latitude longitude }
+        suburb
+        region
       }
-      amenities
       images
-      availability {
-        startDate
-        endDate
-      }
-      host {
-        id
-        name
-        email
-        avatar
-        isVerified
-      }
-      rating
-      reviewCount
+      inspectionTimes { id date startTime endTime type notes }
+      agent { id name email avatar }
       createdAt
       updatedAt
     }
@@ -80,72 +102,44 @@ export const GET_PROPERTY = gql`
 
 // Get properties near a specific location
 export const GET_NEARBY_PROPERTIES = gql`
-  query GetNearbyProperties($latitude: Float!, $longitude: Float!, $radius: Float!, $limit: Int) {
-    nearbyProperties(latitude: $latitude, longitude: $longitude, radius: $radius, limit: $limit) {
+  query GetNearby($coordinates: CoordinatesInput!, $radius: Float!, $filters: PropertyFilters) {
+    propertiesNearLocation(coordinates: $coordinates, radius: $radius, filters: $filters) {
       id
       title
       type
-      pricePerNight
-      location {
-        address
-        city
-        coordinates {
-          latitude
-          longitude
-        }
-      }
+      listingType
+      salePrice
+      rentPrice
+      location { address city coordinates { latitude longitude } }
       images
-      rating
-      reviewCount
-      distance
     }
   }
 `;
 
-// Search properties with text query
+// Search properties with text query (compact)
 export const SEARCH_PROPERTIES = gql`
-  query SearchProperties($query: String!, $filters: PropertyFilters, $limit: Int, $offset: Int) {
-    searchProperties(query: $query, filters: $filters, limit: $limit, offset: $offset) {
-      id
-      title
-      description
-      type
-      mode
-      pricePerNight
-      location {
-        address
-        city
-        state
-        country
+  query SearchProperties($query: String!, $filters: PropertyFilters) {
+    searchProperties(query: $query, filters: $filters) {
+      properties {
+        id
+        title
+        description
+        type
+        listingType
+        salePrice
+        rentPrice
+        location { city state country }
+        images
+        agent { name avatar }
       }
-      images
-      rating
-      reviewCount
-      host {
-        name
-        avatar
-      }
+      totalCount
+      hasNextPage
+      hasPreviousPage
+      currentPage
+      totalPages
     }
   }
 `;
 
-// Get user's property listings
-export const GET_USER_PROPERTIES = gql`
-  query GetUserProperties($userId: ID!) {
-    userProperties(userId: $userId) {
-      id
-      title
-      type
-      pricePerNight
-      location {
-        city
-        state
-      }
-      images
-      status
-      rating
-      reviewCount
-      createdAt
-    }
-  }
-`;
+// Re-export if needed
+export default { GET_PROPERTIES, GET_PROPERTY, GET_NEARBY_PROPERTIES, SEARCH_PROPERTIES };

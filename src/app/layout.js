@@ -8,6 +8,7 @@ import { Toaster } from 'sonner';
 import { PushNotificationHandler } from '@/components/PushNotificationHandler';
 import { auth } from '@/auth';
 import { AuthPromptProvider } from '@/components/auth/AuthPromptProvider';
+import LayoutWrapper from '@/components/LayoutWrapper';
 
 export const metadata = {
   title: 'Coast Planet - Property Management',
@@ -35,11 +36,12 @@ export default async function RootLayout({ children }) {
       </head>
       <body className="font-sans">
         <SessionProvider>
-          <ConfigProvider theme={antdTheme}>
-            <ApolloWrapper>
+          <ConfigProvider theme={antdTheme}>            <ApolloWrapper>
               <AuthPromptProvider>
                 {session?.token && <PushNotificationHandler />}
-                {children}
+                <LayoutWrapper>
+                  {children}
+                </LayoutWrapper>
               </AuthPromptProvider>
             </ApolloWrapper>
           </ConfigProvider>

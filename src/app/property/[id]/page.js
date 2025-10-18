@@ -22,7 +22,6 @@ import {
   ArrowLeft,
 } from 'lucide-react';
 import { GET_PROPERTY, GET_PROPERTIES } from '@/lib/queries/property';
-import Header from '@/components/Header';
 import PropertyCard from '@/components/ui/PropertyCard';
 import ImageSlider from '@/components/ui/ImageSlider/ImageSlider';
 
@@ -171,9 +170,7 @@ export default function PropertyDetailPage() {
     .slice(0, 3);
 
   console.log('similarProperties', similarProperties);
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+  return (    <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb Navigation */}
       <div className="border-b bg-white">
         <div className="mx-auto max-w-7xl px-4 py-3">

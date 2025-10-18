@@ -23,7 +23,6 @@ import {
   Zap,
 } from 'lucide-react';
 import Head from 'next/head';
-import Header from '@/components/Header';
 
 // SEO Metadata
 const metadata = {
@@ -581,10 +580,8 @@ const ServicesPage = () => {
               'Building Management',
               'Property Valuation',
             ],
-          })}
-        </script>
+          })}      </script>
       </Head>
-      <Header />
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="relative h-screen overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-teal-700">
