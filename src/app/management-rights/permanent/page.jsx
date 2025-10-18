@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
-import { Breadcrumb, Button, Card, Empty, Input, Pagination, Select, Spin, Tag } from 'antd';
+import { Breadcrumb, Button, Card, Empty, Input, Pagination, Select, Spin, Tag, Checkbox, Drawer, Divider } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import PropertySearchFilters from '@/components/ui/PropertySearchFilters';
 
@@ -23,6 +23,13 @@ export default function PermanentManagementRightsPage() {
   const [listingType, setListingType] = useState('all'); // all | sale | rent
   const [city, setCity] = useState('');
   const [suburb, setSuburb] = useState('');
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  // Extra filters (client-side for now)
+  const [petFriendly, setPetFriendly] = useState(false);
+  const [hasManagerUnit, setHasManagerUnit] = useState(false);
+  const [featurePool, setFeaturePool] = useState(false);
+  const [featureGym, setFeatureGym] = useState(false);
+  const [featureWaterfront, setFeatureWaterfront] = useState(false);
 
   const filters = useMemo(() => ({
     limit: pageSize,
@@ -55,6 +62,22 @@ export default function PermanentManagementRightsPage() {
   const total = res?.totalCount || 0;
 
   const featured = useMemo(() => properties.filter(p => p.featured).slice(0, 3), [properties]);
+
+  // Apply client-side filters based on tags/features
+  const filteredProperties = useMemo(() => {
+    return properties.filter((p) => {
+      const tags = new Set((p.tags || []).map((t) => String(t).toLowerCase()));
+      // Map feature flags to tag checks (adjust when backend filters are available)
+      if (petFriendly && !tags.has('pet-friendly')) return false;
+      if (hasManagerUnit && !tags.has('manager-unit')) return false;
+      if (featurePool && !(p.features || []).some((f) => String(f).toLowerCase().includes('pool'))) return false;
+      if (featureGym && !(p.features || []).some((f) => String(f).toLowerCase().includes('gym'))) return false;
+      if (featureWaterfront && !(p.features || []).some((f) => String(f).toLowerCase().includes('water'))) return false;
+      return true;
+    });
+  }, [properties, petFriendly, hasManagerUnit, featurePool, featureGym, featureWaterfront]);
+
+  const displayedTotal = filteredProperties.length;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -92,46 +115,104 @@ export default function PermanentManagementRightsPage() {
         <Link href="/rentals-property"><Button>Rentals</Button></Link>
       </div>
 
-      {/* Filter/search bar */}
-      <PropertySearchFilters
-        keywords={keywords}
-        setKeywords={setKeywords}
-        beds={beds}
-        setBeds={setBeds}
-        priceRange={priceRange}
-        setPriceRange={setPriceRange}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        total={total}
-        loading={loading}
-        setPage={setPage}
-        searchPlaceholder="e.g., Brisbane, pool, onsite manager"
-        priceLabel="Price range"
-        resultNoun="opportunities"
-        priceMax={2000000}
-        priceStep={10000}
-        gridCols={6}
-        extraFilters={(
-          <>
+      {/* Top search and mobile filters trigger */}
+      <div className="bg-white border border-gray-200 rounded-lg p-3 md:p-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+          <div className="md:col-span-2">
+            <label className="block text-xs font-medium text-gray-700 mb-1">Keywords</label>
+            <Input
+              value={keywords}
+              onChange={(e)=>{ setKeywords(e.target.value); setPage(1); }}
+              placeholder="e.g., Brisbane, pool, onsite manager"
+              allowClear
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-700 mb-1">Beds (min)</label>
+            <Select value={beds} onChange={(v)=>{ setBeds(v); setPage(1); }} className="w-full">
+              {[0,1,2,3,4,5].map((n)=>(<Option key={n} value={n}>{n === 0 ? 'Any' : `${n}+`}</Option>))}
+            </Select>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-700 mb-1">Listing type</label>
+            <Select value={listingType} onChange={(v)=>{ setListingType(v); setPage(1); }} className="w-full">
+              <Option value="all">All</Option>
+              <Option value="sale">For Sale</Option>
+              <Option value="rent">For Rent</Option>
+            </Select>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-700 mb-1">City</label>
+            <Input value={city} onChange={(e)=>{ setCity(e.target.value); setPage(1); }} placeholder="e.g., Brisbane" allowClear />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-700 mb-1">Suburb</label>
+            <Input value={suburb} onChange={(e)=>{ setSuburb(e.target.value); setPage(1); }} placeholder="e.g., New Farm" allowClear />
+          </div>
+          <div className="md:hidden">
+            <Button className="w-full" onClick={()=>setMobileFiltersOpen(true)}>More Filters</Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main grid with sidebar filters + results */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {/* Sidebar filters */}
+        <aside className="hidden md:block md:col-span-3">
+          <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-4">
+            <h3 className="font-semibold">Refine Results</h3>
+            <Divider className="my-2" />
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">Listing type</label>
-              <Select value={listingType} onChange={(v)=>{ setListingType(v); setPage(1); }} className="w-full" size="small">
-                <Option value="all">All</Option>
-                <Option value="sale">For Sale</Option>
-                <Option value="rent">For Rent</Option>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Price range (sale)</label>
+              <div className="flex gap-2">
+                <Input
+                  type="number"
+                  placeholder="Min"
+                  value={priceRange?.[0] ?? ''}
+                  onChange={(e)=>{ const v = Number(e.target.value||0); setPriceRange([v, priceRange[1]]); setPage(1); }}
+                />
+                <Input
+                  type="number"
+                  placeholder="Max"
+                  value={priceRange?.[1] ?? ''}
+                  onChange={(e)=>{ const v = Number(e.target.value||0); setPriceRange([priceRange[0], v]); setPage(1); }}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Features</label>
+              <div className="space-y-1">
+                <Checkbox checked={petFriendly} onChange={(e)=>{ setPetFriendly(e.target.checked); setPage(1); }}>Pet friendly</Checkbox>
+                <Checkbox checked={hasManagerUnit} onChange={(e)=>{ setHasManagerUnit(e.target.checked); setPage(1); }}>Manager's unit</Checkbox>
+                <Checkbox checked={featurePool} onChange={(e)=>{ setFeaturePool(e.target.checked); setPage(1); }}>Pool</Checkbox>
+                <Checkbox checked={featureGym} onChange={(e)=>{ setFeatureGym(e.target.checked); setPage(1); }}>Gym</Checkbox>
+                <Checkbox checked={featureWaterfront} onChange={(e)=>{ setFeatureWaterfront(e.target.checked); setPage(1); }}>Waterfront</Checkbox>
+              </div>
+            </div>
+            <Divider className="my-2" />
+            <div className="space-y-2">
+              <Button type="primary" className="w-full" onClick={()=>setPage(1)}>Apply</Button>
+              <Button className="w-full" onClick={()=>{
+                setPetFriendly(false); setHasManagerUnit(false); setFeaturePool(false); setFeatureGym(false); setFeatureWaterfront(false);
+              }}>Reset</Button>
+            </div>
+          </div>
+        </aside>
+
+        {/* Results panel */}
+        <div className="md:col-span-9">
+          {/* Sort and count bar */}
+          <div className="flex items-center justify-between mb-3">
+            <div className="text-sm text-gray-600">{loading ? 'Loading…' : `${displayedTotal} opportunities found`}</div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-600">Sort by</span>
+              <Select size="small" value={sortBy} onChange={(v)=>{ setSortBy(v); setPage(1); }} style={{ width: 160 }}>
+                <Option value="date">Most Recent</Option>
+                <Option value="price-asc">Price: Low to High</Option>
+                <Option value="price-desc">Price: High to Low</Option>
               </Select>
             </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">City</label>
-              <Input value={city} onChange={(e)=>{ setCity(e.target.value); setPage(1); }} placeholder="e.g., Brisbane" allowClear />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">Suburb</label>
-              <Input value={suburb} onChange={(e)=>{ setSuburb(e.target.value); setPage(1); }} placeholder="e.g., New Farm" allowClear />
-            </div>
-          </>
-        )}
-      />
+          </div>
 
       {/* Browse by region */}
       <div className="mb-6">
@@ -149,7 +230,7 @@ export default function PermanentManagementRightsPage() {
           <h2 className="text-xl font-semibold mb-3">Featured Permanent Opportunities</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {featured.map((p) => (
-              <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.jpg'} alt={p.title} className="h-48 w-full object-cover" />}>
+              <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.png'} alt={p.title} className="h-48 w-full object-cover" />}>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold line-clamp-1">{p.title}</h3>
@@ -170,13 +251,13 @@ export default function PermanentManagementRightsPage() {
         <div className="flex items-center justify-center py-12"><Spin size="large" /></div>
       ) : error ? (
         <div className="text-center py-12"><Empty description="Failed to load" /></div>
-      ) : properties.length === 0 ? (
+      ) : filteredProperties.length === 0 ? (
         <Empty description="No properties found" className="py-12" />
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {properties.map((p) => (
-              <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.jpg'} alt={p.title} className="h-56 w-full object-cover" />}>
+            {filteredProperties.map((p) => (
+              <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.png'} alt={p.title} className="h-56 w-full object-cover" />}>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold line-clamp-1">{p.title}</h3>
@@ -194,9 +275,37 @@ export default function PermanentManagementRightsPage() {
           </div>
         </>
       )}
+        </div>
+      </div>
 
-      {/* Informational sections + Sidebar */}
-      <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Mobile Filters Drawer */}
+      <Drawer title="Refine Results" placement="right" onClose={()=>setMobileFiltersOpen(false)} open={mobileFiltersOpen} width={320}>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-xs font-medium text-gray-700 mb-1">Price range (sale)</label>
+            <div className="flex gap-2">
+              <Input type="number" placeholder="Min" value={priceRange?.[0] ?? ''} onChange={(e)=>{ const v = Number(e.target.value||0); setPriceRange([v, priceRange[1]]); }} />
+              <Input type="number" placeholder="Max" value={priceRange?.[1] ?? ''} onChange={(e)=>{ const v = Number(e.target.value||0); setPriceRange([priceRange[0], v]); }} />
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-700 mb-1">Features</label>
+            <div className="space-y-1">
+              <Checkbox checked={petFriendly} onChange={(e)=> setPetFriendly(e.target.checked)}>Pet friendly</Checkbox>
+              <Checkbox checked={hasManagerUnit} onChange={(e)=> setHasManagerUnit(e.target.checked)}>Manager's unit</Checkbox>
+              <Checkbox checked={featurePool} onChange={(e)=> setFeaturePool(e.target.checked)}>Pool</Checkbox>
+              <Checkbox checked={featureGym} onChange={(e)=> setFeatureGym(e.target.checked)}>Gym</Checkbox>
+              <Checkbox checked={featureWaterfront} onChange={(e)=> setFeatureWaterfront(e.target.checked)}>Waterfront</Checkbox>
+            </div>
+          </div>
+          <Divider className="my-2" />
+          <Button type="primary" className="w-full" onClick={()=>{ setMobileFiltersOpen(false); setPage(1); }}>Apply</Button>
+          <Button className="w-full" onClick={()=>{ setPetFriendly(false); setHasManagerUnit(false); setFeaturePool(false); setFeatureGym(false); setFeatureWaterfront(false); }}>Reset</Button>
+        </div>
+      </Drawer>
+
+  {/* Informational sections + Sidebar */}
+  <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <section>
             <h2 className="text-xl font-semibold mb-2">What are Permanent Management Rights?</h2>

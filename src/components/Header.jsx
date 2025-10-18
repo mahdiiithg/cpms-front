@@ -12,6 +12,7 @@ import {
   Building,
   Settings,
   Users,
+  Globe,
   Phone,
   ChevronRight,
   User,
@@ -70,6 +71,14 @@ const Header = () => {
       href: '/services',
       icon: <Settings className="h-5 w-5" />,
       description: 'Professional property services',
+      sections: [],
+    },
+    {
+      id: 'global-affiliations',
+      label: 'Global Affiliations',
+      href: '/global-affiliations',
+      icon: <Globe className="h-5 w-5" />,
+      description: 'Worldwide partners and reach',
       sections: [],
     },
     {

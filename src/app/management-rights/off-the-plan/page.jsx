@@ -4,21 +4,36 @@ import { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import { SEARCH_PROPERTIES } from '@/lib/queries/property';
-import { Breadcrumb, Button, Card, Empty, Pagination, Select, Spin, Tag } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
-import PropertySearchFilters from '@/components/ui/PropertySearchFilters';
-
-const { Option } = Select;
+import { Breadcrumb, Button } from 'antd';
+import MRTopSearchBar from '@/components/management-rights/MRTopSearchBar';
+import MRSidebarFilters from '@/components/management-rights/MRSidebarFilters';
+import MRMobileFiltersDrawer from '@/components/management-rights/MRMobileFiltersDrawer';
+import MRRegionChips from '@/components/management-rights/MRRegionChips';
+import MRResultsHeader from '@/components/management-rights/MRResultsHeader';
+import MRFeaturedSection from '@/components/management-rights/MRFeaturedSection';
+import MRResultsGrid from '@/components/management-rights/MRResultsGrid';
 
 export default function OffThePlanManagementRightsPage() {
+  // UI state
   const [page, setPage] = useState(1);
-  const pageSize = 24;
+  const pageSize = 12;
   const offset = (page - 1) * pageSize;
 
   const [keywords, setKeywords] = useState('');
   const [beds, setBeds] = useState(0);
-  const [priceRange, setPriceRange] = useState([0, 2000000]);
+  const [priceRange, setPriceRange] = useState([0, 5000000]);
   const [sortBy, setSortBy] = useState('date');
+  const [listingType, setListingType] = useState('sale');
+  const [city, setCity] = useState('');
+  const [suburb, setSuburb] = useState('');
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  // Extra flags (client-side checks using tags/features)
+  const [petFriendly, setPetFriendly] = useState(false);
+  const [hasManagerUnit, setHasManagerUnit] = useState(false);
+  const [flagProjected, setFlagProjected] = useState(false);
+  const [flagCaretakingOnly, setFlagCaretakingOnly] = useState(false);
+  const [flagBusinessOnly, setFlagBusinessOnly] = useState(false);
 
   const filters = useMemo(() => ({
     limit: pageSize,
@@ -27,9 +42,12 @@ export default function OffThePlanManagementRightsPage() {
     minBedrooms: beds || undefined,
     minPrice: priceRange?.[0] || undefined,
     maxPrice: priceRange?.[1] || undefined,
+    ...(listingType !== 'all' ? { listingType } : {}),
+    ...(city ? { city } : {}),
+    ...(suburb ? { suburb } : {}),
     sortBy,
     sortOrder: sortBy === 'date' ? 'desc' : 'asc',
-  }), [pageSize, offset, beds, priceRange, sortBy]);
+  }), [pageSize, offset, beds, priceRange, sortBy, listingType, city, suburb]);
 
   const searchQuery = useMemo(() => {
     const base = 'off the plan management rights';
@@ -46,16 +64,51 @@ export default function OffThePlanManagementRightsPage() {
   const res = data?.searchProperties;
   const properties = res?.properties || [];
   const total = res?.totalCount || 0;
+
   const featured = useMemo(() => properties.filter(p => p.featured).slice(0, 3), [properties]);
+  const listingOfTheMonth = useMemo(() => featured[0] || null, [featured]);
+
+  // Client-side additional filtering
+  const filteredProperties = useMemo(() => {
+    return properties.filter((p) => {
+      const tags = new Set((p.tags || []).map((t) => String(t).toLowerCase()));
+      if (petFriendly && !tags.has('pet-friendly')) return false;
+      if (hasManagerUnit && !tags.has('manager-unit')) return false;
+      if (flagProjected && !(tags.has('projected') || (p.description||'').toLowerCase().includes('projected'))) return false;
+      if (flagCaretakingOnly && !(tags.has('caretaking-only') || (p.title||'').toLowerCase().includes('caretaking'))) return false;
+      if (flagBusinessOnly && !(tags.has('business-only') || (p.title||'').toLowerCase().includes('business only'))) return false;
+      return true;
+    });
+  }, [properties, petFriendly, hasManagerUnit, flagProjected, flagCaretakingOnly, flagBusinessOnly]);
+
+  const displayedTotal = filteredProperties.length;
+
+  // Map flags to component shape
+  const flags = {
+    'Pet friendly': petFriendly,
+    "Manager's unit": hasManagerUnit,
+    'Projected': flagProjected,
+    'Caretaking only': flagCaretakingOnly,
+    'Business only': flagBusinessOnly,
+  };
+  const setFlags = (next) => {
+    setPetFriendly(!!next['Pet friendly']);
+    setHasManagerUnit(!!next["Manager's unit"]);
+    setFlagProjected(!!next['Projected']);
+    setFlagCaretakingOnly(!!next['Caretaking only']);
+    setFlagBusinessOnly(!!next['Business only']);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Breadcrumb */}
       <Breadcrumb className="mb-4 text-sm">
         <Breadcrumb.Item><Link href="/">Home</Link></Breadcrumb.Item>
         <Breadcrumb.Item><Link href="/listings">Management Rights</Link></Breadcrumb.Item>
         <Breadcrumb.Item>Off The Plan</Breadcrumb.Item>
       </Breadcrumb>
 
+      {/* Hero */}
       <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 mb-6 border border-blue-100">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
@@ -70,6 +123,7 @@ export default function OffThePlanManagementRightsPage() {
         </div>
       </div>
 
+      {/* Category tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
         <Link href="/management-rights/permanent"><Button>Permanent</Button></Link>
         <Link href="/management-rights/resort-holiday"><Button>Resort | Holiday</Button></Link>
@@ -79,101 +133,157 @@ export default function OffThePlanManagementRightsPage() {
         <Link href="/rentals-property"><Button>Rentals</Button></Link>
       </div>
 
-      <PropertySearchFilters
+      {/* Top search */}
+      <MRTopSearchBar
         keywords={keywords}
-        setKeywords={setKeywords}
+        setKeywords={(v)=>{ setKeywords(v); setPage(1); }}
         beds={beds}
-        setBeds={setBeds}
-        priceRange={priceRange}
-        setPriceRange={setPriceRange}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        total={total}
-        loading={loading}
-        setPage={setPage}
-        searchPlaceholder="e.g., Brisbane, new build, project"
-        priceLabel="Price range"
-        resultNoun="opportunities"
-        priceMax={2000000}
-        priceStep={10000}
+        setBeds={(v)=>{ setBeds(v); setPage(1); }}
+        listingType={listingType}
+        setListingType={(v)=>{ setListingType(v); setPage(1); }}
+        city={city}
+        setCity={(v)=>{ setCity(v); setPage(1); }}
+        suburb={suburb}
+        setSuburb={(v)=>{ setSuburb(v); setPage(1); }}
+        onOpenMobileFilters={()=> setMobileFiltersOpen(true)}
+        placeholder="e.g., Brisbane, new build, project"
       />
 
-      {featured.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">Featured Off The Plan Opportunities</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {featured.map((p) => (
-              <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.jpg'} alt={p.title} className="h-48 w-full object-cover" />}>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between"><h3 className="font-semibold line-clamp-1">{p.title}</h3><Tag color="blue" className="capitalize">{p.listingType}</Tag></div>
-                  <p className="text-sm text-gray-600 line-clamp-2">{p.description}</p>
-                  <p className="text-sm text-gray-500">{p.location?.city}, {p.location?.state}</p>
-                  <Link href={`/property/${p.id}`} className="text-blue-600 text-sm">View details</Link>
-                </div>
-              </Card>
-            ))}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {/* Sidebar filters */}
+        <aside className="hidden md:block md:col-span-3">
+          <MRSidebarFilters
+            priceRange={priceRange}
+            setPriceRange={(r)=> setPriceRange(r)}
+            flags={flags}
+            setFlags={setFlags}
+            onApply={()=> setPage(1)}
+            onReset={()=> setFlags({ 'Pet friendly': false, "Manager's unit": false, 'Projected': false, 'Caretaking only': false, 'Business only': false })}
+            title="Refine Results"
+            priceLabel="Price range (sale)"
+            featuresLabel="Attributes"
+          />
+        </aside>
+
+        {/* Results panel */}
+        <div className="md:col-span-9">
+          <div className="flex items-center justify-between mb-4">
+            <MRResultsHeader loading={loading} total={displayedTotal} sortBy={sortBy} setSortBy={(v)=>{ setSortBy(v); setPage(1); }} />
+            <Button href="#" size="small">Print stocklist (PDF)</Button>
           </div>
+
+          {/* Region chips */}
+          <MRRegionChips
+            regions={[ 'Gold Coast', 'Sunshine Coast', 'Brisbane', 'Cairns', 'Broadbeach' ]}
+            active={city}
+            onSelect={(r)=>{ setCity(r); setPage(1); }}
+          />
+
+          {/* Featured + Listing of the Month */}
+          <MRFeaturedSection
+            listingOfTheMonth={listingOfTheMonth}
+            featured={featured.slice(1, 4)}
+            title="Featured Off The Plan Opportunities"
+          />
+
+          {/* Results grid */}
+          <MRResultsGrid
+            loading={loading}
+            error={error}
+            properties={filteredProperties}
+            page={page}
+            total={total}
+            pageSize={pageSize}
+            onChangePage={setPage}
+          />
         </div>
-      )}
+      </div>
 
-      {loading ? (
-        <div className="flex items-center justify-center py-12"><Spin size="large" /></div>
-      ) : error ? (
-        <div className="text-center py-12"><Empty description="Failed to load" /></div>
-      ) : properties.length === 0 ? (
-        <Empty description="No properties found" className="py-12" />
-      ) : (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {properties.map((p) => (
-              <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.jpg'} alt={p.title} className="h-56 w-full object-cover" />}>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between"><h3 className="font-semibold line-clamp-1">{p.title}</h3><Tag color="blue" className="capitalize">{p.listingType}</Tag></div>
-                  <p className="text-sm text-gray-600 line-clamp-2">{p.description}</p>
-                  <p className="text-sm text-gray-500">{p.location?.city}, {p.location?.state}</p>
-                  <Link href={`/property/${p.id}`} className="text-blue-600 text-sm">View details</Link>
-                </div>
-              </Card>
-            ))}
-          </div>
-          <div className="mt-8 flex justify-center"><Pagination current={page} total={total} pageSize={pageSize} onChange={setPage} showSizeChanger={false} /></div>
-        </>
-      )}
+      {/* Mobile Filters Drawer */}
+      <MRMobileFiltersDrawer
+        open={mobileFiltersOpen}
+        onClose={()=> setMobileFiltersOpen(false)}
+        priceRange={priceRange}
+        setPriceRange={setPriceRange}
+        flags={flags}
+        setFlags={setFlags}
+        onApply={()=>{ setMobileFiltersOpen(false); setPage(1); }}
+        onReset={()=> setFlags({ 'Pet friendly': false, "Manager's unit": false, 'Projected': false, 'Caretaking only': false, 'Business only': false })}
+        title="Refine Results"
+        priceLabel="Price range (sale)"
+        featuresLabel="Attributes"
+      />
 
+      {/* Informational sections (mirroring structure) */}
       <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <section>
             <h2 className="text-xl font-semibold mb-2">What does Off The Plan mean?</h2>
-            <p className="text-gray-700">Off the plan projects are developments that are sold before construction is completed. Opportunities may include caretaking and letting agreements to be established at settlement.</p>
+            <p className="text-gray-700">Off the plan projects are developments sold before construction is completed. Opportunities can include caretaking and letting agreements established at settlement.</p>
           </section>
           <section>
             <h2 className="text-xl font-semibold mb-2">Why consider Off The Plan?</h2>
             <ul className="list-disc ml-5 text-gray-700 space-y-1">
-              <li>Secure positions early in growth areas and flagship projects.</li>
-              <li>Potential to influence operational design and systems from day one.</li>
-              <li>Marketing support and presales momentum from developers.</li>
+              <li>Position early in growth areas and flagship projects.</li>
+              <li>Shape operational design and systems from day one.</li>
+              <li>Leverage developer presales momentum and marketing.</li>
             </ul>
           </section>
           <section>
             <h2 className="text-xl font-semibold mb-2">How it works</h2>
             <ol className="list-decimal ml-5 text-gray-700 space-y-1">
-              <li>Review disclosure documents and scheme structure.</li>
-              <li>Engage legal and financial advisors experienced in MR.</li>
-              <li>Plan operational setup and recruitment ahead of settlement.</li>
+              <li>Review disclosure material and scheme structure.</li>
+              <li>Engage legal and finance advisors experienced in MR.</li>
+              <li>Plan operational setup and recruitment before settlement.</li>
             </ol>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">FAQs</h2>
-            <div className="space-y-3">
-              <div><p className="font-medium">Are returns guaranteed?</p><p className="text-gray-700">No, projections are indicative and dependent on sales uptake and market conditions.</p></div>
-              <div><p className="font-medium">What is the typical timeline?</p><p className="text-gray-700">Timelines vary; stages can run 12–36 months+ from launch to settlement.</p></div>
-              <div><p className="font-medium">How are agreements set?</p><p className="text-gray-700">Caretaking and letting agreements are negotiated with the developer and body corporate.</p></div>
+            <h2 className="text-xl font-semibold mb-2">Industry News</h2>
+            <ul className="space-y-1 text-sm text-gray-700">
+              <li>Queensland’s seller disclosure changes explained</li>
+              <li>Building your MR business: practical tips</li>
+              <li>AML/CTF updates and what they mean for agents</li>
+            </ul>
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-2">Upcoming Events</h2>
+            <ul className="space-y-1 text-sm text-gray-700">
+              <li>Strata seminar – Brisbane</li>
+              <li>Strata seminar – Cairns</li>
+              <li>MR Industry Training Program – Gold Coast</li>
+            </ul>
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-2">Find an Industry Supplier</h2>
+            <p className="text-gray-700 text-sm">Tell us what you need and we’ll connect you with leading MR brokers and suppliers.</p>
+            <div className="flex gap-2 max-w-md">
+              <input className="border rounded px-3 py-2 flex-1" placeholder="What do you need done?" />
+              <Button type="primary">Get quotes</Button>
             </div>
           </section>
         </div>
         <aside className="space-y-4">
-          <div className="bg-white rounded-lg border p-4"><h3 className="font-semibold mb-2">Talk to an MR Specialist</h3><p className="text-gray-700 mb-3">Questions about off the plan? Our team can assist.</p><Button type="primary" href="/contact">Request a callback</Button></div>
-          <div className="bg-white rounded-lg border p-4"><h3 className="font-semibold mb-2">Resources</h3><ul className="list-disc ml-5 text-gray-700 space-y-1"><li>Developer checklist</li><li>Project finance basics</li><li>Regulatory guide</li></ul></div>
+          <div className="bg-white rounded-lg border p-4">
+            <h3 className="font-semibold mb-2">Don’t miss out!</h3>
+            <p className="text-gray-700 mb-3 text-sm">Receive monthly industry news and new listings.</p>
+            <div className="flex gap-2">
+              <input className="border rounded px-3 py-2 flex-1" placeholder="Your email" />
+              <Button type="primary">Subscribe</Button>
+            </div>
+          </div>
+          <div className="bg-white rounded-lg border p-4">
+            <h3 className="font-semibold mb-2">Talk to an MR Specialist</h3>
+            <p className="text-gray-700 mb-3">Questions about off the plan? Our team can assist.</p>
+            <Button type="primary" href="/contact">Request a callback</Button>
+          </div>
+          <div className="bg-white rounded-lg border p-4">
+            <h3 className="font-semibold mb-2">Useful Links</h3>
+            <ul className="space-y-1 text-sm text-gray-700">
+              <li><Link href="/rentals-property">Units For Rent</Link></li>
+              <li><Link href="/investment-property">Investment Property</Link></li>
+              <li><Link href="/listings">Management Rights</Link></li>
+            </ul>
+          </div>
         </aside>
       </div>
     </div>
