@@ -65,6 +65,33 @@ const ServicesPage = () => {
     yearsExperience: 0,
   });
 
+  // Sync active tab with URL hash (e.g., /services#property-management)
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '';
+      if (hash) {
+        setActiveService(hash);
+      }
+    };
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+    return () => window.removeEventListener('hashchange', applyHash);
+  }, []);
+
+  // Scroll into view when activeService changes and matches current hash
+  useEffect(() => {
+    const hash = typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '';
+    if (hash && hash === activeService) {
+      // Defer to ensure DOM has rendered
+      requestAnimationFrame(() => {
+        const el = document.getElementById(activeService);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+  }, [activeService]);
+
   useEffect(() => {
     // Animate stats on component mount
     const timer = setTimeout(() => {
@@ -737,6 +764,7 @@ const ServicesPage = () => {
               (category) =>
                 activeService === category.id && (
                   <div
+                    id={category.id}
                     key={category.id}
                     className="grid items-start gap-12 lg:grid-cols-2"
                   >
