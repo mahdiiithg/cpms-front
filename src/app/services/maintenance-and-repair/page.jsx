@@ -1,10 +1,12 @@
 'use client';
 
-import { Button, Card, Collapse, Form, Input } from 'antd';
-import { Wrench, Shield, CheckCircle, Clock, Zap, AlertTriangle, Phone, Mail, MapPin } from 'lucide-react';
+import { Button, Card, Collapse } from 'antd';
+import { Wrench, CheckCircle, Phone, Mail } from 'lucide-react';
 import Head from 'next/head';
+import HeroWithForm from '@/components/services/blocks/HeroWithForm';
 import StickyAnchorNav from '@/components/services/layout/StickyAnchorNav';
 import EnquiryForm from '@/components/services/forms/EnquiryForm';
+import CanvasGrid from '@/components/ui/CanvasGrid';
 
 export default function MaintenanceAndRepairPage() {
   const stats = [
@@ -73,38 +75,20 @@ export default function MaintenanceAndRepairPage() {
         <meta name="description" content="Responsive maintenance and repair services to protect and enhance your assets." />
       </Head>
       <div className="min-h-screen bg-white">
-        {/* Hero */}
-        <section id="overview" className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-teal-700 py-20 text-white">
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative z-10 mx-auto max-w-6xl px-6">
-            <div className="mb-6 inline-block rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-semibold">Services</div>
-            <div className="grid items-center gap-8 md:grid-cols-2">
-              <div>
-                <h1 className="mb-4 text-4xl font-bold md:text-6xl">Maintenance & Repair</h1>
-                <p className="mb-8 max-w-xl text-lg opacity-90">Fast, reliable and transparent maintenance services—from preventive plans to 24/7 emergencies.</p>
-                <div className="flex flex-wrap gap-3">
-                  <Button size="large" className="h-12 rounded-xl border-0 bg-white px-6 font-semibold text-blue-900">Request Service</Button>
-                  <Button size="large" type="primary" className="h-12 rounded-xl border-0 bg-blue-600 px-6">Emergency Callout</Button>
-                </div>
-              </div>
-              <div className="hidden md:block">
-                <div className="rounded-2xl border border-white/20 bg-white/10 p-6 shadow-xl backdrop-blur-sm">
-                  <h3 className="mb-4 text-xl font-semibold">Quick ticket</h3>
-                  <EnquiryForm context="maintenance-and-repair" variant="dark" fields={[
-                    { name: 'name', label: 'Full name', required: true, type: 'input', placeholder: 'Jane Doe' },
-                    { name: 'email', label: 'Email', required: true, type: 'email', placeholder: 'you@example.com' },
-                    { name: 'issue', label: 'Issue', type: 'input', placeholder: 'e.g. Leak in bathroom' },
-                  ]} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroWithForm
+          title="Maintenance & Repair"
+          subtitle="Fast, reliable and transparent maintenance services—from preventive plans to 24/7 emergencies."
+          formContext="maintenance-and-repair"
+          ctas={[{ label: 'Request Service', primary: true }, { label: 'Emergency Callout' }]}
+        />
 
         <StickyAnchorNav items={navItems} />
 
         {/* Stats band */}
-        <section className="bg-gray-50 py-10">
+        <section className="relative bg-gray-50 py-10">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
+            <CanvasGrid className="h-full w-full" density={44} color="#e2e8f0" accent="#334155" />
+          </div>
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-6 md:grid-cols-4">
             {stats.map((s, i) => (
               <div key={i} className="rounded-xl bg-white p-6 text-center shadow-sm">
@@ -116,7 +100,10 @@ export default function MaintenanceAndRepairPage() {
         </section>
 
         {/* Core features */}
-        <section id="features" className="bg-white py-16 scroll-mt-24">
+        <section id="features" className="relative bg-white py-16 scroll-mt-24">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
+            <CanvasGrid className="h-full w-full" density={36} color="#eef2f7" accent="#1f2937" />
+          </div>
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10 text-center">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100"><Wrench className="h-6 w-6 text-blue-700" /></div>
@@ -134,7 +121,10 @@ export default function MaintenanceAndRepairPage() {
         </section>
 
         {/* Service Catalogue */}
-        <section id="services" className="bg-gray-50 py-16 scroll-mt-24">
+        <section id="services" className="relative bg-gray-50 py-16 scroll-mt-24">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
+            <CanvasGrid className="h-full w-full" density={44} color="#e5e7eb" accent="#0f172a" />
+          </div>
           <div className="mx-auto max-w-6xl px-6">
             <h3 className="mb-8 text-center text-2xl font-bold">Service Catalogue</h3>
             <div className="grid gap-6 md:grid-cols-3">

@@ -1,222 +1,227 @@
-import Link from 'next/link';
+// filepath: m:\ld-dt\cmps\cpms-front\src\app\global-affiliations\page.jsx
+import CanvasOrbs from '@/components/ui/CanvasOrbs';
+import CanvasGrid from '@/components/ui/CanvasGrid';
+import { affiliations as affiliationsData, marketingPartners as marketingPartnersData } from '@/data/affiliationsData';
 
-// Removed metadata export to avoid Next.js client component restriction
+export const metadata = {
+  title: 'Global Affiliations | Coast Planet',
+  description:
+    'Discover our global affiliations and partnerships that expand our reach, enhance service quality, and deliver trusted real estate expertise.',
+};
+
+function initials(name) {
+  return name
+    .split(/\s|–|—|-/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((s) => s[0])
+    .join('')
+    .toUpperCase();
+}
 
 export default function GlobalAffiliationsPage() {
-  const anchors = [
-    { href: '#overview', label: 'Overview' },
-    { href: '#memberships', label: 'Memberships' },
-    { href: '#benefits', label: 'Benefits' },
-    { href: '#testimonials', label: 'Testimonials' },
-    { href: '#contact', label: 'Contact' },
-  ];
-
-  const memberships = [
-    { code: 'LRE', title: 'Leading Real Estate Network' },
-    { code: 'LUX', title: 'Luxury Property Collective' },
-    { code: 'INV', title: 'Investment & Advisory Alliance' },
-    { code: 'APAC', title: 'APAC Partners' },
-    { code: 'EMEA', title: 'EMEA Network' },
-    { code: 'AMER', title: 'Americas Network' },
-  ];
-
-  const benefits = [
-    { title: 'Wider reach', desc: 'Promote listings to qualified audiences across multiple regions.' },
-    { title: 'Trusted partners', desc: 'Affiliates vetted for service, compliance, and marketing standards.' },
-    { title: 'Cross‑border support', desc: 'Guidance on regulation, finance, FX, and settlement.' },
-    { title: 'Consistent quality', desc: 'Shared processes and SLAs for a reliable client experience.' },
-    { title: 'Data & insights', desc: 'Access to market intelligence and best‑practice playbooks.' },
-    { title: 'Single coordinator', desc: 'One team orchestrating the right partners end‑to‑end.' },
-  ];
-
-  // Brand-safe placeholder tiles for partner logos
-  const logoTiles = [
-    { label: 'LRE', title: 'Leading Real Estate', bg: 'bg-gray-50' },
-    { label: 'LUX', title: 'Luxury Collective', bg: 'bg-gray-50' },
-    { label: 'ADV', title: 'Advisory Alliance', bg: 'bg-gray-50' },
-    { label: 'APAC', title: 'APAC Partners', bg: 'bg-gray-50' },
-    { label: 'EMEA', title: 'EMEA Network', bg: 'bg-gray-50' },
-    { label: 'AMER', title: 'Americas Network', bg: 'bg-gray-50' },
-  ];
+  const affiliations = affiliationsData;
+  const marketingPartners = marketingPartnersData;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
-      {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="mb-4 text-sm">
-        <ol className="flex items-center gap-2 text-gray-600">
-          <li><Link href="/" className="hover:text-gray-900">Home</Link></li>
-          <li className="text-gray-400">/</li>
-          <li><Link href="/about" className="hover:text-gray-900">About</Link></li>
-          <li className="text-gray-400">/</li>
-          <li className="text-gray-900">Global affiliations</li>
-        </ol>
-      </nav>
-
-      {/* Hero banner */}
-      <header className="relative overflow-hidden rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 via-teal-50 to-white">
-        <div className="absolute inset-0 opacity-40" aria-hidden="true" />
-        <div className="relative p-6 md:p-10">
-          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">Global affiliations</h1>
-          <p className="mt-2 max-w-3xl text-gray-700">
-            We partner with respected international networks to extend your reach and deliver consistent, high‑quality service wherever you transact.
-          </p>
+    <main className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-20">
+          <img src="/assets/graphics/mesh-1.svg" alt="" className="h-full w-full object-cover" />
         </div>
-      </header>
-
-      {/* Anchored subnav */}
-      <div className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 bg-white/80 backdrop-blur border-b mt-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex gap-4 overflow-x-auto py-3 text-sm">
-            {anchors.map(a => (
-              <a key={a.href} href={a.href} className="text-gray-600 hover:text-gray-900 whitespace-nowrap">
-                {a.label}
-              </a>
-            ))}
+        <div className="absolute inset-0 -z-10">
+          <CanvasOrbs className="h-full w-full" colors={["#0f172a","#1f2937","#334155"]} count={8} speed={0.35} blur={0.7} opacity={0.9} />
+        </div>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/60 via-white/40 to-white"></div>
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+          <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-600/90">
+            <ol className="flex gap-2">
+              <li><a href="/" className="hover:text-slate-900">Home</a></li>
+              <li aria-hidden>›</li>
+              <li><a href="/services" className="hover:text-slate-900">Services</a></li>
+              <li aria-hidden>›</li>
+              <li aria-current="page" className="text-slate-900 font-medium">Global Affiliations</li>
+            </ol>
           </nav>
-        </div>
-      </div>
 
-      {/* Overview */}
-      <section id="overview" className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="rounded-xl border bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-gray-900">Worldwide collaboration</h2>
-          <p className="mt-2 text-gray-700">
-            Our affiliates comprise independent, market‑leading brokerages and advisory firms. Together, we coordinate cross‑border listings, referrals, and research so clients can move with confidence.
-          </p>
-          <ul className="mt-3 list-disc pl-5 text-sm text-gray-700 space-y-1">
-            <li>Referrals spanning APAC, EMEA, and the Americas</li>
-            <li>Shared playbooks for marketing and service standards</li>
-            <li>Clear SLAs and a single coordinating desk</li>
-          </ul>
-        </div>
-        <div className="rounded-xl border bg-white p-6 shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-900">How we work with partners</h3>
-          <p className="mt-2 text-gray-700">
-            We match each brief to the right affiliate, align scope and timelines, and maintain ownership of your end‑to‑end experience. Reporting and compliance are built in from the start.
-          </p>
-          <dl className="mt-4 grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <dt className="text-gray-500">Regions covered</dt>
-              <dd className="font-medium text-gray-900">30+ countries</dd>
-            </div>
-            <div>
-              <dt className="text-gray-500">Partner offices</dt>
-              <dd className="font-medium text-gray-900">200+ locations</dd>
-            </div>
-            <div>
-              <dt className="text-gray-500">Listing channels</dt>
-              <dd className="font-medium text-gray-900">Global + local</dd>
-            </div>
-            <div>
-              <dt className="text-gray-500">Service model</dt>
-              <dd className="font-medium text-gray-900">Single coordinator</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-
-      {/* Memberships / logos */}
-      <section id="memberships" className="mt-10">
-        <h2 className="text-xl font-semibold text-gray-900">Memberships and partner networks</h2>
-        <p className="text-sm text-gray-600">Representative networks we collaborate with through formal agreements and referral frameworks.</p>
-        <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-          {memberships.map((m) => (
-            <figure
-              key={m.title}
-              className="aspect-[3/2] rounded-lg border bg-gray-50 flex items-center justify-center text-center p-2"
-              title={m.title}
-              aria-label={m.title}
-            >
-              <figcaption>
-                <div className="text-xs font-semibold text-gray-700">{m.code}</div>
-                <div className="text-[11px] text-gray-600">{m.title}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
-      {/* Benefits */}
-      <section id="benefits" className="mt-10">
-        <h2 className="text-xl font-semibold text-gray-900">Benefits for our clients</h2>
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {benefits.map((b) => (
-            <div key={b.title} className="rounded-xl border bg-white p-5 shadow-sm">
-              <h3 className="font-semibold text-gray-900">{b.title}</h3>
-              <p className="mt-1 text-sm text-gray-700">{b.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section id="testimonials" className="mt-10">
-        <h2 className="text-xl font-semibold text-gray-900">What partners say</h2>
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <blockquote className="rounded-xl border bg-white p-5 text-sm text-gray-700 shadow-sm">
-            “Their team coordinates cross‑border briefs seamlessly, giving clients one point of contact.”
-            <footer className="mt-2 text-xs text-gray-500">— Partner, APAC Network</footer>
-          </blockquote>
-          <blockquote className="rounded-xl border bg-white p-5 text-sm text-gray-700 shadow-sm">
-            “Professional standards and reporting align well with our global compliance frameworks.”
-            <footer className="mt-2 text-xs text-gray-500">— Advisor, EMEA Alliance</footer>
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section id="contact" className="mt-10">
-        <div className="rounded-2xl border p-6 md:p-8 bg-white">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-semibold text-gray-900">Speak with our international desk</h2>
-              <p className="text-gray-700 mt-1">
-                Planning a cross‑border sale or purchase? We’ll coordinate the right affiliates and guide you end‑to‑end.
+          <div className="relative grid items-center gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+                Global Affiliations
+              </h1>
+              <p className="mt-4 text-lg text-slate-700">
+                Trusted partnerships and international networks that extend our reach and elevate your real estate experience.
               </p>
+              <div className="mt-6 flex gap-3">
+                <a href="#affiliations" className="inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-2 text-white font-medium hover:bg-slate-800">
+                  Explore affiliations
+                </a>
+                <a href="/contact" className="inline-flex items-center justify-center rounded-lg border border-slate-900/15 bg-white/70 backdrop-blur px-4 py-2 text-slate-900 font-medium hover:bg-white">
+                  Contact us
+                </a>
+              </div>
             </div>
-            <div className="flex gap-2">
-              <Link href="/contact" className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Contact us</Link>
-              <Link href="/services" className="inline-flex items-center rounded-md border px-4 py-2 text-gray-900 hover:bg-gray-50">Our services</Link>
+            <div className="lg:col-span-5">
+              {/* Decorative collage - replace src with real images later */}
+              <div className="grid grid-cols-3 gap-3">
+                {[1,2,3,4,5,6].map((i) => (
+                  <div key={i} className="aspect-[4/5] overflow-hidden rounded-2xl border border-white/40 bg-white/40 shadow-sm backdrop-blur">
+                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 text-slate-500 text-xs">
+                      Image {i}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Logos grid (brand-safe placeholders) */}
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold text-gray-900">Selected global partners</h2>
-        <p className="text-gray-600 text-sm">Representative networks we collaborate with through formal agreements and referral frameworks.</p>
-        <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-          {logoTiles.map((l) => (
-            <div
-              key={l.title}
-              className={`aspect-[3/2] ${l.bg} rounded-lg border flex items-center justify-center`}
-              title={l.title}
-              aria-label={l.title}
-            >
-              <span className="text-xs font-semibold text-gray-600">{l.label}</span>
+      {/* Intro */}
+      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="pointer-events-none absolute inset-0 -z-10 opacity-40">
+          <CanvasGrid className="h-full w-full" density={36} color="#cbd5e1" accent="#0f172a" />
+        </div>
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-7">
+            <h2 className="text-2xl font-semibold text-slate-900">Who we’re connected with</h2>
+            <p className="mt-3 text-slate-700">
+              Our affiliations connect us with best-in-class organizations around the world. This enables seamless referrals,
+              global marketing exposure, and consistent standards of service whether you’re buying, selling, or investing.
+            </p>
+          </div>
+          <div className="lg:col-span-5">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-sm text-slate-600">
+                Note: Content and logos here are placeholders. After we finalize the exact affiliations from the reference page, we’ll replace them with the official names, copy, and brand assets.
+              </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Affiliations grid */}
+      <section id="affiliations" className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pb-16">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {affiliations.map((item) => (
+            <article key={item.name} className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md">
+              <div className="pointer-events-none absolute inset-px rounded-[14px] bg-gradient-to-br from-slate-50 to-white"></div>
+              <div className="relative flex items-center gap-4">
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-slate-900 to-slate-600 opacity-20 blur"></div>
+                  <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-tr from-slate-900 to-slate-600 text-white font-semibold overflow-hidden">
+                    {item.logo ? (
+                      <img src={item.logo} alt={item.short || item.name} className="h-full w-full object-cover" />
+                    ) : (
+                      initials(item.short || item.name)
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-slate-900">{item.name}</h3>
+                  {item.short && <p className="text-sm text-slate-500">{item.short}</p>}
+                </div>
+              </div>
+              {item.blurb && <p className="mt-4 text-sm leading-6 text-slate-700">{item.blurb}</p>}
+              <div className="mt-5">
+                <a href={item.href || '#'} className="text-sm font-medium text-slate-900 hover:underline">Learn more</a>
+              </div>
+            </article>
           ))}
+        </div>
+      </section>
+
+      {/* Marketing partners / portals */}
+      <section className="relative bg-slate-50">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <CanvasOrbs className="h-full w-full" colors={["#e2e8f0","#cbd5e1","#94a3b8"]} count={10} speed={0.2} blur={0.8} opacity={0.6} />
+        </div>
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <h2 className="text-center text-sm font-semibold uppercase tracking-wider text-slate-600">Marketing partners</h2>
+          <p className="mt-2 text-center text-2xl font-semibold text-slate-900">Where your property is seen</p>
+          <div className="mt-8 grid items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+            {marketingPartners.map((p) => (
+              <div key={p.name} className="rounded-xl border border-slate-200 bg-white p-4 text-center">
+                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-700 font-semibold overflow-hidden">
+                  {p.logo ? (
+                    <img src={p.logo} alt={p.name} className="h-full w-full object-cover" />
+                  ) : (
+                    initials(p.name)
+                  )}
+                </div>
+                <div className="text-sm font-medium text-slate-800">{p.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why it matters */}
+      <section className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="pointer-events-none absolute inset-0 -z-10 opacity-40">
+          <CanvasGrid className="h-full w-full" density={44} color="#e2e8f0" accent="#334155" />
+        </div>
+        <div className="grid gap-8 lg:grid-cols-3">
+          <div className="lg:col-span-1">
+            <h2 className="text-2xl font-semibold text-slate-900">Why these affiliations matter</h2>
+            <p className="mt-3 text-slate-700">
+              These relationships amplify reach, credibility, and outcomes for our clients.
+            </p>
+          </div>
+          <div className="lg:col-span-2">
+            <ul className="grid gap-4 sm:grid-cols-2">
+              <li className="rounded-xl border border-slate-200 p-4">
+                <p className="font-medium text-slate-900">Global referral network</p>
+                <p className="mt-1 text-sm text-slate-700">Connects buyers and sellers across borders for faster, higher-confidence transactions.</p>
+              </li>
+              <li className="rounded-xl border border-slate-200 p-4">
+                <p className="font-medium text-slate-900">Premium marketing</p>
+                <p className="mt-1 text-sm text-slate-700">Access to international listing portals, media, and affluent audiences.</p>
+              </li>
+              <li className="rounded-xl border border-slate-200 p-4">
+                <p className="font-medium text-slate-900">Standards and credibility</p>
+                <p className="mt-1 text-sm text-slate-700">Aligned to global best practices for ethics, valuation, and service quality.</p>
+              </li>
+              <li className="rounded-xl border border-slate-200 p-4">
+                <p className="font-medium text-slate-900">Seamless cross-border moves</p>
+                <p className="mt-1 text-sm text-slate-700">Relocation and investment support with local expertise in multiple markets.</p>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="mb-6">
-        <div className="rounded-2xl border p-6 md:p-8 bg-white">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-semibold text-gray-900">Speak with our international desk</h2>
-              <p className="text-gray-700 mt-1">
-                Planning a cross-border sale or purchase? Our team will coordinate with the right affiliates and guide you end‑to‑end.
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Link href="/contact" className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Contact us</Link>
-              <Link href="/services" className="inline-flex items-center rounded-md border px-4 py-2 text-gray-900 hover:bg-gray-50">Our services</Link>
+      <section className="relative isolate overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <CanvasOrbs className="h-full w-full" colors={["#0f172a","#1f2937","#334155"]} count={7} speed={0.3} blur={0.65} opacity={0.8} />
+        </div>
+        <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+          <div className="rounded-2xl bg-slate-900 px-6 py-10 text-white sm:px-10">
+            <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-2xl font-semibold">Ready to leverage our global network?</h3>
+                <p className="mt-2 text-slate-300">Talk to our team about selling, buying, or investing with international exposure.</p>
+              </div>
+              <div className="flex gap-3">
+                <a
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-lg bg-white px-4 py-2 text-slate-900 font-medium hover:bg-slate-100"
+                >
+                  Contact us
+                </a>
+                <a
+                  href="/services"
+                  className="inline-flex items-center justify-center rounded-lg border border-white/30 px-4 py-2 font-medium hover:bg-white/10"
+                >
+                  Explore services
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

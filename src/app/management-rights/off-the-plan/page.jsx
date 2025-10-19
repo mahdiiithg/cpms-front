@@ -12,6 +12,7 @@ import MRRegionChips from '@/components/management-rights/MRRegionChips';
 import MRResultsHeader from '@/components/management-rights/MRResultsHeader';
 import MRFeaturedSection from '@/components/management-rights/MRFeaturedSection';
 import MRResultsGrid from '@/components/management-rights/MRResultsGrid';
+import { managementRights } from '@/data/managementRightsData';
 
 export default function OffThePlanManagementRightsPage() {
   // UI state
@@ -99,6 +100,8 @@ export default function OffThePlanManagementRightsPage() {
     setFlagBusinessOnly(!!next['Business only']);
   };
 
+  const meta = managementRights.offThePlan;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Breadcrumb */}
@@ -112,13 +115,13 @@ export default function OffThePlanManagementRightsPage() {
       <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 mb-6 border border-blue-100">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Off The Plan Management Rights</h1>
-            <p className="mt-1 text-gray-600 max-w-2xl">Explore pipeline projects and upcoming complexes with potential management rights businesses.</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{meta.title}</h1>
+            <p className="mt-1 text-gray-600 max-w-2xl">{meta.subtitle}</p>
           </div>
           <div className="flex gap-2">
-            <Link href="/management-rights/permanent"><Button>Permanent</Button></Link>
-            <Link href="/management-rights/resort-holiday"><Button>Resort | Holiday</Button></Link>
-            <Link href="/management-rights/retirement"><Button>Retirement</Button></Link>
+            {meta.heroCtas.map((c) => (
+              <Link key={c.href} href={c.href}><Button>{c.label}</Button></Link>
+            ))}
           </div>
         </div>
       </div>
@@ -174,7 +177,7 @@ export default function OffThePlanManagementRightsPage() {
 
           {/* Region chips */}
           <MRRegionChips
-            regions={[ 'Gold Coast', 'Sunshine Coast', 'Brisbane', 'Cairns', 'Broadbeach' ]}
+            regions={meta.regions}
             active={city}
             onSelect={(r)=>{ setCity(r); setPage(1); }}
           />

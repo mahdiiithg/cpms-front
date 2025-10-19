@@ -20,6 +20,7 @@ import Head from 'next/head';
 import HeroWithForm from '@/components/services/blocks/HeroWithForm';
 import StickyAnchorNav from '@/components/services/layout/StickyAnchorNav';
 import EnquiryForm from '@/components/services/forms/EnquiryForm';
+import CanvasGrid from '@/components/ui/CanvasGrid';
 
 export default function PropertyManagementPage() {
   const stats = [
@@ -154,7 +155,10 @@ export default function PropertyManagementPage() {
         <StickyAnchorNav items={navItems} />
 
         {/* Stats band */}
-        <section className="bg-gray-50 py-10">
+        <section className="relative bg-gray-50 py-10">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
+            <CanvasGrid className="h-full w-full" density={44} color="#e2e8f0" accent="#334155" />
+          </div>
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-6 md:grid-cols-4">
             {stats.map((s, i) => (
               <div key={i} className="rounded-xl bg-white p-6 text-center shadow-sm">
@@ -166,7 +170,10 @@ export default function PropertyManagementPage() {
         </section>
 
         {/* For landlords benefits */}
-        <section id="landlords" className="bg-white py-16 scroll-mt-24">
+        <section id="landlords" className="relative bg-white py-16 scroll-mt-24">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
+            <CanvasGrid className="h-full w-full" density={36} color="#eef2f7" accent="#1f2937" />
+          </div>
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold text-gray-900">Why landlords choose us</h2>
@@ -187,7 +194,10 @@ export default function PropertyManagementPage() {
         </section>
 
         {/* What we handle */}
-        <section id="services" className="bg-gray-50 py-16 scroll-mt-24">
+        <section id="services" className="relative bg-gray-50 py-16 scroll-mt-24">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
+            <CanvasGrid className="h-full w-full" density={44} color="#e5e7eb" accent="#0f172a" />
+          </div>
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
               <h2 className="text-3xl font-bold text-gray-900">What we handle</h2>

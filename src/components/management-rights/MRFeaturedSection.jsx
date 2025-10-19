@@ -11,7 +11,7 @@ export default function MRFeaturedSection({ listingOfTheMonth, featured = [], ti
           <h2 className="text-xl font-semibold mb-3">Listing of the Month</h2>
           <Card
             key={listingOfTheMonth.id}
-            cover={<img src={listingOfTheMonth.images?.[0] || '/images/placeholder-property.jpg'} alt={listingOfTheMonth.title} className="h-64 w-full object-cover" />}
+            cover={<img src={listingOfTheMonth.images?.[0] || '/images/placeholder-property.png'} alt={listingOfTheMonth.title} className="h-64 w-full object-cover" />}
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -31,7 +31,7 @@ export default function MRFeaturedSection({ listingOfTheMonth, featured = [], ti
           <h2 className="text-xl font-semibold mb-3">{title}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {featured.map((p) => (
-              <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.jpg'} alt={p.title} className="h-48 w-full object-cover" />}>
+              <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.png'} alt={p.title} className="h-48 w-full object-cover" />}>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold line-clamp-1">{p.title}</h3>

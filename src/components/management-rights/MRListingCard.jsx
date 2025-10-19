@@ -7,7 +7,7 @@ export default function MRListingCard({ property }) {
   return (
     <Card
       key={property.id}
-      cover={<img src={property.images?.[0] || '/images/placeholder-property.jpg'} alt={property.title} className="h-56 w-full object-cover" />}
+      cover={<img src={property.images?.[0] || '/images/placeholder-property.png'} alt={property.title} className="h-56 w-full object-cover" />}
     >
       <div className="space-y-2">
         <div className="flex items-center justify-between">

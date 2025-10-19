@@ -6,6 +6,7 @@ import Head from 'next/head';
 import HeroWithForm from '@/components/services/blocks/HeroWithForm';
 import StickyAnchorNav from '@/components/services/layout/StickyAnchorNav';
 import EnquiryForm from '@/components/services/forms/EnquiryForm';
+import CanvasGrid from '@/components/ui/CanvasGrid';
 
 export default function PropertyMarketingLeasingPage() {
   const pillars = [
@@ -44,15 +45,15 @@ export default function PropertyMarketingLeasingPage() {
           title="Property Marketing & Leasing"
           subtitle="A full-funnel approach from content to contracts—built for occupancy."
           formContext="property-marketing-leasing"
-          ctas={[
-            { label: 'Discuss your project', primary: true, href: '#contact' },
-            { label: 'Request proposal', href: '#contact' }
-          ]}
+          ctas={[{ label: 'Discuss your project', primary: true, href: '#contact' }, { label: 'Request proposal', href: '#contact' }]}
         />
 
         <StickyAnchorNav items={navItems} />
 
-        <section id="pillars" className="bg-white py-16 scroll-mt-24">
+        <section id="pillars" className="relative bg-white py-16 scroll-mt-24">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-40">
+            <CanvasGrid className="h-full w-full" density={36} color="#e2e8f0" accent="#334155" />
+          </div>
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold text-gray-900">Go-to-market pillars</h2>
@@ -72,7 +73,10 @@ export default function PropertyMarketingLeasingPage() {
           </div>
         </section>
 
-        <section id="services" className="bg-gray-50 py-16 scroll-mt-24">
+        <section id="services" className="relative bg-gray-50 py-16 scroll-mt-24">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-40">
+            <CanvasGrid className="h-full w-full" density={44} color="#e5e7eb" accent="#0f172a" />
+          </div>
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
               <h2 className="text-3xl font-bold text-gray-900">What we do</h2>
