@@ -3,7 +3,6 @@
 import { Button, Card, Collapse } from 'antd';
 import { Wrench, CheckCircle, Phone, Mail } from 'lucide-react';
 import Head from 'next/head';
-import HeroWithForm from '@/components/services/blocks/HeroWithForm';
 import StickyAnchorNav from '@/components/services/layout/StickyAnchorNav';
 import EnquiryForm from '@/components/services/forms/EnquiryForm';
 import CanvasGrid from '@/components/ui/CanvasGrid';
@@ -16,24 +15,24 @@ export default function MaintenanceAndRepairPage() {
     { label: 'Jobs completed / month', value: '1,200+' },
   ];
 
-  const features = [
-    'Preventive maintenance planning and scheduling',
-    '24/7 emergency repair response and coordination',
-    'Trusted vendor network with competitive pricing',
-    'Common area maintenance & landscaping',
-    'Safety inspections and regulatory compliance',
-    'Digital work orders and status tracking',
+  const whyChooseUs = [
+    'Rapid emergency response—average <2 hours',
+    'Vetted, insured and certified vendor network',
+    'Transparent pricing and digital work order tracking',
+    'Preventive maintenance plans to reduce costly repairs',
+    '24/7 support for urgent issues',
+    'Comprehensive coverage: residential, commercial, and common areas',
   ];
 
-  const services = [
-    { title: 'HVAC & Electrical', desc: 'Certified specialists for heating, cooling, electrical faults and upgrades' },
-    { title: 'Plumbing', desc: 'Leak detection, pipe repair, drainage and fixture replacement' },
-    { title: 'Carpentry & Joinery', desc: 'Repairs, refurbishments and custom fit-outs' },
-    { title: 'Painting & Finishes', desc: 'Rapid-turn painting, patching and cosmetic works' },
-    { title: 'Landscaping', desc: 'Grounds keeping, irrigation and seasonal cleanups' },
-    { title: 'Cleaning & Waste', desc: 'Common area and end-of-lease cleaning, waste management' },
-    { title: 'Access & Fire Systems', desc: 'Access control, CCTV, fire alarm testing and maintenance' },
-    { title: 'Pest Control', desc: 'Scheduled treatments and responsive interventions' },
+  const serviceList = [
+    'HVAC & Electrical repairs',
+    'Plumbing and leak detection',
+    'Carpentry, painting & finishes',
+    'Landscaping & grounds maintenance',
+    'Cleaning & waste management',
+    'Access control & fire systems',
+    'Pest control',
+    'Safety inspections & compliance',
   ];
 
   const processSteps = [
@@ -59,13 +58,14 @@ export default function MaintenanceAndRepairPage() {
   ];
 
   const navItems = [
-    { href: '#overview', label: 'Overview' },
-    { href: '#features', label: 'Core features' },
-    { href: '#services', label: 'Service catalogue' },
-    { href: '#process', label: 'Process' },
-    { href: '#slas', label: 'SLAs' },
+    { href: '#hero', label: 'Overview' },
+    { href: '#stats', label: 'Key Stats' },
+    { href: '#whychooseus', label: 'Why Choose Us' },
+    { href: '#services', label: 'Our Services' },
+    { href: '#process', label: 'How It Works' },
+    { href: '#slas', label: 'Service Levels' },
     { href: '#faqs', label: 'FAQs' },
-    { href: '#contact', label: 'Contact' },
+    { href: '#contact', label: 'Contact Us' },
   ];
 
   return (
@@ -75,17 +75,17 @@ export default function MaintenanceAndRepairPage() {
         <meta name="description" content="Responsive maintenance and repair services to protect and enhance your assets." />
       </Head>
       <div className="min-h-screen bg-white">
-        <HeroWithForm
-          title="Maintenance & Repair"
-          subtitle="Fast, reliable and transparent maintenance services—from preventive plans to 24/7 emergencies."
-          formContext="maintenance-and-repair"
-          ctas={[{ label: 'Request Service', primary: true }, { label: 'Emergency Callout' }]}
-        />
+        {/* Hero Section */}
+        <section id="hero" className="relative bg-gradient-to-br from-blue-50 via-white to-blue-100 py-20 text-center">
+          <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">Maintenance & Repair</h1>
+          <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-700">Fast, reliable and transparent maintenance services for homes, buildings and communities. Preventive plans, 24/7 emergency response, and expert repairs.</p>
+          <Button type="primary" size="large" href="#contact">Request Service</Button>
+        </section>
 
         <StickyAnchorNav items={navItems} />
 
-        {/* Stats band */}
-        <section className="relative bg-gray-50 py-10">
+        {/* Key Stats Section */}
+        <section id="stats" className="relative bg-gray-50 py-10">
           <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
             <CanvasGrid className="h-full w-full" density={44} color="#e2e8f0" accent="#334155" />
           </div>
@@ -99,20 +99,35 @@ export default function MaintenanceAndRepairPage() {
           </div>
         </section>
 
-        {/* Core features */}
-        <section id="features" className="relative bg-white py-16 scroll-mt-24">
+        {/* Why Choose Us Section */}
+        <section id="whychooseus" className="py-16 bg-white">
+          <div className="mx-auto max-w-5xl px-6">
+            <h2 className="mb-6 text-3xl font-bold text-gray-900 text-center">Why Choose Us</h2>
+            <ul className="space-y-4 text-lg text-gray-700">
+              {whyChooseUs.map((reason, i) => (
+                <li key={i} className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  {reason}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Our Services Section */}
+        <section id="services" className="relative bg-gray-50 py-16 scroll-mt-24">
           <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
-            <CanvasGrid className="h-full w-full" density={36} color="#eef2f7" accent="#1f2937" />
+            <CanvasGrid className="h-full w-full" density={44} color="#e5e7eb" accent="#0f172a" />
           </div>
           <div className="mx-auto max-w-6xl px-6">
-            <div className="mb-10 text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100"><Wrench className="h-6 w-6 text-blue-700" /></div>
-              <h2 className="text-3xl font-bold">Core Features</h2>
+            <div className="mb-8 text-center">
+              <h2 className="text-3xl font-bold text-gray-900">Our Services</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-gray-600">Comprehensive maintenance and repair solutions for every property type.</p>
             </div>
-            <div className="mx-auto max-w-3xl space-y-3">
-              {features.map((f, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <CheckCircle className="mt-0.5 h-5 w-5 text-green-500" />
+            <div className="grid gap-4 md:grid-cols-2">
+              {serviceList.map((f, i) => (
+                <div key={i} className="flex items-start gap-3 rounded-lg bg-white p-4 shadow-sm">
+                  <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-green-500" />
                   <span className="text-gray-700">{f}</span>
                 </div>
               ))}
@@ -120,31 +135,11 @@ export default function MaintenanceAndRepairPage() {
           </div>
         </section>
 
-        {/* Service Catalogue */}
-        <section id="services" className="relative bg-gray-50 py-16 scroll-mt-24">
-          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
-            <CanvasGrid className="h-full w-full" density={44} color="#e5e7eb" accent="#0f172a" />
-          </div>
-          <div className="mx-auto max-w-6xl px-6">
-            <h3 className="mb-8 text-center text-2xl font-bold">Service Catalogue</h3>
-            <div className="grid gap-6 md:grid-cols-3">
-              {services.map((s, i) => (
-                <Card key={i} className="border border-gray-200 shadow-sm">
-                  <div className="p-6">
-                    <h4 className="mb-1 text-lg font-semibold">{s.title}</h4>
-                    <p className="text-gray-600">{s.desc}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Process */}
+        {/* How It Works Section */}
         <section id="process" className="bg-white py-16 scroll-mt-24">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold text-gray-900">How it works</h2>
+              <h2 className="text-3xl font-bold text-gray-900">How It Works</h2>
               <p className="mx-auto mt-3 max-w-2xl text-gray-600">Clear workflows and communication from request to resolution.</p>
             </div>
             <div className="relative">
@@ -162,11 +157,11 @@ export default function MaintenanceAndRepairPage() {
           </div>
         </section>
 
-        {/* SLAs */}
+        {/* Service Levels (SLAs) Section */}
         <section id="slas" className="bg-gray-50 py-16 scroll-mt-24">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold text-gray-900">Service levels</h2>
+              <h2 className="text-3xl font-bold text-gray-900">Service Levels</h2>
               <p className="mx-auto mt-3 max-w-2xl text-gray-600">Target response windows to match the urgency of each request.</p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
@@ -187,15 +182,15 @@ export default function MaintenanceAndRepairPage() {
           </div>
         </section>
 
-        {/* FAQs */}
+        {/* FAQs Section */}
         <section id="faqs" className="bg-white py-16 scroll-mt-24">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="mb-6 text-3xl font-bold text-gray-900">Frequently asked questions</h2>
+            <h2 className="mb-6 text-3xl font-bold text-gray-900">Frequently Asked Questions</h2>
             <Collapse accordion items={faqs.map((f, i) => ({ key: String(i + 1), label: <span className="text-gray-900">{f.q}</span>, children: <p className="text-gray-600">{f.a}</p> }))} />
           </div>
         </section>
 
-        {/* Contact CTA */}
+        {/* Contact Us Section (Single Form) */}
         <section id="contact" className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black py-16 text-white scroll-mt-24">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute left-1/4 top-1/4 h-64 w-64 rounded-full bg-blue-500 blur-3xl" />
@@ -214,11 +209,14 @@ export default function MaintenanceAndRepairPage() {
                   { name: 'email', label: 'Email', required: true, type: 'email', placeholder: 'you@example.com' },
                   { name: 'message', label: 'Issue', type: 'textarea', rows: 4, placeholder: 'Describe the issue (include photos/links if available)' },
                 ]} />
+                <div className="mt-6 text-center">
+                  <Button type="default" href="https://wa.me/your-number" target="_blank">Contact via WhatsApp</Button>
+                </div>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
                 <div className="mb-4 flex items-center gap-2"><Phone className="h-5 w-5" /><span>+1 (555) 123-4567</span></div>
                 <div className="mb-4 flex items-center gap-2"><Mail className="h-5 w-5" /><span>services@coastplanet.com</span></div>
-                <p className="text-gray-300">Prefer messaging? Use the List Your Property button in the header to contact us on WhatsApp.</p>
+                <p className="text-gray-300">Prefer messaging? Use WhatsApp for a quick response.</p>
               </div>
             </div>
           </div>
