@@ -7,10 +7,12 @@ import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
 import { Breadcrumb, Button, Card, Empty, Input, Pagination, Select, Spin, Tag, Checkbox, Drawer, Divider } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import PropertySearchFilters from '@/components/ui/PropertySearchFilters';
+import { managementRights } from '@/data/managementRightsData';
 
 const { Option } = Select;
 
 export default function PermanentManagementRightsPage() {
+  const meta = managementRights.permanent;
   // UI state
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -92,15 +94,13 @@ export default function PermanentManagementRightsPage() {
       <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 mb-6 border border-blue-100">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Permanent Management Rights</h1>
-            <p className="mt-1 text-gray-600 max-w-2xl">
-              Discover established complexes with stable, long-term letting pools. Browse opportunities and learn how permanent management rights operate.
-            </p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{meta.title}</h1>
+            <p className="mt-1 text-gray-600 max-w-2xl">{meta.subtitle}</p>
           </div>
           <div className="flex gap-2">
-            <Link href="/management-rights/off-the-plan"><Button>Off The Plan</Button></Link>
-            <Link href="/management-rights/resort-holiday"><Button>Resort | Holiday</Button></Link>
-            <Link href="/management-rights/retirement"><Button>Retirement</Button></Link>
+            {meta.heroCtas.map((c) => (
+              <Link key={c.href} href={c.href}><Button>{c.label}</Button></Link>
+            ))}
           </div>
         </div>
       </div>
@@ -218,7 +218,7 @@ export default function PermanentManagementRightsPage() {
       <div className="mb-6">
         <h2 className="text-sm font-semibold text-gray-700 mb-2">Browse by region</h2>
         <div className="flex flex-wrap gap-2">
-          {[ 'Brisbane', 'Gold Coast', 'Sunshine Coast', 'Cairns', 'Townsville', 'Toowoomba' ].map((r) => (
+          {meta.regions.map((r) => (
             <Button key={r} size="small" onClick={()=>{ setCity(r); setPage(1); }} className={`border ${city===r?'border-blue-500 text-blue-600':''}`}>{r}</Button>
           ))}
         </div>

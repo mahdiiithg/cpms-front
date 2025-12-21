@@ -71,7 +71,20 @@ const Header = () => {
       href: '/services',
       icon: <Settings className="h-5 w-5" />,
       description: 'Professional property services',
-      sections: [],
+      sections: [
+        {
+          title: 'Our Services',
+          items: [
+            { label: 'Property Management', href: '/services/property-management' },
+            { label: 'Development Sales and Consultancy', href: '/services/development-consultancy' },
+            { label: 'Maintenance and repair', href: '/services/maintenance-and-repair' },
+            { label: 'Structural Engineering', href: '/services/structural-engineering' },
+            { label: 'Landscape Design & Architectural Planning', href: '/services/landscape-design-architectural-planning' },
+            { label: 'Interior Design & Smart Home Integration', href: '/services/interior-design-smart-home-integration' },
+            { label: 'Property Marketing & Leasing', href: '/services/property-marketing-leasing' },
+          ],
+        },
+      ],
     },
     {
       id: 'global-affiliations',

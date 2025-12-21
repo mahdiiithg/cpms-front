@@ -19,7 +19,6 @@ const AuthModal = ({ open, onClose }) => {
       open={open}
       onCancel={onClose}
       footer={null}
-      destroyOnClose
     >
       <div className="mb-4">
         <Segmented

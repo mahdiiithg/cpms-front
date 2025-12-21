@@ -5,10 +5,12 @@ import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import { SEARCH_PROPERTIES } from '@/lib/queries/property';
 import { Breadcrumb, Button, Card, Empty, Input, Pagination, Select, Spin, Tag, Checkbox, Drawer, Divider } from 'antd';
+import { managementRights } from '@/data/managementRightsData';
 
 const { Option } = Select;
 
 export default function ResortHolidayManagementRightsPage() {
+  const meta = managementRights.resortHoliday;
   // UI state
   const [page, setPage] = useState(1);
   const pageSize = 12;
@@ -92,15 +94,13 @@ export default function ResortHolidayManagementRightsPage() {
       <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 mb-6 border border-blue-100">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Resort / Holiday Management Rights</h1>
-            <p className="mt-1 text-gray-600 max-w-2xl">
-              Explore short-stay letting businesses in top destinations. Search coastal resorts, beachfront complexes, and urban hotels.
-            </p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{meta.title}</h1>
+            <p className="mt-1 text-gray-600 max-w-2xl">{meta.subtitle}</p>
           </div>
           <div className="flex gap-2">
-            <Link href="/management-rights/permanent"><Button>Permanent</Button></Link>
-            <Link href="/management-rights/off-the-plan"><Button>Off The Plan</Button></Link>
-            <Link href="/management-rights/retirement"><Button>Retirement</Button></Link>
+            {meta.heroCtas.map((c) => (
+              <Link key={c.href} href={c.href}><Button>{c.label}</Button></Link>
+            ))}
           </div>
         </div>
       </div>
@@ -218,7 +218,7 @@ export default function ResortHolidayManagementRightsPage() {
           <div className="mb-6">
             <h2 className="text-sm font-semibold text-gray-700 mb-2">Browse by region</h2>
             <div className="flex flex-wrap gap-2">
-              {[ 'Gold Coast', 'Sunshine Coast', 'Cairns', 'Byron Bay', 'Brisbane' ].map((r) => (
+              {meta.regions.map((r) => (
                 <Button key={r} size="small" onClick={()=>{ setCity(r); setPage(1); }} className={`border ${city===r?'border-blue-500 text-blue-600':''}`}>{r}</Button>
               ))}
             </div>
@@ -230,7 +230,7 @@ export default function ResortHolidayManagementRightsPage() {
               <h2 className="text-xl font-semibold mb-3">Listing of the Month</h2>
               <Card
                 key={listingOfTheMonth.id}
-                cover={<img src={listingOfTheMonth.images?.[0] || '/images/placeholder-property.jpg'} alt={listingOfTheMonth.title} className="h-64 w-full object-cover" />}
+                cover={<img src={listingOfTheMonth.images?.[0] || '/images/placeholder-property.png'} alt={listingOfTheMonth.title} className="h-64 w-full object-cover" />}
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -251,7 +251,7 @@ export default function ResortHolidayManagementRightsPage() {
               <h2 className="text-xl font-semibold mb-3">Featured Resort & Holiday Opportunities</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {featured.slice(1, 4).map((p) => (
-                  <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.jpg'} alt={p.title} className="h-48 w-full object-cover" />}>
+                  <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.png'} alt={p.title} className="h-48 w-full object-cover" />}>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <h3 className="font-semibold line-clamp-1">{p.title}</h3>
@@ -278,7 +278,7 @@ export default function ResortHolidayManagementRightsPage() {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredProperties.map((p) => (
-                  <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.jpg'} alt={p.title} className="h-56 w-full object-cover" />}>
+                  <Card key={p.id} cover={<img src={p.images?.[0] || '/images/placeholder-property.png'} alt={p.title} className="h-56 w-full object-cover" />}>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <h3 className="font-semibold line-clamp-1">{p.title}</h3>

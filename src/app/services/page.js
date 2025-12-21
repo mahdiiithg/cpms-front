@@ -23,6 +23,7 @@ import {
   Zap,
 } from 'lucide-react';
 import Head from 'next/head';
+import { serviceCategories, clientTestimonials, processSteps, whyChooseUs } from '@/data/servicesData';
 
 // SEO Metadata
 const metadata = {
@@ -65,6 +66,33 @@ const ServicesPage = () => {
     yearsExperience: 0,
   });
 
+  // Sync active tab with URL hash (e.g., /services#property-management)
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '';
+      if (hash) {
+        setActiveService(hash);
+      }
+    };
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+    return () => window.removeEventListener('hashchange', applyHash);
+  }, []);
+
+  // Scroll into view when activeService changes and matches current hash
+  useEffect(() => {
+    const hash = typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '';
+    if (hash && hash === activeService) {
+      // Defer to ensure DOM has rendered
+      requestAnimationFrame(() => {
+        const el = document.getElementById(activeService);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+  }, [activeService]);
+
   useEffect(() => {
     // Animate stats on component mount
     const timer = setTimeout(() => {
@@ -77,453 +105,6 @@ const ServicesPage = () => {
     }, 500);
     return () => clearTimeout(timer);
   }, []);
-
-  const serviceCategories = [
-    {
-      id: 'property-management',
-      title: 'Property Management',
-      icon: <Building className="h-8 w-8" />,
-      shortDescription:
-        'Complete turnkey property management solutions for residential and commercial properties',
-      description:
-        'Coast Planet manages one of the largest portfolios of residential and commercial properties in Los Angeles, with over 8,500 units under management. We offer a turnkey service that covers property marketing and tenant screening right through to rent collection and maintenance – as well as ensuring you get the best market rate.',
-      features: [
-        'Professional tenant screening & placement with 96% success rate',
-        'Automated rent collection & comprehensive financial reporting',
-        'Proactive property maintenance & 24/7 emergency response',
-        'Legal compliance support & documentation management',
-        'Regular property inspections & detailed evaluations',
-        'Advanced property management software & landlord portal',
-      ],
-      benefits: [
-        {
-          title: '96% Occupancy Rate',
-          description:
-            'We maintain industry-leading occupancy rates through strategic marketing and quality tenant placement',
-          icon: <Target className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Expert Management Team',
-          description:
-            'Dedicated property managers with years of experience and local market expertise',
-          icon: <Users className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Technology-Driven Solutions',
-          description:
-            'Advanced property management software with landlord portal for real-time access',
-          icon: <Zap className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Comprehensive Service',
-          description:
-            'From marketing to maintenance, we handle every aspect of property management',
-          icon: <Shield className="h-6 w-6 text-blue-600" />,
-        },
-      ],
-      packages: [
-        {
-          name: 'Silver Package',
-          price: '5% of rental income',
-          features: [
-            'Property listing & marketing',
-            'Tenant screening & leasing',
-            'Tenancy contract creation',
-            'Move-in/out inspections',
-            'Rental payment collection',
-            'Basic reporting',
-          ],
-        },
-        {
-          name: 'Gold Package',
-          price: '7% of rental income',
-          features: [
-            'All Silver Package features',
-            'Maintenance coordination',
-            'Utility bill management',
-            'Service charge payments',
-            'Enhanced reporting',
-            'Priority support',
-          ],
-          popular: true,
-        },
-        {
-          name: 'Platinum Package',
-          price: '10% of rental income',
-          features: [
-            'All Gold Package features',
-            'Annual maintenance package',
-            'Unlimited emergency callouts',
-            'Premium response times',
-            'Quarterly inspections',
-            'Dedicated property manager',
-          ],
-        },
-      ],
-    },
-    {
-      id: 'development-consultancy',
-      title: 'Development Sales & Consultancy',
-      icon: <TrendingUp className="h-8 w-8" />,
-      shortDescription:
-        'Expert guidance for property development projects from concept to completion',
-      description:
-        'Our in-house teams paired with market-leading external consultants allow us to devise tailored strategies to define, design, develop and deliver projects to market. Through our deep local knowledge of the Los Angeles real estate market, we advise our clients at every step of the development cycle.',
-      features: [
-        'Comprehensive market research & feasibility studies',
-        'Project development strategy & planning consultation',
-        'Regulatory compliance support & legal guidance',
-        'Sales & marketing strategy development',
-        'Brand partnership structuring & negotiations',
-        'Project management & oversight services',
-      ],
-      benefits: [
-        {
-          title: 'Local Market Expertise',
-          description:
-            'Deep knowledge of Los Angeles real estate market trends and regulations',
-          icon: <Eye className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'End-to-End Solutions',
-          description:
-            'Complete support from initial concept through to project completion and handover',
-          icon: <ArrowRight className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Strategic Partnerships',
-          description:
-            'Access to leading consultants, contractors, and industry professionals',
-          icon: <Users className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Proven Track Record',
-          description:
-            'Successful completion of numerous high-value development projects',
-          icon: <Award className="h-6 w-6 text-blue-600" />,
-        },
-      ],
-      packages: [
-        {
-          name: 'Promote Package',
-          price: 'Custom Quote',
-          features: [
-            'Sales & marketing strategy',
-            '360° marketing and PR',
-            'Sales journey creation',
-            'Sales experience center',
-            'Launch events coordination',
-            'External broker onboarding',
-          ],
-        },
-        {
-          name: 'Consult Package',
-          price: 'Custom Quote',
-          features: [
-            'All Promote features',
-            'SPA terms & documentation',
-            'Branding & design guidance',
-            'Product mix & pricing',
-            'Amenity planning',
-            'Brand partnership structuring',
-          ],
-          popular: true,
-        },
-        {
-          name: 'Complete Package',
-          price: 'Custom Quote',
-          features: [
-            'All Consult features',
-            'Market research & analysis',
-            'Investor introductions',
-            'Feasibility studies',
-            'Regulatory compliance',
-            'Management & operations',
-          ],
-        },
-      ],
-    },
-    {
-      id: 'building-management',
-      title: 'Building Management',
-      icon: <Settings className="h-8 w-8" />,
-      shortDescription:
-        'Professional building management for commercial and residential complexes',
-      description:
-        'Whether you own a single property or have an extensive asset portfolio, you naturally want to maximize your return on investment. Our 50-strong team of residential and commercial property management professionals are your eyes and ears on the ground.',
-      features: [
-        'Comprehensive facility management & daily operations',
-        'Common area maintenance & landscaping services',
-        'Advanced security systems & access control',
-        'Utilities management & cost optimization',
-        'Vendor coordination & service management',
-        'Emergency preparedness & response protocols',
-      ],
-      benefits: [
-        {
-          title: 'Operational Efficiency',
-          description:
-            'Optimized building operations that reduce overall costs and improve performance',
-          icon: <Settings className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Safety & Compliance',
-          description:
-            'Comprehensive safety protocols with regular inspections and compliance monitoring',
-          icon: <Shield className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Tenant Satisfaction',
-          description:
-            'High-quality service delivery that ensures tenant retention and satisfaction',
-          icon: <Star className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Asset Protection',
-          description:
-            'Proactive maintenance strategies that protect and enhance property value',
-          icon: <Building className="h-6 w-6 text-blue-600" />,
-        },
-      ],
-      packages: [
-        {
-          name: 'Basic Management',
-          price: '3-5% of gross income',
-          features: [
-            'Daily facility operations',
-            'Basic maintenance coordination',
-            'Vendor management',
-            'Financial reporting',
-            'Tenant communications',
-            'Monthly inspections',
-          ],
-        },
-        {
-          name: 'Comprehensive Management',
-          price: '5-8% of gross income',
-          features: [
-            'All Basic features',
-            'Security system management',
-            'Energy optimization',
-            'Preventive maintenance',
-            'Emergency response 24/7',
-            'Quarterly planning reviews',
-          ],
-          popular: true,
-        },
-        {
-          name: 'Premium Management',
-          price: '8-12% of gross income',
-          features: [
-            'All Comprehensive features',
-            'Dedicated building manager',
-            'Advanced analytics',
-            'Capital improvement planning',
-            'Sustainability initiatives',
-            'Premium tenant services',
-          ],
-        },
-      ],
-    },
-    {
-      id: 'additional-services',
-      title: 'Additional Services',
-      icon: <Star className="h-8 w-8" />,
-      shortDescription:
-        'Specialized property services to meet all your real estate needs',
-      description:
-        'Coast Planet offers a comprehensive range of additional services designed to provide complete real estate solutions. From property valuations to legal services, we ensure every aspect of your property needs is covered by experienced professionals.',
-      features: [
-        'Professional property valuation & appraisal services',
-        'Comprehensive investment analysis & ROI reports',
-        'Legal compliance support & documentation services',
-        'Insurance coordination & risk management',
-        'Property staging & interior design consultation',
-        'Smart home technology integration services',
-      ],
-      benefits: [
-        {
-          title: 'One-Stop Solutions',
-          description:
-            'Complete property services under one roof for maximum convenience',
-          icon: <CheckCircle className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Expert Network',
-          description:
-            'Access to specialized professionals across all property service areas',
-          icon: <Users className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Value Optimization',
-          description:
-            'Services specifically designed to maximize your property investment value',
-          icon: <TrendingUp className="h-6 w-6 text-blue-600" />,
-        },
-        {
-          title: 'Custom Solutions',
-          description:
-            'Tailored services to meet your specific property requirements',
-          icon: <Settings className="h-6 w-6 text-blue-600" />,
-        },
-      ],
-      packages: [
-        {
-          name: 'Valuation Services',
-          price: '$500-2,000',
-          features: [
-            'Professional property appraisal',
-            'Market analysis report',
-            'Investment ROI calculation',
-            'Comparative market analysis',
-            'Digital property report',
-            '48-hour turnaround',
-          ],
-        },
-        {
-          name: 'Legal & Compliance',
-          price: 'Custom Quote',
-          features: [
-            'Document preparation',
-            'Legal compliance audit',
-            'Contract review services',
-            'Regulatory guidance',
-            'Dispute resolution support',
-            'Ongoing legal consultation',
-          ],
-        },
-        {
-          name: 'Property Enhancement',
-          price: 'Custom Quote',
-          features: [
-            'Interior design consultation',
-            'Property staging services',
-            'Smart home integration',
-            'Energy efficiency upgrades',
-            'Photography & marketing',
-            'ROI improvement strategies',
-          ],
-          popular: true,
-        },
-      ],
-    },
-  ];
-  const clientTestimonials = [
-    {
-      name: 'Sarah Johnson',
-      role: 'Property Owner',
-      property: 'Beverly Hills Luxury Apartments',
-      rating: 5,
-      comment:
-        'Coast Planet has managed my properties for over 3 years. Their professionalism and attention to detail is unmatched. My properties maintain 100% occupancy and rental income has increased by 25%.',
-      image: '/api/placeholder/80/80',
-    },
-    {
-      name: 'Michael Chen',
-      role: 'Real Estate Developer',
-      property: 'Downtown LA Mixed-Use Development',
-      rating: 5,
-      comment:
-        'Their development consultancy services were invaluable for our LA project. From market analysis to sales strategy, they guided us through every step and helped us achieve 90% pre-sales before completion.',
-      image: '/api/placeholder/80/80',
-    },
-    {
-      name: 'Lisa Rodriguez',
-      role: 'Commercial Building Owner',
-      property: 'Santa Monica Office Complex',
-      rating: 5,
-      comment:
-        'The building management team is exceptional. They handle everything from maintenance to tenant relations seamlessly. Our operating costs decreased by 15% while tenant satisfaction increased significantly.',
-      image: '/api/placeholder/80/80',
-    },
-    {
-      name: 'David Park',
-      role: 'Investment Portfolio Manager',
-      property: 'Multi-Property Portfolio',
-      rating: 5,
-      comment:
-        'Coast Planet manages our entire 50-unit portfolio across LA. Their technology platform gives us real-time insights, and their proactive approach has maximized our ROI consistently.',
-      image: '/api/placeholder/80/80',
-    },
-    {
-      name: 'Jennifer Martinez',
-      role: 'Luxury Villa Owner',
-      property: 'Malibu Oceanfront Villa',
-      rating: 5,
-      comment:
-        'From property staging to tenant screening, Coast Planet delivered exceptional service. They found premium tenants quickly and handle all maintenance issues promptly and professionally.',
-      image: '/api/placeholder/80/80',
-    },
-    {
-      name: 'Robert Kim',
-      role: 'Commercial Developer',
-      property: 'Pasadena Retail Center',
-      rating: 5,
-      comment:
-        'Their development consultancy was crucial for our retail project success. They provided market insights, managed regulatory approvals, and delivered a comprehensive sales strategy that exceeded projections.',
-      image: '/api/placeholder/80/80',
-    },
-  ];
-
-  const processSteps = [
-    {
-      step: '01',
-      title: 'Initial Consultation',
-      description:
-        'We begin with a comprehensive consultation to understand your specific needs and property requirements.',
-    },
-    {
-      step: '02',
-      title: 'Property Assessment',
-      description:
-        'Our experts conduct a thorough assessment of your property to identify opportunities and challenges.',
-    },
-    {
-      step: '03',
-      title: 'Custom Strategy',
-      description:
-        "We develop a tailored strategy that aligns with your goals and maximizes your property's potential.",
-    },
-    {
-      step: '04',
-      title: 'Implementation',
-      description:
-        'Our professional team executes the strategy with precision, keeping you informed every step of the way.',
-    },
-    {
-      step: '05',
-      title: 'Ongoing Management',
-      description:
-        'We provide continuous monitoring and optimization to ensure sustained success and growth.',
-    },
-  ];
-
-  const whyChooseUs = [
-    {
-      icon: <Award className="h-12 w-12 text-blue-600" />,
-      title: 'Industry Expertise',
-      description:
-        'Over 6 years of experience in Los Angeles real estate market with proven track record of success.',
-    },
-    {
-      icon: <Shield className="h-12 w-12 text-blue-600" />,
-      title: 'Trusted & Reliable',
-      description:
-        'Licensed and insured with transparent processes and comprehensive reporting for peace of mind.',
-    },
-    {
-      icon: <Clock className="h-12 w-12 text-blue-600" />,
-      title: '24/7 Support',
-      description:
-        'Round-the-clock availability for emergencies and dedicated support for all your property needs.',
-    },
-    {
-      icon: <TrendingUp className="h-12 w-12 text-blue-600" />,
-      title: 'Technology-Driven',
-      description:
-        'Cutting-edge property management software and digital solutions for maximum efficiency.',
-    },
-  ];
 
   return (
     <>
@@ -737,6 +318,7 @@ const ServicesPage = () => {
               (category) =>
                 activeService === category.id && (
                   <div
+                    id={category.id}
                     key={category.id}
                     className="grid items-start gap-12 lg:grid-cols-2"
                   >
