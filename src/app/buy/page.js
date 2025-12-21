@@ -222,28 +222,27 @@ export default function BuyPage() {
   const displayProperties = properties || [];
 
   return (
-    <div className="min-h-screen bg-white">{/* Breadcrumb */}
-      <div className="bg-gray-50 py-2 sm:py-3">
+    <div className="min-h-screen bg-[#171717]">{/* Breadcrumb */}
+      <div className="bg-[#1a1a1a] py-2 sm:py-3 border-b border-gray-800">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
-          <div className="flex items-center space-x-1 text-xs text-gray-600 sm:space-x-2 sm:text-sm">
-            <a href="/" className="hover:text-blue-600">
+          <div className="flex items-center space-x-1 text-xs text-gray-400 sm:space-x-2 sm:text-sm">
+            <a href="/" className="hover:text-[#ccff00] transition-colors">
               Home
             </a>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
-            <span className="text-blue-600">Buy</span>
+            <span className="text-[#ccff00]">Buy</span>
           </div>
         </div>
       </div>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-blue-50 to-white py-8 sm:py-12 lg:py-16">
+      <section className="bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] py-8 sm:py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
           <div className="mb-8 text-center sm:mb-12">
-            {' '}
-            <h1 className="mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl lg:text-4xl xl:text-5xl">
+            <h1 className="mb-4 text-2xl font-bold text-white sm:mb-6 sm:text-3xl lg:text-4xl xl:text-5xl">
               Properties for Sale
             </h1>
-            <p className="mx-auto mb-6 max-w-3xl text-lg text-gray-600 sm:mb-8 sm:text-xl">
+            <p className="mx-auto mb-6 max-w-3xl text-lg text-gray-400 sm:mb-8 sm:text-xl">
               Discover your dream property from our exclusive collection of
               luxury homes, modern condos, and premium villas.
             </p>
@@ -266,8 +265,8 @@ export default function BuyPage() {
                 className={`rounded-full ${
                   filters.minPrice === range.min &&
                   filters.maxPrice === range.max
-                    ? 'border-blue-600 bg-blue-600 text-white'
-                    : 'border-gray-200 text-gray-600 hover:border-blue-400'
+                    ? 'border-[#ccff00] bg-[#ccff00] text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]'
+                    : 'border-gray-700 bg-[#212121] text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]'
                 }`}
               >
                 {range.label}
@@ -285,12 +284,12 @@ export default function BuyPage() {
             <div
               className={`lg:w-80 ${showFilters ? 'block' : 'hidden lg:block'}`}
             >
-              <Card className="sticky top-4">
+              <Card className="sticky top-4 bg-[#1a1a1a] border-gray-800">
                 <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-semibold text-white">
                     Filters
                   </h3>
-                  <Button type="text" size="small" onClick={clearFilters}>
+                  <Button type="text" size="small" onClick={clearFilters} className="text-[#ccff00] hover:text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.8)]">
                     Clear All
                   </Button>
                 </div>
@@ -298,14 +297,14 @@ export default function BuyPage() {
                 <div className="space-y-6">
                   {/* Property Type */}
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-gray-700">
+                    <label className="mb-2 block text-sm font-medium text-white">
                       Property Type
                     </label>
                     <Select
                       placeholder="Select property type"
                       value={filters.type}
                       onChange={(value) => handleFilterChange('type', value)}
-                      className="w-full"
+                      className="w-full dark-select"
                       allowClear
                     >
                       {propertyTypes.map((type) => (
@@ -317,7 +316,7 @@ export default function BuyPage() {
                   </div>
                   {/* Price Range */}
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-gray-700">
+                    <label className="mb-2 block text-sm font-medium text-white">
                       Price Range
                     </label>
                     <div className="space-y-3">
@@ -332,6 +331,7 @@ export default function BuyPage() {
                             )
                           }
                           prefix="$"
+                          className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
                         />
                         <Input
                           placeholder="Max Price"
@@ -343,13 +343,14 @@ export default function BuyPage() {
                             )
                           }
                           prefix="$"
+                          className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
                         />
                       </div>
                     </div>
                   </div>
                   {/* Bedrooms */}
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-gray-700">
+                    <label className="mb-2 block text-sm font-medium text-white">
                       Minimum Bedrooms
                     </label>
                     <Select
@@ -358,7 +359,7 @@ export default function BuyPage() {
                       onChange={(value) =>
                         handleFilterChange('minBedrooms', value)
                       }
-                      className="w-full"
+                      className="w-full dark-select"
                       allowClear
                     >
                       {[1, 2, 3, 4, 5, 6].map((num) => (
@@ -369,7 +370,7 @@ export default function BuyPage() {
                     </Select>
                   </div>
                   <div>
-                    <label className="mb-3 block text-sm font-medium text-gray-700">
+                    <label className="mb-3 block text-sm font-medium text-white">
                       Property Features
                     </label>
                     <div className="space-y-2">
@@ -382,8 +383,9 @@ export default function BuyPage() {
                               e.target.checked,
                             )
                           }
+                          className="text-gray-300"
                         >
-                          Parking Required
+                          <span className="text-gray-300">Parking Required</span>
                         </Checkbox>
                       </div>
                       <div>
@@ -395,15 +397,16 @@ export default function BuyPage() {
                               e.target.checked,
                             )
                           }
+                          className="text-gray-300"
                         >
-                          Available for Home Swap
+                          <span className="text-gray-300">Available for Home Swap</span>
                         </Checkbox>
                       </div>
                     </div>
                   </div>
                   {/* Location Features */}
                   <div>
-                    <label className="mb-3 block text-sm font-medium text-gray-700">
+                    <label className="mb-3 block text-sm font-medium text-white">
                       Location Features
                     </label>
                     <div className="max-h-32 flex-col space-y-2 overflow-y-auto">
@@ -425,10 +428,11 @@ export default function BuyPage() {
                                 );
                               }
                             }}
+                            className="text-gray-300"
                           >
-                            {feature
+                            <span className="text-gray-300">{feature
                               .replace(/_/g, ' ')
-                              .replace(/\b\w/g, (l) => l.toUpperCase())}
+                              .replace(/\b\w/g, (l) => l.toUpperCase())}</span>
                           </Checkbox>
                         </div>
                       ))}
@@ -436,7 +440,7 @@ export default function BuyPage() {
                   </div>
                   {/* Amenities */}
                   <div>
-                    <label className="mb-3 block text-sm font-medium text-gray-700">
+                    <label className="mb-3 block text-sm font-medium text-white">
                       Amenities
                     </label>
                     <div className="max-h-40 space-y-2 overflow-y-auto">
@@ -460,10 +464,11 @@ export default function BuyPage() {
                                 );
                               }
                             }}
+                            className="text-gray-300"
                           >
-                            {amenity
+                            <span className="text-gray-300">{amenity
                               .replace(/_/g, ' ')
-                              .replace(/\b\w/g, (l) => l.toUpperCase())}
+                              .replace(/\b\w/g, (l) => l.toUpperCase())}</span>
                           </Checkbox>
                         </div>
                       ))}
@@ -479,10 +484,10 @@ export default function BuyPage() {
               <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
                 {' '}
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                  <h2 className="text-xl font-bold text-white sm:text-2xl">
                     Properties for Sale
                   </h2>
-                  <p className="mt-1 text-gray-600">
+                  <p className="mt-1 text-gray-400">
                     {loading
                       ? 'Loading...'
                       : `${displayProperties.length} properties found`}
@@ -494,19 +499,19 @@ export default function BuyPage() {
                   <Button
                     icon={<SlidersHorizontal className="h-4 w-4" />}
                     onClick={() => setShowFilters(!showFilters)}
-                    className="lg:hidden"
+                    className="lg:hidden bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]"
                   >
                     Filters
                   </Button>
 
                   {/* View Mode Toggle */}
-                  <div className="hidden rounded-lg border border-gray-200 p-1 sm:flex">
+                  <div className="hidden rounded-lg border border-gray-800 bg-[#212121] p-1 sm:flex">
                     <Button
                       type={viewMode === 'grid' ? 'primary' : 'text'}
                       size="small"
                       icon={<Grid className="h-4 w-4" />}
                       onClick={() => setViewMode('grid')}
-                      className={viewMode === 'grid' ? 'bg-blue-600' : ''}
+                      className={viewMode === 'grid' ? 'bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]' : 'text-gray-400 hover:text-[#ccff00]'}
                     >
                       Grid
                     </Button>
@@ -515,7 +520,7 @@ export default function BuyPage() {
                       size="small"
                       icon={<List className="h-4 w-4" />}
                       onClick={() => setViewMode('list')}
-                      className={viewMode === 'list' ? 'bg-blue-600' : ''}
+                      className={viewMode === 'list' ? 'bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]' : 'text-gray-400 hover:text-[#ccff00]'}
                     >
                       List
                     </Button>
@@ -526,12 +531,12 @@ export default function BuyPage() {
               {/* Properties Grid/List */}
               {loading ? (
                 <div className="flex items-center justify-center py-12">
-                  <Spin size="large" />
+                  <Spin size="large" className="text-[#ccff00]" />
                 </div>
               ) : error ? (
                 <div className="space-y-4">
-                  <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-                    <p className="text-sm text-yellow-800">
+                  <div className="rounded-lg border border-yellow-900/30 bg-yellow-900/10 p-4">
+                    <p className="text-sm text-yellow-400">
                       Unable to connect to server. Showing sample coastal
                       properties.
                     </p>
@@ -549,7 +554,9 @@ export default function BuyPage() {
                   </div>
                 </div>
               ) : displayProperties.length === 0 ? (
-                <Empty description="No properties found" className="py-12" />
+                <div className="bg-[#1a1a1a] rounded-2xl border border-gray-800 p-8">
+                  <Empty description={<span className="text-gray-400">No properties found</span>} className="py-12" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                </div>
               ) : (
                 <>
                   {' '}
@@ -576,6 +583,7 @@ export default function BuyPage() {
                       showTotal={(total, range) =>
                         `${range[0]}-${range[1]} of ${total} properties`
                       }
+                      className="dark-pagination"
                     />
                   </div>
                 </>
@@ -586,12 +594,12 @@ export default function BuyPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 py-8 sm:py-12 lg:py-16">
+      <section className="bg-[#1a1a1a] border-t border-gray-800 py-8 sm:py-12 lg:py-16">
         <div className="mx-auto max-w-4xl px-3 text-center sm:px-4 lg:px-8">
           <h2 className="mb-4 text-2xl font-bold text-white sm:mb-6 sm:text-3xl">
             Can't find what you're looking for?
           </h2>{' '}
-          <p className="mb-6 text-sm text-blue-100 sm:mb-8 sm:text-base">
+          <p className="mb-6 text-sm text-gray-400 sm:mb-8 sm:text-base">
             Our experts can help you find the perfect property that matches your
             requirements.
           </p>
@@ -599,12 +607,12 @@ export default function BuyPage() {
             <Button
               type="default"
               size="large"
-              className="flex-1"
+              className="flex-1 bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]"
               href="/contact"
             >
               Contact an Agent
             </Button>
-            <Button type="default" size="large" className="flex-1">
+            <Button type="default" size="large" className="flex-1 bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]">
               Create Property Alert
             </Button>
           </div>        </div>      </section>

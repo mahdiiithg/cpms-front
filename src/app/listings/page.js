@@ -235,7 +235,7 @@ export default function PropertyListingsPage() {
 
     return (
       <Card
-        className={`property-card hover:shadow-lg transition-all duration-300 ${
+        className={`property-card bg-[#1a1a1a] border-gray-800 hover:border-[#ccff00]/30 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(204,255,0,0.3)] ${
           isListView ? 'mb-4' : ''
         }`}
         cover={
@@ -247,18 +247,18 @@ export default function PropertyListingsPage() {
             />
             <div className="absolute top-3 left-3 flex gap-2">
               {property.featured && (
-                <Tag color="gold" className="flex items-center gap-1">
-                  <Star className="h-3 w-3" />
+                <Tag className="flex items-center gap-1 bg-[#ccff00]/90 border-0 text-[#171717] font-semibold shadow-[0_0_10px_rgba(204,255,0,0.6)]">
+                  <Star className="h-3 w-3 fill-current" />
                   Featured
                 </Tag>
               )}
               {property.urgent && (
-                <Tag color="red" className="flex items-center gap-1">
+                <Tag className="flex items-center gap-1 bg-red-500/90 border-0 text-white font-semibold">
                   <Clock className="h-3 w-3" />
                   Urgent
                 </Tag>
               )}
-              <Tag color="blue" className="capitalize">
+              <Tag className="capitalize bg-blue-500/90 border-0 text-white font-semibold">
                 {property.listingType}
               </Tag>
             </div>
@@ -267,7 +267,7 @@ export default function PropertyListingsPage() {
                 type="text"
                 shape="circle"
                 size="small"
-                className="bg-white/80 hover:bg-white"
+                className="bg-[#212121]/80 hover:bg-[#212121] border-gray-700 text-gray-300"
                 icon={<Camera className="h-4 w-4" />}
               >
               </Button>
@@ -275,61 +275,61 @@ export default function PropertyListingsPage() {
                 type="text"
                 shape="circle"
                 size="small"
-                className={`${isSaved ? 'bg-red-100 text-red-600' : 'bg-white/80'} hover:bg-white`}
+                className={`${isSaved ? 'bg-[#ccff00] text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.5)]' : 'bg-[#212121]/80 text-gray-300'} hover:bg-[#ccff00] hover:text-[#171717] hover:shadow-[0_0_15px_rgba(204,255,0,0.5)] border-gray-700`}
                 icon={<Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />}
                 onClick={() => toggleSaveProperty(property.id)}
               />
             </div>
             <div className="absolute bottom-3 left-3">
-              <Tag color="green" className="text-lg font-semibold">
+              <Tag className="text-lg font-bold bg-[#ccff00] border-0 text-[#171717] px-3 py-1 shadow-[0_0_20px_rgba(204,255,0,0.7)]">
                 {formatPrice(property)}
               </Tag>
             </div>
           </div>
         }
         actions={[
-          <Button key="view" type="link" icon={<Eye className="h-4 w-4" />}>
+          <Button key="view" type="link" icon={<Eye className="h-4 w-4" />} className="text-gray-400 hover:text-[#ccff00]">
             {property.views || 0} views
           </Button>,
-          <Button key="share" type="link" icon={<Share2 className="h-4 w-4" />}>
+          <Button key="share" type="link" icon={<Share2 className="h-4 w-4" />} className="text-gray-400 hover:text-[#ccff00]">
             Share
           </Button>,
-          <Button key="contact" type="primary" icon={<Phone className="h-4 w-4" />}>
+          <Button key="contact" className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]" icon={<Phone className="h-4 w-4" />}>
             Contact
           </Button>
         ]}
       >
         <div className="space-y-3">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
-              <Link href={`/property/${property.id}`} className="hover:text-blue-600">
+            <h3 className="text-lg font-semibold text-white mb-1 line-clamp-2">
+              <Link href={`/property/${property.id}`} className="hover:text-[#ccff00] transition-colors">
                 {property.title}
               </Link>
             </h3>
-            <p className="text-gray-600 flex items-center gap-1">
-              <MapPin className="h-4 w-4" />
+            <p className="text-gray-400 flex items-center gap-1">
+              <MapPin className="h-4 w-4 text-[#ccff00]" />
               {property.location.suburb}, {property.location.city}
             </p>
           </div>
 
-          <div className="flex items-center gap-4 text-gray-600">
+          <div className="flex items-center gap-4 text-gray-400">
             <span className="flex items-center gap-1">
-              <Bed className="h-4 w-4" />
+              <Bed className="h-4 w-4 text-[#ccff00]" />
               {property.bedrooms}
             </span>
             <span className="flex items-center gap-1">
-              <Bath className="h-4 w-4" />
+              <Bath className="h-4 w-4 text-[#ccff00]" />
               {property.bathrooms}
             </span>
             {property.parking > 0 && (
               <span className="flex items-center gap-1">
-                <Car className="h-4 w-4" />
+                <Car className="h-4 w-4 text-[#ccff00]" />
                 {property.parking}
               </span>
             )}
             {property.propertySize && (
               <span className="flex items-center gap-1">
-                <Home className="h-4 w-4" />
+                <Home className="h-4 w-4 text-[#ccff00]" />
                 {property.propertySize} sqm
               </span>
             )}
@@ -338,24 +338,26 @@ export default function PropertyListingsPage() {
           {property.features && property.features.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {property.features.slice(0, 3).map(feature => (
-                <Tag key={feature} size="small" className="text-xs">
+                <Tag key={feature} size="small" className="text-xs bg-[#212121] border-gray-700 text-gray-300">
                   {feature.replace(/_/g, ' ')}
                 </Tag>
               ))}
               {property.features.length > 3 && (
-                <Tag size="small" className="text-xs">
+                <Tag size="small" className="text-xs bg-[#ccff00]/10 border-[#ccff00]/30 text-[#ccff00]">
                   +{property.features.length - 3} more
                 </Tag>
               )}
             </div>
           )}
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between pt-2 border-t border-gray-800">
             <div className="flex items-center gap-2">
-              <Avatar size="small" src={property.agent?.avatar} />
-              <span className="text-sm text-gray-600">{property.agent?.name}</span>
+              <Avatar size="small" src={property.agent?.avatar} className="bg-[#ccff00] shadow-[0_0_10px_rgba(204,255,0,0.4)]" />
+              <span className="text-sm text-gray-400">{property.agent?.name}</span>
             </div>
-            <Link href={`/property/${property.id}`} className="text-blue-600 text-sm">View details</Link>
+            <Link href={`/property/${property.id}`} className="text-[#ccff00] text-sm hover:text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.8)] transition-all">
+              View details →
+            </Link>
           </div>
         </div>
       </Card>
@@ -363,23 +365,23 @@ export default function PropertyListingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#171717]">
       {/* Header */}
-      <div className="bg-white border-b">
+      <div className="bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* Breadcrumb */}
-          <div className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
-            <a href="/" className="hover:text-blue-600">Home</a>
+          <div className="flex items-center space-x-2 text-sm text-gray-400 mb-4">
+            <a href="/" className="hover:text-[#ccff00] transition-colors">Home</a>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-blue-600">Property Listings</span>
+            <span className="text-[#ccff00]">Property Listings</span>
           </div>
 
           {/* Title and Stats */}
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Property Listings</h1>
-              <p className="text-gray-600 mt-1">
-                {loading ? 'Loading...' : `${totalCount} properties found`}
+              <h1 className="text-3xl font-bold text-white">Property Listings</h1>
+              <p className="text-gray-400 mt-1">
+                {loading ? 'Loading...' : `${totalCount} properties available`}
               </p>
             </div>
           </div>
@@ -390,15 +392,19 @@ export default function PropertyListingsPage() {
               placeholder="Search by location, property type, or features..."
               allowClear
               size="large"
-              className="flex-1"
+              className="flex-1 dark-search"
               onSearch={handleSearch}
-              enterButton={<Search className="h-4 w-4" />}
+              enterButton={
+                <Button className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]">
+                  <Search className="h-4 w-4" />
+                </Button>
+              }
             />
             <Button
               size="large"
               icon={<SlidersHorizontal className="h-4 w-4" />}
               onClick={() => setShowFilters(true)}
-              className="lg:hidden"
+              className="lg:hidden bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]"
             >
               Filters
             </Button>
@@ -410,20 +416,37 @@ export default function PropertyListingsPage() {
         <div className="flex gap-6">
           {/* Sidebar Filters - Desktop */}
           <div className="hidden lg:block w-80 space-y-6">
-            <Card title="Filters" extra={
-              <Button type="link" size="small" onClick={clearFilters}>
-                Clear All
-              </Button>
-            }>
-              <div className="space-y-4">
+            <Card 
+              title={<span className="text-white font-semibold drop-shadow-[0_0_10px_rgba(204,255,0,0.3)]">Filters</span>}
+              className="bg-[#1a1a1a] border-gray-800 shadow-[0_0_15px_rgba(204,255,0,0.05)]"
+              extra={
+                <Button 
+                  type="link" 
+                  size="small" 
+                  onClick={clearFilters}
+                  className="text-[#ccff00] hover:text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.8)]"
+                >
+                  Clear All
+                </Button>
+              }
+            >
+              <div className="space-y-6">
                 {/* Property Type - removed on listings page to show all properties by default */}
-                <div>
-                  <p className="text-sm text-gray-500">Showing all property types (sale, rent).</p>
+                <div className="bg-gradient-to-br from-[#ccff00]/10 to-[#ccff00]/5 p-4 rounded-lg border border-[#ccff00]/20 shadow-[0_0_15px_rgba(204,255,0,0.1)]">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-[#ccff00]/20 p-2 rounded-lg shadow-[0_0_10px_rgba(204,255,0,0.3)]">
+                      <Home className="h-5 w-5 text-[#ccff00]" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-[#ccff00] mb-1">All Properties</p>
+                      <p className="text-xs text-gray-400">Showing both sale and rental properties</p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Price Range */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+                  <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Price Range
                   </label>
                   <Slider
@@ -434,16 +457,20 @@ export default function PropertyListingsPage() {
                     max={2000000}
                     step={10000}
                     tipFormatter={(value) => `$${value.toLocaleString()}`}
+                    styles={{
+                      track: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' },
+                      tracks: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' }
+                    }}
                   />
-                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  <div className="flex justify-between text-xs text-gray-400 mt-2">
                     <span>${priceRange[0].toLocaleString()}</span>
                     <span>${priceRange[1].toLocaleString()}</span>
                   </div>
                 </div>
 
                 {/* Bedrooms */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+                  <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Bedrooms
                   </label>
                   <Slider
@@ -452,40 +479,54 @@ export default function PropertyListingsPage() {
                     onChange={setBedroomRange}
                     min={1}
                     max={6}
-                    marks={{ 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6+' }}
+                    marks={{ 
+                      1: { label: <span className="text-gray-400">1</span> }, 
+                      2: { label: <span className="text-gray-400">2</span> }, 
+                      3: { label: <span className="text-gray-400">3</span> }, 
+                      4: { label: <span className="text-gray-400">4</span> }, 
+                      5: { label: <span className="text-gray-400">5</span> }, 
+                      6: { label: <span className="text-gray-400">6+</span> } 
+                    }}
+                    styles={{
+                      track: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' },
+                      tracks: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' }
+                    }}
                   />
                 </div>
 
                 {/* Location */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+                  <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Location
                   </label>
                   <Input
                     placeholder="City, suburb, or address"
                     value={filters.location}
                     onChange={(e) => handleFilterChange('location', e.target.value)}
-                    prefix={<MapPin className="h-4 w-4 text-gray-400" />}
+                    prefix={<MapPin className="h-4 w-4 text-[#ccff00]" />}
+                    className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
                   />
                 </div>
 
                 {/* Special Features */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+                  <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Special
                   </label>
-                  <div className="space-y-2">
+                  <div className="space-y-3 bg-[#171717] p-4 rounded-lg border border-gray-800">
                     <Checkbox
                       checked={filters.featured}
                       onChange={(e) => handleFilterChange('featured', e.target.checked)}
+                      className="text-gray-300"
                     >
-                      Featured Properties
+                      <span className="text-gray-300">Featured Properties</span>
                     </Checkbox>
                     <Checkbox
                       checked={filters.urgent}
                       onChange={(e) => handleFilterChange('urgent', e.target.checked)}
+                      className="text-gray-300"
                     >
-                      Urgent Sale
+                      <span className="text-gray-300">Urgent Sale</span>
                     </Checkbox>
                   </div>
                 </div>
@@ -501,7 +542,8 @@ export default function PropertyListingsPage() {
                 <Select
                   value={`${filters.sortBy}${filters.sortOrder === 'desc' ? '-desc' : ''}`}
                   onChange={handleSortChange}
-                  className="w-48"
+                  className="w-48 dark-select"
+                  size="large"
                 >
                   {sortOptions.map(option => (
                     <Option key={option.value} value={option.value}>
@@ -513,24 +555,27 @@ export default function PropertyListingsPage() {
 
               <div className="flex items-center gap-2">
                 {/* View Mode Toggle */}
-                <div className="flex bg-gray-100 rounded-lg p-1">
+                <div className="flex bg-[#212121] rounded-lg p-1 border border-gray-800">
                   <Button
                     type={viewMode === 'grid' ? 'primary' : 'text'}
                     size="small"
                     icon={<Grid className="h-4 w-4" />}
                     onClick={() => setViewMode('grid')}
+                    className={viewMode === 'grid' ? 'bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]' : 'text-gray-400 hover:text-[#ccff00]'}
                   />
                   <Button
                     type={viewMode === 'list' ? 'primary' : 'text'}
                     size="small"
                     icon={<List className="h-4 w-4" />}
                     onClick={() => setViewMode('list')}
+                    className={viewMode === 'list' ? 'bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]' : 'text-gray-400 hover:text-[#ccff00]'}
                   />
                   <Button
                     type={viewMode === 'map' ? 'primary' : 'text'}
                     size="small"
                     icon={<Map className="h-4 w-4" />}
                     onClick={() => setViewMode('map')}
+                    className={viewMode === 'map' ? 'bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]' : 'text-gray-400 hover:text-[#ccff00]'}
                   />
                 </div>
               </div>
@@ -539,17 +584,29 @@ export default function PropertyListingsPage() {
             {/* Properties Grid/List */}
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <Spin size="large" />
+                <Spin size="large" className="text-[#ccff00]" tip={<span className="text-gray-300">Loading properties...</span>} />
               </div>
             ) : error ? (
-              <div className="text-center py-12">
-                <Empty description="Failed to load properties" />
-                <Button onClick={() => refetch()} className="mt-4">
+              <div className="text-center py-12 bg-[#1a1a1a] rounded-2xl border border-gray-800 p-8">
+                <Empty 
+                  description={<span className="text-gray-400">Failed to load properties</span>}
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                />
+                <Button 
+                  onClick={() => refetch()} 
+                  className="mt-4 bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]"
+                >
                   Try Again
                 </Button>
               </div>
             ) : properties.length === 0 ? (
-              <Empty description="No properties found" className="py-12" />
+              <div className="bg-[#1a1a1a] rounded-2xl border border-gray-800 p-8">
+                <Empty 
+                  description={<span className="text-gray-400">No properties found</span>}
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  className="py-12"
+                />
+              </div>
             ) : (
               <>
                 <div className={
@@ -578,6 +635,7 @@ export default function PropertyListingsPage() {
                     showTotal={(total, range) =>
                       `${range[0]}-${range[1]} of ${total} properties`
                     }
+                    className="dark-pagination"
                   />
                 </div>
               </>
@@ -588,20 +646,128 @@ export default function PropertyListingsPage() {
 
       {/* Mobile Filters Drawer */}
       <Drawer
-        title="Filters"
+        title={<span className="text-white font-semibold drop-shadow-[0_0_10px_rgba(204,255,0,0.3)]">Filters</span>}
         placement="left"
         width={320}
         onClose={() => setShowFilters(false)}
         open={showFilters}
+        className="dark-drawer"
+        styles={{
+          body: { background: '#171717', padding: '16px' },
+          header: { background: '#1a1a1a', borderBottom: '1px solid #374151' }
+        }}
         extra={
-          <Button type="link" size="small" onClick={clearFilters}>
+          <Button 
+            type="link" 
+            size="small" 
+            onClick={clearFilters}
+            className="text-[#ccff00] hover:text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.8)]"
+          >
             Clear All
           </Button>
         }
       >
         {/* Same filter content as desktop sidebar */}
-        <div className="space-y-4">
-          {/* Mobile filters content - keep minimal for now */}
+        <div className="space-y-6">
+          {/* Property Type Info */}
+          <div className="bg-gradient-to-br from-[#ccff00]/10 to-[#ccff00]/5 p-4 rounded-lg border border-[#ccff00]/20 shadow-[0_0_15px_rgba(204,255,0,0.1)]">
+            <div className="flex items-start gap-3">
+              <div className="bg-[#ccff00]/20 p-2 rounded-lg shadow-[0_0_10px_rgba(204,255,0,0.3)]">
+                <Home className="h-5 w-5 text-[#ccff00]" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[#ccff00] mb-1">All Properties</p>
+                <p className="text-xs text-gray-400">Showing both sale and rental properties</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Price Range */}
+          <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+            <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
+              Price Range
+            </label>
+            <Slider
+              range
+              value={priceRange}
+              onChange={setPriceRange}
+              min={0}
+              max={2000000}
+              step={10000}
+              tipFormatter={(value) => `$${value.toLocaleString()}`}
+              styles={{
+                track: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' },
+                tracks: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' }
+              }}
+            />
+            <div className="flex justify-between text-xs text-gray-400 mt-2">
+              <span>${priceRange[0].toLocaleString()}</span>
+              <span>${priceRange[1].toLocaleString()}</span>
+            </div>
+          </div>
+
+          {/* Bedrooms */}
+          <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+            <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
+              Bedrooms
+            </label>
+            <Slider
+              range
+              value={bedroomRange}
+              onChange={setBedroomRange}
+              min={1}
+              max={6}
+              marks={{ 
+                1: { label: <span className="text-gray-400">1</span> }, 
+                2: { label: <span className="text-gray-400">2</span> }, 
+                3: { label: <span className="text-gray-400">3</span> }, 
+                4: { label: <span className="text-gray-400">4</span> }, 
+                5: { label: <span className="text-gray-400">5</span> }, 
+                6: { label: <span className="text-gray-400">6+</span> } 
+              }}
+              styles={{
+                track: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' },
+                tracks: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' }
+              }}
+            />
+          </div>
+
+          {/* Location */}
+          <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+            <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
+              Location
+            </label>
+            <Input
+              placeholder="City, suburb, or address"
+              value={filters.location}
+              onChange={(e) => handleFilterChange('location', e.target.value)}
+              prefix={<MapPin className="h-4 w-4 text-[#ccff00]" />}
+              className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
+            />
+          </div>
+
+          {/* Special Features */}
+          <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+            <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
+              Special
+            </label>
+            <div className="space-y-3 bg-[#171717] p-4 rounded-lg border border-gray-800">
+              <Checkbox
+                checked={filters.featured}
+                onChange={(e) => handleFilterChange('featured', e.target.checked)}
+                className="text-gray-300"
+              >
+                <span className="text-gray-300">Featured Properties</span>
+              </Checkbox>
+              <Checkbox
+                checked={filters.urgent}
+                onChange={(e) => handleFilterChange('urgent', e.target.checked)}
+                className="text-gray-300"
+              >
+                <span className="text-gray-300">Urgent Sale</span>
+              </Checkbox>
+            </div>
+          </div>
         </div>
       </Drawer>
     </div>

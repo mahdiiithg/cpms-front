@@ -2,7 +2,7 @@ const antdTheme = {
   token: {
     fontFamily:
       '"Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-    // colorPrimary: '#85E872',
+    // colorPrimary: '#ccff00',
     controlHeight: 45,
     borderRadius: 15,
   },
@@ -14,7 +14,7 @@ const antdTheme = {
     Button: {
       // colorText: '#212121',
       fontWeight: 500,
-      colorBgContainerDisabled: '#85E872',
+      colorBgContainerDisabled: '#ccff00',
       // colorTextDisabled: '#212121',
       // primaryColor: '#212121',
       // colorPrimaryText: '#212121',

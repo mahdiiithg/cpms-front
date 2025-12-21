@@ -17,7 +17,7 @@ const PlanCard = ({
   const planHeaderColor = () => {
     switch (type) {
       case 'standard':
-        return 'from-[#E7FAE3] to-[#85E872]';
+        return 'from-[#E7FAE3] to-[#ccff00]';
       case 'premium':
         return 'from-[#E5E5E5] to-[#171717]';
 

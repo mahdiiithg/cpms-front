@@ -153,7 +153,7 @@ const Header = () => {
   return (
     <div className="relative ">
       {/* Main Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+      <header className="sticky top-0 z-50 border-b border-gray-800 bg-[#171717]">
         <div className="px-3 sm:px-4 lg:px-8">
           <div className="flex items-center justify-between py-2 sm:py-3 lg:py-4">
             {/* Logo */}
@@ -161,10 +161,10 @@ const Header = () => {
               href="/"
               className="flex items-center space-x-2 transition-opacity hover:opacity-80 sm:space-x-3"
             >
-              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-teal-600 sm:h-8 sm:w-8 lg:h-10 lg:w-10">
-                <Waves className="h-3 w-3 text-white sm:h-4 sm:w-4 lg:h-6 lg:w-6" />
+              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-r from-[#ccff00] to-[#ccff00] sm:h-8 sm:w-8 lg:h-10 lg:w-10 shadow-[0_0_15px_rgba(204,255,0,0.6)]">
+                <Waves className="h-3 w-3 text-[#171717] sm:h-4 sm:w-4 lg:h-6 lg:w-6" />
               </div>
-              <span className="text-base font-bold text-gray-900 sm:text-lg lg:text-2xl">
+              <span className="text-base font-bold text-white sm:text-lg lg:text-2xl">
                 Coast Planet
               </span>
             </Link>
@@ -182,8 +182,8 @@ const Header = () => {
                     <button
                       className={`flex items-center rounded-lg px-2 py-1.5 transition-all duration-300 ease-in-out sm:py-2 lg:py-2 ${
                         activeDropdown === item.id
-                          ? 'scale-105 bg-blue-50 text-blue-600'
-                          : 'text-gray-700 hover:scale-105 hover:bg-blue-50 hover:text-blue-600'
+                          ? 'scale-105 bg-[#ccff00]/10 text-[#ccff00]'
+                          : 'text-gray-300 hover:scale-105 hover:bg-[#ccff00]/10 hover:text-[#ccff00]'
                       }`}
                     >
                       <span className="text-sm font-medium transition-all duration-300 sm:text-base">
@@ -192,8 +192,8 @@ const Header = () => {
                       <ChevronDown
                         className={`h-3 w-3 transition-all duration-300 ease-in-out sm:h-4 sm:w-4 ${
                           activeDropdown === item.id
-                            ? 'rotate-180 text-blue-600'
-                            : 'group-hover:rotate-180 group-hover:text-blue-600'
+                            ? 'rotate-180 text-[#ccff00]'
+                            : 'group-hover:rotate-180 group-hover:text-[#ccff00]'
                         }`}
                       />
                     </button>
@@ -201,29 +201,27 @@ const Header = () => {
 
                   {/* Individual Dropdown for each item */}
                   {activeDropdown === item.id && (
-                    <div className="animate-in slide-in-from-top-2 fade-in-0 fixed top-16 left-0 z-40 mt-0 w-full transform border-b border-gray-200 bg-white shadow-2xl duration-300">
+                    <div className="animate-in slide-in-from-top-2 fade-in-0 fixed top-16 left-0 z-40 mt-0 w-full transform border-b border-gray-800 bg-[#1a1a1a] shadow-2xl duration-300">
                       <div className="animate-in slide-in-from-top-4 fade-in-0 transform px-3 py-4 transition-all duration-300 ease-out sm:px-4 sm:py-6 lg:px-8 lg:py-8">
                         <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
                           {/* Main Content */}
                           <div className="animate-in slide-in-from-left-4 fade-in-0 transform transition-all delay-100 duration-500 lg:col-span-1">
                             <div className="mb-3 flex items-center space-x-2 sm:mb-4 sm:space-x-3">
-                              <div className="transform rounded-lg bg-blue-100 p-1.5 transition-all duration-300 hover:scale-110 hover:bg-blue-200 sm:p-2">
+                              <div className="transform rounded-lg bg-[#ccff00]/10 p-1.5 transition-all duration-300 hover:scale-110 hover:bg-[#ccff00]/20 sm:p-2">
                                 {item.icon}
                               </div>
                               <div>
-                                <h3 className="text-lg font-bold text-gray-900">
+                                <h3 className="text-lg font-bold text-white">
                                   {item.label}
                                 </h3>
-                                <p className="text-xs text-gray-600 sm:text-sm">
+                                <p className="text-xs text-gray-400 sm:text-sm">
                                   {item.description}
                                 </p>
                               </div>
                             </div>
                             <Link href={item.href}>
                               <Button
-                                type="primary"
-                                className="w-full transform border-0 bg-gradient-to-r from-blue-600 to-teal-600 transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                              >
+                                className="w-full transform border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(204,255,0,0.5)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]">
                                 Explore {item.label}
                               </Button>
                             </Link>
@@ -239,7 +237,7 @@ const Header = () => {
                                   animationDelay: `${(index + 1) * 100}ms`,
                                 }}
                               >
-                                <h4 className="mb-2 text-sm font-semibold text-gray-900 sm:mb-3 sm:text-base">
+                                <h4 className="mb-2 text-sm font-semibold text-white sm:mb-3 sm:text-base">
                                   {section.title}
                                 </h4>
                                 <ul className="space-y-1 sm:space-y-2">
@@ -250,7 +248,7 @@ const Header = () => {
                                     >
                                       <Link
                                         href={typeof subItem === 'string' ? item.href : subItem.href}
-                                        className="block transform py-0.5 text-xs text-gray-600 transition-all duration-300 hover:translate-x-1 hover:font-medium hover:text-blue-600 sm:py-1 sm:text-sm"
+                                        className="block transform py-0.5 text-xs text-gray-400 transition-all duration-300 hover:translate-x-1 hover:font-medium hover:text-[#ccff00] sm:py-1 sm:text-sm"
                                       >
                                         {typeof subItem === 'string' ? subItem : subItem.label}
                                       </Link>
@@ -279,15 +277,15 @@ const Header = () => {
                 >
                   <Button
                     type="text"
-                    className="flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover:bg-gray-100"
+                    className="flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover:bg-[#212121]"
                   >
                     <Avatar
                       size="small"
                       icon={<UserCircle className="h-4 w-4" />}
                       src={session.user?.image}
-                      className="bg-blue-600"
+                      className="bg-[#ccff00]"
                     />
-                    <span className="hidden sm:inline text-sm font-medium text-gray-700">
+                    <span className="hidden sm:inline text-sm font-medium text-gray-300">
                       {session.user?.name?.split(' ')[0] || 'User'}
                     </span>
                     <ChevronDown className="h-3 w-3 text-gray-500" />
@@ -296,17 +294,14 @@ const Header = () => {
               ) : (
                 // Login button for non-authenticated users
                 <Button
-                  type="primary"
-                  className="hidden sm:block border-0 bg-gradient-to-r from-blue-600 to-teal-600 transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-teal-700 hover:shadow-lg"
-                  href="/auth/signin"
-                >
+                  className="hidden sm:block border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(204,255,0,0.5)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]"
+                  href="/auth/signin">
                   Login
                 </Button>
               )}
               
               <Button
-                type="primary"
-                className="hidden border-0 bg-gradient-to-r from-blue-600 to-teal-600 transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-teal-700 hover:shadow-lg sm:block"
+                className="hidden border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(204,255,0,0.5)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)] sm:block"
                 onClick={() => {
                   const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE?.replace(/\D/g, '');
                   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, '') || adminPhone;
@@ -321,17 +316,15 @@ const Header = () => {
                   );
                   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
                   window.location.href = whatsappUrl;
-                }}
-              >
+                }}>
                 <span className="hidden sm:inline">List Your Property</span>
                 <span className="sm:hidden">List</span>
               </Button>
               <Button
-                type="default"
                 icon={
                   <Phone className="h-4 w-4 transition-transform duration-300 hover:scale-110" />
                 }
-                className="hidden border-blue-200 text-blue-600 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:text-blue-700 hover:shadow-md sm:block"
+                className="hidden border-2 border-[#ccff00] text-[#ccff00] bg-transparent hover:bg-[#ccff00] hover:text-[#171717] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(204,255,0,0.6)] sm:block"
                 onClick={() => {
                   const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE?.replace(/\D/g, '');
                   if (!adminPhone) {
@@ -339,8 +332,7 @@ const Header = () => {
                     return;
                   }
                   window.location.href = `tel:+${adminPhone}`;
-                }}
-              >
+                }}>
                 <span className="hidden lg:inline">Contact Us</span>
                 <span className="lg:hidden">Call</span>
               </Button>
@@ -361,7 +353,7 @@ const Header = () => {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="animate-in min-h-screen slide-in-from-top-4 fade-in-0 max-h-80 transform overflow-y-auto border-t border-gray-200 bg-white py-2 transition-all duration-300 ease-in-out sm:max-h-96 sm:py-3 lg:hidden">
+            <div className="animate-in min-h-screen slide-in-from-top-4 fade-in-0 max-h-80 transform overflow-y-auto border-t border-gray-800 bg-[#1a1a1a] py-2 transition-all duration-300 ease-in-out sm:max-h-96 sm:py-3 lg:hidden">
               <nav className="flex flex-col space-y-1">
                 {navigationItems.map((item, index) => (
                   <div
@@ -370,12 +362,12 @@ const Header = () => {
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {/* Main Item */}
-                    <div className="flex items-center justify-between px-3 py-2 transition-colors duration-200 hover:bg-gray-50 sm:px-4 sm:py-2.5">
+                    <div className="flex items-center justify-between px-3 py-2 transition-colors duration-200 hover:bg-[#212121] sm:px-4 sm:py-2.5">
                       <Link
                         href={item.href}
                         className="flex flex-1 items-center space-x-2 sm:space-x-3"
                       >
-                        <div className="flex items-center space-x-2 text-gray-700 transition-all duration-300 hover:translate-x-1 hover:text-blue-600 sm:space-x-3">
+                        <div className="flex items-center space-x-2 text-gray-300 transition-all duration-300 hover:translate-x-1 hover:text-[#ccff00] sm:space-x-3">
                           <div className="h-4 w-4 transition-transform duration-300 hover:scale-110 sm:h-5 sm:w-5">
                             {item.icon}
                           </div>
@@ -390,8 +382,8 @@ const Header = () => {
                           <ChevronRight
                             className={`h-3 w-3 transition-all duration-300 ease-in-out sm:h-4 sm:w-4 ${
                               mobileExpandedItem === item.id
-                                ? 'rotate-90 text-blue-600'
-                                : 'hover:text-blue-600'
+                                ? 'rotate-90 text-[#ccff00]'
+                                : 'hover:text-[#ccff00] text-gray-500'
                             }`}
                           />
                         }
@@ -400,7 +392,7 @@ const Header = () => {
                             mobileExpandedItem === item.id ? null : item.id,
                           )
                         }
-                        className="p-1 text-gray-400 hover:text-blue-600"
+                        className="p-1 text-gray-400 hover:text-[#ccff00]"
                       />
                     </div>
 
@@ -416,7 +408,7 @@ const Header = () => {
                                 animationDelay: `${sectionIndex * 100}ms`,
                               }}
                             >
-                              <h5 className="mb-1.5 text-xs font-semibold text-gray-900 transition-colors duration-300 sm:mb-2 sm:text-sm">
+                              <h5 className="mb-1.5 text-xs font-semibold text-white transition-colors duration-300 sm:mb-2 sm:text-sm">
                                 {section.title}
                               </h5>
                               <div className="space-y-0.5 sm:space-y-1">
@@ -424,7 +416,7 @@ const Header = () => {
                                   <Link
                                     key={subIndex}
                                     href={typeof subItem === 'string' ? item.href : subItem.href}
-                                    className="block py-0.5 text-xs text-gray-600 transition-all duration-300 hover:translate-x-1 hover:font-medium hover:text-blue-600 sm:py-1 sm:text-sm"
+                                    className="block py-0.5 text-xs text-gray-400 transition-all duration-300 hover:translate-x-1 hover:font-medium hover:text-[#ccff00] sm:py-1 sm:text-sm"
                                     onClick={() => setMobileMenuOpen(false)}
                                   >
                                     {typeof subItem === 'string' ? subItem : subItem.label}
@@ -440,16 +432,16 @@ const Header = () => {
                 ))}
 
                 {/* Action Buttons */}
-                <div className="mt-3 space-y-2 border-t border-gray-200 px-3 pt-3 sm:mt-4 sm:space-y-3 sm:px-4 sm:pt-4">
+                <div className="mt-3 space-y-2 border-t border-gray-800 px-3 pt-3 sm:mt-4 sm:space-y-3 sm:px-4 sm:pt-4">
                   {/* User Profile Section for Mobile */}
                   {session ? (
                     <div className="space-y-2">
-                      <div className="flex items-center space-x-3 px-3 py-2 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3 px-3 py-2 bg-[#212121] rounded-lg">
                         <Avatar
                           size="small"
                           icon={<UserCircle className="h-4 w-4" />}
                           src={session.user?.image}
-                          className="bg-blue-600"
+                          className="bg-[#ccff00]"
                         />
                         <div className="flex-1">
                           <p className="text-sm font-medium text-gray-900">
@@ -493,8 +485,7 @@ const Header = () => {
                     </div>
                   ) : (
                     <Button
-                      type="primary"
-                      className="w-full border-0 bg-gradient-to-r from-blue-600 to-teal-600 text-sm"
+                      className="w-full border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold text-sm shadow-[0_0_15px_rgba(204,255,0,0.5)]"
                       href="/auth/signin"
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -503,8 +494,7 @@ const Header = () => {
                   )}
                   
                   <Button
-                    type="primary"
-                    className="w-full border-0 bg-gradient-to-r from-blue-600 to-teal-600 text-sm"
+                    className="w-full border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold text-sm shadow-[0_0_15px_rgba(204,255,0,0.5)]"
                     onClick={() => {
                       const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE?.replace(/\D/g, '');
                       const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, '') || adminPhone;
@@ -525,9 +515,8 @@ const Header = () => {
                     List Your Property
                   </Button>
                   <Button
-                    type="default"
                     icon={<Phone className="h-3 w-3 sm:h-4 sm:w-4" />}
-                    className="w-full text-sm"
+                    className="w-full text-sm border-2 border-[#ccff00] text-[#ccff00] bg-transparent hover:bg-[#ccff00] hover:text-[#171717] hover:shadow-[0_0_20px_rgba(204,255,0,0.6)]"
                     onClick={() => {
                       const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE?.replace(/\D/g, '');
                       if (!adminPhone) {

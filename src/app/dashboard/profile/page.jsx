@@ -119,7 +119,7 @@ const ProfilePage = () => {
               <Col xs={24} md={4}>
                 <Avatar
                   style={{
-                    backgroundColor: '#85E872',
+                    backgroundColor: '#ccff00',
                     verticalAlign: 'middle',
                   }}
                   size="large"

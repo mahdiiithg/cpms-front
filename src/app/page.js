@@ -21,7 +21,10 @@ import {
   CheckCircle,
   Play,
   Download,
-  ArrowRight
+  ArrowRight,
+  TrendingUp,
+  Clock,
+  Zap
 } from 'lucide-react';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 
@@ -101,27 +104,27 @@ export default function HomePage() {
 
   const whyChooseFeatures = [
     {
-      icon: <ArrowRight className="h-6 w-6 text-blue-600" />,
+      icon: <TrendingUp className="h-6 w-6 text-[#ccff00]" />,
       title: "Optimised occupancy",
       description: "With occupancy rates averaging 96%, we attract high-quality tenants to your property."
     },
     {
-      icon: <ArrowRight className="h-6 w-6 text-blue-600" />,
+      icon: <Award className="h-6 w-6 text-[#ccff00]" />,
       title: "Trusted name",
       description: "A highly regarded, award winning company in business for almost 40 years, we have an impeccable track record in coastal real estate management."
     },
     {
-      icon: <ArrowRight className="h-6 w-6 text-blue-600" />,
+      icon: <CheckCircle className="h-6 w-6 text-[#ccff00]" />,
       title: "Quality guaranteed",
       description: "Our dedicated property managers are committed to service excellence, and our extensive network of contract partners have all been personally vetted."
     },
     {
-      icon: <ArrowRight className="h-6 w-6 text-blue-600" />,
+      icon: <Shield className="h-6 w-6 text-[#ccff00]" />,
       title: "Unparalleled accountability",
       description: "We promise to keep you in the loop with detailed quarterly or time-specified reports all part of the service, wherever you are in the world."
     },
     {
-      icon: <ArrowRight className="h-6 w-6 text-blue-600" />,
+      icon: <Heart className="h-6 w-6 text-[#ccff00]" />,
       title: "Happy tenants",
       description: "Well maintained and professionally managed properties attract and retain happy tenants, which means reduced vacant periods between tenancies."
     }
@@ -159,38 +162,57 @@ export default function HomePage() {
     "https://cgsfm.com.au/wp-content/uploads/2022/06/blog-post-1.jpg"
   ];
 
-  return (    <div className="min-h-screen bg-white">
+  return (    <div className="min-h-screen bg-[#171717]">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 py-2 sm:py-3">
+      <div className="bg-[#1a1a1a] py-2 sm:py-3 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-600">
-            <a href="/" className="hover:text-blue-600">Home</a>
+          <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-400">
+            <a href="/" className="hover:text-[#ccff00] transition-colors">Home</a>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
             <span>Services</span>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
-            <span className="text-blue-600">Property Management</span>
+            <span className="text-[#ccff00]">Property Management</span>
           </div>
         </div>
       </div>
 
       {/* Hero Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+      <section className="relative py-16 sm:py-20 lg:py-28 bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#ccff00]/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#ccff00]/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 relative z-10">
           <div className="text-center">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-              All-inclusive property management services in coastal areas from Coast Planet
+            <div className="inline-block mb-6">
+              <span className="px-4 py-2 bg-[#ccff00]/10 border border-[#ccff00]/20 rounded-full text-[#ccff00] text-sm font-semibold">
+                ONE SUBSCRIPTION, UNLIMITED PROPERTIES
+              </span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 sm:mb-8 leading-tight">
+              All-inclusive property<br />
+              <span className="text-[#ccff00] drop-shadow-[0_0_10px_rgba(204,255,0,0.6)]">management services</span><br />
+              in coastal areas
             </h1>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <p className="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+              Experience hassle-free property management with Coast Planet's premium services
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
               <Button 
-                type="default" 
                 size="large" 
-                className="flex-1 text-2xl py-4 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="flex-1 h-14 bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold text-base rounded-xl transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(204,255,0,0.5)] hover:shadow-[0_0_30px_rgba(204,255,0,0.8)]"
                 onClick={handleNewClientEnquiry}
               >
                 New client? Enquire now
               </Button>
-              <Button type="primary" size="large" className="flex-1 text-2xl py-4 transition-all duration-300 hover:scale-105 hover:shadow-lg" href="/auth/signin">
-                Existing client? Login now
+              <Button 
+                size="large" 
+                className="flex-1 h-14 bg-transparent border-2 border-[#ccff00] text-[#ccff00] hover:bg-[#ccff00] hover:text-[#171717] font-semibold text-base rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(204,255,0,0.6)]"
+                href="/auth/signin"
+              >
+                Existing client? Login
               </Button>
             </div>
           </div>
@@ -198,42 +220,64 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 sm:mb-12 text-center">
-            Why choose Coast Planet?
-          </h2>
+          <div className="text-center mb-12">
+            <span className="text-[#ccff00] font-semibold text-sm uppercase tracking-wider drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">Why Choose Us</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">
+              Why choose Coast Planet?
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Experience the difference with our award-winning property management services
+            </p>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whyChooseFeatures.map((feature, index) => (
-              <div key={index} className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
-                <div className="flex items-start space-x-3 sm:space-x-4">
-                  <div className="flex-shrink-0">{feature.icon}</div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">{feature.title}</h3>
-                    <p className="text-sm sm:text-base text-gray-600">{feature.description}</p>
-                  </div>
+              <div 
+                key={index} 
+                className="bg-[#212121] p-6 rounded-2xl border border-gray-800 hover:border-[#ccff00]/30 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-[0_0_20px_rgba(204,255,0,0.2)] group"
+              >
+                <div className="w-14 h-14 bg-[#ccff00]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#ccff00]/20 transition-colors">
+                  {feature.icon}
                 </div>
+                <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
+                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
 
           {/* Contact Form */}
-          <div className="mt-8 sm:mt-12 bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow-lg max-w-sm sm:max-w-md mx-auto">
-            <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-center">Schedule a call with a property manager</h3>
+          <div className="mt-16 bg-gradient-to-br from-[#212121] to-[#1a1a1a] p-8 rounded-2xl border border-gray-800 max-w-md mx-auto">
+            <h3 className="text-2xl font-semibold mb-6 text-center text-white">Schedule a call with a<br /><span className="text-[#ccff00]">property manager</span></h3>
             <Form layout="vertical">
               <Form.Item>
-                <Select placeholder="United States +1" className="w-full" size="large">
+                <Select 
+                  placeholder="United States +1" 
+                  className="w-full custom-select" 
+                  size="large"
+                  style={{
+                    backgroundColor: '#171717',
+                  }}
+                >
                   <Option value="+1">United States +1</Option>
                   <Option value="+44">United Kingdom +44</Option>
                   <Option value="+971">UAE +971</Option>
                 </Select>
               </Form.Item>
               <Form.Item>
-                <Input placeholder="Phone number" size="large" />
+                <Input 
+                  placeholder="Phone number" 
+                  size="large" 
+                  className="bg-[#171717] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] rounded-lg h-12"
+                />
               </Form.Item>
               <Form.Item>
-                <Button type="primary" size="large" className="w-full transition-all duration-300 hover:scale-105 hover:shadow-lg">Submit</Button>
+                <Button 
+                  size="large" 
+                  className="w-full h-12 bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold rounded-lg transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(204,255,0,0.5)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]">
+                  Submit
+                </Button>
               </Form.Item>
             </Form>
           </div>
@@ -241,44 +285,51 @@ export default function HomePage() {
       </section>
 
       {/* Survey Results Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#171717]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 sm:mb-12 text-center">
-            Our Latest Survey Revealed
-          </h2>
+          <div className="text-center mb-12">
+            <span className="text-[#ccff00] font-semibold text-sm uppercase tracking-wider">Data That Matters</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3">
+              Our Latest Survey Revealed
+            </h2>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <div className="space-y-6 sm:space-y-8">
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-600 mb-1 sm:mb-2">75%</div>
-                <p className="text-sm sm:text-base text-gray-600">of tenants said they prefer managed properties.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="bg-[#212121] p-6 rounded-2xl border border-gray-800 hover:border-[#ccff00]/30 transition-all duration-300">
+                <div className="text-5xl font-bold text-[#ccff00] mb-2">75%</div>
+                <p className="text-gray-300">of tenants said they prefer managed properties.</p>
               </div>
               
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-600 mb-1 sm:mb-2">69%</div>
-                <p className="text-sm sm:text-base text-gray-600">of tenants chose not to renew their tenancy due to poor landlord management.</p>
+              <div className="bg-[#212121] p-6 rounded-2xl border border-gray-800 hover:border-[#ccff00]/30 transition-all duration-300">
+                <div className="text-5xl font-bold text-[#ccff00] mb-2">69%</div>
+                <p className="text-gray-300">of tenants chose not to renew their tenancy due to poor landlord management.</p>
               </div>
               
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-600 mb-1 sm:mb-2">80%</div>
-                <p className="text-sm sm:text-base text-gray-600">of tenants will pay slightly more for a managed property.</p>
+              <div className="bg-[#212121] p-6 rounded-2xl border border-gray-800 hover:border-[#ccff00]/30 transition-all duration-300">
+                <div className="text-5xl font-bold text-[#ccff00] mb-2">80%</div>
+                <p className="text-gray-300">of tenants will pay slightly more for a managed property.</p>
               </div>
               
-              <div className="text-center">
-                <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
+              <div className="bg-gradient-to-br from-[#ccff00]/10 to-[#ccff00]/5 p-6 rounded-2xl border border-[#ccff00]/20">
+                <p className="text-gray-300 mb-4">
                   Discover key insights from our latest tenant satisfaction survey, exploring preferences, priorities, and expectations. Essential reading for landlords and investors.
                 </p>
-                <Button type="primary" icon={<Download className="h-4 w-4 transition-transform duration-300 hover:scale-110" />} className="transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                <Button 
+                  icon={<Download className="h-4 w-4" />} 
+                  className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold h-11 px-6 rounded-lg transition-all duration-300 hover:scale-105"
+                >
                   Download now
                 </Button>
               </div>
             </div>
             
-            <div className="text-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#ccff00]/10 rounded-3xl blur-2xl"></div>
               <img
                 src="https://cgsfm.com.au/wp-content/uploads/2022/06/blog-post-1.jpg"
                 alt="Survey Results"
-                className="w-full rounded-lg shadow-lg"
+                className="relative w-full rounded-2xl border border-gray-800 shadow-2xl"
               />
             </div>
           </div>
@@ -286,32 +337,61 @@ export default function HomePage() {
       </section>
 
       {/* Fully Managed Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-6">
+              <span className="text-[#ccff00] font-semibold text-sm uppercase tracking-wider">Full Service</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">
                 Fully Managed by Us
               </h2>
-              <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
+              <p className="text-xl text-[#ccff00] mb-6">
                 We're available, so you don't have to be
               </p>
+              <p className="text-gray-400 leading-relaxed mb-6">
+                Experience complete peace of mind with our comprehensive property management services. From tenant screening to maintenance coordination, we handle every aspect of property management so you can focus on what matters most.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <CheckCircle className="h-6 w-6 text-[#ccff00] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">24/7 Support</h4>
+                    <p className="text-gray-400 text-sm">Round-the-clock assistance for you and your tenants</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <CheckCircle className="h-6 w-6 text-[#ccff00] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">Professional Maintenance</h4>
+                    <p className="text-gray-400 text-sm">Vetted contractors for all property needs</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <CheckCircle className="h-6 w-6 text-[#ccff00] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">Transparent Reporting</h4>
+                    <p className="text-gray-400 text-sm">Regular updates on property performance</p>
+                  </div>
+                </div>
+              </div>
             </div>
             
-            <div className="relative">
-              <img
-                src="https://cgsfm.com.au/wp-content/uploads/2022/06/blog-post-1.jpg"
-                alt="Fully Managed Properties"
-                className="w-full rounded-lg shadow-lg"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Button
-                  type="primary"
-                  shape="circle"
-                  size="large"
-                  icon={<Play className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />}
-                  className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16"
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#ccff00]/20 to-[#ccff00]/5 rounded-3xl blur-2xl group-hover:blur-3xl group-hover:from-[#ccff00]/30 transition-all duration-300"></div>
+              <div className="relative">
+                <img
+                  src="https://cgsfm.com.au/wp-content/uploads/2022/06/blog-post-1.jpg"
+                  alt="Fully Managed Properties"
+                  className="w-full rounded-2xl border border-gray-800 shadow-2xl"
                 />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Button
+                    shape="circle"
+                    size="large"
+                    icon={<Play className="h-8 w-8" />}
+                    className="w-20 h-20 bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] transition-all duration-300 hover:scale-110 shadow-[0_0_25px_rgba(204,255,0,0.7)] hover:shadow-[0_0_35px_rgba(204,255,0,0.9)]"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -319,25 +399,29 @@ export default function HomePage() {
       </section>
 
       {/* Trusted Management Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#171717]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
-            <div className="order-2 lg:order-1">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1 relative">
+              <div className="absolute inset-0 bg-[#ccff00]/10 rounded-3xl blur-2xl"></div>
               <img
                 src="https://cgsfm.com.au/wp-content/uploads/2022/06/blog-post-1.jpg"
                 alt="Property Management Brochure"
-                className="w-full rounded-lg shadow-lg"
+                className="relative w-full rounded-2xl border border-gray-800 shadow-2xl"
               />
             </div>
             
             <div className="order-1 lg:order-2">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-6">
-                Trusted Management for Your Property
+              <span className="text-[#ccff00] font-semibold text-sm uppercase tracking-wider">Excellence</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">
+                Trusted Management for<br />Your <span className="text-[#ccff00]">Property</span>
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
+              <p className="text-gray-400 leading-relaxed mb-8">
                 Discover why thousands of owners trust us with their investments. Explore our comprehensive brochure to learn how we manage, maintain, and maximise the value of your property.
               </p>
-              <Button type="primary" icon={<Download className="h-4 w-4 transition-transform duration-300 hover:scale-110" />} className="transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Button 
+                icon={<Download className="h-5 w-5" />} 
+                className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold h-12 px-8 rounded-lg transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:shadow-[0_0_30px_rgba(204,255,0,0.9)]">
                 Download Now
               </Button>
             </div>
@@ -346,30 +430,35 @@ export default function HomePage() {
       </section>
 
       {/* Property Management Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-block bg-blue-100 text-blue-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mb-3 sm:mb-4">
+              <div className="inline-block bg-[#ccff00]/10 border border-[#ccff00]/20 px-4 py-2 rounded-full text-[#ccff00] text-sm font-semibold mb-4">
                 PROPERTY MANAGEMENT
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-6">
-                Hassle-free property management
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+                Hassle-free property<br /><span className="text-[#ccff00]">management</span>
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-6">
+              <p className="text-gray-400 leading-relaxed mb-4">
                 Coast Planet manages the largest portfolio of residential and commercial coastal properties, with over 8,500 units and over 65 buildings under management.
               </p>
-              <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
+              <p className="text-gray-400 leading-relaxed mb-8">
                 We offer a turnkey service that covers property marketing and tenant screening right through to rent collection and maintenance – as well as ensuring you get the best market rate.
               </p>
-              <Button type="primary" className="transition-all duration-300 hover:scale-105 hover:shadow-lg">Get in Touch</Button>
+              <Button 
+                className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold h-12 px-8 rounded-lg transition-all duration-300 hover:scale-105"
+              >
+                Get in Touch
+              </Button>
             </div>
             
-            <div>
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#ccff00]/10 rounded-3xl blur-2xl"></div>
               <img
                 src="https://cgsfm.com.au/wp-content/uploads/2022/06/blog-post-1.jpg"
                 alt="Building Management"
-                className="w-full rounded-lg shadow-lg"
+                className="relative w-full rounded-2xl border border-gray-800 shadow-2xl"
               />
             </div>
           </div>
@@ -377,66 +466,84 @@ export default function HomePage() {
       </section>
 
       {/* Building Management Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#171717]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
-            <div className="order-2 lg:order-1">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1 relative">
+              <div className="absolute inset-0 bg-[#ccff00]/10 rounded-3xl blur-2xl"></div>
               <img
                 src="https://cgsfm.com.au/wp-content/uploads/2022/06/blog-post-1.jpg"
                 alt="Property Management"
-                className="w-full rounded-lg shadow-lg"
+                className="relative w-full rounded-2xl border border-gray-800 shadow-2xl"
               />
             </div>
             
             <div className="order-1 lg:order-2">
-              <div className="inline-block bg-blue-100 text-blue-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mb-3 sm:mb-4">
+              <div className="inline-block bg-[#ccff00]/10 border border-[#ccff00]/20 px-4 py-2 rounded-full text-[#ccff00] text-sm font-semibold mb-4">
                 BUILDING MANAGEMENT
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-6">
-                Turnkey building management
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+                Turnkey building<br /><span className="text-[#ccff00]">management</span>
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
+              <p className="text-gray-400 leading-relaxed mb-8">
                 Whether you own a single property or have an extensive asset portfolio, you naturally want to maximise your return on investment. But, if your property isn't being managed properly, you could end up out of pocket. Our 50-strong team of residential and commercial property management professionals are your eyes and ears on the ground.
               </p>
-              <Button type="primary">Get in Touch</Button>
+              <Button 
+                className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold h-12 px-8 rounded-lg transition-all duration-300 hover:scale-105"
+              >
+                Get in Touch
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Snagging Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-6">
-                Snagging and Inspection
+              <span className="text-[#ccff00] font-semibold text-sm uppercase tracking-wider">Quality Assurance</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3 mb-6">
+                Snagging and<br /><span className="text-[#ccff00]">Inspection</span>
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-2 sm:mb-4">
-                Snagging is the process of identifying and rectifying defects or issues in a newly constructed property.
-              </p>
-              <p className="text-sm sm:text-base text-gray-600 mb-2 sm:mb-4">
-                Our experienced professionals will conduct thorough inspections of your property and provide a detailed report highlighting any problem areas with photos and recommendations for you to share with the developer for rectification.
-              </p>
-              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-6">
-                A second visit will be conducted by the team to ensure all issues have been addressed and that the property meets the required standards and specifications promised.
-              </p>
-              <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
-                Trust Coast Planet for professional snagging inspection services.
-              </p>
-              <Button type="primary">Get in Touch</Button>
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start space-x-3 bg-[#212121] p-4 rounded-xl border border-gray-800">
+                  <Zap className="h-6 w-6 text-[#ccff00] flex-shrink-0 mt-0.5" />
+                  <p className="text-gray-300">
+                    Snagging is the process of identifying and rectifying defects or issues in a newly constructed property.
+                  </p>
+                </div>
+                <div className="flex items-start space-x-3 bg-[#212121] p-4 rounded-xl border border-gray-800">
+                  <CheckCircle className="h-6 w-6 text-[#ccff00] flex-shrink-0 mt-0.5" />
+                  <p className="text-gray-300">
+                    Our experienced professionals will conduct thorough inspections of your property and provide a detailed report highlighting any problem areas with photos and recommendations.
+                  </p>
+                </div>
+                <div className="flex items-start space-x-3 bg-[#212121] p-4 rounded-xl border border-gray-800">
+                  <Clock className="h-6 w-6 text-[#ccff00] flex-shrink-0 mt-0.5" />
+                  <p className="text-gray-300">
+                    A second visit will be conducted by the team to ensure all issues have been addressed and that the property meets the required standards and specifications promised.
+                  </p>
+                </div>
+              </div>
+              <Button 
+                className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold h-12 px-8 rounded-lg transition-all duration-300 hover:scale-105"
+              >
+                Get in Touch
+              </Button>
             </div>
             
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-6">
               <div>
-                <p className="text-xs sm:text-sm font-semibold text-gray-600 mb-3 sm:mb-4">TRUSTED BY</p>
-                <div className="grid grid-cols-2 gap-2 sm:gap-4">
+                <p className="text-sm font-semibold text-gray-400 mb-4 uppercase tracking-wider">TRUSTED BY</p>
+                <div className="grid grid-cols-2 gap-4">
                   {clientLogos.map((logo, index) => (
-                    <div key={index} className="bg-white p-1 rounded-lg shadow-sm">
+                    <div key={index} className="bg-[#212121] p-3 rounded-xl border border-gray-800 hover:border-[#ccff00]/30 transition-all duration-300 group">
                       <img
                         src={logo}
                         alt={`Client ${index + 1}`}
-                        className="w-full object-cover rounded-lg"
+                        className="w-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   ))}
@@ -448,37 +555,37 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#171717]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <p className="text-xs sm:text-sm font-semibold text-blue-600 mb-3 sm:mb-4">CUSTOMER REVIEWS</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">
-              We always go the extra mile for our clients.
+          <div className="text-center mb-12">
+            <span className="text-[#ccff00] font-semibold text-sm uppercase tracking-wider">Customer Reviews</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">
+              We always go the extra mile<br />for our <span className="text-[#ccff00]">clients</span>
             </h2>
-            <p className="text-sm sm:text-base text-gray-600">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Don't just take our word for it. Here's what our clients have to say about their Coast Planet experience.
             </p>
           </div>
 
           {/* Testimonial Slider */}
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative max-w-5xl mx-auto">
             {/* Navigation Buttons */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-6 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg border border-gray-200 text-gray-600 hover:text-blue-600 hover:border-blue-200 transition-all duration-300 hover:scale-110"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-6 z-10 bg-[#212121] hover:bg-[#ccff00] rounded-full p-3 border border-gray-800 text-gray-400 hover:text-[#171717] transition-all duration-300 hover:scale-110 hover:border-[#ccff00]"
             >
-              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+              <ChevronLeft className="h-6 w-6" />
             </button>
             
             <button
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-6 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg border border-gray-200 text-gray-600 hover:text-blue-600 hover:border-blue-200 transition-all duration-300 hover:scale-110"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-6 z-10 bg-[#212121] hover:bg-[#ccff00] rounded-full p-3 border border-gray-800 text-gray-400 hover:text-[#171717] transition-all duration-300 hover:scale-110 hover:border-[#ccff00]"
             >
-              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+              <ChevronRight className="h-6 w-6" />
             </button>
 
             {/* Testimonial Card */}
-            <div className="overflow-hidden rounded-lg">
+            <div className="overflow-hidden rounded-2xl">
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
@@ -486,25 +593,25 @@ export default function HomePage() {
                 {testimonials.map((testimonial, index) => (
                   <div
                     key={index}
-                    className="w-full flex-shrink-0 bg-gray-50 p-6 sm:p-8 lg:p-10"
+                    className="w-full flex-shrink-0 bg-gradient-to-br from-[#212121] to-[#1a1a1a] border border-gray-800 p-8 lg:p-12"
                   >
-                    <div className="flex items-center mb-4 sm:mb-6">
-                      <div className="flex space-x-0.5 sm:space-x-1">
+                    <div className="flex items-center mb-6">
+                      <div className="flex space-x-1">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 fill-current" />
+                          <Star key={i} className="h-5 w-5 text-[#ccff00] fill-current" />
                         ))}
                       </div>
                     </div>
-                    <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed italic">
+                    <p className="text-lg text-gray-300 mb-8 leading-relaxed italic">
                       "{testimonial.text}"
                     </p>
                     <div className="flex items-center">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-600 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base mr-4">
+                      <div className="w-14 h-14 bg-gradient-to-br from-[#ccff00] to-[#ccff00] rounded-full flex items-center justify-center text-[#171717] font-bold text-base mr-4">
                         {testimonial.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <div className="font-semibold text-base sm:text-lg text-gray-900">{testimonial.name}</div>
-                        <div className="text-sm sm:text-base text-gray-500">{testimonial.role}</div>
+                        <div className="font-semibold text-lg text-white">{testimonial.name}</div>
+                        <div className="text-sm text-gray-400">{testimonial.role}</div>
                       </div>
                     </div>
                   </div>
@@ -513,16 +620,16 @@ export default function HomePage() {
             </div>
 
             {/* Pagination Dots */}
-            <div className="flex justify-center mt-6 sm:mt-8">
-              <div className="flex space-x-2 sm:space-x-3">
+            <div className="flex justify-center mt-8">
+              <div className="flex space-x-3">
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToTestimonial(index)}
-                    className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                    className={`h-2 rounded-full transition-all duration-300 ${
                       index === currentTestimonial 
-                        ? 'bg-blue-600 scale-125' 
-                        : 'bg-gray-300 hover:bg-gray-400'
+                        ? 'bg-[#ccff00] w-8' 
+                        : 'bg-gray-700 w-2 hover:bg-gray-600'
                     }`}
                   />
                 ))}
@@ -530,14 +637,14 @@ export default function HomePage() {
             </div>
 
             {/* Progress Bar */}
-            <div className="mt-4 sm:mt-6 max-w-xs mx-auto">
-              <div className="bg-gray-200 rounded-full h-1 sm:h-1.5">
+            <div className="mt-6 max-w-xs mx-auto">
+              <div className="bg-gray-800 rounded-full h-1.5">
                 <div 
-                  className="bg-gradient-to-r from-blue-600 to-teal-600 h-full rounded-full transition-all duration-500 ease-out"
+                  className="bg-gradient-to-r from-[#ccff00] to-[#ccff00] h-full rounded-full transition-all duration-500 ease-out"
                   style={{ width: `${((currentTestimonial + 1) / testimonials.length) * 100}%` }}
                 />
               </div>
-              <div className="flex justify-between text-xs sm:text-sm text-gray-500 mt-2">
+              <div className="flex justify-between text-sm text-gray-400 mt-2">
                 <span>{currentTestimonial + 1} of {testimonials.length}</span>
                 <span>Reviews</span>
               </div>
@@ -547,58 +654,73 @@ export default function HomePage() {
       </section>
 
       {/* Technology Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 sm:mb-12 text-center">
-            Forward thinking property management
-          </h2>
-          <p className="text-center text-sm sm:text-base text-gray-600 mb-8 sm:mb-12">
-            Equipped with best-in-class technology, our end-to-end service spans marketing and tenant management through to accounting and reporting.
-          </p>
+          <div className="text-center mb-12">
+            <span className="text-[#ccff00] font-semibold text-sm uppercase tracking-wider">Technology</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">
+              Forward thinking property<br /><span className="text-[#ccff00]">management</span>
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Equipped with best-in-class technology, our end-to-end service spans marketing and tenant management through to accounting and reporting.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
-            <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#ccff00]/10 rounded-3xl blur-2xl"></div>
               <img
                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=333&fit=crop"
                 alt="Landlord Portal"
-                className="w-full rounded-lg shadow-lg"
+                className="relative w-full rounded-2xl border border-gray-800 shadow-2xl"
               />
             </div>
             
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-6">
-                Log in to our Landlord Portal
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+                Log in to our<br /><span className="text-[#ccff00]">Landlord Portal</span>
               </h3>
-              <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
+              <p className="text-gray-400 leading-relaxed mb-8">
                 As a Coast Planet Property Management client, you get access to our Landlord Portal. Here you'll find notices, maintenance requests, work orders and financial reports for all your properties that are managed by Coast Planet.
               </p>
-              <Button type="primary" href="/dashboard">Access Landlord Portal</Button>
+              <Button 
+                href="/dashboard"
+                className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold h-12 px-8 rounded-lg transition-all duration-300 hover:scale-105"
+              >
+                Access Landlord Portal
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#171717]">
         <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 sm:mb-12 text-center">
-            Your questions answered
-          </h2>
-          <p className="text-center text-sm sm:text-base text-gray-600 mb-8 sm:mb-12">
-            Everything you need to know about property management services.
-          </p>
+          <div className="text-center mb-12">
+            <span className="text-[#ccff00] font-semibold text-sm uppercase tracking-wider">FAQs</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">
+              Your questions<br /><span className="text-[#ccff00]">answered</span>
+            </h2>
+            <p className="text-gray-400 text-lg">
+              Everything you need to know about property management services.
+            </p>
+          </div>
 
-          <div className="space-y-3 sm:space-y-4">
+          <div className="space-y-4">
             {faqData.map((faq, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-md">
+              <div 
+                key={index} 
+                className="bg-[#212121] border border-gray-800 rounded-xl overflow-hidden hover:border-[#ccff00]/30 transition-all duration-300"
+              >
                 <button
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
+                  className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-[#1a1a1a] transition-colors duration-200"
                   onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
                 >
-                  <span className="font-semibold text-sm sm:text-base text-gray-900">{faq.question}</span>
+                  <span className="font-semibold text-base text-white pr-4">{faq.question}</span>
                   <ChevronRight
-                    className={`h-4 w-4 sm:h-5 sm:w-5 text-gray-500 transform transition-all duration-300 ease-in-out ${
-                      expandedFaq === index ? 'rotate-90 text-blue-600' : ''
+                    className={`h-5 w-5 text-[#ccff00] transform transition-all duration-300 ease-in-out flex-shrink-0 ${
+                      expandedFaq === index ? 'rotate-90' : ''
                     }`}
                   />
                 </button>
@@ -607,7 +729,7 @@ export default function HomePage() {
                     expandedFaq === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-sm sm:text-base text-gray-600 transform transition-all duration-300 ease-in-out">
+                  <div className="px-6 pb-5 text-gray-400 leading-relaxed">
                     {faq.answer}
                   </div>
                 </div>
@@ -618,17 +740,40 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-blue-600">
-        <div className="max-w-4xl mx-auto text-center px-3 sm:px-4 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">
-            We give your property the management it deserves
+      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#0a0a0a] relative overflow-hidden border-t border-gray-800">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#ccff00]/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#ccff00]/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ccff00]/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-4xl mx-auto text-center px-3 sm:px-4 lg:px-8 relative z-10">
+          <div className="inline-block mb-6">
+            <span className="px-4 py-2 bg-[#ccff00]/10 border border-[#ccff00]/30 rounded-full text-[#ccff00] text-sm font-semibold">
+              GET STARTED TODAY
+            </span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            We give your property the<br />management it <span className="text-[#ccff00] italic">deserves</span>
           </h2>
-          <p className="text-sm sm:text-base text-blue-100 mb-6 sm:mb-8">
-            Connect with our professional team and let us help you get increase returns on your property.
+          <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Connect with our professional team and let us help you increase returns on your property with our award-winning management services.
           </p>
-          <Button type="default" size="large">
-            Get in Touch
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="large"
+              className="h-14 px-10 bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold text-base rounded-xl transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:shadow-[0_0_30px_rgba(204,255,0,0.9)]">
+            
+              Get in Touch
+            </Button>
+            <Button 
+              size="large"
+              className="h-14 px-10 bg-transparent border-2 border-[#ccff00] text-[#ccff00] hover:bg-[#ccff00] hover:text-[#171717] font-semibold text-base rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(204,255,0,0.7)]">
+            
+              View Our Services
+            </Button>
+          </div>
         </div>
       </section>    </div>
   );
