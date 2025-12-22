@@ -349,17 +349,17 @@ const Header = () => {
                 <span className="hidden lg:inline">Contact Us</span>
                 <span className="lg:hidden">Call</span>
               </Button>
-              <div className='block lg:hidden  ' ><Button
+              <div className='block lg:hidden' ><Button
                 type="text"
                 icon={
                   mobileMenuOpen ? (
-                    <X className="h-5 w-5 rotate-180 transform transition-all duration-300 ease-in-out sm:h-6 sm:w-6" />
+                    <X className="h-5 w-5 rotate-180 transform transition-all duration-300 ease-in-out sm:h-6 sm:w-6 text-gray-300" />
                   ) : (
-                    <Menu className="h-5 w-5 transform transition-all duration-300 ease-in-out sm:h-6 sm:w-6" />
+                    <Menu className="h-5 w-5 transform transition-all duration-300 ease-in-out sm:h-6 sm:w-6 text-gray-300" />
                   )
                 }
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1 transition-all duration-300 hover:scale-110 hover:bg-gray-100 sm:p-2 lg:hidden"
+                className="p-1 transition-all duration-300 hover:scale-110 hover:bg-[#212121] text-gray-300 hover:text-[#ccff00] sm:p-2 lg:hidden"
               /> </div>
             </div>
           </div>
