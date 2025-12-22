@@ -101,20 +101,21 @@ export default function RetirementManagementRightsPage() {
   };
 
   return (
+    <div className="min-h-screen bg-[#171717]">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-4 text-sm">
-        <Breadcrumb.Item><Link href="/">Home</Link></Breadcrumb.Item>
-        <Breadcrumb.Item><Link href="/listings">Management Rights</Link></Breadcrumb.Item>
-        <Breadcrumb.Item>Retirement</Breadcrumb.Item>
+        <Breadcrumb.Item><Link href="/" className="text-gray-400 hover:text-[#ccff00]">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item><Link href="/listings" className="text-gray-400 hover:text-[#ccff00]">Management Rights</Link></Breadcrumb.Item>
+        <Breadcrumb.Item className="text-white">Retirement</Breadcrumb.Item>
       </Breadcrumb>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 mb-6 border border-blue-100">
+      <div className="bg-gradient-to-r from-[#1a1a1a] to-[#212121] rounded-xl p-6 mb-6 border border-gray-800 shadow-[0_0_30px_rgba(204,255,0,0.1)]">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{meta.title}</h1>
-            <p className="mt-1 text-gray-600 max-w-2xl">{meta.subtitle}</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-white drop-shadow-[0_0_15px_rgba(204,255,0,0.3)]">{meta.title}</h1>
+            <p className="mt-1 text-gray-300 max-w-2xl">{meta.subtitle}</p>
           </div>
           <div className="flex gap-2">
             {meta.heroCtas.map((c) => (
@@ -208,39 +209,40 @@ export default function RetirementManagementRightsPage() {
       <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <section>
-            <h2 className="text-xl font-semibold mb-2">What are Retirement Management Rights?</h2>
-            <p className="text-gray-700">These rights involve managing retirement living complexes with a focus on resident wellbeing, compliance, and consistent service standards.</p>
+            <h2 className="text-xl font-semibold mb-2 text-white">What are Retirement Management Rights?</h2>
+            <p className="text-gray-400">These rights involve managing retirement living complexes with a focus on resident wellbeing, compliance, and consistent service standards.</p>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">Why consider Retirement MR?</h2>
-            <ul className="list-disc ml-5 text-gray-700 space-y-1">
+            <h2 className="text-xl font-semibold mb-2 text-white">Why consider Retirement MR?</h2>
+            <ul className="list-disc ml-5 text-gray-400 space-y-1">
               <li>Stable occupancy dynamics and predictable operations.</li>
               <li>Service-led roles with strong community engagement.</li>
               <li>Clear compliance frameworks and documented processes.</li>
             </ul>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">How the process works</h2>
-            <ol className="list-decimal ml-5 text-gray-700 space-y-1">
+            <h2 className="text-xl font-semibold mb-2 text-white">How the process works</h2>
+            <ol className="list-decimal ml-5 text-gray-400 space-y-1">
               <li>Review agreements, duties, and remuneration models.</li>
               <li>Run financial, legal, and compliance due diligence.</li>
               <li>Secure appropriate finance and plan transition.</li>
             </ol>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">FAQs</h2>
+            <h2 className="text-xl font-semibold mb-2 text-white">FAQs</h2>
             <div className="space-y-3">
-              <div><p className="font-medium">What qualifications help?</p><p className="text-gray-700">Operational management, compliance, and strong communication are valuable skillsets.</p></div>
-              <div><p className="font-medium">How is resident support managed?</p><p className="text-gray-700">Support processes are outlined by operators and regulators; on-site teams coordinate services.</p></div>
-              <div><p className="font-medium">Are there specific regulations?</p><p className="text-gray-700">Yes, frameworks vary by state and provider; advisors can guide the detail.</p></div>
+              <div><p className="font-medium text-white">What qualifications help?</p><p className="text-gray-400">Operational management, compliance, and strong communication are valuable skillsets.</p></div>
+              <div><p className="font-medium text-white">How is resident support managed?</p><p className="text-gray-400">Support processes are outlined by operators and regulators; on-site teams coordinate services.</p></div>
+              <div><p className="font-medium text-white">Are there specific regulations?</p><p className="text-gray-400">Yes, frameworks vary by state and provider; advisors can guide the detail.</p></div>
             </div>
           </section>
         </div>
         <aside className="space-y-4">
-          <div className="bg-white rounded-lg border p-4"><h3 className="font-semibold mb-2">Talk to an MR Specialist</h3><p className="text-gray-700 mb-3">Questions about retirement rights? Our team can assist.</p><Button type="primary" href="/contact">Request a callback</Button></div>
-          <div className="bg-white rounded-lg border p-4"><h3 className="font-semibold mb-2">Resources</h3><ul className="list-disc ml-5 text-gray-700 space-y-1"><li>Compliance overview</li><li>Operator handbook</li><li>Due diligence guide</li></ul></div>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4"><h3 className="font-semibold mb-2 text-white">Talk to an MR Specialist</h3><p className="text-gray-400 mb-3">Questions about retirement rights? Our team can assist.</p><Button type="primary" className="bg-[#ccff00] hover:bg-[#ccff00]/90 text-black border-0 font-semibold" href="/contact">Request a callback</Button></div>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4"><h3 className="font-semibold mb-2 text-white">Resources</h3><ul className="list-disc ml-5 text-gray-400 space-y-1"><li>Compliance overview</li><li>Operator handbook</li><li>Due diligence guide</li></ul></div>
         </aside>
       </div>
+    </div>
     </div>
   );
 }

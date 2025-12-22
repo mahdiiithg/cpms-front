@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
@@ -392,8 +393,23 @@ export default function PropertyListingsPage() {
               placeholder="Search by location, property type, or features..."
               allowClear
               size="large"
-              className="flex-1 dark-search"
+              className="flex-1"
               onSearch={handleSearch}
+              styles={{
+                affixWrapper: {
+                  background: '#212121',
+                  borderColor: '#374151',
+                  color: 'white'
+                },
+                input: { 
+                  background: '#212121',
+                  color: 'white',
+                  borderColor: '#374151'
+                }
+              }}
+              style={{
+                background: '#212121'
+              }}
               enterButton={
                 <Button className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]">
                   <Search className="h-4 w-4" />
@@ -418,7 +434,13 @@ export default function PropertyListingsPage() {
           <div className="hidden lg:block w-80 space-y-6">
             <Card 
               title={<span className="text-white font-semibold drop-shadow-[0_0_10px_rgba(204,255,0,0.3)]">Filters</span>}
-              className="bg-[#1a1a1a] border-gray-800 shadow-[0_0_15px_rgba(204,255,0,0.05)]"
+              className="shadow-[0_0_15px_rgba(204,255,0,0.05)]"
+              styles={{
+                body: { background: '#1a1a1a', padding: '24px' },
+                header: { background: '#1a1a1a', borderBottom: '1px solid #374151', color: 'white' }
+              }}
+              bordered
+              style={{ borderColor: '#374151' }}
               extra={
                 <Button 
                   type="link" 

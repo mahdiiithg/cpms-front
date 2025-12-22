@@ -82,20 +82,22 @@ export default function ResortHolidayManagementRightsPage() {
   const listingOfTheMonth = useMemo(() => featured[0] || null, [featured]);
 
   return (
+
+    <div className="min-h-screen bg-[#171717]">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-4 text-sm">
-        <Breadcrumb.Item><Link href="/">Home</Link></Breadcrumb.Item>
-        <Breadcrumb.Item><Link href="/listings">Management Rights</Link></Breadcrumb.Item>
-        <Breadcrumb.Item>Resort | Holiday</Breadcrumb.Item>
+        <Breadcrumb.Item><Link href="/" className="text-gray-400 hover:text-[#ccff00]">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item><Link href="/listings" className="text-gray-400 hover:text-[#ccff00]">Management Rights</Link></Breadcrumb.Item>
+        <Breadcrumb.Item className="text-white">Resort | Holiday</Breadcrumb.Item>
       </Breadcrumb>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 mb-6 border border-blue-100">
+      <div className="bg-gradient-to-r from-[#1a1a1a] to-[#212121] rounded-xl p-6 mb-6 border border-gray-800 shadow-[0_0_30px_rgba(204,255,0,0.1)]">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{meta.title}</h1>
-            <p className="mt-1 text-gray-600 max-w-2xl">{meta.subtitle}</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-white drop-shadow-[0_0_15px_rgba(204,255,0,0.3)]">{meta.title}</h1>
+            <p className="mt-1 text-gray-300 max-w-2xl">{meta.subtitle}</p>
           </div>
           <div className="flex gap-2">
             {meta.heroCtas.map((c) => (
@@ -116,25 +118,30 @@ export default function ResortHolidayManagementRightsPage() {
       </div>
 
       {/* Top search and mobile filters trigger */}
-      <div className="bg-white border border-gray-200 rounded-lg p-3 md:p-4 mb-4">
+      <div className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-3 md:p-4 mb-4">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
           <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-gray-700 mb-1">Keywords</label>
+            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Keywords</label>
             <Input
               value={keywords}
               onChange={(e)=>{ setKeywords(e.target.value); setPage(1); }}
               placeholder="e.g., Surfers Paradise, beachfront, pool"
               allowClear
+              className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500"
+              styles={{
+                input: { background: '#212121', color: 'white' },
+                affixWrapper: { background: '#212121', borderColor: '#374151' }
+              }}
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Beds (min)</label>
+            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Beds (min)</label>
             <Select value={beds} onChange={(v)=>{ setBeds(v); setPage(1); }} className="w-full">
               {[0,1,2,3,4,5].map((n)=>(<Option key={n} value={n}>{n === 0 ? 'Any' : `${n}+`}</Option>))}
             </Select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Listing type</label>
+            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Listing type</label>
             <Select value={listingType} onChange={(v)=>{ setListingType(v); setPage(1); }} className="w-full">
               <Option value="all">All</Option>
               <Option value="sale">For Sale</Option>
@@ -142,12 +149,12 @@ export default function ResortHolidayManagementRightsPage() {
             </Select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">City</label>
-            <Input value={city} onChange={(e)=>{ setCity(e.target.value); setPage(1); }} placeholder="e.g., Gold Coast" allowClear />
+            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">City</label>
+            <Input value={city} onChange={(e)=>{ setCity(e.target.value); setPage(1); }} placeholder="e.g., Gold Coast" allowClear className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500" styles={{ input: { background: '#212121', color: 'white' }, affixWrapper: { background: '#212121', borderColor: '#374151' } }} />
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Suburb</label>
-            <Input value={suburb} onChange={(e)=>{ setSuburb(e.target.value); setPage(1); }} placeholder="e.g., Surfers Paradise" allowClear />
+            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Suburb</label>
+            <Input value={suburb} onChange={(e)=>{ setSuburb(e.target.value); setPage(1); }} placeholder="e.g., Surfers Paradise" allowClear className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500" styles={{ input: { background: '#212121', color: 'white' }, affixWrapper: { background: '#212121', borderColor: '#374151' } }} />
           </div>
           <div className="md:hidden">
             <Button className="w-full" onClick={()=>setMobileFiltersOpen(true)}>More Filters</Button>
@@ -159,40 +166,44 @@ export default function ResortHolidayManagementRightsPage() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Sidebar filters */}
         <aside className="hidden md:block md:col-span-3">
-          <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-4">
-            <h3 className="font-semibold">Refine Results</h3>
-            <Divider className="my-2" />
+          <div className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-4 space-y-4">
+            <h3 className="font-semibold text-white">Refine Results</h3>
+            <Divider className="my-2 border-gray-800" />
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">Price range (sale)</label>
+              <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Price range (sale)</label>
               <div className="flex gap-2">
                 <Input
                   type="number"
                   placeholder="Min"
                   value={priceRange?.[0] ?? ''}
                   onChange={(e)=>{ const v = Number(e.target.value||0); setPriceRange([v, priceRange[1]]); setPage(1); }}
+                  className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500"
+                  styles={{ input: { background: '#212121', color: 'white' } }}
                 />
                 <Input
                   type="number"
                   placeholder="Max"
                   value={priceRange?.[1] ?? ''}
                   onChange={(e)=>{ const v = Number(e.target.value||0); setPriceRange([priceRange[0], v]); setPage(1); }}
+                  className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500"
+                  styles={{ input: { background: '#212121', color: 'white' } }}
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">Features</label>
+              <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Features</label>
               <div className="space-y-1">
-                <Checkbox checked={petFriendly} onChange={(e)=>{ setPetFriendly(e.target.checked); setPage(1); }}>Pet friendly</Checkbox>
-                <Checkbox checked={hasManagerUnit} onChange={(e)=>{ setHasManagerUnit(e.target.checked); setPage(1); }}>Manager's unit</Checkbox>
-                <Checkbox checked={featurePool} onChange={(e)=>{ setFeaturePool(e.target.checked); setPage(1); }}>Pool</Checkbox>
-                <Checkbox checked={featureGym} onChange={(e)=>{ setFeatureGym(e.target.checked); setPage(1); }}>Gym</Checkbox>
-                <Checkbox checked={featureBeachfront} onChange={(e)=>{ setFeatureBeachfront(e.target.checked); setPage(1); }}>Beachfront</Checkbox>
+                <Checkbox checked={petFriendly} onChange={(e)=>{ setPetFriendly(e.target.checked); setPage(1); }} className="text-gray-300"><span className="text-gray-300">Pet friendly</span></Checkbox>
+                <Checkbox checked={hasManagerUnit} onChange={(e)=>{ setHasManagerUnit(e.target.checked); setPage(1); }} className="text-gray-300"><span className="text-gray-300">Manager's unit</span></Checkbox>
+                <Checkbox checked={featurePool} onChange={(e)=>{ setFeaturePool(e.target.checked); setPage(1); }} className="text-gray-300"><span className="text-gray-300">Pool</span></Checkbox>
+                <Checkbox checked={featureGym} onChange={(e)=>{ setFeatureGym(e.target.checked); setPage(1); }} className="text-gray-300"><span className="text-gray-300">Gym</span></Checkbox>
+                <Checkbox checked={featureBeachfront} onChange={(e)=>{ setFeatureBeachfront(e.target.checked); setPage(1); }} className="text-gray-300"><span className="text-gray-300">Beachfront</span></Checkbox>
               </div>
             </div>
-            <Divider className="my-2" />
+            <Divider className="my-2 border-gray-800" />
             <div className="space-y-2">
-              <Button type="primary" className="w-full" onClick={()=>setPage(1)}>Apply</Button>
-              <Button className="w-full" onClick={()=>{
+              <Button type="primary" className="w-full bg-[#ccff00] hover:bg-[#ccff00]/90 text-black border-0 font-semibold shadow-[0_0_20px_rgba(204,255,0,0.3)]" onClick={()=>setPage(1)}>Apply</Button>
+              <Button className="w-full bg-[#212121] hover:bg-[#2a2a2a] text-white border-gray-700" onClick={()=>{
                 setPetFriendly(false); setHasManagerUnit(false); setFeaturePool(false); setFeatureGym(false); setFeatureBeachfront(false);
               }}>Reset</Button>
             </div>
@@ -216,7 +227,7 @@ export default function ResortHolidayManagementRightsPage() {
 
           {/* Browse by region */}
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-gray-700 mb-2">Browse by region</h2>
+            <h2 className="text-sm font-semibold text-white mb-2">Browse by region</h2>
             <div className="flex flex-wrap gap-2">
               {meta.regions.map((r) => (
                 <Button key={r} size="small" onClick={()=>{ setCity(r); setPage(1); }} className={`border ${city===r?'border-blue-500 text-blue-600':''}`}>{r}</Button>
@@ -329,78 +340,79 @@ export default function ResortHolidayManagementRightsPage() {
       <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <section>
-            <h2 className="text-xl font-semibold mb-2">What are Resort & Holiday Management Rights?</h2>
-            <p className="text-gray-700">Short-stay accommodation businesses within resort or holiday complexes. Managers handle bookings, guest services, and presentation with a focus on high service standards and seasonality.</p>
+            <h2 className="text-xl font-semibold mb-2 text-white">What are Resort & Holiday Management Rights?</h2>
+            <p className="text-gray-400">Short-stay accommodation businesses within resort or holiday complexes. Managers handle bookings, guest services, and presentation with a focus on high service standards and seasonality.</p>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">Why consider Resort & Holiday MR?</h2>
-            <ul className="list-disc ml-5 text-gray-700 space-y-1">
+            <h2 className="text-xl font-semibold mb-2 text-white">Why consider Resort & Holiday MR?</h2>
+            <ul className="list-disc ml-5 text-gray-400 space-y-1">
               <li>Leverage tourist demand and peak seasons to drive revenue.</li>
               <li>Apply dynamic pricing with diversified marketing channels.</li>
               <li>Engage guests with hospitality-forward operations.</li>
             </ul>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">How the process works</h2>
-            <ol className="list-decimal ml-5 text-gray-700 space-y-1">
+            <h2 className="text-xl font-semibold mb-2 text-white">How the process works</h2>
+            <ol className="list-decimal ml-5 text-gray-400 space-y-1">
               <li>Assess letting pool quality, occupancy trends, and seasonality.</li>
               <li>Review agreements, outgoings, and operational scope.</li>
               <li>Secure specialist finance and plan onboarding for peak periods.</li>
             </ol>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">FAQs</h2>
+            <h2 className="text-xl font-semibold mb-2 text-white">FAQs</h2>
             <div className="space-y-3">
               <div>
-                <p className="font-medium">Is revenue highly seasonal?</p>
-                <p className="text-gray-700">Seasonality is common; strong operators plan staffing, pricing, and marketing to smooth cycles.</p>
+                <p className="font-medium text-white">Is revenue highly seasonal?</p>
+                <p className="text-gray-400">Seasonality is common; strong operators plan staffing, pricing, and marketing to smooth cycles.</p>
               </div>
               <div>
-                <p className="font-medium">Do I need hospitality experience?</p>
-                <p className="text-gray-700">Experience helps, though systems and training can bridge gaps for first-time managers.</p>
+                <p className="font-medium text-white">Do I need hospitality experience?</p>
+                <p className="text-gray-400">Experience helps, though systems and training can bridge gaps for first-time managers.</p>
               </div>
               <div>
-                <p className="font-medium">What marketing channels are typical?</p>
-                <p className="text-gray-700">Direct bookings, OTAs, partnerships, and repeat guest programs are common levers.</p>
+                <p className="font-medium text-white">What marketing channels are typical?</p>
+                <p className="text-gray-400">Direct bookings, OTAs, partnerships, and repeat guest programs are common levers.</p>
               </div>
             </div>
           </section>
         </div>
         <aside className="space-y-4">
-          <div className="bg-white rounded-lg border p-4">
-            <h3 className="font-semibold mb-2">Talk to an MR Specialist</h3>
-            <p className="text-gray-700 mb-3">Have questions about resort & holiday rights? Our team can help you evaluate options.</p>
-            <Button type="primary" href="/contact">Request a callback</Button>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4">
+            <h3 className="font-semibold mb-2 text-white">Talk to an MR Specialist</h3>
+            <p className="text-gray-400 mb-3">Have questions about resort & holiday rights? Our team can help you evaluate options.</p>
+            <Button type="primary" className="bg-[#ccff00] hover:bg-[#ccff00]/90 text-black border-0 font-semibold" href="/contact">Request a callback</Button>
           </div>
 
-          <div className="bg-white rounded-lg border p-4">
-            <h3 className="font-semibold mb-2">Industry News</h3>
-            <ul className="space-y-1 text-sm text-gray-700">
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4">
+            <h3 className="font-semibold mb-2 text-white">Industry News</h3>
+            <ul className="space-y-1 text-sm text-gray-400">
               <li>New regulations for short-stay operators</li>
               <li>Seasonal pricing strategies that work</li>
               <li>Marketing channels that convert</li>
             </ul>
           </div>
 
-          <div className="bg-white rounded-lg border p-4">
-            <h3 className="font-semibold mb-2">Upcoming Events</h3>
-            <ul className="space-y-1 text-sm text-gray-700">
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4">
+            <h3 className="font-semibold mb-2 text-white">Upcoming Events</h3>
+            <ul className="space-y-1 text-sm text-gray-400">
               <li>Strata seminar – Brisbane</li>
               <li>Industry training program – Gold Coast</li>
               <li>Networking night – Sunshine Coast</li>
             </ul>
           </div>
 
-          <div className="bg-white rounded-lg border p-4">
-            <h3 className="font-semibold mb-2">Subscribe to Updates</h3>
-            <p className="text-gray-700 mb-3 text-sm">Get monthly industry news and new listings.</p>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4">
+            <h3 className="font-semibold mb-2 text-white">Subscribe to Updates</h3>
+            <p className="text-gray-400 mb-3 text-sm">Get monthly industry news and new listings.</p>
             <div className="flex gap-2">
-              <Input placeholder="Your email" />
-              <Button type="primary">Subscribe</Button>
+              <Input placeholder="Your email" className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500" styles={{ input: { background: '#212121', color: 'white' } }} />
+              <Button type="primary" className="bg-[#ccff00] hover:bg-[#ccff00]/90 text-black border-0 font-semibold">Subscribe</Button>
             </div>
           </div>
         </aside>
       </div>
+    </div>
     </div>
   );
 }

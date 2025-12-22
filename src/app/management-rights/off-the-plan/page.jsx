@@ -103,20 +103,21 @@ export default function OffThePlanManagementRightsPage() {
   const meta = managementRights.offThePlan;
 
   return (
+    <div className="min-h-screen bg-[#171717]">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-4 text-sm">
-        <Breadcrumb.Item><Link href="/">Home</Link></Breadcrumb.Item>
-        <Breadcrumb.Item><Link href="/listings">Management Rights</Link></Breadcrumb.Item>
-        <Breadcrumb.Item>Off The Plan</Breadcrumb.Item>
+        <Breadcrumb.Item><Link href="/" className="text-gray-400 hover:text-[#ccff00]">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item><Link href="/listings" className="text-gray-400 hover:text-[#ccff00]">Management Rights</Link></Breadcrumb.Item>
+        <Breadcrumb.Item className="text-white">Off The Plan</Breadcrumb.Item>
       </Breadcrumb>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 mb-6 border border-blue-100">
+      <div className="bg-gradient-to-r from-[#1a1a1a] to-[#212121] rounded-xl p-6 mb-6 border border-gray-800 shadow-[0_0_30px_rgba(204,255,0,0.1)]">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{meta.title}</h1>
-            <p className="mt-1 text-gray-600 max-w-2xl">{meta.subtitle}</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-white drop-shadow-[0_0_15px_rgba(204,255,0,0.3)]">{meta.title}</h1>
+            <p className="mt-1 text-gray-300 max-w-2xl">{meta.subtitle}</p>
           </div>
           <div className="flex gap-2">
             {meta.heroCtas.map((c) => (
@@ -249,46 +250,47 @@ export default function OffThePlanManagementRightsPage() {
             </ul>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">Upcoming Events</h2>
-            <ul className="space-y-1 text-sm text-gray-700">
+            <h2 className="text-xl font-semibold mb-2 text-white">Upcoming Events</h2>
+            <ul className="space-y-1 text-sm text-gray-400">
               <li>Strata seminar – Brisbane</li>
               <li>Strata seminar – Cairns</li>
               <li>MR Industry Training Program – Gold Coast</li>
             </ul>
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-2">Find an Industry Supplier</h2>
-            <p className="text-gray-700 text-sm">Tell us what you need and we’ll connect you with leading MR brokers and suppliers.</p>
+            <h2 className="text-xl font-semibold mb-2 text-white">Find an Industry Supplier</h2>
+            <p className="text-gray-400 text-sm">Tell us what you need and we'll connect you with leading MR brokers and suppliers.</p>
             <div className="flex gap-2 max-w-md">
-              <input className="border rounded px-3 py-2 flex-1" placeholder="What do you need done?" />
-              <Button type="primary">Get quotes</Button>
+              <input className="bg-[#212121] border border-gray-700 rounded px-3 py-2 flex-1 text-white placeholder:text-gray-500 focus:border-[#ccff00] focus:outline-none" placeholder="What do you need done?" />
+              <Button type="primary" className="bg-[#ccff00] hover:bg-[#ccff00]/90 text-black border-0 font-semibold">Get quotes</Button>
             </div>
           </section>
         </div>
         <aside className="space-y-4">
-          <div className="bg-white rounded-lg border p-4">
-            <h3 className="font-semibold mb-2">Don’t miss out!</h3>
-            <p className="text-gray-700 mb-3 text-sm">Receive monthly industry news and new listings.</p>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4">
+            <h3 className="font-semibold mb-2 text-white">Don't miss out!</h3>
+            <p className="text-gray-400 mb-3 text-sm">Receive monthly industry news and new listings.</p>
             <div className="flex gap-2">
-              <input className="border rounded px-3 py-2 flex-1" placeholder="Your email" />
-              <Button type="primary">Subscribe</Button>
+              <input className="bg-[#212121] border border-gray-700 rounded px-3 py-2 flex-1 text-white placeholder:text-gray-500 focus:border-[#ccff00] focus:outline-none" placeholder="Your email" />
+              <Button type="primary" className="bg-[#ccff00] hover:bg-[#ccff00]/90 text-black border-0 font-semibold">Subscribe</Button>
             </div>
           </div>
-          <div className="bg-white rounded-lg border p-4">
-            <h3 className="font-semibold mb-2">Talk to an MR Specialist</h3>
-            <p className="text-gray-700 mb-3">Questions about off the plan? Our team can assist.</p>
-            <Button type="primary" href="/contact">Request a callback</Button>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4">
+            <h3 className="font-semibold mb-2 text-white">Talk to an MR Specialist</h3>
+            <p className="text-gray-400 mb-3">Questions about off the plan? Our team can assist.</p>
+            <Button type="primary" className="bg-[#ccff00] hover:bg-[#ccff00]/90 text-black border-0 font-semibold" href="/contact">Request a callback</Button>
           </div>
-          <div className="bg-white rounded-lg border p-4">
-            <h3 className="font-semibold mb-2">Useful Links</h3>
-            <ul className="space-y-1 text-sm text-gray-700">
-              <li><Link href="/rentals-property">Units For Rent</Link></li>
-              <li><Link href="/investment-property">Investment Property</Link></li>
-              <li><Link href="/listings">Management Rights</Link></li>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4">
+            <h3 className="font-semibold mb-2 text-white">Useful Links</h3>
+            <ul className="space-y-1 text-sm text-gray-400">
+              <li><Link href="/rentals-property" className="hover:text-[#ccff00]">Units For Rent</Link></li>
+              <li><Link href="/investment-property" className="hover:text-[#ccff00]">Investment Property</Link></li>
+              <li><Link href="/listings" className="hover:text-[#ccff00]">Management Rights</Link></li>
             </ul>
           </div>
         </aside>
       </div>
+    </div>
     </div>
   );
 }
