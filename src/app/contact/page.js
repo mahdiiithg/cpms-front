@@ -115,7 +115,7 @@ export default function ContactPage() {
               CONTACT
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-              We're here to help
+              We&apos;re here to help
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Seven days a week, 365 days of the year, our friendly, expert team is just a phone call or email away.

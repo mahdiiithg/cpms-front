@@ -217,7 +217,7 @@ export default function HomePage() {
               in coastal areas
             </h1>
             <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-400 sm:text-xl">
-              Experience hassle-free property management with Coast Planet's
+              Experience hassle-free property management with Coast Planet&apos;s
               premium services
             </p>
             <div className="mx-auto flex max-w-lg flex-col justify-center gap-4 sm:flex-row">
@@ -700,7 +700,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <p className="mb-8 text-lg leading-relaxed text-gray-300 italic">
-                      "{testimonial.text}"
+                      &ldquo;{testimonial.text}&rdquo;
                     </p>
                     <div className="flex items-center">
                       <div className="mr-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#ccff00] to-[#ccff00] text-base font-bold text-[#171717]">
@@ -797,7 +797,7 @@ export default function HomePage() {
               </h3>
               <p className="mb-8 leading-relaxed text-gray-400">
                 As a Coast Planet Property Management client, you get access to
-                our Landlord Portal. Here you'll find notices, maintenance
+                our Landlord Portal. Here you&apos;ll find notices, maintenance
                 requests, work orders and financial reports for all your
                 properties that are managed by Coast Planet.
               </p>

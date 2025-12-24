@@ -572,7 +572,7 @@ const ServicesPage = () => {
                 What Our Clients Say
               </h2>
               <p className="mx-auto max-w-3xl text-xl text-gray-600">
-                Don't just take our word for it. Here's what property owners and
+                Don&apos;t just take our word for it. Here&apos;s what property owners and
                 developers say about our services.
               </p>
             </div>
@@ -593,7 +593,7 @@ const ServicesPage = () => {
                       ))}
                     </div>
                     <p className="mb-6 leading-relaxed text-gray-700 italic">
-                      "{testimonial.comment}"
+                      &ldquo;{testimonial.comment}&rdquo;
                     </p>
                     <div className="border-t pt-4">
                       <h5 className="font-semibold text-gray-900">
@@ -627,7 +627,7 @@ const ServicesPage = () => {
                 Ready to Get Started?
               </div>
               <h3 className="mb-8 text-4xl leading-tight font-bold md:text-6xl">
-                Let's Maximize Your
+                Let&apos;s Maximize Your
                 <span className="block bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
                   Property Potential
                 </span>

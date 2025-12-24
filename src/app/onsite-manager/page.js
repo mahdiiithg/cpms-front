@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Button, Input, Card, Row, Col, Statistic, Form, Select, Badge, Tag } from 'antd';
 import { 
   Search, 
@@ -226,7 +227,7 @@ export default function OnsiteManagerPage() {
       <div className="bg-gray-50 py-2 sm:py-3">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-600">
-            <a href="/" className="hover:text-blue-600">Home</a>
+            <Link href="/" className="hover:text-blue-600">Home</Link>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
             <span className="text-blue-600">Coast Planet Management Rights</span>
           </div>
@@ -237,7 +238,7 @@ export default function OnsiteManagerPage() {
       <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-r from-blue-600 to-teal-600">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 text-center">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 sm:mb-6">
-            Australia's Leading Management Rights Website
+            Australia&apos;s Leading Management Rights Website
           </h1>
           <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto">
             The only website with every management rights, and every management rights broker, listed in one place.
@@ -356,7 +357,7 @@ export default function OnsiteManagerPage() {
             <div className="bg-blue-50 rounded-lg p-6 sm:p-8">
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Join Our Agency</h3>
               <p className="text-sm sm:text-base text-gray-600 mb-4">
-                Coast Planet isn't just the number one MLR portal, but also a real estate agency for onsite managers.
+                Coast Planet isn&apos;t just the number one MLR portal, but also a real estate agency for onsite managers.
               </p>
               <ul className="space-y-2 text-sm sm:text-base text-gray-600 mb-6">
                 <li className="flex items-start">
@@ -377,7 +378,7 @@ export default function OnsiteManagerPage() {
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-4 w-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                  We have a 100% 'best price' guarantee
+                  We have a 100% &apos;best price&apos; guarantee
                 </li>
               </ul>
               <Button 
@@ -666,7 +667,7 @@ export default function OnsiteManagerPage() {
           <div className="text-center mb-8 space-y-2">
             <Button type="link" className="text-blue-600">VIEW MORE JOBS HERE.</Button>
             <br />
-            <Button type="link" className="text-blue-600">ADVERTISE JOBS NOW (IT'S FREE!).</Button>
+            <Button type="link" className="text-blue-600">ADVERTISE JOBS NOW (IT&apos;S FREE!).</Button>
             <br />
             <Button type="link" className="text-blue-600">REGISTER AS A SERVICE PROVIDER.</Button>
           </div>
@@ -709,7 +710,7 @@ export default function OnsiteManagerPage() {
           </h2>
           <div className="text-sm sm:text-base text-gray-700 leading-relaxed">
             <p className="mb-4">
-              'Management Rights' or 'Management Letting Rights' (MRs and MLRs, respectively), are businesses concerned with the maintenance and management of community titled complexes.
+              &apos;Management Rights&apos; or &apos;Management Letting Rights&apos; (MRs and MLRs, respectively), are businesses concerned with the maintenance and management of community titled complexes.
             </p>
             <p className="mb-4">
               Management Rights consist of three components: The caretaking agreement to maintain the complex for the body corporate; The letting business allowing the manager to manage rentals within the complex; and The Lot which is the unit, car space, storage areas and office that are owned by the manager in which to reside and run their business.
@@ -729,7 +730,7 @@ export default function OnsiteManagerPage() {
             {/* Contact Info */}
             <div>
               <h3 className="text-xl font-bold mb-4">Contact</h3>
-              <p className="text-gray-300 mb-2">If you're interested in a property advertised on this website, please call the manager or broker whose details are on the listing.</p>
+              <p className="text-gray-300 mb-2">If you&apos;re interested in a property advertised on this website, please call the manager or broker whose details are on the listing.</p>
               <div className="space-y-2 text-sm">
                 <p><strong>Head Office:</strong> Brisbane Q 4000</p>
                 <p><strong>Call:</strong> 07 3868 4047</p>
