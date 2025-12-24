@@ -9,7 +9,7 @@ import ContactLeadForm from '@/components/contact/ContactLeadForm';
 
 export default function GlobalAffiliationsPage() {
   const clientLogos = [
-    'https://d33om22pidobo4.cloudfront.net/clients/logo/fanical-timeswebp-9fb6d074-9a6f-415b-9d5b-41e4442a4103.webp',
+    'https://d33om22pidobo4.cloudfront.net/clients/logo/manision-globalwebp-aabab87a-4968-44ed-9855-4120ee4e7b98.webp',
     'https://d33om22pidobo4.cloudfront.net/clients/logo/manision-globalwebp-aabab87a-4968-44ed-9855-4120ee4e7b98.webp',
     'https://d33om22pidobo4.cloudfront.net/clients/logo/country-life-magazinewebp-b93c264e-3a0b-4625-b8f4-853ca059e08b.webp',
     'https://d33om22pidobo4.cloudfront.net/clients/logo/james-editionswebp-e7537e9c-6a34-41dc-8c0b-8f597f366077.webp',
@@ -43,13 +43,14 @@ export default function GlobalAffiliationsPage() {
       </div>
 
       {/* Hero */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717]">
+      <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
             <div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 sm:mb-6">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 sm:mb-3">
                 Your property goals aren't limited by borders, and neither are we
               </h1>
+              <div className="h-1 w-20 sm:w-24 bg-[#ccff00] rounded-full shadow-[0_0_10px_rgba(204,255,0,0.6)] mb-4 sm:mb-6" />
               <p className="text-gray-400 text-sm sm:text-base mb-6 sm:mb-8">
                 We connect local expertise with a trusted global network so you can buy, sell, or invest with confidence—wherever opportunity takes you.
                 With regional specialists and international partners working together, your goals stay front and center from first conversation to final handshake.
@@ -65,14 +66,13 @@ export default function GlobalAffiliationsPage() {
             </div>
             <div className="text-center">
               <img
-                src="https://d33om22pidobo4.cloudfront.net/pages/blocks/images/group-1931svg-cbb93de3-8a95-4d5c-8053-b5da88012b2csvg-391e0e0c-1848-4365-967d-fa9bd33c2ca8244f78f6-888c-4bc6-8308-370834ed89f3.svg"
+                src="https://www.pngplay.com/wp-content/uploads/7/Networking-Diagram-Transparent-Background.png"
                 alt="Global Network"
-                className="w-full rounded-lg"
               />
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
                 {networkStats.map((stat) => (
-                  <Card key={stat.label} className="text-center bg-[#1a1a1a] border-gray-800">
-                    <div className="text-2xl font-bold text-[#ccff00]">
+                  <Card key={stat.label} className="text-center bg-[#1a1a1a] border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_20px_rgba(204,255,0,0.35)] transition-all duration-300">
+                    <div className="text-2xl font-bold text-[#ccff00] drop-shadow-[0_0_10px_rgba(204,255,0,0.6)]">
                       {stat.value.toLocaleString()}
                     </div>
                     <div className="text-gray-400">{stat.label}</div>
@@ -100,11 +100,11 @@ export default function GlobalAffiliationsPage() {
               </ul>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card className="p-5 bg-[#212121] border-gray-800">
+              <Card className="p-5 bg-[#1a1a1a] border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_20px_rgba(204,255,0,0.3)] transition-all duration-300">
                 <h3 className="text-lg font-semibold mb-2 text-white">Global Brokerage Network</h3>
                 <p className="text-gray-400 text-sm">A community of independent firms sharing market intelligence, referrals, and best practices to elevate results for clients.</p>
               </Card>
-              <Card className="p-5 bg-[#212121] border-gray-800">
+              <Card className="p-5 bg-[#1a1a1a] border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_20px_rgba(204,255,0,0.3)] transition-all duration-300">
                 <h3 className="text-lg font-semibold mb-2 text-white">Luxury Alliances</h3>
                 <p className="text-gray-400 text-sm">Access to high-profile publications, private buyer pools, and international showcases for premium properties.</p>
               </Card>
@@ -122,26 +122,104 @@ export default function GlobalAffiliationsPage() {
               <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6">
                 Through our global partnerships, we expand your reach and unlock opportunities across key international markets—while keeping you guided by local experts.
               </p>
-              <ul className="space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>• Global reach across 70+ countries</li>
-                <li>• Partnerships with leading international networks</li>
-                <li>• Dedicated consultants for cross-border transactions</li>
-                <li>• Access to premium properties around the world</li>
+              <ul className="space-y-3 text-gray-300 text-sm sm:text-base mb-6 sm:mb-8">
+                <li className="flex items-start gap-3 p-3 bg-[#1a1a1a] rounded-lg border border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_15px_rgba(204,255,0,0.2)] transition-all duration-300">
+                  <Globe className="h-5 w-5 text-[#ccff00] flex-shrink-0 mt-0.5 drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]" />
+                  <span>Global reach across 70+ countries</span>
+                </li>
+                <li className="flex items-start gap-3 p-3 bg-[#1a1a1a] rounded-lg border border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_15px_rgba(204,255,0,0.2)] transition-all duration-300">
+                  <Users className="h-5 w-5 text-[#ccff00] flex-shrink-0 mt-0.5 drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]" />
+                  <span>Partnerships with leading international networks</span>
+                </li>
+                <li className="flex items-start gap-3 p-3 bg-[#1a1a1a] rounded-lg border border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_15px_rgba(204,255,0,0.2)] transition-all duration-300">
+                  <Shield className="h-5 w-5 text-[#ccff00] flex-shrink-0 mt-0.5 drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]" />
+                  <span>Dedicated consultants for cross-border transactions</span>
+                </li>
+                <li className="flex items-start gap-3 p-3 bg-[#1a1a1a] rounded-lg border border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_15px_rgba(204,255,0,0.2)] transition-all duration-300">
+                  <Award className="h-5 w-5 text-[#ccff00] flex-shrink-0 mt-0.5 drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]" />
+                  <span>Access to premium properties around the world</span>
+                </li>
               </ul>
+              
+              {/* Trust indicators */}
+              <div className="grid grid-cols-3 gap-3 sm:gap-4">
+                <div className="text-center p-3 bg-[#1a1a1a] rounded-lg border border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_15px_rgba(204,255,0,0.25)] transition-all duration-300">
+                  <div className="text-[#ccff00] text-lg sm:text-xl font-bold drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">24/7</div>
+                  <div className="text-xs text-gray-400">Support</div>
+                </div>
+                <div className="text-center p-3 bg-[#1a1a1a] rounded-lg border border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_15px_rgba(204,255,0,0.25)] transition-all duration-300">
+                  <div className="text-[#ccff00] text-lg sm:text-xl font-bold drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">&lt;24h</div>
+                  <div className="text-xs text-gray-400">Response</div>
+                </div>
+                <div className="text-center p-3 bg-[#1a1a1a] rounded-lg border border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_15px_rgba(204,255,0,0.25)] transition-all duration-300">
+                  <div className="text-[#ccff00] text-lg sm:text-xl font-bold drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">100%</div>
+                  <div className="text-xs text-gray-400">Confidential</div>
+                </div>
+              </div>
             </div>
-            <div className="bg-[#1a1a1a] p-4 sm:p-6 rounded-lg border border-gray-800 shadow-[0_0_20px_rgba(204,255,0,0.1)]">
-              <ContactLeadForm
-                title="Schedule a call with our Global Affiliations consultant"
-                subtitle="Fill out the form below and our team will reach out to you."
-                services={[
-                  'International Buying',
-                  'International Selling',
-                  'Investor Services',
-                  'Relocation Support',
-                  'Property Management',
-                  'General Inquiry',
-                ]}
-              />
+            
+            {/* Enhanced Form Container */}
+            <div className="relative">
+              {/* Neon accent corner */}
+              <div className="absolute -top-2 -right-2 w-20 h-20 bg-[#ccff00]/10 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-2 -left-2 w-20 h-20 bg-[#ccff00]/10 rounded-full blur-2xl"></div>
+              
+              <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#212121] p-6 sm:p-8 rounded-2xl border-2 border-gray-800 shadow-[0_0_30px_rgba(204,255,0,0.15)] hover:border-[#ccff00]/40 hover:shadow-[0_0_40px_rgba(204,255,0,0.25)] transition-all duration-300">
+                {/* Top badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="inline-flex items-center gap-2 bg-[#ccff00]/10 text-[#ccff00] px-3 py-1.5 rounded-full text-xs font-semibold border border-[#ccff00]/20">
+                    <Phone className="h-3 w-3" />
+                    <span>Free Consultation</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-gray-400">
+                    <div className="w-2 h-2 bg-[#ccff00] rounded-full animate-pulse"></div>
+                    <span>Available Now</span>
+                  </div>
+                </div>
+
+                {/* Header with better hierarchy */}
+                <div className="mb-6">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                    Schedule Your Consultation
+                  </h3>
+                  <p className="text-sm text-gray-400">
+                    Connect with our Global Affiliations specialist. We'll respond within 24 hours.
+                  </p>
+                </div>
+
+                {/* Form */}
+                <ContactLeadForm
+                  title=""
+                  subtitle=""
+                  darkMode={true}
+                  services={[
+                    'International Buying',
+                    'International Selling',
+                    'Investor Services',
+                    'Relocation Support',
+                    'Property Management',
+                    'General Inquiry',
+                  ]}
+                />
+
+                {/* Trust footer */}
+                <div className="mt-6 pt-6 border-t border-gray-800">
+                  <div className="flex items-center justify-center gap-6 text-xs text-gray-500">
+                    <div className="flex items-center gap-1.5">
+                      <Shield className="h-3.5 w-3.5 text-[#ccff00]" />
+                      <span>Secure & Private</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle className="h-3.5 w-3.5 text-[#ccff00]" />
+                      <span>No Obligation</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Award className="h-3.5 w-3.5 text-[#ccff00]" />
+                      <span>Expert Guidance</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -153,7 +231,7 @@ export default function GlobalAffiliationsPage() {
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 text-center">Our Clients</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 items-center">
             {clientLogos.map((logo, index) => (
-              <div key={index} className="bg-[#212121] p-3 rounded-lg border border-gray-800 flex items-center justify-center">
+              <div key={index} className="bg-[#1a1a1a] p-4 rounded-lg border border-gray-800 flex items-center justify-center hover:border-[#ccff00]/40 hover:shadow-[0_0_18px_rgba(204,255,0,0.3)] transition-all duration-300">
                 <img src={logo} alt={`Client ${index + 1}`} className="h-10 sm:h-12 object-contain" />
               </div>
             ))}
@@ -166,7 +244,7 @@ export default function GlobalAffiliationsPage() {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
             <div>
-              <div className="inline-block bg-[#ccff00]/10 text-[#ccff00] px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mb-3 sm:mb-4 border border-[#ccff00]/20">
+              <div className="inline-block bg-[#ccff00]/10 text-[#ccff00] px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mb-3 sm:mb-4 border border-[#ccff00]/20 shadow-[0_0_10px_rgba(204,255,0,0.15)]">
                 International Property Listings
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-6">
@@ -223,7 +301,7 @@ export default function GlobalAffiliationsPage() {
               icon: <Award className="h-7 w-7 text-[#ccff00]" />, title: 'Marketing that travels',
               desc: 'Tailored campaigns that reach the right audience locally and internationally.'
             }].map((f, i) => (
-              <div key={i} className="bg-[#1a1a1a] p-5 rounded-lg border border-gray-800 hover:shadow-[0_0_15px_rgba(204,255,0,0.2)] hover:border-[#ccff00]/30 transition-all">
+              <div key={i} className="bg-[#1a1a1a] p-5 rounded-lg border border-gray-800 hover:shadow-[0_0_20px_rgba(204,255,0,0.35)] hover:border-[#ccff00]/40 transition-all duration-300 hover:scale-105">
                 <div className="mb-3">{f.icon}</div>
                 <h3 className="text-lg font-semibold mb-1 text-white">{f.title}</h3>
                 <p className="text-sm text-gray-400">{f.desc}</p>
@@ -240,7 +318,7 @@ export default function GlobalAffiliationsPage() {
           <p className="text-gray-400 text-center mb-6 sm:mb-8">Explore international opportunities across established and emerging markets.</p>
           <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
             {['Montenegro','Cyprus','Spain','Greece','Portugal','Mauritius'].map((d) => (
-              <a key={d} href="/buy" className="px-3 py-1.5 rounded-full bg-[#212121] border border-gray-700 text-gray-300 text-sm hover:border-[#ccff00] hover:text-[#ccff00] transition-colors">
+              <a key={d} href="/buy" className="px-3 py-1.5 rounded-full bg-[#212121] border border-gray-700 text-gray-300 text-sm hover:border-[#ccff00] hover:text-[#ccff00] hover:shadow-[0_0_12px_rgba(204,255,0,0.4)] transition-all duration-300">
                 {d}
               </a>
             ))}
@@ -251,9 +329,9 @@ export default function GlobalAffiliationsPage() {
       {/* Meet our global affiliations lead */}
       <section className="py-8 sm:py-12 lg:py-16 bg-[#171717]">
         <div className="max-w-5xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center bg-[#1a1a1a] border border-gray-800 rounded-xl p-5 sm:p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center bg-[#1a1a1a] border-2 border-gray-800 rounded-xl p-5 sm:p-6 hover:border-[#ccff00]/40 hover:shadow-[0_0_25px_rgba(204,255,0,0.3)] transition-all duration-300">
             <div className="md:col-span-1 flex items-center justify-center">
-              <img src="https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=300&q=80" alt="Global Affiliations Lead" className="w-32 h-32 rounded-full object-cover shadow-[0_0_20px_rgba(204,255,0,0.3)]" />
+                  <img src="https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=300&q=80" alt="Global Affiliations Lead" className="w-32 h-32 rounded-full object-cover shadow-[0_0_25px_rgba(204,255,0,0.4)] border-2 border-[#ccff00]/30" />
             </div>
             <div className="md:col-span-2">
               <h3 className="text-xl font-semibold text-white">Global Affiliations Director</h3>
@@ -284,8 +362,8 @@ export default function GlobalAffiliationsPage() {
             return (
               <div className="space-y-3 sm:space-y-4">
                 {faqs.map((item, idx) => (
-                  <div key={idx} className="border border-gray-800 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-[0_0_15px_rgba(204,255,0,0.1)] bg-[#212121]">
-                    <button className="w-full px-4 sm:px-6 py-3 sm:py-4 text-left flex justify-between items-center hover:bg-[#1a1a1a]" onClick={() => setExpanded(expanded === idx ? null : idx)}>
+                  <div key={idx} className="border border-gray-800 rounded-lg overflow-hidden transition-all duration-300 hover:border-[#ccff00]/40 hover:shadow-[0_0_18px_rgba(204,255,0,0.25)] bg-[#212121]">
+                    <button className="w-full px-4 sm:px-6 py-3 sm:py-4 text-left flex justify-between items-center hover:bg-[#1a1a1a] transition-colors" onClick={() => setExpanded(expanded === idx ? null : idx)}>
                       <span className="font-semibold text-sm sm:text-base text-white">{item.q}</span>
                       <ChevronRight className={`h-4 w-4 text-gray-500 transition-transform ${expanded === idx ? 'rotate-90 text-[#ccff00]' : ''}`} />
                     </button>
@@ -317,7 +395,6 @@ export default function GlobalAffiliationsPage() {
               <img
                 src="https://d33om22pidobo4.cloudfront.net/pages/blocks/images/investment-guidepng-93153d34-d81e-4930-a461-32617752e73e.png"
                 alt="Investment Guide"
-                className="w-full rounded-lg shadow"
               />
             </div>
           </div>

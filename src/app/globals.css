@@ -302,7 +302,7 @@ span.ant-select-selection-item {
 }
 
 /* Dark Select Dropdown Styles */
-.dark-select .ant-select-selector {
+.dark-select , .ant-select-selector {
   background-color: #212121 !important;
   border: 1px solid #374151 !important;
   color: white !important;
@@ -343,5 +343,11 @@ span.ant-select-selection-item {
   background-color: rgba(133, 232, 114, 0.1) !important;
   color: #ccff00 !important;
   font-weight: 600 !important;
+}
+
+.ant-checkbox .ant-checkbox-inner {
+  height: 15px !important;
+  width: 15px !important;
+  border-radius: 4px !important;
 }
 

@@ -40,7 +40,7 @@ export default function MRSidebarFilters({
         <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">{featuresLabel}</label>
         <div className="space-y-1">
           {Object.keys(flags).map((key)=> (
-            <Checkbox key={key} checked={flags[key]} onChange={(e)=> setFlags({ ...flags, [key]: e.target.checked })} className="text-gray-300">
+            <Checkbox key={key} checked={flags[key]} onChange={(e)=> setFlags({ ...flags, [key]: e.target.checked })} className="text-gray-300 p-0 m-0 h-3 w-3">
               <span className="text-gray-300">{key}</span>
             </Checkbox>
           ))}

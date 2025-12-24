@@ -29,6 +29,7 @@ import {
 import PropertiesList from '@/components/PropertiesList';
 import PropertyCard from '@/components/ui/PropertyCard';
 import PropertySearch from '@/components/ui/PropertySearch';
+import SidebarFilters from '@/components/shared/SidebarFilters';
 
 const { Option } = Select;
 
@@ -282,201 +283,16 @@ export default function BuyPage() {
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
             {/* Sidebar Filters */}
-            <div
-              className={`lg:w-80 ${showFilters ? 'block' : 'hidden lg:block'}`}
-            >
-              <Card className="sticky top-4 bg-[#1a1a1a] border-gray-800">
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-white">
-                    Filters
-                  </h3>
-                  <Button type="text" size="small" onClick={clearFilters} className="text-[#ccff00] hover:text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.8)]">
-                    Clear All
-                  </Button>
-                </div>
-
-                <div className="space-y-6">
-                  {/* Property Type */}
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-white">
-                      Property Type
-                    </label>
-                    <Select
-                      placeholder="Select property type"
-                      value={filters.type}
-                      onChange={(value) => handleFilterChange('type', value)}
-                      className="w-full dark-select"
-                      allowClear
-                    >
-                      {propertyTypes.map((type) => (
-                        <Option key={type.value} value={type.value}>
-                          {type.label}
-                        </Option>
-                      ))}
-                    </Select>
-                  </div>
-                  {/* Price Range */}
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-white">
-                      Price Range
-                    </label>
-                    <div className="space-y-3">
-                      <div className="flex gap-2">
-                        <Input
-                          placeholder="Min Price"
-                          value={filters.minPrice || ''}
-                          onChange={(e) =>
-                            handleFilterChange(
-                              'minPrice',
-                              e.target.value ? Number(e.target.value) : null,
-                            )
-                          }
-                          prefix="$"
-                          className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
-                        />
-                        <Input
-                          placeholder="Max Price"
-                          value={filters.maxPrice || ''}
-                          onChange={(e) =>
-                            handleFilterChange(
-                              'maxPrice',
-                              e.target.value ? Number(e.target.value) : null,
-                            )
-                          }
-                          prefix="$"
-                          className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  {/* Bedrooms */}
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-white">
-                      Minimum Bedrooms
-                    </label>
-                    <Select
-                      placeholder="Any"
-                      value={filters.minBedrooms}
-                      onChange={(value) =>
-                        handleFilterChange('minBedrooms', value)
-                      }
-                      className="w-full dark-select"
-                      allowClear
-                    >
-                      {[1, 2, 3, 4, 5, 6].map((num) => (
-                        <Option key={num} value={num}>
-                          {num}+ Bedroom{num > 1 ? 's' : ''}
-                        </Option>
-                      ))}
-                    </Select>
-                  </div>
-                  <div>
-                    <label className="mb-3 block text-sm font-medium text-white">
-                      Property Features
-                    </label>
-                    <div className="space-y-2">
-                      <div>
-                        <Checkbox
-                          checked={filters.parkingRequired}
-                          onChange={(e) =>
-                            handleFilterChange(
-                              'parkingRequired',
-                              e.target.checked,
-                            )
-                          }
-                          className="text-gray-300"
-                        >
-                          <span className="text-gray-300">Parking Required</span>
-                        </Checkbox>
-                      </div>
-                      <div>
-                        <Checkbox
-                          checked={filters.availableForSwap}
-                          onChange={(e) =>
-                            handleFilterChange(
-                              'availableForSwap',
-                              e.target.checked,
-                            )
-                          }
-                          className="text-gray-300"
-                        >
-                          <span className="text-gray-300">Available for Home Swap</span>
-                        </Checkbox>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Location Features */}
-                  <div>
-                    <label className="mb-3 block text-sm font-medium text-white">
-                      Location Features
-                    </label>
-                    <div className="max-h-32 flex-col space-y-2 overflow-y-auto">
-                      {propertyFeatures.map((feature) => (
-                        <div key={feature}>
-                          <Checkbox
-                            key={feature}
-                            checked={filters.features.includes(feature)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                handleFilterChange('features', [
-                                  ...filters.features,
-                                  feature,
-                                ]);
-                              } else {
-                                handleFilterChange(
-                                  'features',
-                                  filters.features.filter((f) => f !== feature),
-                                );
-                              }
-                            }}
-                            className="text-gray-300"
-                          >
-                            <span className="text-gray-300">{feature
-                              .replace(/_/g, ' ')
-                              .replace(/\b\w/g, (l) => l.toUpperCase())}</span>
-                          </Checkbox>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {/* Amenities */}
-                  <div>
-                    <label className="mb-3 block text-sm font-medium text-white">
-                      Amenities
-                    </label>
-                    <div className="max-h-40 space-y-2 overflow-y-auto">
-                      {propertyAmenities.map((amenity) => (
-                        <div key={amenity}>
-                          <Checkbox
-                            key={amenity}
-                            checked={filters.amenities.includes(amenity)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                handleFilterChange('amenities', [
-                                  ...filters.amenities,
-                                  amenity,
-                                ]);
-                              } else {
-                                handleFilterChange(
-                                  'amenities',
-                                  filters.amenities.filter(
-                                    (a) => a !== amenity,
-                                  ),
-                                );
-                              }
-                            }}
-                            className="text-gray-300"
-                          >
-                            <span className="text-gray-300">{amenity
-                              .replace(/_/g, ' ')
-                              .replace(/\b\w/g, (l) => l.toUpperCase())}</span>
-                          </Checkbox>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Card>
+            <div className={`lg:w-80 ${showFilters ? 'block' : 'hidden lg:block'}`}>
+              <SidebarFilters
+                title="Filters"
+                filters={filters}
+                onChange={handleFilterChange}
+                onClear={clearFilters}
+                propertyTypes={propertyTypes}
+                amenities={propertyAmenities}
+                features={propertyFeatures}
+              />
             </div>
 
             {/* Main Content */}
