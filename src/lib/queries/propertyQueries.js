@@ -369,37 +369,6 @@ export const GET_USER_WISHLIST = gql`
   }
 `;
 
-export const GET_USER_BOOKINGS = gql`
-  query GetUserBookings($userId: ID!, $status: BookingStatus) {
-    myBookings(status: $status) {
-      bookings {
-        id
-        property {
-          id
-          title
-          images {
-            url
-            alt
-            isPrimary
-          }
-          location {
-            city
-            state
-          }
-        }
-        checkInDate
-        checkOutDate
-        numberOfGuests
-        totalAmount
-        status
-        createdAt
-      }
-      totalCount
-      hasMore
-    }
-  }
-`;
-
 // Booking Queries
 export const CALCULATE_BOOKING_COST = gql`
   query CalculateBookingCost(
