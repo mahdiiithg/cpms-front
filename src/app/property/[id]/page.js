@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@apollo/client';
@@ -182,9 +183,9 @@ export default function PropertyDetailPage() {
       <div className="border-b bg-white">
         <div className="mx-auto max-w-7xl px-4 py-3">
           <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <a href="/" className="transition-colors hover:text-blue-600">
+            <Link href="/" className="transition-colors hover:text-blue-600">
               Home
-            </a>
+            </Link>
             <span>›</span>
             <a href="/buy" className="transition-colors hover:text-blue-600">
               Properties

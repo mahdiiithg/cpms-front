@@ -33,7 +33,7 @@ export const GET_WISHLIST_PROPERTIES = gql`
   }
 `;
 
-export const GET_USER_BOOKINGS = gql`
+export const GET_USER_GYM_BOOKINGS = gql`
   query GetUserBookings($userId: ID!) {
     getUserBookings(userId: $userId) {
       id

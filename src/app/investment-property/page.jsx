@@ -12,6 +12,7 @@ import MRRegionChips from '@/components/management-rights/MRRegionChips';
 import MRResultsHeader from '@/components/management-rights/MRResultsHeader';
 import MRFeaturedSection from '@/components/management-rights/MRFeaturedSection';
 import MRResultsGrid from '@/components/management-rights/MRResultsGrid';
+import MRPageHero from '@/components/management-rights/MRPageHero';
 
 export default function InvestmentPropertyPage() {
   // UI state
@@ -84,6 +85,13 @@ export default function InvestmentPropertyPage() {
 
   const displayedTotal = filteredProperties.length;
   const listingOfTheMonth = useMemo(() => featured[0] || null, [featured]);
+  const heroCtas = useMemo(() => ([
+    { label: 'Permanent', href: '/management-rights/permanent', variant: 'secondary' },
+    { label: 'Resort | Holiday', href: '/management-rights/resort-holiday', variant: 'secondary' },
+    { label: 'Retirement', href: '/management-rights/retirement', variant: 'secondary' },
+    { label: 'Off The Plan', href: '/management-rights/off-the-plan', variant: 'secondary' },
+    { label: 'Rentals', href: '/rentals-property', variant: 'secondary' },
+  ]), []);
 
   const flags = {
     'High yield': flagHighYield,
@@ -101,38 +109,29 @@ export default function InvestmentPropertyPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-[#171717]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-4 text-sm">
-        <Breadcrumb.Item><Link href="/">Home</Link></Breadcrumb.Item>
-        <Breadcrumb.Item><Link href="/listings">Property Listings</Link></Breadcrumb.Item>
-        <Breadcrumb.Item>Investment Property</Breadcrumb.Item>
+        <Breadcrumb.Item><Link href="/" className="text-gray-400 hover:text-[#ccff00]">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item><Link href="/listings" className="text-gray-400 hover:text-[#ccff00]">Property Listings</Link></Breadcrumb.Item>
+        <Breadcrumb.Item className="text-white">Investment Property</Breadcrumb.Item>
       </Breadcrumb>
 
-      {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 mb-6 border border-blue-100">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Investment Property</h1>
-            <p className="mt-1 text-gray-600 max-w-2xl">Browse residential assets with attractive yield and growth profiles across key regions.</p>
-          </div>
-          <div className="flex gap-2">
-            <Link href="/management-rights/permanent"><Button>Permanent</Button></Link>
-            <Link href="/management-rights/resort-holiday"><Button>Resort | Holiday</Button></Link>
-            <Link href="/management-rights/retirement"><Button>Retirement</Button></Link>
-            <Link href="/management-rights/off-the-plan"><Button>Off The Plan</Button></Link>
-          </div>
-        </div>
-      </div>
+      <MRPageHero
+        title="Investment Property"
+        subtitle="Browse residential assets with attractive yield and growth profiles across key regions."
+        ctas={heroCtas}
+      />
 
       {/* Category tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
-        <Link href="/management-rights/permanent"><Button>Permanent</Button></Link>
-        <Link href="/management-rights/resort-holiday"><Button>Resort | Holiday</Button></Link>
-        <Link href="/management-rights/retirement"><Button>Retirement</Button></Link>
-        <Link href="/management-rights/off-the-plan"><Button>Off The Plan</Button></Link>
-        <Link href="/investment-property"><Button type="primary">Investment Property</Button></Link>
-        <Link href="/rentals-property"><Button>Rentals</Button></Link>
+        <Link href="/management-rights/permanent"><Button className="bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]">Permanent</Button></Link>
+        <Link href="/management-rights/resort-holiday"><Button className="bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]">Resort | Holiday</Button></Link>
+        <Link href="/management-rights/retirement"><Button className="bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]">Retirement</Button></Link>
+        <Link href="/management-rights/off-the-plan"><Button className="bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]">Off The Plan</Button></Link>
+        <Link href="/investment-property"><Button className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold shadow-[0_0_15px_rgba(204,255,0,0.6)]">Investment Property</Button></Link>
+        <Link href="/rentals-property"><Button className="bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]">Rentals</Button></Link>
       </div>
 
       {/* Top search and mobile filters trigger */}
@@ -175,7 +174,7 @@ export default function InvestmentPropertyPage() {
           <div className="flex items-center justify-between mb-3">
             <a
               href="#"
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.7)]"
               onClick={(e)=>{ e.preventDefault(); if (typeof window !== 'undefined') window.print(); }}
             >
               Print stocklist of top results
@@ -225,36 +224,37 @@ export default function InvestmentPropertyPage() {
       {/* Informational sections */}
       <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          <section>
-            <h2 className="text-xl font-semibold mb-2">Industry news</h2>
-            <p className="text-gray-700">Stay informed with insights and updates affecting investors. We curate relevant articles and market commentary.</p>
+          <section className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-6">
+            <h2 className="text-xl font-semibold mb-2 text-white">Industry news</h2>
+            <p className="text-gray-400">Stay informed with insights and updates affecting investors. We curate relevant articles and market commentary.</p>
           </section>
-          <section>
-            <h2 className="text-xl font-semibold mb-2">Employment opportunities</h2>
-            <p className="text-gray-700">Explore roles in property and asset management across the industry.</p>
+          <section className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-6">
+            <h2 className="text-xl font-semibold mb-2 text-white">Employment opportunities</h2>
+            <p className="text-gray-400">Explore roles in property and asset management across the industry.</p>
           </section>
-          <section>
-            <h2 className="text-xl font-semibold mb-2">Upcoming events</h2>
-            <p className="text-gray-700">Workshops, seminars, and networking events for property investors and professionals.</p>
+          <section className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-6">
+            <h2 className="text-xl font-semibold mb-2 text-white">Upcoming events</h2>
+            <p className="text-gray-400">Workshops, seminars, and networking events for property investors and professionals.</p>
           </section>
-          <section>
-            <h2 className="text-xl font-semibold mb-2">Find an industry supplier</h2>
-            <p className="text-gray-700">Connect with trusted brokers, agents, and service providers to support your investment journey.</p>
+          <section className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-6">
+            <h2 className="text-xl font-semibold mb-2 text-white">Find an industry supplier</h2>
+            <p className="text-gray-400">Connect with trusted brokers, agents, and service providers to support your investment journey.</p>
           </section>
-          <section>
-            <h2 className="text-xl font-semibold mb-2">Useful links</h2>
-            <ul className="list-disc ml-5 text-gray-700 space-y-1">
-              <li><Link href="/property-listings" className="text-blue-600">Property Listings</Link></li>
-              <li><Link href="/blog" className="text-blue-600">Investor Blog</Link></li>
-              <li><Link href="/directory" className="text-blue-600">Suppliers Directory</Link></li>
-              <li><Link href="/contact" className="text-blue-600">Contact Us</Link></li>
+          <section className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-6">
+            <h2 className="text-xl font-semibold mb-2 text-white">Useful links</h2>
+            <ul className="list-disc ml-5 text-gray-400 space-y-1">
+              <li><Link href="/property-listings" className="text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.7)]">Property Listings</Link></li>
+              <li><Link href="/blog" className="text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.7)]">Investor Blog</Link></li>
+              <li><Link href="/directory" className="text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.7)]">Suppliers Directory</Link></li>
+              <li><Link href="/contact" className="text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.7)]">Contact Us</Link></li>
             </ul>
           </section>
         </div>
         <aside className="space-y-4">
-          <div className="bg-white rounded-lg border p-4"><h3 className="font-semibold mb-2">Don't miss out</h3><p className="text-gray-700 mb-3">Receive monthly updates from industry professionals and commentators.</p><Button type="primary" href="/subscribe">Subscribe</Button></div>
-          <div className="bg-white rounded-lg border p-4"><h3 className="font-semibold mb-2">Contact details</h3><p className="text-gray-700">Have a question about a listing or service? Reach out to our team.</p><div className="text-sm text-gray-600 mt-2">Office: 111 Example St, City 4000<br/>Call: +61 7 0000 0000<br/>Mail: info@example.com</div></div>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4"><h3 className="font-semibold mb-2 text-white">Don't miss out</h3><p className="text-gray-400 mb-3">Receive monthly updates from industry professionals and commentators.</p><Button type="primary" className="bg-[#ccff00] hover:bg-[#ccff00]/90 text-black border-0 font-semibold" href="/subscribe">Subscribe</Button></div>
+          <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 p-4"><h3 className="font-semibold mb-2 text-white">Contact details</h3><p className="text-gray-400">Have a question about a listing or service? Reach out to our team.</p><div className="text-sm text-gray-500 mt-2">Office: 111 Example St, City 4000<br/>Call: +61 7 0000 0000<br/>Mail: info@example.com</div></div>
         </aside>
+      </div>
       </div>
     </div>
   );

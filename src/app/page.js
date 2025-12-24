@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Button, Input, Card, Row, Col, Statistic, Form, Select } from 'antd';
 import {
@@ -63,7 +64,7 @@ export default function HomePage() {
     {
       name: 'Mohamed Abu Ghazaleh',
       role: 'Owner, Oceanfront Tower, Miami',
-      text: "Coast Planet has managed Oceanfront Tower since 2010, and I'm very happy with their service. With 216 apartments, managing this building isn't easy, but they handle everything seamlessly—from leasing to maintenance. Their structured processes, proactive solutions, and commitment to tenant satisfaction keep the building well-run, ensuring smooth operations and high occupancy. Coast Planet has been a trusted partner, and I am proud to have them as our property manager. I look forward to continuing our successful relationship.",
+              text: "Coast Planet has managed Oceanfront Tower since 2010, and I&apos;m very happy with their service. With 216 apartments, managing this building isn&apos;t easy, but they handle everything seamlessly—from leasing to maintenance. Their structured processes, proactive solutions, and commitment to tenant satisfaction keep the building well-run, ensuring smooth operations and high occupancy. Coast Planet has been a trusted partner, and I am proud to have them as our property manager. I look forward to continuing our successful relationship.",
       rating: 5,
     },
     {
@@ -181,9 +182,9 @@ export default function HomePage() {
       <div className="border-b border-gray-800 bg-[#1a1a1a] py-2 sm:py-3">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
           <div className="flex items-center space-x-1 text-xs text-gray-400 sm:space-x-2 sm:text-sm">
-            <a href="/" className="transition-colors hover:text-[#ccff00]">
+            <Link href="/" className="transition-colors hover:text-[#ccff00]">
               Home
-            </a>
+            </Link>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
             <span>Services</span>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -393,7 +394,7 @@ export default function HomePage() {
                 Fully Managed by Us
               </h2>
               <p className="mb-6 text-xl text-[#ccff00]">
-                We're available, so you don't have to be
+                We&apos;re available, so you don&apos;t have to be
               </p>
               <p className="mb-6 leading-relaxed text-gray-400">
                 Experience complete peace of mind with our comprehensive
@@ -560,7 +561,7 @@ export default function HomePage() {
               <p className="mb-8 leading-relaxed text-gray-400">
                 Whether you own a single property or have an extensive asset
                 portfolio, you naturally want to maximise your return on
-                investment. But, if your property isn't being managed properly,
+                investment. But, if your property isn&apos;t being managed properly,
                 you could end up out of pocket. Our 50-strong team of
                 residential and commercial property management professionals are
                 your eyes and ears on the ground.
@@ -653,7 +654,7 @@ export default function HomePage() {
               for our <span className="text-[#ccff00]">clients</span>
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-400">
-              Don't just take our word for it. Here's what our clients have to
+              Don&apos;t just take our word for it. Here&apos;s what our clients have to
               say about their Coast Planet experience.
             </p>
           </div>

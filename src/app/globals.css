@@ -137,19 +137,54 @@ span.ant-select-selection-item {
 /* Custom Input Styles for Dark Theme */
 .ant-input {
   background-color: #171717 !important;
-  border: 1px solid #404040 !important;
+  border: none !important;
   color: white !important;
-  border-radius: 8px !important;
+  padding: 0 !important;
 }
 
 .ant-input:hover,
 .ant-input:focus {
-  border-color: #ccff00 !important;
+  border: none !important;
   box-shadow: 0 0 0 2px rgba(133, 232, 114, 0.1) !important;
 }
 
 .ant-input::placeholder {
   color: #6b7280 !important;
+}
+
+/* Affix wrapper (Input with prefix/suffix/clear) */
+.ant-input-affix-wrapper {
+  background-color: #212121 !important;
+  border: none !important;
+  color: white !important;
+  border-radius: 8px !important;
+}
+
+.ant-input-affix-wrapper:hover {
+  border-color: rgba(204, 255, 0, 0.5) !important;
+  box-shadow: 0 0 10px rgba(204, 255, 0, 0.3) !important;
+}
+
+.ant-input-affix-wrapper-focused {
+  border-color: #ccff00 !important;
+  box-shadow: 0 0 10px rgba(204, 255, 0, 0.3) !important;
+}
+
+.ant-input-affix-wrapper .ant-input {
+  background-color: #212121 !important;
+  color: white !important;
+}
+
+.ant-input-affix-wrapper .ant-input::placeholder {
+  color: #9ca3af !important;
+}
+
+.ant-input-clear-icon {
+  color: #9ca3af !important;
+}
+
+.ant-input-clear-icon:hover {
+  color: #ccff00 !important;
 }
 
 /* Custom scrollbar for dark theme */
@@ -244,11 +279,7 @@ span.ant-select-selection-item {
 }
 
 /* Dark Search Styles */
-.dark-search .ant-input-search .ant-input {
-  background-color: #212121 !important;
-  border: 1px solid #374151 !important;
-  color: white !important;
-}
+
 
 .dark-search .ant-input-search .ant-input:hover,
 .dark-search .ant-input-search .ant-input:focus {

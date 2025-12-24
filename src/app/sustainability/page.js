@@ -129,7 +129,7 @@ const SustainabilityPage = () => {
               Building a greener future, one property at a time
             </p>
             <p className="text-lg mb-12 opacity-80 max-w-2xl mx-auto">
-              At Coast Planet, we believe that sustainable living shouldn't be a luxury. That's why we're committed to creating eco-friendly properties that benefit both our clients and the planet.
+              At Coast Planet, we believe that sustainable living shouldn&apos;t be a luxury. That&apos;s why we&apos;re committed to creating eco-friendly properties that benefit both our clients and the planet.
             </p>
             <Button 
               size="large" 
@@ -221,7 +221,7 @@ const SustainabilityPage = () => {
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Environmental Impact</h2>
               <p className="text-lg text-gray-600 mb-8">
-                Since 2018, we've been measuring and reducing our environmental footprint while helping our clients do the same.
+                Since 2018, we&apos;ve been measuring and reducing our environmental footprint while helping our clients do the same.
               </p>
               
               <div className="space-y-6">

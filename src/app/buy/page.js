@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
@@ -226,9 +227,9 @@ export default function BuyPage() {
       <div className="bg-[#1a1a1a] py-2 sm:py-3 border-b border-gray-800">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
           <div className="flex items-center space-x-1 text-xs text-gray-400 sm:space-x-2 sm:text-sm">
-            <a href="/" className="hover:text-[#ccff00] transition-colors">
+            <Link href="/" className="hover:text-[#ccff00] transition-colors">
               Home
-            </a>
+            </Link>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
             <span className="text-[#ccff00]">Buy</span>
           </div>
@@ -597,7 +598,7 @@ export default function BuyPage() {
       <section className="bg-[#1a1a1a] border-t border-gray-800 py-8 sm:py-12 lg:py-16">
         <div className="mx-auto max-w-4xl px-3 text-center sm:px-4 lg:px-8">
           <h2 className="mb-4 text-2xl font-bold text-white sm:mb-6 sm:text-3xl">
-            Can't find what you're looking for?
+            Can&apos;t find what you&apos;re looking for?
           </h2>{' '}
           <p className="mb-6 text-sm text-gray-400 sm:mb-8 sm:text-base">
             Our experts can help you find the perfect property that matches your

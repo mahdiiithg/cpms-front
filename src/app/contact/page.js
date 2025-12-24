@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { Button, Input, Form, Select, Row, Col, Card } from 'antd';
 import { 
@@ -99,7 +100,7 @@ export default function ContactPage() {
       <div className="bg-gray-50 py-2 sm:py-3">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-600">
-            <a href="/" className="hover:text-blue-600">Home</a>
+            <Link href="/" className="hover:text-blue-600">Home</Link>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
             <span className="text-blue-600">Contact</span>
           </div>

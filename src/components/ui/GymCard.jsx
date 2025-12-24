@@ -23,7 +23,7 @@ import {
 import { toast } from 'sonner';
 import {
   GET_PROPERTIES,
-  GET_USER_BOOKINGS,
+  GET_USER_GYM_BOOKINGS,
   GET_WISHLIST_PROPERTIES,
 } from '@/lib/queries';
 
@@ -47,7 +47,7 @@ const PropertyCard = ({ property }) => {
   });
 
   const { data: bookingsData, refetch: refetchBookings } = useQuery(
-    GET_USER_BOOKINGS,
+    GET_USER_GYM_BOOKINGS,
     {
       variables: { userId },
       skip: !userId,

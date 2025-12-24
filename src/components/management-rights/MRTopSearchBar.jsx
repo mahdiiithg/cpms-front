@@ -28,7 +28,6 @@ export default function MRTopSearchBar({
             onChange={(e)=> setKeywords(e.target.value)}
             placeholder={placeholder}
             allowClear
-            className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
           />
         </div>
         <div>
@@ -47,12 +46,12 @@ export default function MRTopSearchBar({
         </div>
         <div>
           <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">City</label>
-          <Input value={city} onChange={(e)=> setCity(e.target.value)} placeholder="City" allowClear className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]" />
-        </div>
+          <Input value={city} onChange={(e)=> setCity(e.target.value)} placeholder="City" allowClear 
+/>        </div>
         <div>
           <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Suburb</label>
-          <Input value={suburb} onChange={(e)=> setSuburb(e.target.value)} placeholder="Suburb" allowClear className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]" />
-        </div>
+          <Input value={suburb} onChange={(e)=> setSuburb(e.target.value)} placeholder="Suburb" allowClear 
+/>        </div>
         <div className="md:hidden">
           <Button className="w-full bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold shadow-[0_0_15px_rgba(204,255,0,0.6)]" onClick={onOpenMobileFilters}>More Filters</Button>
         </div>

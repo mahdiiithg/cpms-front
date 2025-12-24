@@ -13,6 +13,7 @@ import MRResultsHeader from '@/components/management-rights/MRResultsHeader';
 import MRFeaturedSection from '@/components/management-rights/MRFeaturedSection';
 import MRResultsGrid from '@/components/management-rights/MRResultsGrid';
 import { managementRights } from '@/data/managementRightsData';
+import MRPageHero from '@/components/management-rights/MRPageHero';
 
 export default function RetirementManagementRightsPage() {
   const meta = managementRights.retirement;
@@ -110,20 +111,11 @@ export default function RetirementManagementRightsPage() {
         <Breadcrumb.Item className="text-white">Retirement</Breadcrumb.Item>
       </Breadcrumb>
 
-      {/* Hero */}
-      <div className="bg-gradient-to-r from-[#1a1a1a] to-[#212121] rounded-xl p-6 mb-6 border border-gray-800 shadow-[0_0_30px_rgba(204,255,0,0.1)]">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white drop-shadow-[0_0_15px_rgba(204,255,0,0.3)]">{meta.title}</h1>
-            <p className="mt-1 text-gray-300 max-w-2xl">{meta.subtitle}</p>
-          </div>
-          <div className="flex gap-2">
-            {meta.heroCtas.map((c) => (
-              <Link key={c.href} href={c.href}><Button>{c.label}</Button></Link>
-            ))}
-          </div>
-        </div>
-      </div>
+      <MRPageHero
+        title={meta.title}
+        subtitle={meta.subtitle}
+        ctas={meta.heroCtas.map((cta, index) => ({ ...cta, variant: index === 0 ? 'primary' : 'secondary' }))}
+      />
 
       {/* Category tabs */}
       <div className="flex flex-wrap gap-2 mb-6">

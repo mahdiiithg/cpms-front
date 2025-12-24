@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { SEARCH_PROPERTIES } from '@/lib/queries/property';
 import { Breadcrumb, Button, Card, Empty, Input, Pagination, Select, Spin, Tag, Checkbox, Drawer, Divider } from 'antd';
 import { managementRights } from '@/data/managementRightsData';
+import MRTopSearchBar from '@/components/management-rights/MRTopSearchBar';
+import MRPageHero from '@/components/management-rights/MRPageHero';
 
 const { Option } = Select;
 
@@ -92,20 +94,11 @@ export default function ResortHolidayManagementRightsPage() {
         <Breadcrumb.Item className="text-white">Resort | Holiday</Breadcrumb.Item>
       </Breadcrumb>
 
-      {/* Hero */}
-      <div className="bg-gradient-to-r from-[#1a1a1a] to-[#212121] rounded-xl p-6 mb-6 border border-gray-800 shadow-[0_0_30px_rgba(204,255,0,0.1)]">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white drop-shadow-[0_0_15px_rgba(204,255,0,0.3)]">{meta.title}</h1>
-            <p className="mt-1 text-gray-300 max-w-2xl">{meta.subtitle}</p>
-          </div>
-          <div className="flex gap-2">
-            {meta.heroCtas.map((c) => (
-              <Link key={c.href} href={c.href}><Button>{c.label}</Button></Link>
-            ))}
-          </div>
-        </div>
-      </div>
+      <MRPageHero
+        title={meta.title}
+        subtitle={meta.subtitle}
+        ctas={meta.heroCtas.map((cta, index) => ({ ...cta, variant: index === 0 ? 'primary' : 'secondary' }))}
+      />
 
       {/* Category tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
@@ -117,50 +110,20 @@ export default function ResortHolidayManagementRightsPage() {
         <Link href="/rentals-property"><Button>Rentals</Button></Link>
       </div>
 
-      {/* Top search and mobile filters trigger */}
-      <div className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-3 md:p-4 mb-4">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
-          <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Keywords</label>
-            <Input
-              value={keywords}
-              onChange={(e)=>{ setKeywords(e.target.value); setPage(1); }}
-              placeholder="e.g., Surfers Paradise, beachfront, pool"
-              allowClear
-              className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500"
-              styles={{
-                input: { background: '#212121', color: 'white' },
-                affixWrapper: { background: '#212121', borderColor: '#374151' }
-              }}
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Beds (min)</label>
-            <Select value={beds} onChange={(v)=>{ setBeds(v); setPage(1); }} className="w-full">
-              {[0,1,2,3,4,5].map((n)=>(<Option key={n} value={n}>{n === 0 ? 'Any' : `${n}+`}</Option>))}
-            </Select>
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Listing type</label>
-            <Select value={listingType} onChange={(v)=>{ setListingType(v); setPage(1); }} className="w-full">
-              <Option value="all">All</Option>
-              <Option value="sale">For Sale</Option>
-              <Option value="rent">For Rent</Option>
-            </Select>
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">City</label>
-            <Input value={city} onChange={(e)=>{ setCity(e.target.value); setPage(1); }} placeholder="e.g., Gold Coast" allowClear className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500" styles={{ input: { background: '#212121', color: 'white' }, affixWrapper: { background: '#212121', borderColor: '#374151' } }} />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-white mb-1 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">Suburb</label>
-            <Input value={suburb} onChange={(e)=>{ setSuburb(e.target.value); setPage(1); }} placeholder="e.g., Surfers Paradise" allowClear className="bg-[#212121] border-gray-700 text-white placeholder:text-gray-500" styles={{ input: { background: '#212121', color: 'white' }, affixWrapper: { background: '#212121', borderColor: '#374151' } }} />
-          </div>
-          <div className="md:hidden">
-            <Button className="w-full" onClick={()=>setMobileFiltersOpen(true)}>More Filters</Button>
-          </div>
-        </div>
-      </div>
+      <MRTopSearchBar
+        keywords={keywords}
+        setKeywords={(v)=>{ setKeywords(v); setPage(1); }}
+        beds={beds}
+        setBeds={(v)=>{ setBeds(v); setPage(1); }}
+        listingType={listingType}
+        setListingType={(v)=>{ setListingType(v); setPage(1); }}
+        city={city}
+        setCity={(v)=>{ setCity(v); setPage(1); }}
+        suburb={suburb}
+        setSuburb={(v)=>{ setSuburb(v); setPage(1); }}
+        onOpenMobileFilters={()=>setMobileFiltersOpen(true)}
+        placeholder="e.g., Surfers Paradise, beachfront, pool"
+      />
 
       {/* Main grid with sidebar filters + results */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">

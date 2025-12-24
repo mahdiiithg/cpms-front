@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
@@ -214,9 +215,9 @@ export default function RentPage() {
       <div className="bg-gray-50 py-2 sm:py-3">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
           <div className="flex items-center space-x-1 text-xs text-gray-600 sm:space-x-2 sm:text-sm">
-            <a href="/" className="hover:text-blue-600">
+            <Link href="/" className="hover:text-blue-600">
               Home
-            </a>
+            </Link>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
             <span className="text-blue-600">Rent</span>
           </div>
