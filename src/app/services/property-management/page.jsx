@@ -220,61 +220,88 @@ export default function PropertyManagementPage() {
         />
       </Head>
 
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-[#171717]">
         {/* Hero Section */}
         <section
           id="hero"
-          className="relative bg-gradient-to-br from-blue-50 via-white to-blue-100 py-20 text-center"
+          className="relative overflow-hidden bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] py-20 text-center"
         >
-          <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
-            Property Management
-          </h1>
-          <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-700">
-            Professional management for your residential or commercial property.
-            Maximize returns, minimize hassle, and enjoy peace of mind.
-          </p>
-          <Button type="primary" size="large" href="#contact">
-            Get a Free Appraisal
-          </Button>
+          {/* Neon Balloons Background with Glass Effect */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 right-1/4 h-80 w-80 animate-float rounded-full bg-gradient-to-br from-[#ccff00]/20 to-[#ccff00]/5 blur-3xl"></div>
+            <div className="absolute bottom-10 left-1/3 h-96 w-96 animate-float-delayed rounded-full bg-gradient-to-br from-blue-500/15 to-purple-500/10 blur-3xl"></div>
+            <div className="absolute top-1/3 left-1/4 h-64 w-64 animate-pulse-slow rounded-full bg-gradient-to-br from-teal-500/15 to-cyan-500/10 blur-2xl"></div>
+          </div>
+
+          {/* Glass Effect Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#171717]/20 to-[#171717]/40 backdrop-blur-[1px]"></div>
+
+          <div className="relative z-10">
+            <div className="mb-6 inline-block animate-fade-in">
+              <span className="rounded-full border border-[#ccff00]/20 bg-[#ccff00]/10 px-4 py-2 text-sm font-semibold text-[#ccff00]">
+                PROFESSIONAL PROPERTY MANAGEMENT
+              </span>
+            </div>
+            <h1 className="mb-4 animate-slide-up text-4xl font-bold text-white drop-shadow-[0_0_20px_rgba(204,255,0,0.3)] md:text-5xl">
+              Property Management
+            </h1>
+            <p className="mx-auto mb-8 max-w-2xl animate-slide-up-delayed text-lg text-gray-300">
+              Professional management for your residential or commercial property.
+              Maximize returns, minimize hassle, and enjoy peace of mind.
+            </p>
+            <Button
+              size="large"
+              className="h-12 animate-fade-in-up rounded-xl border-0 bg-[#ccff00] px-8 text-base font-semibold text-[#171717] shadow-[0_0_20px_rgba(204,255,0,0.5)] transition-all duration-300 hover:scale-105 hover:bg-[#ccff00] hover:shadow-[0_0_30px_rgba(204,255,0,0.8)]"
+              href="#contact"
+            >
+              Get a Free Appraisal
+            </Button>
+          </div>
         </section>
 
         <StickyAnchorNav items={navItems} />
 
         {/* Key Stats Section */}
-        <section id="stats" className="relative bg-gray-50 py-10">
-          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
+        <section id="stats" className="relative bg-[#1a1a1a] py-10">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-10">
             <CanvasGrid
               className="h-full w-full"
               density={44}
-              color="#e2e8f0"
-              accent="#334155"
+              color="#ccff00"
+              accent="#ccff00"
             />
           </div>
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-6 md:grid-cols-4">
             {stats.map((s, i) => (
               <div
                 key={i}
-                className="rounded-xl bg-white p-6 text-center shadow-sm"
+                className="group animate-fade-in rounded-xl border border-gray-800 bg-[#212121] p-6 text-center shadow-lg transition-all duration-300 hover:scale-105 hover:border-[#ccff00]/30 hover:shadow-[0_0_20px_rgba(204,255,0,0.2)]"
+                style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <div className="mb-1 text-3xl font-bold text-gray-900">
+                <div className="mb-1 text-3xl font-bold text-[#ccff00] drop-shadow-[0_0_10px_rgba(204,255,0,0.6)]">
                   {s.value}
                 </div>
-                <div className="text-sm text-gray-600">{s.label}</div>
+                <div className="text-sm text-gray-400">{s.label}</div>
               </div>
             ))}
           </div>
         </section>
 
         {/* Why Choose Us Section */}
-        <section id="whychooseus" className="bg-white py-16">
+        <section id="whychooseus" className="bg-[#171717] py-16">
           <div className="mx-auto max-w-5xl px-6">
-            <h2 className="mb-6 text-center text-3xl font-bold text-gray-900">
-              Why Choose Us
-            </h2>
-            <ul className="space-y-4 text-lg text-gray-700">
+            <div className="mb-8 text-center">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[#ccff00] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">
+                Why Choose Us
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-white">
+                Why Choose Us
+              </h2>
+            </div>
+            <ul className="space-y-4 text-lg text-gray-300">
               {whyChooseUs.map((reason, i) => (
-                <li key={i} className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
+                <li key={i} className="flex items-center gap-3 animate-slide-in-left" style={{ animationDelay: `${i * 0.1}s` }}>
+                  <CheckCircle className="h-5 w-5 flex-shrink-0 text-[#ccff00]" />
                   {reason}
                 </li>
               ))}
@@ -285,20 +312,25 @@ export default function PropertyManagementPage() {
         {/* Our Services Section */}
         <section
           id="services"
-          className="relative scroll-mt-24 bg-gray-50 py-16"
+          className="relative scroll-mt-24 bg-[#1a1a1a] py-16"
         >
-          <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
+          {/* Neon Balloon */}
+          <div className="pointer-events-none absolute top-1/4 right-10 h-72 w-72 animate-float rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/10 blur-3xl"></div>
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-10">
             <CanvasGrid
               className="h-full w-full"
               density={44}
-              color="#e5e7eb"
-              accent="#0f172a"
+              color="#ccff00"
+              accent="#ccff00"
             />
           </div>
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
-              <h2 className="text-3xl font-bold text-gray-900">Our Services</h2>
-              <p className="mx-auto mt-3 max-w-2xl text-gray-600">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[#ccff00] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">
+                Our Services
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-white">Our Services</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-gray-400">
                 Everything you need to lease, manage and maintain your
                 property—under one roof.
               </p>
@@ -307,10 +339,11 @@ export default function PropertyManagementPage() {
               {services.map((f, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 rounded-lg bg-white p-4 shadow-sm"
+                  className="group flex animate-fade-in items-start gap-3 rounded-lg border border-gray-800 bg-[#212121]/60 p-4 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-[#ccff00]/30 hover:shadow-[0_0_15px_rgba(204,255,0,0.2)]"
+                  style={{ animationDelay: `${i * 0.05}s` }}
                 >
-                  <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-green-500" />
-                  <span className="text-gray-700">{f}</span>
+                  <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-[#ccff00]" />
+                  <span className="text-gray-300">{f}</span>
                 </div>
               ))}
             </div>
@@ -318,27 +351,30 @@ export default function PropertyManagementPage() {
         </section>
 
         {/* How It Works Section */}
-        <section id="process" className="scroll-mt-24 bg-white py-16">
+        <section id="process" className="scroll-mt-24 bg-[#171717] py-16">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold text-gray-900">How It Works</h2>
-              <p className="mx-auto mt-3 max-w-2xl text-gray-600">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[#ccff00] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">
+                How It Works
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-white">How It Works</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-gray-400">
                 A clear, streamlined process that keeps you informed at every
                 step.
               </p>
             </div>
             <div className="relative">
-              <div className="absolute top-1/2 right-0 left-0 hidden h-1 -translate-y-1/2 bg-gradient-to-r from-blue-400 to-teal-400 md:block" />
+              <div className="absolute top-1/2 right-0 left-0 hidden h-1 -translate-y-1/2 bg-gradient-to-r from-[#ccff00]/50 to-teal-500/50 md:block" />
               <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-6">
                 {processSteps.map((s, i) => (
-                  <div key={i} className="relative text-center">
-                    <div className="relative z-10 mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-teal-600 text-lg font-bold text-white">
+                  <div key={i} className="group relative animate-fade-in text-center" style={{ animationDelay: `${i * 0.1}s` }}>
+                    <div className="relative z-10 mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-[#ccff00] to-teal-500 text-lg font-bold text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.4)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(204,255,0,0.6)]">
                       {s.step}
                     </div>
-                    <h4 className="mb-1 text-base font-semibold text-gray-900">
+                    <h4 className="mb-1 text-base font-semibold text-white">
                       {s.title}
                     </h4>
-                    <p className="text-sm text-gray-600">{s.desc}</p>
+                    <p className="text-sm text-gray-400">{s.desc}</p>
                   </div>
                 ))}
               </div>
@@ -347,61 +383,69 @@ export default function PropertyManagementPage() {
         </section>
 
         {/* Fee Packages Section */}
-        <section id="fees" className="scroll-mt-24 bg-gray-50 py-16">
+        <section id="fees" className="relative scroll-mt-24 bg-[#1a1a1a] py-16">
+          {/* Neon Balloon */}
+          <div className="pointer-events-none absolute bottom-1/4 left-10 h-80 w-80 animate-float-delayed rounded-full bg-gradient-to-br from-blue-500/15 to-teal-500/10 blur-3xl"></div>
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold text-gray-900">Fee Packages</h2>
-              <p className="mx-auto mt-3 max-w-2xl text-gray-600">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[#ccff00] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">
+                Fee Packages
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-white">Fee Packages</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-gray-400">
                 Flexible packages to suit your needs. No hidden charges.
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
               {feePackages.map((pkg, idx) => (
-                <Card
+                <div
                   key={idx}
-                  className={`border-2 ${pkg.popular ? 'border-blue-500 ring-2 ring-blue-100' : 'border-gray-200'} shadow-sm`}
+                  className={`animate-fade-in rounded-xl border-2 p-6 ${pkg.popular ? 'border-[#ccff00] bg-[#212121]/80 shadow-[0_0_30px_rgba(204,255,0,0.3)]' : 'border-gray-800 bg-[#212121]/60'} backdrop-blur-sm transition-all duration-300 hover:scale-105 ${!pkg.popular && 'hover:border-[#ccff00]/50'}`}
+                  style={{ animationDelay: `${idx * 0.1}s` }}
                 >
-                  <div className="p-6 text-center">
+                  <div className="text-center">
                     {pkg.popular && (
-                      <div className="mb-4 inline-block rounded-full bg-blue-500 px-3 py-1 text-xs font-semibold text-white">
+                      <div className="mb-4 inline-block animate-pulse rounded-full bg-[#ccff00] px-3 py-1 text-xs font-semibold text-[#171717]">
                         Most Popular
                       </div>
                     )}
-                    <h4 className="mb-2 text-xl font-bold">{pkg.name}</h4>
-                    <div className="mb-4 text-2xl font-bold text-blue-600">
+                    <h4 className="mb-2 text-xl font-bold text-white">{pkg.name}</h4>
+                    <div className="mb-4 text-2xl font-bold text-[#ccff00] drop-shadow-[0_0_10px_rgba(204,255,0,0.6)]">
                       {pkg.price}
                     </div>
                     <div className="mx-auto mb-6 max-w-xs space-y-2 text-left">
                       {pkg.points.map((pt, pi) => (
                         <div key={pi} className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 text-green-500" />
-                          <span className="text-gray-700">{pt}</span>
+                          <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#ccff00]" />
+                          <span className="text-gray-300">{pt}</span>
                         </div>
                       ))}
                     </div>
                     <Button
                       size="large"
-                      type={pkg.popular ? 'primary' : 'default'}
-                      className={pkg.popular ? 'border-0 bg-blue-600' : ''}
+                      className={pkg.popular ? 'h-12 w-full rounded-xl border-0 bg-[#ccff00] font-semibold text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.5)] transition-all duration-300 hover:bg-[#ccff00] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]' : 'h-12 w-full rounded-xl border-2 border-[#ccff00] bg-transparent font-semibold text-[#ccff00] transition-all duration-300 hover:bg-[#ccff00] hover:text-[#171717]'}
                     >
                       Choose {pkg.name}
                     </Button>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Technology Section */}
-        <section id="tech" className="scroll-mt-24 bg-white py-16">
+        <section id="tech" className="scroll-mt-24 bg-[#171717] py-16">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid items-center gap-10 md:grid-cols-2">
-              <div>
-                <h2 className="mb-3 text-3xl font-bold text-gray-900">
+              <div className="animate-slide-in-left">
+                <span className="text-sm font-semibold uppercase tracking-wider text-[#ccff00] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">
+                  Technology
+                </span>
+                <h2 className="mb-3 mt-3 text-3xl font-bold text-white">
                   Owner & Tenant Portal
                 </h2>
-                <p className="mb-6 text-gray-600">
+                <p className="mb-6 text-gray-400">
                   Real-time visibility into statements, work orders and tenancy
                   documents—all in one place.
                 </p>
@@ -412,22 +456,22 @@ export default function PropertyManagementPage() {
                     'Secure document vault',
                     'Instant messaging & updates',
                   ].map((f, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <CheckCircle className="mt-0.5 h-5 w-5 text-green-500" />
-                      <span className="text-gray-700">{f}</span>
+                    <div key={i} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ccff00]" />
+                      <span className="text-gray-300">{f}</span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div>
-                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-8 text-center shadow-sm">
-                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100">
-                    <Zap className="h-6 w-6 text-blue-700" />
+              <div className="animate-slide-in-right">
+                <div className="rounded-2xl border border-gray-800 bg-[#212121]/60 p-8 text-center backdrop-blur-sm shadow-[0_0_20px_rgba(204,255,0,0.1)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(204,255,0,0.2)]">
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-[#ccff00]/20">
+                    <Zap className="h-6 w-6 text-[#ccff00]" />
                   </div>
-                  <h3 className="mb-2 text-xl font-semibold">
+                  <h3 className="mb-2 text-xl font-semibold text-white">
                     Technology that works for you
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-400">
                     Stay informed and in control without the admin burden.
                   </p>
                 </div>
@@ -437,12 +481,19 @@ export default function PropertyManagementPage() {
         </section>
 
         {/* Areas We Cover Section */}
-        <section id="areas" className="scroll-mt-24 bg-gray-50 py-16">
+        <section id="areas" className="relative scroll-mt-24 bg-[#1a1a1a] py-16">
+          {/* Neon Balloon */}
+          <div className="pointer-events-none absolute top-10 right-1/3 h-64 w-64 animate-pulse-slow rounded-full bg-gradient-to-br from-pink-500/15 to-orange-500/10 blur-3xl"></div>
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="mb-6 text-3xl font-bold text-gray-900">
-              Areas We Cover
-            </h2>
-            <p className="mb-6 max-w-2xl text-gray-600">
+            <div className="mb-8 text-center">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[#ccff00] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">
+                Coverage Areas
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-white">
+                Areas We Cover
+              </h2>
+            </div>
+            <p className="mb-6 max-w-2xl text-gray-400">
               We manage properties across key suburbs and communities. Get in
               touch to confirm coverage for your address.
             </p>
@@ -456,13 +507,14 @@ export default function PropertyManagementPage() {
                 'Westwood',
                 'Hollywood',
                 'Culver City',
-              ].map((area) => (
+              ].map((area, i) => (
                 <div
                   key={area}
-                  className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-gray-700 shadow-sm"
+                  className="group animate-fade-in rounded-lg border border-gray-800 bg-[#212121]/60 px-4 py-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-[#ccff00]/30 hover:shadow-[0_0_15px_rgba(204,255,0,0.2)]"
+                  style={{ animationDelay: `${i * 0.05}s` }}
                 >
-                  <MapPin className="mr-2 inline h-4 w-4 text-blue-600" />
-                  {area}
+                  <MapPin className="mr-2 inline h-4 w-4 text-[#ccff00]" />
+                  <span className="text-gray-300">{area}</span>
                 </div>
               ))}
             </div>
@@ -470,13 +522,16 @@ export default function PropertyManagementPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="scroll-mt-24 bg-white py-16">
+        <section id="testimonials" className="scroll-mt-24 bg-[#171717] py-16">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold text-gray-900">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[#ccff00] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">
+                Testimonials
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-white">
                 What Our Clients Say
               </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-gray-600">
+              <p className="mx-auto mt-3 max-w-2xl text-gray-400">
                 Trusted by owners and investors for responsive, results-driven
                 management.
               </p>
@@ -499,42 +554,51 @@ export default function PropertyManagementPage() {
                   text: 'Great communication and fast resolutions. The portal makes everything simple.',
                 },
               ].map((t, i) => (
-                <Card key={i} className="border-0 shadow-lg">
-                  <div className="p-6">
-                    <div className="mb-3 flex items-center gap-1">
-                      {[...Array(5)].map((_, j) => (
-                        <Star
-                          key={j}
-                          className="h-4 w-4 fill-current text-yellow-400"
-                        />
-                      ))}
-                    </div>
-                    <p className="mb-4 text-gray-700 italic">"{t.text}"</p>
-                    <div className="border-t pt-3">
-                      <div className="font-semibold text-gray-900">
-                        {t.name}
-                      </div>
-                      <div className="text-sm text-gray-600">{t.role}</div>
-                    </div>
+                <div
+                  key={i}
+                  className="animate-fade-in rounded-xl border-2 border-gray-800 bg-[#212121]/80 p-6 backdrop-blur-sm shadow-lg transition-all duration-300 hover:scale-105 hover:border-[#ccff00]/30 hover:shadow-[0_0_20px_rgba(204,255,0,0.2)]"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  <div className="mb-3 flex items-center gap-1">
+                    {[...Array(5)].map((_, j) => (
+                      <Star
+                        key={j}
+                        className="h-4 w-4 fill-current text-[#ccff00]"
+                      />
+                    ))}
                   </div>
-                </Card>
+                  <p className="mb-4 italic text-gray-300">"{t.text}"</p>
+                  <div className="border-t border-gray-800 pt-3">
+                    <div className="font-semibold text-white">
+                      {t.name}
+                    </div>
+                    <div className="text-sm text-gray-400">{t.role}</div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* FAQs Section */}
-        <section id="faqs" className="scroll-mt-24 bg-gray-50 py-16">
+        <section id="faqs" className="scroll-mt-24 bg-[#1a1a1a] py-16">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="mb-6 text-3xl font-bold text-gray-900">
-              Frequently Asked Questions
-            </h2>
+            <div className="mb-8 text-center">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[#ccff00] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]">
+                FAQs
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-white">
+                Frequently Asked Questions
+              </h2>
+            </div>
             <Collapse
               accordion
+              className="border-gray-800 bg-transparent"
               items={faqs.map((f, i) => ({
                 key: String(i + 1),
-                label: <span className="text-gray-900">{f.q}</span>,
-                children: <p className="text-gray-600">{f.a}</p>,
+                label: <span className="font-semibold text-white">{f.q}</span>,
+                children: <p className="text-gray-400">{f.a}</p>,
+                className: 'bg-[#212121]/60 border-gray-800 backdrop-blur-sm mb-2',
               }))}
             />
           </div>
@@ -543,27 +607,33 @@ export default function PropertyManagementPage() {
         {/* Contact Us Section (Single Form) */}
         <section
           id="contact"
-          className="relative scroll-mt-24 overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black py-16 text-white"
+          className="relative scroll-mt-24 overflow-hidden bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] py-16 text-white"
         >
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-blue-500 blur-3xl" />
-            <div className="absolute right-1/4 bottom-1/4 h-80 w-80 rounded-full bg-teal-500 blur-3xl" />
+          {/* Animated Neon Balloons */}
+          <div className="absolute inset-0 overflow-hidden opacity-30">
+            <div className="absolute top-1/4 left-1/4 h-64 w-64 animate-float rounded-full bg-gradient-to-br from-[#ccff00]/30 to-[#ccff00]/10 blur-3xl" />
+            <div className="absolute right-1/4 bottom-1/4 h-80 w-80 animate-float-delayed rounded-full bg-gradient-to-br from-teal-500/20 to-cyan-500/10 blur-3xl" />
+            <div className="absolute top-1/2 left-1/2 h-72 w-72 animate-pulse-slow rounded-full bg-gradient-to-br from-purple-500/15 to-pink-500/10 blur-3xl" />
           </div>
+
+          {/* Glass Effect Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#171717]/20 to-[#171717]/40 backdrop-blur-[2px]"></div>
+
           <div className="relative z-10 mx-auto max-w-5xl px-6">
             <div className="mb-10 text-center">
-              <div className="mb-4 inline-block rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-semibold">
+              <div className="mb-4 inline-block animate-fade-in rounded-full border border-[#ccff00]/20 bg-[#ccff00]/10 px-5 py-2 text-sm font-semibold text-[#ccff00]">
                 Ready to get started?
               </div>
-              <h3 className="mb-4 text-3xl font-bold md:text-5xl">
+              <h3 className="mb-4 animate-slide-up text-3xl font-bold drop-shadow-[0_0_20px_rgba(204,255,0,0.3)] md:text-5xl">
                 Let's manage your property
               </h3>
-              <p className="mx-auto max-w-2xl text-lg text-gray-300">
+              <p className="mx-auto animate-slide-up-delayed max-w-2xl text-lg text-gray-300">
                 Book a free consultation and discover how we can improve your
                 returns while reducing hassle.
               </p>
             </div>
             <div className="grid gap-8 md:grid-cols-2">
-              <div className="rounded-2xl bg-white/10 p-6 backdrop-blur">
+              <div className="animate-fade-in rounded-2xl border border-gray-800 bg-[#212121]/40 p-6 backdrop-blur-lg">
                 <EnquiryForm
                   context="property-management"
                   variant="dark"
@@ -599,7 +669,7 @@ export default function PropertyManagementPage() {
                 />
                 <div className="mt-6 text-center">
                   <Button
-                    type="default"
+                    className="h-12 rounded-xl border-2 border-[#ccff00] bg-transparent font-semibold text-[#ccff00] transition-all duration-300 hover:bg-[#ccff00] hover:text-[#171717]"
                     href="https://wa.me/your-number"
                     target="_blank"
                     icon={<ArrowRight className="h-4 w-4" />}
@@ -608,16 +678,16 @@ export default function PropertyManagementPage() {
                   </Button>
                 </div>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                <div className="mb-4 flex items-center gap-2">
-                  <Phone className="h-5 w-5" />
+              <div className="animate-fade-in-delayed rounded-2xl border border-gray-800 bg-[#212121]/30 p-6 backdrop-blur-lg">
+                <div className="mb-4 flex items-center gap-2 text-gray-300">
+                  <Phone className="h-5 w-5 text-[#ccff00]" />
                   <span>+1 (555) 123-4567</span>
                 </div>
-                <div className="mb-4 flex items-center gap-2">
-                  <Mail className="h-5 w-5" />
+                <div className="mb-4 flex items-center gap-2 text-gray-300">
+                  <Mail className="h-5 w-5 text-[#ccff00]" />
                   <span>services@coastplanet.com</span>
                 </div>
-                <p className="text-gray-300">
+                <p className="text-gray-400">
                   Prefer messaging? Use WhatsApp for a quick response.
                 </p>
               </div>
