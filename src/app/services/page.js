@@ -163,68 +163,57 @@ const ServicesPage = () => {
             ],
           })}      </script>
       </Head>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-[#171717]">
         {/* Hero Section */}
-        <section className="relative h-screen overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-teal-700">
-          <div className="absolute inset-0 bg-black/20"></div>
+        <section className="relative h-screen overflow-hidden bg-[#171717]">
+          {/* Animated Neon Balloons */}
+          <div className="pointer-events-none absolute left-[10%] top-[15%] h-[400px] w-[400px] animate-float rounded-full bg-[#ccff00]/20 blur-3xl" />
+          <div className="pointer-events-none absolute right-[15%] top-[40%] h-[300px] w-[300px] animate-float-delayed rounded-full bg-[#ccff00]/15 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-[20%] left-[30%] h-[350px] w-[350px] animate-pulse-slow rounded-full bg-[#ccff00]/10 blur-3xl" />
 
-          {/* Background Pattern */}
-          <div className="absolute inset-0">
-            <div className="relative h-full w-full bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-teal-700/90">
-              <div className="absolute top-1/4 left-1/4 h-64 w-64 animate-pulse rounded-full bg-white/5 blur-3xl"></div>
-              <div
-                className="absolute right-1/4 bottom-1/4 h-80 w-80 animate-pulse rounded-full bg-white/5 blur-3xl"
-                style={{ animationDelay: '1s' }}
-              ></div>
-            </div>
-          </div>
+          {/* Glass Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a]/50 via-transparent to-[#212121]/50 backdrop-blur-sm" />
 
           {/* Hero Content */}
           <div className="relative z-10 flex h-full items-center justify-center">
-            <div className="mx-auto max-w-6xl px-6 text-center text-white">
-              <div className="mb-8">
-                <div className="mb-8 inline-block rounded-full border border-white/20 bg-white/10 px-6 py-3 text-lg font-semibold text-white backdrop-blur-sm">
+            <div className="mx-auto max-w-6xl px-6 text-center">
+              <div className="mb-8 animate-fade-in">
+                <div className="mb-8 inline-block rounded-full border border-[#ccff00]/30 bg-[#ccff00]/10 px-6 py-3 text-lg font-semibold text-[#ccff00] backdrop-blur-sm">
                   Professional Property Services
                 </div>
               </div>
-              <h1 className="mb-8 text-6xl leading-tight font-bold md:text-8xl">
+              <h1 className="mb-8 animate-slide-up text-6xl leading-tight font-bold text-white md:text-8xl">
                 Your Property,
-                <span className="block bg-gradient-to-r from-blue-300 to-teal-300 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-[#ccff00] to-[#9dff00] bg-clip-text text-transparent">
                   Our Expertise
                 </span>
               </h1>
-              <p className="mx-auto mb-8 max-w-4xl text-2xl leading-relaxed font-light opacity-90 md:text-3xl">
+              <p className="mx-auto mb-8 max-w-4xl animate-slide-up-delayed text-2xl leading-relaxed font-light text-gray-300 md:text-3xl">
                 Comprehensive property services designed to maximize your
                 investment returns
               </p>
-              <p className="mx-auto mb-12 max-w-3xl text-xl leading-relaxed opacity-80">
+              <p className="mx-auto mb-12 max-w-3xl animate-fade-in-up text-xl leading-relaxed text-gray-400">
                 From property management to development consultancy, we provide
                 end-to-end solutions that protect and enhance your real estate
                 investments.
               </p>
-              <div className="flex flex-col justify-center gap-6 sm:flex-row">
-                <Button
-                  size="large"
-                  className="h-16 transform rounded-2xl border-0 bg-white px-10 text-xl font-semibold text-blue-900 shadow-xl transition-all duration-300 hover:scale-105 hover:bg-blue-50"
-                >
+              <div className="flex flex-col justify-center gap-6 sm:flex-row animate-fade-in-up">
+                <button className="h-16 transform rounded-2xl border-0 bg-[#ccff00] px-10 text-xl font-semibold text-[#171717] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(204,255,0,0.5)]">
                   <span className="mr-2">🏢</span>
                   Explore Our Services
-                </Button>
-                <Button
-                  size="large"
-                  className="h-16 transform rounded-2xl border-white/30 bg-white/10 px-10 text-xl font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white hover:text-blue-900"
-                >
+                </button>
+                <button className="h-16 transform rounded-2xl border border-[#ccff00]/30 bg-[#ccff00]/10 px-10 text-xl font-semibold text-[#ccff00] backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#ccff00]/20">
                   <span className="mr-2">📞</span>
                   Schedule Consultation
-                </Button>
+                </button>
               </div>
             </div>
           </div>
 
           {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 transform animate-bounce text-white">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 transform animate-bounce text-[#ccff00]">
             <div className="flex flex-col items-center">
-              <p className="mb-2 text-sm opacity-80">Discover our services</p>
+              <p className="mb-2 text-sm">Discover our services</p>
               <svg
                 className="h-6 w-6 rotate-90 transform"
                 fill="none"
@@ -243,16 +232,16 @@ const ServicesPage = () => {
         </section>
 
         {/* Why Choose Us Section */}
-        <section className="bg-gray-50 py-20">
+        <section className="bg-[#1a1a1a] py-20">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-16 text-center">
-              <div className="mb-6 inline-block rounded-full bg-blue-100 px-6 py-3 text-sm font-semibold text-blue-800">
+              <div className="mb-6 inline-block rounded-full bg-[#ccff00]/10 border border-[#ccff00]/30 px-6 py-3 text-sm font-semibold text-[#ccff00]">
                 Why Choose Coast Planet
               </div>
-              <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
                 Excellence in Every Service
               </h2>
-              <p className="mx-auto max-w-3xl text-xl text-gray-600">
+              <p className="mx-auto max-w-3xl text-xl text-gray-400">
                 We combine local expertise with innovative technology to deliver
                 exceptional results for property owners, tenants, and
                 developers.
@@ -261,33 +250,31 @@ const ServicesPage = () => {
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               {whyChooseUs.map((item, index) => (
-                <Card
+                <div
                   key={index}
-                  className="transform border-0 text-center shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                  className="group transform rounded-2xl bg-[#212121]/60 p-8 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:bg-[#212121] hover:shadow-[0_0_30px_rgba(204,255,0,0.1)]"
                 >
-                  <div className="p-8">
-                    <div className="mb-6">{item.icon}</div>
-                    <h3 className="mb-4 text-xl font-bold text-gray-900">
-                      {item.title}
-                    </h3>
-                    <p className="leading-relaxed text-gray-600">
-                      {item.description}
-                    </p>
-                  </div>
-                </Card>
+                  <div className="mb-6 text-[#ccff00] transition-transform duration-300 group-hover:scale-110">{item.icon}</div>
+                  <h3 className="mb-4 text-xl font-bold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="leading-relaxed text-gray-400">
+                    {item.description}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Services Overview */}
-        <section className="bg-white py-20">
+        <section className="bg-[#171717] py-20">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-16 text-center">
-              <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
                 Our Comprehensive Services
               </h2>
-              <p className="mx-auto max-w-3xl text-xl text-gray-600">
+              <p className="mx-auto max-w-3xl text-xl text-gray-400">
                 Choose from our full range of professional property services
                 designed to meet every real estate need.
               </p>
@@ -302,8 +289,8 @@ const ServicesPage = () => {
                     onClick={() => setActiveService(category.id)}
                     className={`flex items-center space-x-3 rounded-2xl border-2 px-6 py-4 transition-all duration-300 ${
                       activeService === category.id
-                        ? 'border-blue-600 bg-blue-50 text-blue-600'
-                        : 'border-gray-200 bg-white text-gray-600 hover:border-blue-300 hover:text-blue-600'
+                        ? 'border-[#ccff00] bg-[#ccff00]/10 text-[#ccff00] shadow-[0_0_20px_rgba(204,255,0,0.2)]'
+                        : 'border-[#333] bg-[#212121]/60 text-gray-400 hover:border-[#ccff00]/50 hover:text-[#ccff00]'
                     }`}
                   >
                     {category.icon}
@@ -323,14 +310,14 @@ const ServicesPage = () => {
                     className="grid items-start gap-12 lg:grid-cols-2"
                   >
                     <div>
-                      <h3 className="mb-6 text-3xl font-bold text-gray-900">
+                      <h3 className="mb-6 text-3xl font-bold text-white">
                         {category.title}
                       </h3>
-                      <p className="mb-8 text-lg leading-relaxed text-gray-600">
+                      <p className="mb-8 text-lg leading-relaxed text-gray-400">
                         {category.description}
                       </p>
 
-                      <h4 className="mb-4 text-xl font-semibold text-gray-900">
+                      <h4 className="mb-4 text-xl font-semibold text-white">
                         Key Features:
                       </h4>
                       <div className="mb-8 space-y-3">
@@ -339,36 +326,30 @@ const ServicesPage = () => {
                             key={index}
                             className="flex items-center space-x-3"
                           >
-                            <CheckCircle className="h-5 w-5 flex-shrink-0 text-green-500" />
-                            <span className="text-gray-700">{feature}</span>
+                            <CheckCircle className="h-5 w-5 flex-shrink-0 text-[#ccff00]" />
+                            <span className="text-gray-300">{feature}</span>
                           </div>
                         ))}
                       </div>
 
-                      <Button
-                        size="large"
-                        type="primary"
-                        className="h-12 rounded-xl border-0 bg-blue-600 px-8"
-                      >
+                      <button className="h-12 rounded-xl border-0 bg-[#ccff00] px-8 text-[#171717] font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(204,255,0,0.4)]">
                         Learn More About {category.title}
-                      </Button>
+                      </button>
                     </div>
 
                     <div className="grid gap-6">
                       {category.benefits.map((benefit, index) => (
-                        <Card
+                        <div
                           key={index}
-                          className="border border-gray-200 shadow-md transition-all duration-300 hover:shadow-lg"
+                          className="rounded-2xl bg-[#212121]/60 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-[#212121] hover:shadow-[0_0_20px_rgba(204,255,0,0.1)]"
                         >
-                          <div className="p-6">
-                            <h5 className="mb-2 text-lg font-semibold text-gray-900">
-                              {benefit.title}
-                            </h5>
-                            <p className="text-gray-600">
-                              {benefit.description}
-                            </p>
-                          </div>
-                        </Card>
+                          <h5 className="mb-2 text-lg font-semibold text-white">
+                            {benefit.title}
+                          </h5>
+                          <p className="text-gray-400">
+                            {benefit.description}
+                          </p>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -378,13 +359,13 @@ const ServicesPage = () => {
         </section>
 
         {/* Process Section */}
-        <section className="bg-gradient-to-r from-blue-50 to-teal-50 py-20">
+        <section className="bg-[#1a1a1a] py-20">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-16 text-center">
-              <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
                 Our Process
               </h2>
-              <p className="mx-auto max-w-3xl text-xl text-gray-600">
+              <p className="mx-auto max-w-3xl text-xl text-gray-400">
                 A streamlined approach that ensures exceptional results from
                 start to finish.
               </p>
@@ -392,19 +373,19 @@ const ServicesPage = () => {
 
             <div className="relative">
               {/* Process Line */}
-              <div className="absolute top-1/2 right-0 left-0 hidden h-1 -translate-y-1/2 transform bg-gradient-to-r from-blue-400 to-teal-400 lg:block"></div>
+              <div className="absolute top-1/2 right-0 left-0 hidden h-1 -translate-y-1/2 transform bg-gradient-to-r from-[#ccff00]/30 to-[#ccff00]/10 lg:block"></div>
 
               <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-5">
                 {processSteps.map((step, index) => (
-                  <div key={index} className="relative text-center">
+                  <div key={index} className="relative text-center group">
                     {/* Step Number */}
-                    <div className="relative z-10 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-teal-600 text-xl font-bold text-white">
+                    <div className="relative z-10 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-[#ccff00] to-[#9dff00] text-xl font-bold text-[#171717] transition-transform duration-300 group-hover:scale-110">
                       {step.step}
                     </div>
-                    <h4 className="mb-3 text-lg font-semibold text-gray-900">
+                    <h4 className="mb-3 text-lg font-semibold text-white">
                       {step.title}
                     </h4>
-                    <p className="text-sm leading-relaxed text-gray-600">
+                    <p className="text-sm leading-relaxed text-gray-400">
                       {step.description}
                     </p>
                   </div>
@@ -415,13 +396,13 @@ const ServicesPage = () => {
         </section>
 
         {/* Service Packages Section */}
-        <section className="bg-gray-50 py-20">
+        <section className="bg-[#171717] py-20">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-16 text-center">
-              <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
                 Service Packages
               </h2>
-              <p className="mx-auto max-w-3xl text-xl text-gray-600">
+              <p className="mx-auto max-w-3xl text-xl text-gray-400">
                 Choose the perfect package that fits your property needs and
                 budget.
               </p>
@@ -433,55 +414,53 @@ const ServicesPage = () => {
                 activeService === category.id &&
                 category.packages && (
                   <div key={`${category.id}-packages`} className="mb-16">
-                    <h3 className="mb-8 text-center text-2xl font-bold text-gray-900">
+                    <h3 className="mb-8 text-center text-2xl font-bold text-white">
                       {category.title} Packages
                     </h3>
                     <div className="grid gap-8 md:grid-cols-3">
                       {category.packages.map((pkg, index) => (
-                        <Card
+                        <div
                           key={index}
-                          className={`transform border-2 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
+                          className={`group transform rounded-2xl bg-[#212121]/60 p-8 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 ${
                             pkg.popular
-                              ? 'border-blue-500 ring-4 ring-blue-100'
-                              : 'border-gray-200'
+                              ? 'border-2 border-[#ccff00] shadow-[0_0_30px_rgba(204,255,0,0.2)]'
+                              : 'border border-[#333] hover:border-[#ccff00]/50'
                           }`}
                         >
-                          <div className="p-8 text-center">
-                            {pkg.popular && (
-                              <div className="mb-6 inline-block rounded-full bg-blue-500 px-4 py-2 text-sm font-semibold text-white">
-                                Most Popular
-                              </div>
-                            )}
-                            <h4 className="mb-4 text-2xl font-bold text-gray-900">
-                              {pkg.name}
-                            </h4>
-                            <div className="mb-6 text-3xl font-bold text-blue-600">
-                              {pkg.price}
+                          {pkg.popular && (
+                            <div className="mb-6 inline-block rounded-full bg-[#ccff00] px-4 py-2 text-sm font-semibold text-[#171717]">
+                              Most Popular
                             </div>
-                            <div className="mb-8 space-y-3">
-                              {pkg.features.map((feature, featureIndex) => (
-                                <div
-                                  key={featureIndex}
-                                  className="flex items-center text-left"
-                                >
-                                  <CheckCircle className="mr-3 h-5 w-5 flex-shrink-0 text-green-500" />
-                                  <span className="text-gray-700">
-                                    {feature}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-                            <Button
-                              size="large"
-                              type={pkg.popular ? 'primary' : 'default'}
-                              className={`h-12 w-full rounded-xl font-semibold ${
-                                pkg.popular ? 'border-0 bg-blue-600' : ''
-                              }`}
-                            >
-                              Choose {pkg.name}
-                            </Button>
+                          )}
+                          <h4 className="mb-4 text-2xl font-bold text-white">
+                            {pkg.name}
+                          </h4>
+                          <div className="mb-6 text-3xl font-bold text-[#ccff00]">
+                            {pkg.price}
                           </div>
-                        </Card>
+                          <div className="mb-8 space-y-3">
+                            {pkg.features.map((feature, featureIndex) => (
+                              <div
+                                key={featureIndex}
+                                className="flex items-center text-left"
+                              >
+                                <CheckCircle className="mr-3 h-5 w-5 flex-shrink-0 text-[#ccff00]" />
+                                <span className="text-gray-300">
+                                  {feature}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                          <button
+                            className={`h-12 w-full rounded-xl font-semibold transition-all duration-300 ${
+                              pkg.popular
+                                ? 'bg-[#ccff00] text-[#171717] hover:shadow-[0_0_20px_rgba(204,255,0,0.4)]'
+                                : 'border border-[#ccff00] text-[#ccff00] hover:bg-[#ccff00]/10'
+                            }`}
+                          >
+                            Choose {pkg.name}
+                          </button>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -491,72 +470,76 @@ const ServicesPage = () => {
         </section>
 
         {/* Stats Section */}
-        <section className="bg-gradient-to-r from-blue-600 to-teal-600 py-20 text-white">
-          <div className="mx-auto max-w-7xl px-6">
+        <section className="relative bg-[#1a1a1a] py-20 overflow-hidden">
+          {/* Background neon glow */}
+          <div className="pointer-events-none absolute top-0 left-1/4 h-[300px] w-[300px] animate-pulse-slow rounded-full bg-[#ccff00]/10 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-0 right-1/4 h-[400px] w-[400px] animate-float rounded-full bg-[#ccff00]/5 blur-3xl" />
+          
+          <div className="relative mx-auto max-w-7xl px-6">
             <div className="mb-16 text-center">
-              <h2 className="mb-6 text-4xl font-bold md:text-5xl">
+              <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
                 Our Track Record
               </h2>
-              <p className="mx-auto max-w-3xl text-xl opacity-90">
+              <p className="mx-auto max-w-3xl text-xl text-gray-400">
                 Numbers that speak to our expertise and commitment to
                 excellence.
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
-              <div className="text-center">
-                <div className="mb-2 text-5xl font-bold">
+              <div className="text-center group">
+                <div className="mb-2 text-5xl font-bold text-[#ccff00] transition-transform duration-300 group-hover:scale-110">
                   <span className="tabular-nums">{stats.occupancyRate}%</span>
                 </div>
-                <div className="text-lg opacity-90">Average Occupancy Rate</div>
+                <div className="text-lg text-gray-300">Average Occupancy Rate</div>
                 <Progress
                   percent={stats.occupancyRate}
                   showInfo={false}
-                  strokeColor="rgba(255,255,255,0.3)"
-                  trailColor="rgba(255,255,255,0.1)"
+                  strokeColor="#ccff00"
+                  trailColor="rgba(204,255,0,0.1)"
                   className="mt-4"
                 />
               </div>
-              <div className="text-center">
-                <div className="mb-2 text-5xl font-bold">
+              <div className="text-center group">
+                <div className="mb-2 text-5xl font-bold text-[#ccff00] transition-transform duration-300 group-hover:scale-110">
                   <span className="tabular-nums">
                     {stats.propertiesManaged.toLocaleString()}+
                   </span>
                 </div>
-                <div className="text-lg opacity-90">Properties Managed</div>
+                <div className="text-lg text-gray-300">Properties Managed</div>
                 <Progress
                   percent={95}
                   showInfo={false}
-                  strokeColor="rgba(255,255,255,0.3)"
-                  trailColor="rgba(255,255,255,0.1)"
+                  strokeColor="#ccff00"
+                  trailColor="rgba(204,255,0,0.1)"
                   className="mt-4"
                 />
               </div>
-              <div className="text-center">
-                <div className="mb-2 text-5xl font-bold">
+              <div className="text-center group">
+                <div className="mb-2 text-5xl font-bold text-[#ccff00] transition-transform duration-300 group-hover:scale-110">
                   <span className="tabular-nums">
                     {stats.clientSatisfaction}%
                   </span>
                 </div>
-                <div className="text-lg opacity-90">Client Satisfaction</div>
+                <div className="text-lg text-gray-300">Client Satisfaction</div>
                 <Progress
                   percent={stats.clientSatisfaction}
                   showInfo={false}
-                  strokeColor="rgba(255,255,255,0.3)"
-                  trailColor="rgba(255,255,255,0.1)"
+                  strokeColor="#ccff00"
+                  trailColor="rgba(204,255,0,0.1)"
                   className="mt-4"
                 />
               </div>
-              <div className="text-center">
-                <div className="mb-2 text-5xl font-bold">
+              <div className="text-center group">
+                <div className="mb-2 text-5xl font-bold text-[#ccff00] transition-transform duration-300 group-hover:scale-110">
                   <span className="tabular-nums">{stats.yearsExperience}+</span>
                 </div>
-                <div className="text-lg opacity-90">Years Experience</div>
+                <div className="text-lg text-gray-300">Years Experience</div>
                 <Progress
                   percent={85}
                   showInfo={false}
-                  strokeColor="rgba(255,255,255,0.3)"
-                  trailColor="rgba(255,255,255,0.1)"
+                  strokeColor="#ccff00"
+                  trailColor="rgba(204,255,0,0.1)"
                   className="mt-4"
                 />
               </div>
@@ -565,13 +548,13 @@ const ServicesPage = () => {
         </section>
 
         {/* Client Testimonials */}
-        <section className="bg-white py-20">
+        <section className="bg-[#171717] py-20">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-16 text-center">
-              <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
                 What Our Clients Say
               </h2>
-              <p className="mx-auto max-w-3xl text-xl text-gray-600">
+              <p className="mx-auto max-w-3xl text-xl text-gray-400">
                 Don&apos;t just take our word for it. Here&apos;s what property owners and
                 developers say about our services.
               </p>
@@ -579,60 +562,57 @@ const ServicesPage = () => {
 
             <div className="grid gap-8 md:grid-cols-3">
               {clientTestimonials.map((testimonial, index) => (
-                <Card
+                <div
                   key={index}
-                  className="border-0 shadow-lg transition-all duration-300 hover:shadow-xl"
+                  className="group rounded-2xl bg-[#212121]/60 p-8 backdrop-blur-sm transition-all duration-300 hover:bg-[#212121] hover:shadow-[0_0_30px_rgba(204,255,0,0.1)]"
                 >
-                  <div className="p-8">
-                    <div className="mb-4 flex items-center">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-5 w-5 fill-current text-yellow-400"
-                        />
-                      ))}
-                    </div>
-                    <p className="mb-6 leading-relaxed text-gray-700 italic">
-                      &ldquo;{testimonial.comment}&rdquo;
-                    </p>
-                    <div className="border-t pt-4">
-                      <h5 className="font-semibold text-gray-900">
-                        {testimonial.name}
-                      </h5>
-                      <p className="text-sm text-gray-600">
-                        {testimonial.role}
-                      </p>
-                      <p className="text-sm text-blue-600">
-                        {testimonial.property}
-                      </p>
-                    </div>
+                  <div className="mb-4 flex items-center">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="h-5 w-5 fill-current text-[#ccff00]"
+                      />
+                    ))}
                   </div>
-                </Card>
+                  <p className="mb-6 leading-relaxed text-gray-300 italic">
+                    &ldquo;{testimonial.comment}&rdquo;
+                  </p>
+                  <div className="border-t border-[#333] pt-4">
+                    <h5 className="font-semibold text-white">
+                      {testimonial.name}
+                    </h5>
+                    <p className="text-sm text-gray-400">
+                      {testimonial.role}
+                    </p>
+                    <p className="text-sm text-[#ccff00]">
+                      {testimonial.property}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20 text-white">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-blue-500 blur-3xl"></div>
-            <div className="absolute right-1/4 bottom-1/4 h-80 w-80 rounded-full bg-teal-500 blur-3xl"></div>
-          </div>
+        <section className="relative overflow-hidden bg-[#1a1a1a] py-20">
+          {/* Background Neon Balloons */}
+          <div className="pointer-events-none absolute left-[10%] top-[20%] h-[300px] w-[300px] animate-float rounded-full bg-[#ccff00]/10 blur-3xl" />
+          <div className="pointer-events-none absolute right-[10%] bottom-[20%] h-[400px] w-[400px] animate-float-delayed rounded-full bg-[#ccff00]/15 blur-3xl" />
+          <div className="pointer-events-none absolute left-[50%] top-[50%] h-[250px] w-[250px] animate-pulse-slow rounded-full bg-[#ccff00]/5 blur-3xl" />
 
           <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
             <div className="mb-12">
-              <div className="mb-6 inline-block rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm">
+              <div className="mb-6 inline-block rounded-full border border-[#ccff00]/30 bg-[#ccff00]/10 px-6 py-3 text-sm font-semibold text-[#ccff00] backdrop-blur-sm">
                 Ready to Get Started?
               </div>
-              <h3 className="mb-8 text-4xl leading-tight font-bold md:text-6xl">
+              <h3 className="mb-8 text-4xl leading-tight font-bold text-white md:text-6xl">
                 Let&apos;s Maximize Your
-                <span className="block bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-[#ccff00] to-[#9dff00] bg-clip-text text-transparent">
                   Property Potential
                 </span>
               </h3>
-              <p className="mx-auto mb-12 max-w-3xl text-xl leading-relaxed text-gray-300">
+              <p className="mx-auto mb-12 max-w-3xl text-xl leading-relaxed text-gray-400">
                 Contact our expert team today for a free consultation and
                 discover how our professional services can transform your
                 property investment.
@@ -640,38 +620,31 @@ const ServicesPage = () => {
             </div>
 
             <div className="mb-12 flex flex-col justify-center gap-6 sm:flex-row">
-              <Button
-                size="large"
-                type="primary"
-                className="h-16 transform rounded-2xl border-0 bg-gradient-to-r from-blue-600 to-teal-600 px-10 text-lg font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-teal-700"
-              >
+              <button className="h-16 transform rounded-2xl border-0 bg-gradient-to-r from-[#ccff00] to-[#9dff00] px-10 text-lg font-semibold text-[#171717] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(204,255,0,0.4)]">
                 <span className="mr-2">📞</span>
                 Schedule Free Consultation
-              </Button>
-              <Button
-                size="large"
-                className="h-16 transform rounded-2xl border-white/30 bg-white/10 px-10 text-lg font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white hover:text-gray-900"
-              >
+              </button>
+              <button className="h-16 transform rounded-2xl border border-[#ccff00]/30 bg-[#ccff00]/10 px-10 text-lg font-semibold text-[#ccff00] backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#ccff00]/20">
                 <span className="mr-2">💬</span>
                 Get Quote
-              </Button>
+              </button>
             </div>
 
             {/* Contact Information */}
-            <div className="grid grid-cols-1 gap-8 border-t border-white/10 pt-12 md:grid-cols-3">
-              <div className="text-center">
-                <Phone className="mx-auto mb-3 h-8 w-8 text-blue-400" />
-                <h4 className="mb-2 font-semibold">Call Us</h4>
+            <div className="grid grid-cols-1 gap-8 border-t border-[#333] pt-12 md:grid-cols-3">
+              <div className="text-center group">
+                <Phone className="mx-auto mb-3 h-8 w-8 text-[#ccff00] transition-transform duration-300 group-hover:scale-110" />
+                <h4 className="mb-2 font-semibold text-white">Call Us</h4>
                 <p className="text-gray-400">+1 (555) 123-4567</p>
               </div>
-              <div className="text-center">
-                <Mail className="mx-auto mb-3 h-8 w-8 text-blue-400" />
-                <h4 className="mb-2 font-semibold">Email Us</h4>
+              <div className="text-center group">
+                <Mail className="mx-auto mb-3 h-8 w-8 text-[#ccff00] transition-transform duration-300 group-hover:scale-110" />
+                <h4 className="mb-2 font-semibold text-white">Email Us</h4>
                 <p className="text-gray-400">services@coastplanet.com</p>
               </div>
-              <div className="text-center">
-                <MapPin className="mx-auto mb-3 h-8 w-8 text-blue-400" />
-                <h4 className="mb-2 font-semibold">Visit Us</h4>
+              <div className="text-center group">
+                <MapPin className="mx-auto mb-3 h-8 w-8 text-[#ccff00] transition-transform duration-300 group-hover:scale-110" />
+                <h4 className="mb-2 font-semibold text-white">Visit Us</h4>
                 <p className="text-gray-400">Los Angeles, California</p>
               </div>
             </div>
