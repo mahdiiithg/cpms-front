@@ -700,7 +700,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <p className="mb-8 text-lg leading-relaxed text-gray-300 italic">
-                      &quot;{testimonial.text}&quot;
+                      &ldquo;{testimonial.text}&rdquo;
                     </p>
                     <div className="flex items-center">
                       <div className="mr-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#ccff00] to-[#ccff00] text-base font-bold text-[#171717]">

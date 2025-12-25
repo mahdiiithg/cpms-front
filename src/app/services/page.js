@@ -593,7 +593,7 @@ const ServicesPage = () => {
                       ))}
                     </div>
                     <p className="mb-6 leading-relaxed text-gray-700 italic">
-                      &quot;{testimonial.comment}&quot;
+                      &ldquo;{testimonial.comment}&rdquo;
                     </p>
                     <div className="border-t pt-4">
                       <h5 className="font-semibold text-gray-900">
