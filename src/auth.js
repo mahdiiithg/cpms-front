@@ -12,7 +12,6 @@ const PROVIDER_TYPES = {
   CREDENTIALS: 'credentials',
   GOOGLE: 'google',
 };
-// ok
 const TOKEN_EXPIRY_BUFFER = 60 * 1000; // 1 minute buffer before expiry
 
 // Helper functions
