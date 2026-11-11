@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from 'antd';
 import { Bath, Bed, Heart, Eye, Maximize2 } from 'lucide-react';
 import Link from 'next/link';
 import BookmarkButton from './BookmarkButton';
@@ -10,7 +9,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import { ADD_PROPERTY_TO_WISHLIST } from '@/lib/mutations/property';
 import { toast } from 'sonner';
 import { GET_PROPERTIES, GET_WISHLIST_PROPERTIES } from '@/lib/queries';
-import { useMemo } from 'react';
 import ImageSlider from './ImageSlider/ImageSlider';
 
 const PropertyCard = ({ property }) => {
@@ -127,16 +125,26 @@ const PropertyCard = ({ property }) => {
             </div>
           </div>
 
-          {/* Price and CTA — wrap before crowding; keep price on one line */}
-          <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-gray-800/80 pt-3.5">
-            <span className="whitespace-nowrap text-lg font-bold leading-none text-white">
+          {/* Price and CTA — compact native actions (avoid global ant-btn sizing) */}
+          <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-gray-800/80 pt-3">
+            <span className="whitespace-nowrap text-base font-bold leading-none text-white sm:text-lg">
               {formatPrice()}
             </span>
 
-            <div className="ml-auto flex shrink-0 items-center gap-3">
-              <Button type="default" className="rounded-full bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]" onClick={toggleAddToWishList} icon={<Heart className="h-4 w-4" />}>{isInWishList() ? 'Saved' : 'Save'}</Button>
-              <Link href={`/property/${property.id}`}>
-                <Button type="primary" className="bg-[#ccff00] hover:bg-[#ccff00] font-medium text-[#171717] rounded-full border-0 shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]">View</Button>
+            <div className="ml-auto flex shrink-0 items-center gap-1.5">
+              <button
+                type="button"
+                onClick={toggleAddToWishList}
+                className="inline-flex h-7 items-center gap-1 rounded-full border border-gray-700 bg-[#212121] px-2.5 text-[11px] font-medium leading-none text-gray-300 transition-colors hover:border-[#ccff00] hover:text-[#ccff00] sm:px-3 sm:text-xs"
+              >
+                <Heart className="h-3 w-3" />
+                {isInWishList() ? 'Saved' : 'Save'}
+              </button>
+              <Link
+                href={`/property/${property.id}`}
+                className="inline-flex h-7 items-center rounded-full border-0 bg-[#ccff00] px-2.5 text-[11px] font-medium leading-none text-[#171717] shadow-[0_0_8px_rgba(204,255,0,0.4)] transition-shadow hover:shadow-[0_0_14px_rgba(204,255,0,0.55)] sm:px-3 sm:text-xs"
+              >
+                View
               </Link>
             </div>
           </div>

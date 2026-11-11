@@ -204,6 +204,15 @@ export default function BuyPage() {
     setCurrentPage(1);
   };
 
+  const clearPriceRange = () => {
+    setFilters((prev) => ({
+      ...prev,
+      minPrice: null,
+      maxPrice: null,
+    }));
+    setCurrentPage(1);
+  };
+
   const clearFilters = () => {
     setFilters({
       type: null,
@@ -243,6 +252,7 @@ export default function BuyPage() {
             selectedMin={filters.minPrice}
             selectedMax={filters.maxPrice}
             onSelect={handlePriceRangeSelect}
+            onClear={clearPriceRange}
           />
         }
       >
