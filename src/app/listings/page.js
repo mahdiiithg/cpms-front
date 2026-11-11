@@ -200,22 +200,22 @@ export default function PropertyListingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#171717]">
+    <div className="min-h-screen bg-cp-surface text-white">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] border-b border-gray-800">
+      <div className="border-b border-cp-stroke bg-gradient-to-br from-cp-surface via-cp-raised to-cp-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* Breadcrumb */}
-          <div className="flex items-center space-x-2 text-sm text-gray-400 mb-4">
-            <a href="/" className="hover:text-[#ccff00] transition-colors">Home</a>
+          <div className="flex items-center space-x-2 mb-4 text-sm text-cp-subtle">
+            <a href="/" className="transition-colors hover:text-cp-lime">Home</a>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-[#ccff00]">Property Listings</span>
+            <span className="text-cp-lime">Property Listings</span>
           </div>
 
           {/* Title and Stats */}
           <div className="flex items-center justify-between mb-6">
             <div>
               <h1 className="text-3xl font-bold text-white">Property Listings</h1>
-              <p className="text-gray-400 mt-1">
+              <p className="mt-1 text-cp-subtle">
                 {loading ? 'Loading...' : `${totalCount} properties available`}
               </p>
             </div>
@@ -227,25 +227,10 @@ export default function PropertyListingsPage() {
               placeholder="Search by location, property type, or features..."
               allowClear
               size="large"
-              className="flex-1"
+              className="cp-control dark-search flex-1"
               onSearch={handleSearch}
-              styles={{
-                affixWrapper: {
-                  background: '#212121',
-                  borderColor: '#374151',
-                  color: 'white'
-                },
-                input: { 
-                  background: '#212121',
-                  color: 'white',
-                  borderColor: '#374151'
-                }
-              }}
-              style={{
-                background: '#212121'
-              }}
               enterButton={
-                <Button className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]">
+                <Button className="!border-0 !bg-cp-lime !text-cp-surface shadow-[0_0_15px_rgba(204,255,0,0.45)] hover:!bg-cp-lime-hover">
                   <Search className="h-4 w-4" />
                 </Button>
               }
@@ -254,7 +239,7 @@ export default function PropertyListingsPage() {
               size="large"
               icon={<SlidersHorizontal className="h-4 w-4" />}
               onClick={() => setShowFilters(true)}
-              className="lg:hidden bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]"
+              className="cp-toolbar-btn lg:hidden"
             >
               Filters
             </Button>
@@ -271,16 +256,16 @@ export default function PropertyListingsPage() {
               className="dark-listing-card shadow-[0_0_15px_rgba(204,255,0,0.05)]"
               styles={{
                 body: { background: '#1a1a1a', padding: '24px' },
-                header: { background: '#1a1a1a', borderBottom: '1px solid #374151', color: 'white' }
+                header: { background: '#1a1a1a', borderBottom: '1px solid rgba(255,255,255,0.08)', color: 'white' }
               }}
               bordered
-              style={{ borderColor: '#374151' }}
+              style={{ borderColor: 'rgba(255,255,255,0.1)' }}
               extra={
                 <Button 
-                  type="link" 
+                  type="text" 
                   size="small" 
                   onClick={clearFilters}
-                  className="text-[#ccff00] hover:text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.8)]"
+                  className="cp-text-action !px-2"
                 >
                   Clear All
                 </Button>
@@ -291,17 +276,17 @@ export default function PropertyListingsPage() {
                 <div className="bg-gradient-to-br from-[#ccff00]/10 to-[#ccff00]/5 p-4 rounded-lg border border-[#ccff00]/20 shadow-[0_0_15px_rgba(204,255,0,0.1)]">
                   <div className="flex items-start gap-3">
                     <div className="bg-[#ccff00]/20 p-2 rounded-lg shadow-[0_0_10px_rgba(204,255,0,0.3)]">
-                      <Home className="h-5 w-5 text-[#ccff00]" />
+                      <Home className="h-5 w-5 text-cp-lime" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-[#ccff00] mb-1">All Properties</p>
-                      <p className="text-xs text-gray-400">Showing both sale and rental properties</p>
+                      <p className="text-sm font-semibold text-cp-lime mb-1">All Properties</p>
+                      <p className="text-xs text-cp-subtle">Showing both sale and rental properties</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Price Range */}
-                <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+                <div className="bg-cp-elevated/50 p-4 rounded-lg border border-cp-stroke">
                   <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Price Range
                   </label>
@@ -318,14 +303,14 @@ export default function PropertyListingsPage() {
                       tracks: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' }
                     }}
                   />
-                  <div className="flex justify-between text-xs text-gray-400 mt-2">
+                  <div className="flex justify-between text-xs text-cp-subtle mt-2">
                     <span>${priceRange[0].toLocaleString()}</span>
                     <span>${priceRange[1].toLocaleString()}</span>
                   </div>
                 </div>
 
                 {/* Bedrooms */}
-                <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+                <div className="bg-cp-elevated/50 p-4 rounded-lg border border-cp-stroke">
                   <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Bedrooms
                   </label>
@@ -336,12 +321,12 @@ export default function PropertyListingsPage() {
                     min={1}
                     max={6}
                     marks={{ 
-                      1: { label: <span className="text-gray-400">1</span> }, 
-                      2: { label: <span className="text-gray-400">2</span> }, 
-                      3: { label: <span className="text-gray-400">3</span> }, 
-                      4: { label: <span className="text-gray-400">4</span> }, 
-                      5: { label: <span className="text-gray-400">5</span> }, 
-                      6: { label: <span className="text-gray-400">6+</span> } 
+                      1: { label: <span className="text-cp-subtle">1</span> }, 
+                      2: { label: <span className="text-cp-subtle">2</span> }, 
+                      3: { label: <span className="text-cp-subtle">3</span> }, 
+                      4: { label: <span className="text-cp-subtle">4</span> }, 
+                      5: { label: <span className="text-cp-subtle">5</span> }, 
+                      6: { label: <span className="text-cp-subtle">6+</span> } 
                     }}
                     styles={{
                       track: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' },
@@ -351,38 +336,40 @@ export default function PropertyListingsPage() {
                 </div>
 
                 {/* Location */}
-                <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+                <div className="bg-cp-elevated/50 p-4 rounded-lg border border-cp-stroke">
                   <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Location
                   </label>
-                  <Input
-                    placeholder="City, suburb, or address"
-                    value={filters.location}
-                    onChange={(e) => handleFilterChange('location', e.target.value)}
-                    prefix={<MapPin className="h-4 w-4 text-[#ccff00]" />}
-                    className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
-                  />
+                  <div className="cp-field">
+                    <Input
+                      placeholder="City, suburb, or address"
+                      value={filters.location}
+                      onChange={(e) => handleFilterChange('location', e.target.value)}
+                      prefix={<MapPin className="h-4 w-4 text-cp-lime" />}
+                      variant="borderless"
+                    />
+                  </div>
                 </div>
 
                 {/* Special Features */}
-                <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+                <div className="bg-cp-elevated/50 p-4 rounded-lg border border-cp-stroke">
                   <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Special
                   </label>
-                  <div className="space-y-3 bg-[#171717] p-4 rounded-lg border border-gray-800">
+                  <div className="space-y-3 bg-cp-surface p-4 rounded-lg border border-cp-stroke">
                     <Checkbox
                       checked={filters.featured}
                       onChange={(e) => handleFilterChange('featured', e.target.checked)}
-                      className="text-gray-300"
+                      className="text-cp-muted"
                     >
-                      <span className="text-gray-300">Featured Properties</span>
+                      <span className="text-cp-muted">Featured Properties</span>
                     </Checkbox>
                     <Checkbox
                       checked={filters.urgent}
                       onChange={(e) => handleFilterChange('urgent', e.target.checked)}
-                      className="text-gray-300"
+                      className="text-cp-muted"
                     >
-                      <span className="text-gray-300">Urgent Sale</span>
+                      <span className="text-cp-muted">Urgent Sale</span>
                     </Checkbox>
                   </div>
                 </div>
@@ -395,18 +382,21 @@ export default function PropertyListingsPage() {
             {/* Results Header */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
-                <Select
-                  value={`${filters.sortBy}${filters.sortOrder === 'desc' ? '-desc' : ''}`}
-                  onChange={handleSortChange}
-                  className="w-48 dark-select"
-                  size="large"
-                >
-                  {sortOptions.map(option => (
-                    <Option key={option.value} value={option.value}>
-                      {option.label}
-                    </Option>
-                  ))}
-                </Select>
+                <div className="cp-field w-48">
+                  <Select
+                    value={`${filters.sortBy}${filters.sortOrder === 'desc' ? '-desc' : ''}`}
+                    onChange={handleSortChange}
+                    className="w-full"
+                    size="large"
+                    variant="borderless"
+                  >
+                    {sortOptions.map(option => (
+                      <Option key={option.value} value={option.value}>
+                        {option.label}
+                      </Option>
+                    ))}
+                  </Select>
+                </div>
               </div>
 
               <ListingViewToggle
@@ -421,12 +411,12 @@ export default function PropertyListingsPage() {
             {/* Properties Grid/List */}
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <Spin size="large" className="text-[#ccff00]" tip={<span className="text-gray-300">Loading properties...</span>} />
+                <Spin size="large" className="text-cp-lime" tip={<span className="text-cp-muted">Loading properties...</span>} />
               </div>
             ) : error ? (
-              <div className="text-center py-12 bg-[#1a1a1a] rounded-2xl border border-gray-800 p-8">
+              <div className="text-center py-12 bg-cp-raised rounded-2xl border border-cp-stroke p-8">
                 <Empty 
-                  description={<span className="text-gray-400">Failed to load properties</span>}
+                  description={<span className="text-cp-subtle">Failed to load properties</span>}
                   image={Empty.PRESENTED_IMAGE_SIMPLE}
                 />
                 <Button 
@@ -437,9 +427,9 @@ export default function PropertyListingsPage() {
                 </Button>
               </div>
             ) : properties.length === 0 ? (
-              <div className="bg-[#1a1a1a] rounded-2xl border border-gray-800 p-8">
+              <div className="bg-cp-raised rounded-2xl border border-cp-stroke p-8">
                 <Empty 
-                  description={<span className="text-gray-400">No properties found</span>}
+                  description={<span className="text-cp-subtle">No properties found</span>}
                   image={Empty.PRESENTED_IMAGE_SIMPLE}
                   className="py-12"
                 />
@@ -493,14 +483,14 @@ export default function PropertyListingsPage() {
         className="dark-drawer"
         styles={{
           body: { background: '#171717', padding: '16px' },
-          header: { background: '#1a1a1a', borderBottom: '1px solid #374151' }
+          header: { background: '#1a1a1a', borderBottom: '1px solid rgba(255,255,255,0.08)' }
         }}
         extra={
           <Button 
-            type="link" 
+            type="text" 
             size="small" 
             onClick={clearFilters}
-            className="text-[#ccff00] hover:text-[#ccff00] hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.8)]"
+            className="cp-text-action !px-2"
           >
             Clear All
           </Button>
@@ -512,17 +502,17 @@ export default function PropertyListingsPage() {
           <div className="bg-gradient-to-br from-[#ccff00]/10 to-[#ccff00]/5 p-4 rounded-lg border border-[#ccff00]/20 shadow-[0_0_15px_rgba(204,255,0,0.1)]">
             <div className="flex items-start gap-3">
               <div className="bg-[#ccff00]/20 p-2 rounded-lg shadow-[0_0_10px_rgba(204,255,0,0.3)]">
-                <Home className="h-5 w-5 text-[#ccff00]" />
+                <Home className="h-5 w-5 text-cp-lime" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-[#ccff00] mb-1">All Properties</p>
-                <p className="text-xs text-gray-400">Showing both sale and rental properties</p>
+                <p className="text-sm font-semibold text-cp-lime mb-1">All Properties</p>
+                <p className="text-xs text-cp-subtle">Showing both sale and rental properties</p>
               </div>
             </div>
           </div>
 
           {/* Price Range */}
-          <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+          <div className="bg-cp-elevated/50 p-4 rounded-lg border border-cp-stroke">
             <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
               Price Range
             </label>
@@ -539,14 +529,14 @@ export default function PropertyListingsPage() {
                 tracks: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' }
               }}
             />
-            <div className="flex justify-between text-xs text-gray-400 mt-2">
+            <div className="flex justify-between text-xs text-cp-subtle mt-2">
               <span>${priceRange[0].toLocaleString()}</span>
               <span>${priceRange[1].toLocaleString()}</span>
             </div>
           </div>
 
           {/* Bedrooms */}
-          <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+          <div className="bg-cp-elevated/50 p-4 rounded-lg border border-cp-stroke">
             <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
               Bedrooms
             </label>
@@ -557,12 +547,12 @@ export default function PropertyListingsPage() {
               min={1}
               max={6}
               marks={{ 
-                1: { label: <span className="text-gray-400">1</span> }, 
-                2: { label: <span className="text-gray-400">2</span> }, 
-                3: { label: <span className="text-gray-400">3</span> }, 
-                4: { label: <span className="text-gray-400">4</span> }, 
-                5: { label: <span className="text-gray-400">5</span> }, 
-                6: { label: <span className="text-gray-400">6+</span> } 
+                1: { label: <span className="text-cp-subtle">1</span> }, 
+                2: { label: <span className="text-cp-subtle">2</span> }, 
+                3: { label: <span className="text-cp-subtle">3</span> }, 
+                4: { label: <span className="text-cp-subtle">4</span> }, 
+                5: { label: <span className="text-cp-subtle">5</span> }, 
+                6: { label: <span className="text-cp-subtle">6+</span> } 
               }}
               styles={{
                 track: { background: '#ccff00', boxShadow: '0 0 10px rgba(204,255,0,0.5)' },
@@ -572,38 +562,40 @@ export default function PropertyListingsPage() {
           </div>
 
           {/* Location */}
-          <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+          <div className="bg-cp-elevated/50 p-4 rounded-lg border border-cp-stroke">
             <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
               Location
             </label>
-            <Input
-              placeholder="City, suburb, or address"
-              value={filters.location}
-              onChange={(e) => handleFilterChange('location', e.target.value)}
-              prefix={<MapPin className="h-4 w-4 text-[#ccff00]" />}
-              className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
-            />
+            <div className="cp-field">
+              <Input
+                placeholder="City, suburb, or address"
+                value={filters.location}
+                onChange={(e) => handleFilterChange('location', e.target.value)}
+                prefix={<MapPin className="h-4 w-4 text-cp-lime" />}
+                variant="borderless"
+              />
+            </div>
           </div>
 
           {/* Special Features */}
-          <div className="bg-[#212121]/50 p-4 rounded-lg border border-gray-800/50">
+          <div className="bg-cp-elevated/50 p-4 rounded-lg border border-cp-stroke">
             <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
               Special
             </label>
-            <div className="space-y-3 bg-[#171717] p-4 rounded-lg border border-gray-800">
+            <div className="space-y-3 bg-cp-surface p-4 rounded-lg border border-cp-stroke">
               <Checkbox
                 checked={filters.featured}
                 onChange={(e) => handleFilterChange('featured', e.target.checked)}
-                className="text-gray-300"
+                className="text-cp-muted"
               >
-                <span className="text-gray-300">Featured Properties</span>
+                <span className="text-cp-muted">Featured Properties</span>
               </Checkbox>
               <Checkbox
                 checked={filters.urgent}
                 onChange={(e) => handleFilterChange('urgent', e.target.checked)}
-                className="text-gray-300"
+                className="text-cp-muted"
               >
-                <span className="text-gray-300">Urgent Sale</span>
+                <span className="text-cp-muted">Urgent Sale</span>
               </Checkbox>
             </div>
           </div>

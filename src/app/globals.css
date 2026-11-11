@@ -3,6 +3,265 @@
 @theme {
   --color-primary: #ccff00;
   --color-primary-glow: rgba(204, 255, 0, 0.5);
+  --color-cp-lime: #ccff00;
+  --color-cp-lime-hover: #d4ff33;
+  --color-cp-surface: #171717;
+  --color-cp-raised: #1a1a1a;
+  --color-cp-elevated: #212121;
+  --color-cp-muted: #d1d5db;
+  --color-cp-subtle: #9ca3af;
+  --color-cp-faint: #6b7280;
+  --color-cp-stroke: rgba(255, 255, 255, 0.08);
+  --color-cp-stroke-strong: rgba(255, 255, 255, 0.14);
+  --radius-cp-control: 12px;
+  --radius-cp-panel: 16px;
+}
+
+/* Base public canvas — avoid white flash behind dark pages */
+html,
+body {
+  background-color: #171717;
+  color: #ffffff;
+}
+
+/* ---------- Unified Coast Planet field shell (ONE soft stroke) ---------- */
+.cp-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  background: #212121;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cp-field:hover {
+  border-color: rgba(204, 255, 0, 0.45);
+}
+
+.cp-field:focus-within {
+  border-color: #ccff00;
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25);
+}
+
+.cp-field .ant-select,
+.cp-field .ant-select-selector,
+.cp-field .ant-input,
+.cp-field .ant-input-affix-wrapper,
+.cp-field .ant-select-auto-complete,
+.cp-field .ant-select-selection-search,
+.cp-field .ant-select-selection-search-input {
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.cp-field .ant-select-selector,
+.cp-field .ant-input-affix-wrapper {
+  padding-inline: 0 !important;
+  min-height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.cp-field .ant-input {
+  padding: 0 !important;
+  color: #fff !important;
+  min-height: auto !important;
+}
+
+.cp-field .ant-input::placeholder,
+.cp-field .ant-select-selection-placeholder {
+  color: #9ca3af !important;
+}
+
+.cp-field .ant-select-selection-item {
+  color: #fff !important;
+}
+
+.cp-field .ant-select-arrow,
+.cp-field .ant-select-clear {
+  color: #9ca3af !important;
+}
+
+.cp-field .ant-input-prefix {
+  margin-inline-end: 8px;
+}
+
+/* Legacy class kept as alias for gradual migration */
+.cp-control.ant-input,
+.cp-control.ant-input-affix-wrapper,
+.cp-control .ant-input-affix-wrapper,
+.listing-sidebar-filters .ant-input,
+.listing-sidebar-filters .ant-input-affix-wrapper,
+.cp-search .ant-input,
+.cp-search .ant-input-affix-wrapper {
+  background-color: #212121 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  min-height: 42px;
+}
+
+.cp-control.ant-input-affix-wrapper .ant-input,
+.cp-control .ant-input-affix-wrapper .ant-input,
+.listing-sidebar-filters .ant-input-affix-wrapper .ant-input,
+.cp-search .ant-input-affix-wrapper .ant-input {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-height: auto !important;
+}
+
+.cp-control.ant-select,
+.listing-sidebar-filters .ant-select,
+.cp-search .ant-select {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.cp-control.ant-select .ant-select-selector,
+.listing-sidebar-filters .ant-select .ant-select-selector {
+  background-color: #212121 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  min-height: 42px !important;
+}
+
+.cp-search .ant-select-auto-complete .ant-select-selector {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-height: auto !important;
+}
+
+/* Text buttons on dark (Clear All, etc.) — Ant defaults to near-black */
+.cp-text-action.ant-btn,
+.cp-text-action.ant-btn-text,
+.listing-sidebar-filters .ant-btn-text {
+  color: #ccff00 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.cp-text-action.ant-btn:hover,
+.listing-sidebar-filters .ant-btn-text:hover {
+  color: #d4ff33 !important;
+  text-shadow: 0 0 8px rgba(204, 255, 0, 0.55);
+}
+
+/* Shared results toolbar controls */
+.cp-toolbar-btn.ant-btn {
+  height: 36px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: #212121 !important;
+  color: #d1d5db !important;
+  box-shadow: none !important;
+}
+
+.cp-toolbar-btn.ant-btn:hover,
+.cp-toolbar-btn.ant-btn.is-active {
+  border-color: rgba(204, 255, 0, 0.55) !important;
+  color: #ccff00 !important;
+}
+
+.cp-view-toggle {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #212121;
+}
+
+@media (min-width: 640px) {
+  .cp-view-toggle {
+    display: inline-flex;
+  }
+}
+
+.cp-view-toggle__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #d1d5db;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.cp-view-toggle__btn:hover {
+  color: #ccff00;
+  background: rgba(204, 255, 0, 0.08);
+}
+
+.cp-view-toggle__btn.is-active {
+  background: #ccff00;
+  color: #171717;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(204, 255, 0, 0.45);
+}
+
+.cp-view-toggle__btn.is-active:hover {
+  color: #171717;
+  background: #ccff00;
+}
+
+/* Leaflet marker */
+.cp-map-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.cp-map-marker-dot {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 3px;
+  border-radius: 9999px;
+  background: #ccff00;
+  box-shadow:
+    0 0 0 3px rgba(23, 23, 23, 0.9),
+    0 0 14px rgba(204, 255, 0, 0.75);
+}
+
+.leaflet-container {
+  background: #1a1a1a;
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaflet-popup-tip {
+  background: #1a1a1a;
 }
 
 .custom-segmented-auth {
@@ -121,58 +380,73 @@ span.ant-select-selection-item {
   color: #6b7280 !important;
 }
 
-/* Ant Design Button Overrides for Dark Theme */
+/* Soft default buttons — avoid harsh neon outline on every default btn */
 .ant-btn-default {
-  background-color: transparent !important;
-  border-color: #ccff00 !important;
-  color: #ccff00 !important;
+  background-color: #212121 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #d1d5db !important;
 }
 
 .ant-btn-default:hover {
-  background-color: #ccff00 !important;
-  border-color: #ccff00 !important;
-  color: #171717 !important;
+  background-color: #212121 !important;
+  border-color: rgba(204, 255, 0, 0.55) !important;
+  color: #ccff00 !important;
 }
 
-/* Custom Input Styles for Dark Theme */
-.ant-input {
-  background-color: #171717 !important;
-  border: none !important;
+/* Default dark inputs — single soft stroke on the outer control only */
+.ant-input:not(textarea):not(.ant-input-disabled) {
+  background-color: #212121 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: white !important;
-  padding: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
 }
 
-.ant-input:hover,
-.ant-input:focus {
-  border: none !important;
-  box-shadow: 0 0 0 2px rgba(133, 232, 114, 0.1) !important;
+.ant-input:not(textarea):hover {
+  border-color: rgba(204, 255, 0, 0.45) !important;
+}
+
+.ant-input:not(textarea):focus {
+  border-color: #ccff00 !important;
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
 }
 
 .ant-input::placeholder {
   color: #6b7280 !important;
 }
 
-/* Affix wrapper (Input with prefix/suffix/clear) */
+/* Affix wrapper owns the border; nested input stays borderless */
 .ant-input-affix-wrapper {
   background-color: #212121 !important;
-  border: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: white !important;
-  border-radius: 8px !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
 }
 
 .ant-input-affix-wrapper:hover {
-  border-color: rgba(204, 255, 0, 0.5) !important;
-  box-shadow: 0 0 10px rgba(204, 255, 0, 0.3) !important;
+  border-color: rgba(204, 255, 0, 0.45) !important;
 }
 
-.ant-input-affix-wrapper-focused {
+.ant-input-affix-wrapper-focused,
+.ant-input-affix-wrapper:focus-within {
   border-color: #ccff00 !important;
-  box-shadow: 0 0 10px rgba(204, 255, 0, 0.3) !important;
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
 }
 
 .ant-input-affix-wrapper .ant-input {
-  background-color: #212121 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
   color: white !important;
+  min-height: auto !important;
+}
+
+.ant-input-affix-wrapper .ant-input:hover,
+.ant-input-affix-wrapper .ant-input:focus {
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .ant-input-affix-wrapper .ant-input::placeholder {
@@ -301,15 +575,28 @@ span.ant-select-selection-item {
   color: #171717 !important;
 }
 
-/* Dark Select Dropdown Styles */
-.dark-select , .ant-select-selector {
-  background-color: #212121 !important;
-  border: 1px solid #374151 !important;
-  color: white !important;
+/* Dark Select — border only on inner selector (avoid double stroke) */
+.dark-select.ant-select {
+  border: none !important;
+  background: transparent !important;
 }
 
-.dark-select .ant-select-selector:hover {
+.dark-select .ant-select-selector {
+  background-color: #212121 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  min-height: 42px !important;
+}
+
+.dark-select.ant-select:hover .ant-select-selector {
+  border-color: rgba(204, 255, 0, 0.45) !important;
+}
+
+.dark-select.ant-select-focused .ant-select-selector {
   border-color: #ccff00 !important;
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
 }
 
 .dark-select .ant-select-arrow {
@@ -379,13 +666,7 @@ span.ant-select-selection-item {
 .listing-sidebar-filters {
   background: #1a1a1a !important;
   color: #e5e7eb !important;
-}
-
-.listing-sidebar-filters .ant-select-selector,
-.listing-sidebar-filters .ant-input-affix-wrapper {
-  background-color: #212121 !important;
-  border: 1px solid #374151 !important;
-  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Dark Ant Design cards on listing surfaces */

@@ -13,15 +13,19 @@ export default function ListingHero({
 }) {
   return (
     <section
-      className={`bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] py-4 sm:py-5 lg:py-6 ${className}`}
+      className={`relative overflow-hidden bg-gradient-to-br from-cp-surface via-cp-raised to-cp-surface py-4 sm:py-5 lg:py-6 ${className}`}
     >
-      <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(204,255,0,0.06),transparent_55%)]"
+      />
+      <div className="relative mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
         <div className="mb-3 text-center sm:mb-4">
-          <h1 className="mb-2 text-2xl font-bold text-white sm:mb-2.5 sm:text-3xl lg:text-4xl">
+          <h1 className="mb-2 text-2xl font-bold tracking-tight text-white sm:mb-2.5 sm:text-3xl lg:text-4xl">
             {title}
           </h1>
           {description ? (
-            <p className="mx-auto mb-3 max-w-3xl text-base text-gray-400 sm:mb-4 sm:text-lg">
+            <p className="mx-auto mb-3 max-w-3xl text-base text-cp-subtle sm:mb-4 sm:text-lg">
               {description}
             </p>
           ) : null}

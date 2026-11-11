@@ -37,11 +37,11 @@ export default function PriceRangePills({
             size="small"
             aria-pressed={isActive}
             onClick={() => handleSelect(range, isActive)}
-            className={`rounded-full ${
+            className={
               isActive
-                ? 'border-[#ccff00] bg-[#ccff00] text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]'
-                : 'border-gray-700 bg-[#212121] text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]'
-            }`}
+                ? '!h-8 !rounded-full !border-0 !bg-cp-lime !font-medium !text-cp-surface shadow-[0_0_10px_rgba(204,255,0,0.45)]'
+                : 'cp-toolbar-btn !h-8 !rounded-full !text-xs sm:!text-sm'
+            }
           >
             {range.label}
           </Button>
@@ -51,7 +51,7 @@ export default function PriceRangePills({
         <button
           type="button"
           onClick={() => onClear?.()}
-          className="px-1 text-sm font-medium text-[#ccff00] transition-all hover:drop-shadow-[0_0_8px_rgba(204,255,0,0.8)]"
+          className="cp-text-action px-1 text-sm font-medium text-cp-lime transition-all hover:text-cp-lime-hover"
         >
           Clear
         </button>

@@ -164,9 +164,9 @@ const Header = () => {
   ];
 
   return (
-    <div className="relative ">
+    <div className="relative">
       {/* Main Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-800 bg-[#171717]">
+      <header className="sticky top-0 z-50 border-b border-cp-stroke bg-cp-surface/95 backdrop-blur-md">
         <div className="px-3 sm:px-4 lg:px-8">
           <div className="flex items-center justify-between py-2 sm:py-3 lg:py-4">
             {/* Logo */}
@@ -174,10 +174,10 @@ const Header = () => {
               href="/"
               className="flex items-center space-x-2 transition-opacity hover:opacity-80 sm:space-x-3"
             >
-              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-r from-[#ccff00] to-[#ccff00] sm:h-8 sm:w-8 lg:h-10 lg:w-10 shadow-[0_0_15px_rgba(204,255,0,0.6)]">
-                <Waves className="h-3 w-3 text-[#171717] sm:h-4 sm:w-4 lg:h-6 lg:w-6" />
+              <div className="flex h-6 w-6 items-center justify-center rounded-xl bg-cp-lime sm:h-8 sm:w-8 lg:h-10 lg:w-10 shadow-[0_0_15px_rgba(204,255,0,0.55)]">
+                <Waves className="h-3 w-3 text-cp-surface sm:h-4 sm:w-4 lg:h-6 lg:w-6" />
               </div>
-              <span className="text-base font-bold text-white sm:text-lg lg:text-2xl">
+              <span className="text-base font-bold tracking-tight text-white sm:text-lg lg:text-2xl">
                 Coast Planet
               </span>
             </Link>
@@ -195,8 +195,8 @@ const Header = () => {
                     <button
                       className={`flex items-center rounded-lg px-2 py-1.5 transition-all duration-300 ease-in-out sm:py-2 lg:py-2 ${
                         activeDropdown === item.id
-                          ? 'scale-105 bg-[#ccff00]/10 text-[#ccff00]'
-                          : 'text-gray-300 hover:scale-105 hover:bg-[#ccff00]/10 hover:text-[#ccff00]'
+                          ? 'scale-105 bg-cp-lime/10 text-cp-lime'
+                          : 'text-cp-muted hover:scale-105 hover:bg-cp-lime/10 hover:text-cp-lime'
                       }`}
                     >
                       <span className="text-sm font-medium transition-all duration-300 sm:text-base">
@@ -214,7 +214,7 @@ const Header = () => {
 
                   {/* Individual Dropdown for each item */}
                   {activeDropdown === item.id && (
-                    <div className="animate-in slide-in-from-top-2 fade-in-0 fixed top-16 left-0 z-40 mt-0 w-full transform border-b border-gray-800 bg-[#1a1a1a] shadow-2xl duration-300">
+                    <div className="animate-in slide-in-from-top-2 fade-in-0 fixed top-16 left-0 z-40 mt-0 w-full transform border-b border-cp-stroke bg-cp-raised/98 shadow-2xl backdrop-blur-md duration-300">
                       <div className="animate-in slide-in-from-top-4 fade-in-0 transform px-3 py-4 transition-all duration-300 ease-out sm:px-4 sm:py-6 lg:px-8 lg:py-8">
                         <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
                           {/* Main Content */}

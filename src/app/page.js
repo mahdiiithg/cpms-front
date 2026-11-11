@@ -177,7 +177,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#171717]">
+    <div className="min-h-screen bg-cp-surface text-white">
       {/* Breadcrumb */}
       <div className="border-b border-gray-800 bg-[#1a1a1a] py-2 sm:py-3">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
