@@ -349,6 +349,51 @@ span.ant-select-selection-item {
   height: 15px !important;
   width: 15px !important;
   border-radius: 4px !important;
+  background-color: #212121 !important;
+  border-color: #4b5563 !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #ccff00 !important;
+  border-color: #ccff00 !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: #171717 !important;
+}
+
+.ant-checkbox-wrapper {
+  color: #d1d5db !important;
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner {
+  border-color: #ccff00 !important;
+}
+
+.dark-checkbox-group .ant-checkbox + span {
+  color: #d1d5db !important;
+}
+
+/* Dark Ant Design cards on listing surfaces */
+.dark-listing-card.ant-card,
+.property-card.ant-card {
+  background: #1a1a1a !important;
+  border-color: #1f2937 !important;
+  color: #e5e7eb !important;
+}
+
+.dark-listing-card.ant-card .ant-card-body,
+.property-card.ant-card .ant-card-body {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.dark-listing-card.ant-card .ant-card-head,
+.property-card.ant-card .ant-card-head {
+  background: transparent !important;
+  border-bottom-color: #374151 !important;
+  color: #fff !important;
 }
 
 /* Animation Keyframes */
