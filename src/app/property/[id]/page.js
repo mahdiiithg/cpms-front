@@ -37,25 +37,25 @@ function asArray(value) {
 }
 
 const sectionClass =
-  'rounded-2xl border border-gray-800/90 bg-[#1a1a1a] p-5 sm:p-6 lg:p-7';
+  'rounded-2xl border border-cp-stroke bg-cp-raised p-5 sm:p-6 lg:p-7';
 const sectionTitleClass =
   'mb-5 text-xl font-semibold tracking-tight text-white sm:text-2xl';
 const primaryCtaClass =
-  'w-full !h-11 !border-0 !bg-[#ccff00] !font-semibold !text-[#171717] shadow-[0_0_18px_rgba(204,255,0,0.35)] transition hover:!bg-[#d4ff33] hover:shadow-[0_0_28px_rgba(204,255,0,0.55)]';
+  'w-full !h-11 !border-0 !bg-cp-lime !font-semibold !text-cp-surface shadow-[0_0_18px_rgba(204,255,0,0.35)] transition hover:!bg-cp-lime-hover hover:shadow-[0_0_28px_rgba(204,255,0,0.55)]';
 const secondaryCtaClass =
-  'w-full !h-11 !border !border-[#ccff00]/50 !bg-transparent !font-semibold !text-[#ccff00] transition hover:!border-[#ccff00] hover:!bg-[#ccff00]/10';
+  'w-full !h-11 !border !border-cp-lime/50 !bg-transparent !font-semibold !text-cp-lime transition hover:!border-cp-lime hover:!bg-cp-lime/10';
 
 function StatCell({ icon: Icon, value, label }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-gray-800 bg-[#141414] px-3.5 py-3 sm:px-4">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#ccff00]/20 bg-[#ccff00]/10">
-        <Icon className="h-5 w-5 text-[#ccff00]" />
+    <div className="flex items-center gap-3 rounded-xl border border-cp-stroke bg-cp-surface px-3.5 py-3 sm:px-4">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-cp-lime/20 bg-cp-lime/10">
+        <Icon className="h-5 w-5 text-cp-lime" />
       </div>
       <div className="min-w-0">
         <div className="truncate text-lg font-semibold leading-none text-white">
           {value}
         </div>
-        <div className="mt-1 text-xs text-gray-500">{label}</div>
+        <div className="mt-1 text-xs text-cp-faint">{label}</div>
       </div>
     </div>
   );
@@ -94,7 +94,7 @@ export default function PropertyDetailPage() {
 
   if (loading && !property) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#171717]">
+      <div className="flex min-h-screen items-center justify-center bg-cp-surface">
         <Spin size="large" />
       </div>
     );
@@ -102,17 +102,17 @@ export default function PropertyDetailPage() {
 
   if (!property) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-[#171717] px-4">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-cp-surface px-4">
         <h2 className="mb-4 text-2xl font-bold text-white">
           {error ? 'Failed to load property' : 'Property Not Found'}
         </h2>
         {error?.message ? (
-          <div className="mb-4 max-w-lg text-center text-gray-400">
+          <div className="mb-4 max-w-lg text-center text-cp-subtle">
             {error.message}
           </div>
         ) : null}
         <Button
-          className="border-gray-700 bg-[#212121] text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]"
+          className="border-gray-700 bg-cp-elevated text-cp-muted hover:border-[#ccff00] hover:text-cp-lime"
           onClick={() => router.back()}
         >
           Go Back
@@ -211,7 +211,7 @@ export default function PropertyDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#111111] text-white">
+    <div className="min-h-screen bg-cp-surface text-white">
       <ListingBreadcrumb
         current={property.title}
         items={[
@@ -227,14 +227,14 @@ export default function PropertyDetailPage() {
             <div className="mb-3 flex flex-wrap items-center gap-2">
               <Tag
                 bordered={false}
-                className="!m-0 !border !border-gray-700 !bg-[#1a1a1a] !px-2.5 !py-0.5 text-xs font-medium capitalize !text-gray-300"
+                className="!m-0 !border !border-gray-700 !bg-cp-raised !px-2.5 !py-0.5 text-xs font-medium capitalize !text-cp-muted"
               >
                 {property.listingType}
               </Tag>
               {property.featured && (
                 <Tag
                   bordered={false}
-                  className="!m-0 !border-0 !bg-[#ccff00] !px-2.5 !py-0.5 text-xs font-semibold !text-[#171717]"
+                  className="!m-0 !border-0 !bg-cp-lime !px-2.5 !py-0.5 text-xs font-semibold !text-cp-surface"
                 >
                   Featured
                 </Tag>
@@ -242,7 +242,7 @@ export default function PropertyDetailPage() {
               {property.type ? (
                 <Tag
                   bordered={false}
-                  className="!m-0 !border !border-[#ccff00]/25 !bg-[#ccff00]/10 !px-2.5 !py-0.5 text-xs font-medium capitalize !text-[#ccff00]"
+                  className="!m-0 !border !border-[#ccff00]/25 !bg-cp-lime/10 !px-2.5 !py-0.5 text-xs font-medium capitalize !text-cp-lime"
                 >
                   {property.type}
                 </Tag>
@@ -251,21 +251,21 @@ export default function PropertyDetailPage() {
             <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-[1.15]">
               {property.title}
             </h1>
-            <div className="mt-3 flex flex-wrap items-start gap-x-4 gap-y-2 text-sm text-gray-400 sm:text-base">
+            <div className="mt-3 flex flex-wrap items-start gap-x-4 gap-y-2 text-sm text-cp-subtle sm:text-base">
               <span className="inline-flex items-start gap-1.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#ccff00]" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-cp-lime" />
                 <span>{locationLabel}</span>
               </span>
               <span className="text-gray-600">·</span>
-              <span className="text-gray-500">ID {property.id}</span>
+              <span className="text-cp-faint">ID {property.id}</span>
             </div>
           </div>
 
           <div className="shrink-0 rounded-2xl border border-[#ccff00]/25 bg-gradient-to-br from-[#ccff00]/12 via-[#1a1a1a] to-[#141414] px-5 py-4 sm:min-w-[220px] sm:px-6">
-            <div className="text-[11px] font-medium tracking-[0.14em] text-gray-400 uppercase">
+            <div className="text-[11px] font-medium tracking-[0.14em] text-cp-subtle uppercase">
               Asking price
             </div>
-            <div className="mt-1 text-3xl font-semibold tracking-tight text-[#ccff00] sm:text-4xl">
+            <div className="mt-1 text-3xl font-semibold tracking-tight text-cp-lime sm:text-4xl">
               {displayPrice}
             </div>
           </div>
@@ -273,7 +273,7 @@ export default function PropertyDetailPage() {
 
         {/* Gallery */}
         <div className="mb-8 grid grid-cols-1 gap-3 lg:mb-10 lg:grid-cols-[minmax(0,1fr)_132px] lg:gap-3">
-          <div className="group relative overflow-hidden rounded-2xl border border-gray-800 bg-[#0d0d0d]">
+          <div className="group relative overflow-hidden rounded-2xl border border-cp-stroke bg-[#0d0d0d]">
             <div className="aspect-[16/10] w-full sm:aspect-[16/9]">
               <img
                 src={heroImage}
@@ -282,7 +282,7 @@ export default function PropertyDetailPage() {
               />
             </div>
             <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full border border-white/10 bg-black/55 px-3 py-1.5 text-sm text-white backdrop-blur-md">
-              <Camera className="h-3.5 w-3.5 text-[#ccff00]" />
+              <Camera className="h-3.5 w-3.5 text-cp-lime" />
               <span>
                 {images.length
                   ? `${selectedImageIndex + 1} / ${images.length}`
@@ -296,7 +296,7 @@ export default function PropertyDetailPage() {
                   type="button"
                   aria-label="Previous photo"
                   onClick={goPrev}
-                  className="absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white backdrop-blur transition hover:border-[#ccff00]/40 hover:text-[#ccff00]"
+                  className="absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white backdrop-blur transition hover:border-[#ccff00]/40 hover:text-cp-lime"
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </button>
@@ -304,7 +304,7 @@ export default function PropertyDetailPage() {
                   type="button"
                   aria-label="Next photo"
                   onClick={goNext}
-                  className="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white backdrop-blur transition hover:border-[#ccff00]/40 hover:text-[#ccff00]"
+                  className="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white backdrop-blur transition hover:border-[#ccff00]/40 hover:text-cp-lime"
                 >
                   <ChevronRight className="h-5 w-5" />
                 </button>
@@ -323,7 +323,7 @@ export default function PropertyDetailPage() {
                   className={`relative h-20 w-28 shrink-0 overflow-hidden rounded-xl border transition lg:h-auto lg:w-full lg:aspect-square ${
                     active
                       ? 'border-[#ccff00] shadow-[0_0_0_1px_rgba(204,255,0,0.35)]'
-                      : 'border-gray-800 hover:border-gray-600'
+                      : 'border-cp-stroke hover:border-gray-600'
                   }`}
                 >
                   <img
@@ -371,7 +371,7 @@ export default function PropertyDetailPage() {
 
             <section className={sectionClass}>
               <h2 className={sectionTitleClass}>About this property</h2>
-              <p className="max-w-3xl text-[15px] leading-7 text-gray-300 sm:text-base sm:leading-7">
+              <p className="max-w-3xl text-[15px] leading-7 text-cp-muted sm:text-base sm:leading-7">
                 {property.description}
               </p>
             </section>
@@ -384,7 +384,7 @@ export default function PropertyDetailPage() {
                     <Tag
                       key={String(f)}
                       bordered={false}
-                      className="!m-0 !rounded-full !border !border-gray-700 !bg-[#141414] !px-3 !py-1 capitalize !text-gray-300"
+                      className="!m-0 !rounded-full !border !border-gray-700 !bg-cp-surface !px-3 !py-1 capitalize !text-cp-muted"
                     >
                       {String(f).replace(/_/g, ' ')}
                     </Tag>
@@ -400,11 +400,11 @@ export default function PropertyDetailPage() {
                 </h2>
                 {(property.location?.walkScore != null ||
                   property.location?.transitScore != null) && (
-                  <div className="flex gap-3 text-xs text-gray-500">
+                  <div className="flex gap-3 text-xs text-cp-faint">
                     {property.location?.walkScore != null && (
                       <span>
                         Walk score{' '}
-                        <span className="font-semibold text-gray-300">
+                        <span className="font-semibold text-cp-muted">
                           {property.location.walkScore}
                         </span>
                       </span>
@@ -412,7 +412,7 @@ export default function PropertyDetailPage() {
                     {property.location?.transitScore != null && (
                       <span>
                         Transit{' '}
-                        <span className="font-semibold text-gray-300">
+                        <span className="font-semibold text-cp-muted">
                           {property.location.transitScore}
                         </span>
                       </span>
@@ -425,7 +425,7 @@ export default function PropertyDetailPage() {
                 <div className="mb-5 grid gap-3 sm:grid-cols-2">
                   {locationFeatures.length > 0 && (
                     <div className="rounded-xl border border-[#ccff00]/15 bg-[#ccff00]/5 p-4">
-                      <h3 className="mb-2 text-sm font-semibold text-[#ccff00]">
+                      <h3 className="mb-2 text-sm font-semibold text-cp-lime">
                         Area highlights
                       </h3>
                       <div className="flex flex-wrap gap-1.5">
@@ -433,7 +433,7 @@ export default function PropertyDetailPage() {
                           <Tag
                             key={index}
                             bordered={false}
-                            className="!m-0 !rounded-full !border !border-[#ccff00]/25 !bg-transparent capitalize !text-[#ccff00]"
+                            className="!m-0 !rounded-full !border !border-[#ccff00]/25 !bg-transparent capitalize !text-cp-lime"
                           >
                             {String(feature).replace(/_/g, ' ')}
                           </Tag>
@@ -442,7 +442,7 @@ export default function PropertyDetailPage() {
                     </div>
                   )}
                   {nearbyAttractions.length > 0 && (
-                    <div className="rounded-xl border border-gray-800 bg-[#141414] p-4">
+                    <div className="rounded-xl border border-cp-stroke bg-cp-surface p-4">
                       <h3 className="mb-2 text-sm font-semibold text-white">
                         Nearby
                       </h3>
@@ -451,7 +451,7 @@ export default function PropertyDetailPage() {
                           <Tag
                             key={index}
                             bordered={false}
-                            className="!m-0 !rounded-full !border !border-gray-700 !bg-[#111] !text-gray-300"
+                            className="!m-0 !rounded-full !border !border-gray-700 !bg-[#111] !text-cp-muted"
                           >
                             {attraction}
                           </Tag>
@@ -474,9 +474,9 @@ export default function PropertyDetailPage() {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="sticky top-6 space-y-4">
-              <div className="rounded-2xl border border-gray-800 bg-[#1a1a1a] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] sm:p-6">
-                <div className="border-b border-gray-800 pb-4">
-                  <div className="text-[11px] font-medium tracking-[0.14em] text-gray-500 uppercase">
+              <div className="rounded-2xl border border-cp-stroke bg-cp-raised p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] sm:p-6">
+                <div className="border-b border-cp-stroke pb-4">
+                  <div className="text-[11px] font-medium tracking-[0.14em] text-cp-faint uppercase">
                     Listed for {property.listingType}
                   </div>
                   <div className="mt-1 text-3xl font-semibold tracking-tight text-white">
@@ -485,7 +485,7 @@ export default function PropertyDetailPage() {
                 </div>
 
                 <div className="mt-5 flex items-center gap-3">
-                  <div className="h-12 w-12 overflow-hidden rounded-full border border-gray-700 bg-[#212121]">
+                  <div className="h-12 w-12 overflow-hidden rounded-full border border-gray-700 bg-cp-elevated">
                     <img
                       src={
                         property.agent?.avatar || '/images/default-avatar.png'
@@ -498,7 +498,7 @@ export default function PropertyDetailPage() {
                     <div className="truncate font-semibold text-white">
                       {property.agent?.name || property.contactPerson}
                     </div>
-                    <div className="truncate text-sm text-gray-500">
+                    <div className="truncate text-sm text-cp-faint">
                       {property.contactEmail}
                     </div>
                   </div>
@@ -524,8 +524,8 @@ export default function PropertyDetailPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-gray-800 bg-[#141414] p-4 text-sm text-gray-400">
-                <div className="font-medium text-gray-300">Need a tour?</div>
+              <div className="rounded-2xl border border-cp-stroke bg-cp-surface p-4 text-sm text-cp-subtle">
+                <div className="font-medium text-cp-muted">Need a tour?</div>
                 <p className="mt-1 leading-relaxed">
                   Message the Coast Planet team to schedule a private viewing
                   or request more photos of this listing.
@@ -536,7 +536,7 @@ export default function PropertyDetailPage() {
         </div>
 
         {similarProperties.length > 0 && (
-          <div className="mt-12 border-t border-gray-800 pt-10">
+          <div className="mt-12 border-t border-cp-stroke pt-10">
             <h2 className="mb-6 text-2xl font-semibold tracking-tight text-white">
               Similar properties
             </h2>
