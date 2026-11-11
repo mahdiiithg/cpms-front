@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@apollo/client';
@@ -19,6 +18,7 @@ import {
 } from 'lucide-react';
 import { GET_PROPERTY, GET_PROPERTIES } from '@/lib/queries/property';
 import PropertyCard from '@/components/ui/PropertyCard';
+import { ListingBreadcrumb } from '@/components/listings';
 
 /** Coerce API/memory values to a real array before .map/.filter. */
 function asArray(value) {
@@ -31,6 +31,13 @@ function asArray(value) {
   }
   return [];
 }
+
+const cardClass =
+  'rounded-lg border border-gray-800 bg-[#1a1a1a] p-6 shadow-[0_0_20px_rgba(0,0,0,0.25)]';
+const iconWellClass =
+  'mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg border border-[#ccff00]/20 bg-[#ccff00]/10';
+const outlineCtaClass =
+  'w-full !border-2 !border-[#ccff00] !bg-transparent font-semibold !text-[#ccff00] transition-all duration-300 hover:!border-[#ccff00] hover:!bg-[#ccff00] hover:!text-[#171717] hover:shadow-[0_0_20px_rgba(204,255,0,0.6)]';
 
 export default function PropertyDetailPage() {
   const params = useParams();
@@ -65,7 +72,7 @@ export default function PropertyDetailPage() {
 
   if (loading && !property) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-[#171717]">
         <Spin size="large" />
       </div>
     );
@@ -75,16 +82,21 @@ export default function PropertyDetailPage() {
   // when we still have a usable property payload.
   if (!property) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center px-4">
-        <h2 className="mb-4 text-2xl font-bold">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#171717] px-4">
+        <h2 className="mb-4 text-2xl font-bold text-white">
           {error ? 'Failed to load property' : 'Property Not Found'}
         </h2>
         {error?.message ? (
-          <div className="mb-4 max-w-lg text-center text-gray-600">
+          <div className="mb-4 max-w-lg text-center text-gray-400">
             {error.message}
           </div>
         ) : null}
-        <Button onClick={() => router.back()}>Go Back</Button>
+        <Button
+          className="border-gray-700 bg-[#212121] text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]"
+          onClick={() => router.back()}
+        >
+          Go Back
+        </Button>
       </div>
     );
   }
@@ -157,53 +169,51 @@ export default function PropertyDetailPage() {
   const heroImage =
     images[selectedImageIndex] || images[0] || '/images/placeholder-property.png';
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="border-b bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-3">
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <Link href="/" className="transition-colors hover:text-blue-600">
-              Home
-            </Link>
-            <span>›</span>
-            <Link href="/buy" className="transition-colors hover:text-blue-600">
-              Properties
-            </Link>
-            <span>›</span>
-            <span className="font-medium text-gray-900">{property.title}</span>
-          </div>
-        </div>
-      </div>
+  const locationLabel = [
+    property.location?.address,
+    property.location?.city,
+    property.location?.state,
+    property.location?.zipCode,
+  ]
+    .filter(Boolean)
+    .join(', ');
 
-      <div className="bg-white">
+  return (
+    <div className="min-h-screen bg-[#171717]">
+      <ListingBreadcrumb
+        current={property.title}
+        items={[
+          { href: '/', label: 'Home' },
+          { href: '/buy', label: 'Properties' },
+        ]}
+      />
+
+      <div className="border-b border-gray-800 bg-[#171717]">
         <div className="mx-auto max-w-7xl px-4 py-6">
           <div className="mb-8 flex flex-col lg:flex-row lg:items-start lg:justify-between">
             <div className="flex-1">
-              <div className="mb-3 flex items-center gap-3">
-                <Tag color="blue" className="text-sm font-medium">
+              <div className="mb-3 flex flex-wrap items-center gap-3">
+                <Tag
+                  bordered={false}
+                  className="!m-0 !border !border-gray-700 !bg-[#212121] !px-2.5 !py-0.5 text-sm font-medium capitalize !text-gray-300"
+                >
                   {property.listingType}
                 </Tag>
                 {property.featured && (
-                  <Tag color="gold" className="text-sm font-medium">
+                  <Tag
+                    bordered={false}
+                    className="!m-0 !border-0 !bg-[#ccff00]/90 !px-2.5 !py-0.5 text-sm font-semibold !text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]"
+                  >
                     Featured Property
                   </Tag>
                 )}
               </div>
-              <h1 className="mb-3 text-3xl leading-tight font-bold text-gray-900 lg:text-4xl">
+              <h1 className="mb-3 text-3xl leading-tight font-bold text-white lg:text-4xl">
                 {property.title}
               </h1>
-              <div className="mb-4 flex items-center text-gray-600">
-                <MapPin className="mr-2 h-5 w-5 text-blue-600" />
-                <span className="text-lg">
-                  {[
-                    property.location?.address,
-                    property.location?.city,
-                    property.location?.state,
-                    property.location?.zipCode,
-                  ]
-                    .filter(Boolean)
-                    .join(', ')}
-                </span>
+              <div className="mb-4 flex items-center text-gray-400">
+                <MapPin className="mr-2 h-5 w-5 text-[#ccff00]" />
+                <span className="text-lg">{locationLabel}</span>
               </div>
               <div className="text-sm text-gray-500">
                 Property ID: {property.id}
@@ -211,11 +221,11 @@ export default function PropertyDetailPage() {
             </div>
 
             <div className="mt-6 lg:mt-0 lg:text-right">
-              <div className="rounded-lg border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6">
-                <div className="mb-2 text-3xl font-bold text-blue-700 lg:text-4xl">
+              <div className="rounded-lg border border-[#ccff00]/25 bg-gradient-to-r from-[#ccff00]/10 to-[#212121] p-6 shadow-[0_0_20px_rgba(204,255,0,0.08)]">
+                <div className="mb-2 text-3xl font-bold text-[#ccff00] lg:text-4xl">
                   {displayPrice}
                 </div>
-                <div className="text-sm text-gray-600 capitalize">
+                <div className="text-sm capitalize text-gray-400">
                   {property.type}
                 </div>
               </div>
@@ -224,14 +234,14 @@ export default function PropertyDetailPage() {
 
           <div className="grid grid-cols-1 gap-4 overflow-x-scroll lg:mb-8 lg:grid-cols-4 lg:overflow-x-auto">
             <div className="relative lg:col-span-3">
-              <div className="aspect-[16/10] overflow-hidden rounded-xl shadow-lg">
+              <div className="aspect-[16/10] overflow-hidden rounded-xl border border-gray-800 shadow-lg">
                 <img
                   src={heroImage}
                   alt={property.title}
                   className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                 />
-                <div className="bg-opacity-70 absolute top-6 left-6 flex items-center gap-2 rounded-full bg-black px-4 py-2 text-white backdrop-blur-sm">
-                  <Camera className="h-4 w-4" />
+                <div className="absolute top-6 left-6 flex items-center gap-2 rounded-full border border-gray-700 bg-[#171717]/80 px-4 py-2 text-white backdrop-blur-sm">
+                  <Camera className="h-4 w-4 text-[#ccff00]" />
                   <span className="font-medium">{images.length} Photos</span>
                 </div>
               </div>
@@ -240,7 +250,11 @@ export default function PropertyDetailPage() {
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="mb-4 aspect-square h-56 max-h-56 min-w-fit cursor-pointer overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-xl"
+                  className={`mb-4 aspect-square h-56 max-h-56 min-w-fit cursor-pointer overflow-hidden rounded-lg border transition-shadow ${
+                    selectedImageIndex === index
+                      ? 'border-[#ccff00] shadow-[0_0_15px_rgba(204,255,0,0.35)]'
+                      : 'border-gray-800 hover:border-[#ccff00]/40 hover:shadow-xl'
+                  }`}
                 >
                   <img
                     src={image}
@@ -258,63 +272,71 @@ export default function PropertyDetailPage() {
       <div className="mx-auto max-w-7xl px-4 lg:py-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="space-y-8 lg:col-span-2">
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-              <h2 className="mb-6 text-2xl font-bold">Property Details</h2>
-              <div className="grid grid-cols-4 gap-6">
+            <div className={cardClass}>
+              <h2 className="mb-6 text-2xl font-bold text-white">
+                Property Details
+              </h2>
+              <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
                 <div className="text-center">
-                  <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                    <Bed className="h-6 w-6 text-blue-600" />
+                  <div className={iconWellClass}>
+                    <Bed className="h-6 w-6 text-[#ccff00]" />
                   </div>
-                  <div className="text-xl font-semibold">
+                  <div className="text-xl font-semibold text-white">
                     {property.bedrooms}
                   </div>
-                  <div className="text-sm text-gray-600">Bedrooms</div>
+                  <div className="text-sm text-gray-400">Bedrooms</div>
                 </div>
                 <div className="text-center">
-                  <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                    <Bath className="h-6 w-6 text-blue-600" />
+                  <div className={iconWellClass}>
+                    <Bath className="h-6 w-6 text-[#ccff00]" />
                   </div>
-                  <div className="text-xl font-semibold">
+                  <div className="text-xl font-semibold text-white">
                     {property.bathrooms}
                   </div>
-                  <div className="text-sm text-gray-600">Bathrooms</div>
+                  <div className="text-sm text-gray-400">Bathrooms</div>
                 </div>
                 <div className="text-center">
-                  <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                    <Car className="h-6 w-6 text-blue-600" />
+                  <div className={iconWellClass}>
+                    <Car className="h-6 w-6 text-[#ccff00]" />
                   </div>
-                  <div className="text-xl font-semibold">
+                  <div className="text-xl font-semibold text-white">
                     {property.parking || 0}
                   </div>
-                  <div className="text-sm text-gray-600">Parking</div>
+                  <div className="text-sm text-gray-400">Parking</div>
                 </div>
                 {property.propertySize ? (
                   <div className="text-center">
-                    <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                      <Home className="h-6 w-6 text-blue-600" />
+                    <div className={iconWellClass}>
+                      <Home className="h-6 w-6 text-[#ccff00]" />
                     </div>
-                    <div className="text-xl font-semibold">
+                    <div className="text-xl font-semibold text-white">
                       {property.propertySize} sqm
                     </div>
-                    <div className="text-sm text-gray-600">Internal Size</div>
+                    <div className="text-sm text-gray-400">Internal Size</div>
                   </div>
                 ) : null}
               </div>
             </div>
 
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-              <h2 className="mb-4 text-2xl font-bold">About This Property</h2>
-              <p className="text-lg leading-relaxed text-gray-700">
+            <div className={cardClass}>
+              <h2 className="mb-4 text-2xl font-bold text-white">
+                About This Property
+              </h2>
+              <p className="text-lg leading-relaxed text-gray-300">
                 {property.description}
               </p>
             </div>
 
             {features.length > 0 && (
-              <div className="rounded-lg bg-white p-6 shadow-sm">
-                <h2 className="mb-6 text-2xl font-bold">Features</h2>
+              <div className={cardClass}>
+                <h2 className="mb-6 text-2xl font-bold text-white">Features</h2>
                 <div className="flex flex-wrap gap-2">
                   {features.map((f) => (
-                    <Tag key={String(f)} className="capitalize">
+                    <Tag
+                      key={String(f)}
+                      bordered={false}
+                      className="!m-0 !border !border-gray-700 !bg-[#212121] capitalize !text-gray-300"
+                    >
                       {String(f).replace(/_/g, ' ')}
                     </Tag>
                   ))}
@@ -322,17 +344,23 @@ export default function PropertyDetailPage() {
               </div>
             )}
 
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-              <h2 className="mb-6 text-2xl font-bold">Location & Nearby</h2>
+            <div className={cardClass}>
+              <h2 className="mb-6 text-2xl font-bold text-white">
+                Location & Nearby
+              </h2>
               <div className="space-y-4">
                 {locationFeatures.length > 0 && (
-                  <div className="rounded-lg bg-blue-50 p-4">
-                    <h3 className="mb-3 font-semibold text-blue-900">
+                  <div className="rounded-lg border border-[#ccff00]/20 bg-[#ccff00]/5 p-4">
+                    <h3 className="mb-3 font-semibold text-[#ccff00]">
                       Property Features
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {locationFeatures.map((feature, index) => (
-                        <Tag key={index} color="blue" className="capitalize">
+                        <Tag
+                          key={index}
+                          bordered={false}
+                          className="!m-0 !border !border-[#ccff00]/30 !bg-[#ccff00]/10 capitalize !text-[#ccff00]"
+                        >
                           {String(feature).replace(/_/g, ' ')}
                         </Tag>
                       ))}
@@ -341,13 +369,17 @@ export default function PropertyDetailPage() {
                 )}
 
                 {nearbyAttractions.length > 0 && (
-                  <div className="rounded-lg bg-green-50 p-4">
-                    <h3 className="mb-3 font-semibold text-green-900">
+                  <div className="rounded-lg border border-gray-700 bg-[#212121] p-4">
+                    <h3 className="mb-3 font-semibold text-white">
                       Nearby Attractions
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {nearbyAttractions.map((attraction, index) => (
-                        <Tag key={index} color="green">
+                        <Tag
+                          key={index}
+                          bordered={false}
+                          className="!m-0 !border !border-gray-700 !bg-[#171717] !text-gray-300"
+                        >
                           {attraction}
                         </Tag>
                       ))}
@@ -355,10 +387,10 @@ export default function PropertyDetailPage() {
                   </div>
                 )}
 
-                <div className="flex h-64 items-center justify-center rounded-lg bg-gray-100">
-                  <div className="text-center text-gray-600">
-                    <MapPin className="mx-auto mb-2 h-12 w-12" />
-                    <div className="font-medium">Interactive Map</div>
+                <div className="flex h-64 items-center justify-center rounded-lg border border-gray-800 bg-[#212121]">
+                  <div className="text-center text-gray-400">
+                    <MapPin className="mx-auto mb-2 h-12 w-12 text-[#ccff00]" />
+                    <div className="font-medium text-white">Interactive Map</div>
                     <div className="text-sm">
                       {[property.location?.city, property.location?.state]
                         .filter(Boolean)
@@ -374,19 +406,19 @@ export default function PropertyDetailPage() {
           </div>
 
           <div className="lg:col-span-1">
-            <div className="sticky top-8 rounded-lg bg-white p-6 shadow-lg">
+            <div className="sticky top-8 rounded-lg border border-gray-800 bg-[#1a1a1a] p-6 shadow-[0_0_25px_rgba(0,0,0,0.35)]">
               <div className="space-y-6">
-                <div className="border-b pb-4">
-                  <div className="mb-1 text-3xl font-bold text-gray-900">
+                <div className="border-b border-gray-800 pb-4">
+                  <div className="mb-1 text-3xl font-bold text-white">
                     {displayPrice}
                   </div>
-                  <div className="text-gray-600 capitalize">
+                  <div className="capitalize text-gray-400">
                     {property.listingType}
                   </div>
                 </div>
 
                 <div className="text-center">
-                  <div className="mx-auto mb-4 h-20 w-20 overflow-hidden rounded-full bg-gray-200">
+                  <div className="mx-auto mb-4 h-20 w-20 overflow-hidden rounded-full border border-gray-700 bg-[#212121]">
                     <img
                       src={
                         property.agent?.avatar || '/images/default-avatar.png'
@@ -395,7 +427,7 @@ export default function PropertyDetailPage() {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  <h3 className="mb-1 text-lg font-bold">
+                  <h3 className="mb-1 text-lg font-bold text-white">
                     {property.agent?.name || property.contactPerson}
                   </h3>
                   <div className="text-sm text-gray-500">
@@ -406,7 +438,7 @@ export default function PropertyDetailPage() {
                 <div className="space-y-3">
                   <Button
                     size="large"
-                    className="w-full"
+                    className={outlineCtaClass}
                     icon={<Phone className="h-4 w-4" />}
                     onClick={handleCallNow}
                   >
@@ -414,7 +446,7 @@ export default function PropertyDetailPage() {
                   </Button>
                   <Button
                     size="large"
-                    className="w-full"
+                    className={outlineCtaClass}
                     icon={<Mail className="h-4 w-4" />}
                     onClick={handleSendWhatsApp}
                   >
@@ -428,7 +460,9 @@ export default function PropertyDetailPage() {
 
         {similarProperties.length > 0 && (
           <div className="mt-12">
-            <h2 className="mb-6 text-2xl font-bold">Similar Properties</h2>
+            <h2 className="mb-6 text-2xl font-bold text-white">
+              Similar Properties
+            </h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {similarProperties.map((similarProperty) => (
                 <PropertyCard
