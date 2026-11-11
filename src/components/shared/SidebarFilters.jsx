@@ -43,7 +43,7 @@ export default function SidebarFilters({
   };
 
   return (
-    <div className="sticky top-4 space-y-6 rounded-2xl border border-gray-800 bg-[#1a1a1a] p-4 sm:p-5">
+    <div className="listing-sidebar-filters sticky top-4 space-y-6 rounded-2xl border border-gray-800 bg-[#1a1a1a] p-4 sm:p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-white">{title}</h3>
         <Button

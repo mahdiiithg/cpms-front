@@ -375,6 +375,19 @@ span.ant-select-selection-item {
   color: #d1d5db !important;
 }
 
+/* Force dark filter sidebar surfaces (avoid light Ant defaults bleeding through) */
+.listing-sidebar-filters {
+  background: #1a1a1a !important;
+  color: #e5e7eb !important;
+}
+
+.listing-sidebar-filters .ant-select-selector,
+.listing-sidebar-filters .ant-input-affix-wrapper {
+  background-color: #212121 !important;
+  border: 1px solid #374151 !important;
+  color: #fff !important;
+}
+
 /* Dark Ant Design cards on listing surfaces */
 .dark-listing-card.ant-card,
 .property-card.ant-card {

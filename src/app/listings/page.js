@@ -25,6 +25,10 @@ import {
 import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
 import Link from 'next/link';
 import { ListingViewToggle, ListingsPropertyCard } from '@/components/listings';
+import {
+  buildPropertyFilters,
+  unwrapPropertyList,
+} from '@/utils/listingQuery';
 
 const { Option } = Select;
 const { Search: AntSearch } = Input;
@@ -68,35 +72,47 @@ export default function PropertyListingsPage() {
   // Calculate offset for pagination
   const offset = (currentPage - 1) * pageSize;
 
-  // GraphQL query with enhanced filters
-  const gqlFilters = useMemo(() => ({
-    // Exclude `type` so listings page fetches all property types by default
-    ...(() => { const { type, ...rest } = filters; return rest; })(),
-    limit: pageSize,
-    offset,
-    searchQuery: searchTerm || undefined,
-    minPrice: priceRange[0] || undefined,
-    maxPrice: priceRange[1] || undefined,
-    minBedrooms: bedroomRange[0] || undefined,
-    maxBedrooms: bedroomRange[1] || undefined
-  }), [filters, pageSize, offset, searchTerm, priceRange, bedroomRange]);
+  // GraphQL query with schema-valid filters (sale + rent)
+  const gqlFilters = useMemo(
+    () =>
+      buildPropertyFilters({
+        location: filters.location,
+        city: filters.city,
+        suburb: filters.suburb,
+        features: filters.features,
+        featured: filters.featured || undefined,
+        urgent: filters.urgent || undefined,
+        condition: filters.condition || undefined,
+        sortBy: filters.sortBy,
+        sortOrder: filters.sortOrder,
+        minPrice: priceRange[0],
+        maxPrice: priceRange[1],
+        minBedrooms: bedroomRange[0],
+        maxBedrooms: bedroomRange[1],
+        searchQuery: searchTerm || undefined,
+        limit: pageSize,
+        offset,
+      }),
+    [filters, pageSize, offset, searchTerm, priceRange, bedroomRange],
+  );
 
   // Data fetching
   const { data, loading, error, refetch } = useQuery(
     searchTerm ? SEARCH_PROPERTIES : GET_PROPERTIES,
     {
-      variables: searchTerm 
+      variables: searchTerm
         ? { query: searchTerm, filters: gqlFilters }
         : { filters: gqlFilters },
       fetchPolicy: 'cache-and-network',
-      notifyOnNetworkStatusChange: true
-    }
+      notifyOnNetworkStatusChange: true,
+    },
   );
 
-  const propertyData = searchTerm ? data?.searchProperties : data?.properties;
-  const properties = propertyData?.properties || [];
-  const totalCount = propertyData?.totalCount || 0;
-  const totalPages = propertyData?.totalPages || 0;
+  const {
+    properties,
+    totalCount,
+    totalPages,
+  } = unwrapPropertyList(data, { isSearch: !!searchTerm });
 
   // Property types and features for filters
   const featuresList = [
@@ -111,7 +127,7 @@ export default function PropertyListingsPage() {
     { value: 'excellent', label: 'Excellent' },
     { value: 'good', label: 'Good' },
     { value: 'fair', label: 'Fair' },
-    { value: 'needs_work', label: 'Needs Work' }
+    { value: 'needs_renovation', label: 'Needs Work' }
   ];
 
   const sortOptions = [

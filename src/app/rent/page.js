@@ -15,6 +15,10 @@ import {
   ListingResultsHeader,
   PriceRangePills,
 } from '@/components/listings';
+import {
+  buildPropertyFilters,
+  unwrapPropertyList,
+} from '@/utils/listingQuery';
 
 export default function RentPage() {
   const [filters, setFilters] = useState({
@@ -36,33 +40,37 @@ export default function RentPage() {
   const [pageSize] = useState(20);
   const [rentalType, setRentalType] = useState('longTerm');
   const [properties, setProperties] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const offset = (currentPage - 1) * pageSize;
 
   const gqlFilters = useMemo(
-    () => ({
-      type: filters.type || undefined,
-      mode: 'rental',
-      minPrice: filters.minPrice ?? undefined,
-      maxPrice: filters.maxPrice ?? undefined,
-      minBedrooms: filters.minBedrooms ?? undefined,
-      location: filters.location || undefined,
-      amenities: filters.amenities?.length ? filters.amenities : undefined,
-      coastalFeatures: filters.features?.length ? filters.features : undefined,
-    }),
-    [filters],
+    () =>
+      buildPropertyFilters({
+        listingType: 'rent',
+        type: filters.type,
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice,
+        minBedrooms: filters.minBedrooms,
+        location: filters.location,
+        features: [
+          ...(filters.features || []),
+          ...(filters.amenities || []),
+        ],
+        limit: pageSize,
+        offset,
+      }),
+    [filters, pageSize, offset],
   );
-
-  const limit = pageSize;
 
   const {
     data: listData,
     loading: listLoading,
     error: listError,
   } = useQuery(GET_PROPERTIES, {
-    variables: { filters: gqlFilters, limit, offset },
+    variables: { filters: gqlFilters },
     skip: !!searchTerm,
     fetchPolicy: 'cache-and-network',
   });
@@ -72,26 +80,34 @@ export default function RentPage() {
     loading: searchLoading,
     error: searchError,
   } = useQuery(SEARCH_PROPERTIES, {
-    variables: { query: searchTerm || '', filters: gqlFilters, limit, offset },
+    variables: { query: searchTerm || '', filters: gqlFilters },
     skip: !searchTerm,
     fetchPolicy: 'cache-and-network',
   });
 
   useEffect(() => {
-    const gqlProps = searchTerm
-      ? searchData?.searchProperties
-      : listData?.properties;
-    if (gqlProps) {
-      setProperties(gqlProps);
-      setError(null);
-    }
-    setLoading(listLoading || searchLoading);
-  }, [listData, searchData, listLoading, searchLoading, searchTerm]);
+    const queryLoading = listLoading || searchLoading;
+    const queryError = listError || searchError;
+    const { properties: apiProperties, totalCount: apiTotal } =
+      unwrapPropertyList(searchTerm ? searchData : listData, {
+        isSearch: !!searchTerm,
+      });
 
-  useEffect(() => {
-    const anyError = listError || searchError;
-    if (anyError) setError(anyError);
-  }, [listError, searchError]);
+    setLoading(queryLoading);
+    if (queryLoading) return;
+
+    setProperties(apiProperties);
+    setTotalCount(apiTotal || apiProperties.length);
+    setError(queryError || null);
+  }, [
+    listData,
+    searchData,
+    listLoading,
+    searchLoading,
+    listError,
+    searchError,
+    searchTerm,
+  ]);
 
   const propertyTypes = [
     { value: 'villa', label: 'Villas' },
@@ -256,7 +272,7 @@ export default function RentPage() {
         <ListingResultsHeader
           title="Properties for Rent"
           loading={loading}
-          count={properties.length}
+          count={totalCount}
           countLabel="rental properties found"
           showFilters={showFilters}
           onToggleFilters={() => setShowFilters(!showFilters)}
@@ -278,9 +294,10 @@ export default function RentPage() {
             emptyDescription="No rental properties found"
             currentPage={currentPage}
             pageSize={pageSize}
-            total={1000}
+            total={totalCount}
             onPageChange={setCurrentPage}
             totalLabel="rental properties"
+            showPagination={totalCount > pageSize}
           />
         )}
       </ListingPageShell>
