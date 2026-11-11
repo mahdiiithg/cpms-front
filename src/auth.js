@@ -124,9 +124,30 @@ export const providerMap = providers
   })
   .filter((provider) => provider.id !== PROVIDER_TYPES.CREDENTIALS);
 
+const authSecret =
+  process.env.AUTH_SECRET ||
+  process.env.NEXTAUTH_SECRET ||
+  // Last-resort so missing Vercel env does not 500 /api/auth/session and
+  // white-screen public pages. Replace with a real AUTH_SECRET in production.
+  (process.env.NODE_ENV === 'production'
+    ? 'coast-planet-insecure-fallback-set-AUTH_SECRET'
+    : undefined);
+
+if (
+  process.env.NODE_ENV === 'production' &&
+  !process.env.AUTH_SECRET &&
+  !process.env.NEXTAUTH_SECRET
+) {
+  console.warn(
+    '[auth] AUTH_SECRET is not set. Using an insecure fallback so public pages can load. Set AUTH_SECRET on Vercel.',
+  );
+}
+
 // NextAuth configuration
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
+  secret: authSecret,
+  trustHost: true,
   pages: {
     signIn: '/signin',
     error: '/auth/error',

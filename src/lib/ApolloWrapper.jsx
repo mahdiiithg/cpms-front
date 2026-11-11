@@ -7,12 +7,11 @@ import {
   InMemoryCache,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { Spin } from 'antd';
 import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';
 
 export const ApolloWrapper = ({ children }) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const client = useMemo(() => {
     const httpLink = createHttpLink({
@@ -36,18 +35,9 @@ export const ApolloWrapper = ({ children }) => {
       link,
       cache: new InMemoryCache(),
     });
-  }, [session?.token]); // Recreate client when token changes
+  }, [session?.token]);
 
-  // Show loading state while session is being fetched
-  if (status === 'loading') {
-    return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <Spin size="default">
-          <div className="h-0 w-0" />
-        </Spin>
-      </div>
-    );
-  }
-
+  // Do not gate the tree on session status — public property pages must render
+  // even when /api/auth/session fails or is still loading.
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };

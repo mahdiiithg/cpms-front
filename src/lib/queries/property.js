@@ -52,7 +52,6 @@ export const GET_PROPERTIES = gql`
           hospitals
           walkScore
           transitScore
-          coordinates { latitude longitude }
         }
         images
         inspectionTimes { id date startTime endTime type notes }
@@ -113,7 +112,6 @@ export const GET_PROPERTY = gql`
         zipCode
         suburb
         region
-        coordinates { latitude longitude }
       }
       images
       inspectionTimes { id date startTime endTime type notes }
@@ -134,7 +132,7 @@ export const GET_NEARBY_PROPERTIES = gql`
       listingType
       salePrice
       rentPrice
-      location { address city coordinates { latitude longitude } }
+      location { address city }
       images
     }
   }
