@@ -556,3 +556,40 @@ span.ant-select-selection-item {
   animation: slide-in-right 0.8s ease-out forwards;
   opacity: 0;
 }
+
+/* Property detail Leaflet marker — strip default leaflet icon chrome */
+.property-location-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-container {
+  background: #171717;
+  font: inherit;
+}
+
+/* Darken key-free OSM tiles to match Coast Planet chrome */
+.leaflet-container .property-map-tiles {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.95);
+  -webkit-filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.95);
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(23, 23, 23, 0.85) !important;
+  color: #9ca3af !important;
+}
+
+.leaflet-container .leaflet-control-attribution a {
+  color: #ccff00 !important;
+}
+
+.leaflet-container .leaflet-control-zoom a {
+  background: #1a1a1a !important;
+  color: #e5e5e5 !important;
+  border-color: #404040 !important;
+}
+
+.leaflet-container .leaflet-control-zoom a:hover {
+  background: #212121 !important;
+  color: #ccff00 !important;
+}

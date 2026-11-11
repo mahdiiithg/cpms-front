@@ -112,6 +112,12 @@ export const GET_PROPERTY = gql`
         zipCode
         suburb
         region
+        walkScore
+        transitScore
+        coordinates {
+          latitude
+          longitude
+        }
       }
       images
       inspectionTimes { id date startTime endTime type notes }
