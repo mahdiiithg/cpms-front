@@ -27,8 +27,19 @@ async function loadSession() {
   try {
     return await auth();
   } catch (error) {
+    // Let Next.js keep its dynamic-render signal; only soft-fail real auth config errors.
+    const message = String(error?.message || error || '');
+    if (
+      message.includes('Dynamic server usage') ||
+      error?.digest === 'DYNAMIC_SERVER_USAGE'
+    ) {
+      throw error;
+    }
     // Missing AUTH_SECRET / misconfigured Auth.js must not white-screen public pages.
-    console.error('[layout] auth() failed (continuing unauthenticated):', error?.message || error);
+    console.error(
+      '[layout] auth() failed (continuing unauthenticated):',
+      message,
+    );
     return null;
   }
 }
