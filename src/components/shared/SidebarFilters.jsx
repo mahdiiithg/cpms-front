@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Card, Button, Select, Input, Checkbox } from 'antd';
+import { Button, Select, Input, Checkbox } from 'antd';
 
 const { Option } = Select;
 
@@ -43,8 +43,8 @@ export default function SidebarFilters({
   };
 
   return (
-    <Card className="sticky top-4 bg-[#1a1a1a] border-gray-800">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="sticky top-4 space-y-6 rounded-2xl border border-gray-800 bg-[#1a1a1a] p-4 sm:p-5">
+      <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-white">{title}</h3>
         <Button
           type="text"
@@ -119,7 +119,7 @@ export default function SidebarFilters({
         {/* Property Features (toggles) */}
         <div>
           <label className="mb-3 block text-sm font-medium text-white">Property Features</label>
-          <div className="space-y-2">
+          <div className="space-y-2 dark-checkbox-group">
             <div>
               <Checkbox
                 checked={!!filters?.parkingRequired}
@@ -145,7 +145,7 @@ export default function SidebarFilters({
         {features?.length > 0 && (
           <div>
             <label className="mb-3 block text-sm font-medium text-white">Location Features</label>
-            <div className="max-h-32 flex-col space-y-2 overflow-y-auto">
+            <div className="max-h-32 flex-col space-y-2 overflow-y-auto dark-checkbox-group">
               {features.map((feature) => (
                 <div key={feature}>
                   <Checkbox
@@ -169,7 +169,7 @@ export default function SidebarFilters({
         {amenities?.length > 0 && (
           <div>
             <label className="mb-3 block text-sm font-medium text-white">Amenities</label>
-            <div className="max-h-40 space-y-2 overflow-y-auto">
+            <div className="max-h-40 space-y-2 overflow-y-auto dark-checkbox-group">
               {amenities.map((amenity) => (
                 <div key={amenity}>
                   <Checkbox
@@ -189,6 +189,6 @@ export default function SidebarFilters({
           </div>
         )}
       </div>
-    </Card>
+    </div>
   );
 }
