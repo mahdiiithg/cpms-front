@@ -67,18 +67,22 @@ const PropertyCard = ({ property }) => {
   };
 
   return (
-    <div className="h-fit w-full max-w-[610px] min-w-[280px] rounded-[30px] border border-cp-stroke bg-cp-raised p-3 transition-all duration-300 hover:border-cp-lime/30 hover:shadow-[0_0_20px_rgba(204,255,0,0.18)] sm:min-w-[300px] sm:p-3.5 md:min-w-0">
-      <div className="flex h-full flex-col">
-        {/* Image Slider */}
-        <div className="relative mb-4 h-44 w-full flex-shrink-0 sm:h-48 sm:rounded-3xl">
-          <ImageSlider images={images} altText={property.title} containerClass="h-full w-full" />
+    <div className="flex h-full w-full max-w-[610px] min-w-[280px] flex-col rounded-[30px] border border-cp-stroke bg-cp-raised p-3 transition-all duration-300 hover:border-cp-lime/30 hover:shadow-[0_0_20px_rgba(204,255,0,0.18)] sm:min-w-[300px] sm:p-3.5 md:min-w-0">
+      <div className="flex h-full min-h-0 flex-1 flex-col">
+        {/* Image — fixed aspect so broken/missing media cannot collapse the card */}
+        <div className="relative mb-4 aspect-[16/10] w-full flex-shrink-0 overflow-hidden rounded-3xl bg-cp-elevated sm:rounded-3xl">
+          <ImageSlider images={images} altText={property.title} containerClass="absolute inset-0 h-full w-full min-h-0" />
 
           {/* Badges */}
-          <div className="absolute top-2 left-2 flex flex-col gap-1">
+          <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
             {property.featured && (
-              <div className="bg-[#ccff00] rounded-full px-2 py-1 text-xs font-semibold text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]">Featured</div>
+              <div className="rounded-full bg-[#ccff00] px-2 py-1 text-xs font-semibold text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]">
+                Featured
+              </div>
             )}
-            <div className="rounded-full bg-[#212121]/90 border border-gray-700 px-2 py-1 text-xs capitalize text-gray-300">{property.listingType}</div>
+            <div className="rounded-full border border-gray-700 bg-[#212121]/90 px-2 py-1 text-xs capitalize text-gray-300">
+              {property.listingType}
+            </div>
           </div>
 
           <BookmarkButton onClick={toggleAddToWishList} loading={loading} isActive={isInWishList()} />
@@ -87,23 +91,28 @@ const PropertyCard = ({ property }) => {
         <div className="flex flex-1 flex-col gap-4 px-1.5 pb-2 sm:gap-5 sm:px-2 sm:pb-2.5">
           <div className="flex flex-col gap-2">
             <Link href={`/property/${property.id}`}>
-              <h3 className="text-base leading-snug font-semibold capitalize text-white hover:text-[#ccff00] transition-colors">{property.title}</h3>
+              <h3 className="text-base leading-snug font-semibold capitalize text-white transition-colors hover:text-[#ccff00]">
+                {property.title}
+              </h3>
             </Link>
-            <p className="text-[#ccff00] text-sm leading-snug">
+            <p className="text-sm leading-snug text-[#ccff00]">
               {property.type} • {property.location?.city}, {property.location?.state}
             </p>
           </div>
 
-          {/* Property details */}
           <div className="text-xs text-gray-400">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2 md:gap-x-4">
               <span className="flex items-center">
                 <Bed className="mr-1 h-[16px] w-[16px] flex-shrink-0" color="#ccff00" />
-                <span className="flex-1 text-[12px] text-gray-400 md:text-xs">{property.bedrooms} beds</span>
+                <span className="flex-1 text-[12px] text-gray-400 md:text-xs">
+                  {property.bedrooms} beds
+                </span>
               </span>
               <span className="flex items-center">
                 <Bath className="mr-1 h-[16px] w-[16px] flex-shrink-0" color="#ccff00" />
-                <span className="flex-1 text-[12px] text-gray-400 md:text-xs">{property.bathrooms} baths</span>
+                <span className="flex-1 text-[12px] text-gray-400 md:text-xs">
+                  {property.bathrooms} baths
+                </span>
               </span>
               {typeof (property.squareFeet ?? property.propertySize) === 'number' && (
                 <span className="flex items-center">
@@ -117,15 +126,16 @@ const PropertyCard = ({ property }) => {
               {typeof property.views === 'number' &&
                 property.squareFeet == null &&
                 property.propertySize == null && (
-                <span className="flex items-center">
-                  <Eye className="mr-1 h-[16px] w-[16px] flex-shrink-0" color="#ccff00" />
-                  <span className="flex-1 text-[12px] text-gray-400 md:text-xs">{property.views} views</span>
-                </span>
-              )}
+                  <span className="flex items-center">
+                    <Eye className="mr-1 h-[16px] w-[16px] flex-shrink-0" color="#ccff00" />
+                    <span className="flex-1 text-[12px] text-gray-400 md:text-xs">
+                      {property.views} views
+                    </span>
+                  </span>
+                )}
             </div>
           </div>
 
-          {/* Price and CTA — compact native actions (avoid global ant-btn sizing) */}
           <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-gray-800/80 pt-3">
             <span className="whitespace-nowrap text-base font-bold leading-none text-white sm:text-lg">
               {formatPrice()}

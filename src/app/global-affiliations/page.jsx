@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Card } from 'antd';
-import Header from '@/components/Header';
+import { Button } from 'antd';
 import { ChevronRight, Globe, Users, MapPin, Download, Phone, Shield, Award, CheckCircle } from 'lucide-react';
 import ContactLeadForm from '@/components/contact/ContactLeadForm';
+import ThemePanel from '@/components/shared/ThemePanel';
+import { solidCtaClass, outlineCtaClass } from '@/lib/brandTheme';
 
 
 export default function GlobalAffiliationsPage() {
@@ -55,11 +56,21 @@ export default function GlobalAffiliationsPage() {
                 We connect local expertise with a trusted global network so you can buy, sell, or invest with confidence—wherever opportunity takes you.
                 With regional specialists and international partners working together, your goals stay front and center from first conversation to final handshake.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Button type="primary" size="large" className="bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] font-semibold shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)] transition-all duration-300 hover:scale-105" onClick={handleScheduleCall}>
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+                <Button
+                  type="primary"
+                  size="large"
+                  className={`${solidCtaClass} transition-all duration-300 hover:scale-105`}
+                  onClick={handleScheduleCall}
+                >
                   Enquire Now
                 </Button>
-                <Button type="default" size="large" className="bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00] transition-all duration-300 hover:scale-105" href="/dashboard">
+                <Button
+                  type="default"
+                  size="large"
+                  className={`${outlineCtaClass} !bg-cp-elevated`}
+                  href="/dashboard"
+                >
                   Explore Portal
                 </Button>
               </div>
@@ -69,14 +80,14 @@ export default function GlobalAffiliationsPage() {
                 src="https://www.pngplay.com/wp-content/uploads/7/Networking-Diagram-Transparent-Background.png"
                 alt="Global Network"
               />
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+              <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {networkStats.map((stat) => (
-                  <Card key={stat.label} className="text-center bg-[#1a1a1a] border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_20px_rgba(204,255,0,0.35)] transition-all duration-300">
-                    <div className="text-2xl font-bold text-[#ccff00] drop-shadow-[0_0_10px_rgba(204,255,0,0.6)]">
+                  <ThemePanel key={stat.label} className="p-4 text-center">
+                    <div className="text-2xl font-bold text-cp-lime drop-shadow-[0_0_10px_rgba(204,255,0,0.6)]">
                       {stat.value.toLocaleString()}
                     </div>
-                    <div className="text-gray-400">{stat.label}</div>
-                  </Card>
+                    <div className="text-cp-subtle">{stat.label}</div>
+                  </ThemePanel>
                 ))}
               </div>
             </div>
@@ -99,15 +110,19 @@ export default function GlobalAffiliationsPage() {
                 <li className="flex items-start space-x-2"><Award className="h-4 w-4 text-[#ccff00] mt-1" /> <span>Curated marketing channels for luxury and investment-grade assets</span></li>
               </ul>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card className="p-5 bg-[#1a1a1a] border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_20px_rgba(204,255,0,0.3)] transition-all duration-300">
-                <h3 className="text-lg font-semibold mb-2 text-white">Global Brokerage Network</h3>
-                <p className="text-gray-400 text-sm">A community of independent firms sharing market intelligence, referrals, and best practices to elevate results for clients.</p>
-              </Card>
-              <Card className="p-5 bg-[#1a1a1a] border-gray-800 hover:border-[#ccff00]/40 hover:shadow-[0_0_20px_rgba(204,255,0,0.3)] transition-all duration-300">
-                <h3 className="text-lg font-semibold mb-2 text-white">Luxury Alliances</h3>
-                <p className="text-gray-400 text-sm">Access to high-profile publications, private buyer pools, and international showcases for premium properties.</p>
-              </Card>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <ThemePanel className="p-5">
+                <h3 className="mb-2 text-lg font-semibold text-white">Global Brokerage Network</h3>
+                <p className="text-sm text-cp-subtle">
+                  A community of independent firms sharing market intelligence, referrals, and best practices to elevate results for clients.
+                </p>
+              </ThemePanel>
+              <ThemePanel className="p-5">
+                <h3 className="mb-2 text-lg font-semibold text-white">Luxury Alliances</h3>
+                <p className="text-sm text-cp-subtle">
+                  Access to high-profile publications, private buyer pools, and international showcases for premium properties.
+                </p>
+              </ThemePanel>
             </div>
           </div>
         </div>

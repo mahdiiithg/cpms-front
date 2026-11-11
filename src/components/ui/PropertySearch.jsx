@@ -97,7 +97,7 @@ export default function PropertySearch({
             type="primary"
             icon={<Search className="h-4 w-4" />}
             onClick={handleSearch}
-            className={`h-[42px] w-full text-base ${solidCtaClass}`}
+            className={`cp-search-cta w-full text-base ${solidCtaClass}`}
           >
             Search Properties
           </Button>
