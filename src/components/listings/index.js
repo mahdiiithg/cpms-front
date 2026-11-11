@@ -6,5 +6,6 @@ export { default as ListingResults } from './ListingResults';
 export { default as ListingResultsHeader } from './ListingResultsHeader';
 export { default as ListingViewToggle } from './ListingViewToggle';
 export { default as ListingsPropertyCard } from './ListingsPropertyCard';
+export { default as ListingsSearchBar } from './ListingsSearchBar';
 export { default as PriceRangePills } from './PriceRangePills';
 export { default as SampleDataBanner } from './SampleDataBanner';

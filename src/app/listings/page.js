@@ -16,22 +16,22 @@ import {
   Slider,
 } from 'antd';
 import {
-  Search,
   MapPin,
-  SlidersHorizontal,
   Home,
   ChevronRight,
 } from 'lucide-react';
 import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
 import Link from 'next/link';
-import { ListingViewToggle, ListingsPropertyCard } from '@/components/listings';
+import {
+  ListingViewToggle,
+  ListingsPropertyCard,
+  ListingsSearchBar,
+} from '@/components/listings';
 import CpField from '@/components/shared/CpField';
 import {
   buildPropertyFilters,
   unwrapPropertyList,
 } from '@/utils/listingQuery';
-
-const { Search: AntSearch } = Input;
 
 export default function PropertyListingsPage() {
   // State management
@@ -213,28 +213,13 @@ export default function PropertyListingsPage() {
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="flex gap-4 mb-4">
-            <AntSearch
-              placeholder="Search by location, property type, or features..."
-              allowClear
-              size="large"
-              className="cp-control dark-search flex-1"
+          {/* Search Bar — shared ListingsSearchBar (single stroke + lime focus) */}
+          <div className="mb-4">
+            <ListingsSearchBar
+              defaultValue={searchTerm}
               onSearch={handleSearch}
-              enterButton={
-                <Button className="!border-0 !bg-cp-lime !text-cp-surface shadow-[0_0_15px_rgba(204,255,0,0.45)] hover:!bg-cp-lime-hover">
-                  <Search className="h-4 w-4" />
-                </Button>
-              }
+              onOpenFilters={() => setShowFilters(true)}
             />
-            <Button
-              size="large"
-              icon={<SlidersHorizontal className="h-4 w-4" />}
-              onClick={() => setShowFilters(true)}
-              className="cp-toolbar-btn lg:hidden"
-            >
-              Filters
-            </Button>
           </div>
         </div>
       </div>

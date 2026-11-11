@@ -91,14 +91,14 @@ const SigninForm = (props) => {
           </Link>
         </div>
 
-        <Form.Item>
+        <Form.Item className="!mb-0">
           <Button
             type="primary"
             htmlType="submit"
             size="large"
             block
             disabled={!isValid}
-            className="!border-0 !bg-cp-lime !font-semibold !text-cp-surface shadow-[0_0_15px_rgba(204,255,0,0.45)] hover:!bg-cp-lime-hover disabled:!opacity-50"
+            className="!h-11 !w-full !border-0 !bg-cp-lime !text-base !font-semibold !text-cp-surface shadow-[0_0_15px_rgba(204,255,0,0.45)] hover:!bg-cp-lime-hover disabled:!bg-cp-lime/50 disabled:!text-cp-surface disabled:!opacity-100"
           >
             Login
           </Button>

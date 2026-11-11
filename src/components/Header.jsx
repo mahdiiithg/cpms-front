@@ -333,7 +333,7 @@ const Header = () => {
                 // Login button for non-authenticated users
                 <Button
                   className="hidden sm:block border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(204,255,0,0.5)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]"
-                  href="/auth/signin">
+                  href="/signin">
                   Login
                 </Button>
               )}
@@ -524,7 +524,7 @@ const Header = () => {
                   ) : (
                     <Button
                       className="w-full border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold text-sm shadow-[0_0_15px_rgba(204,255,0,0.5)]"
-                      href="/auth/signin"
+                      href="/signin"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Login
