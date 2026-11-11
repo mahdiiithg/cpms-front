@@ -205,7 +205,7 @@ export default function RentPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#171717]">
+    <div className="min-h-screen bg-cp-surface text-white">
       <ListingBreadcrumb current="Rent" />
 
       <ListingHero

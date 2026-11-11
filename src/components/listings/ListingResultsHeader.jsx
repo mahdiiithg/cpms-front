@@ -33,9 +33,7 @@ export default function ListingResultsHeader({
           <Button
             icon={<SlidersHorizontal className="h-4 w-4" />}
             onClick={onToggleFilters}
-            className={`lg:hidden bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00] ${
-              showFilters ? 'border-[#ccff00] text-[#ccff00]' : ''
-            }`}
+            className={`cp-toolbar-btn lg:hidden ${showFilters ? 'is-active' : ''}`}
           >
             Filters
           </Button>

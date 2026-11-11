@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from 'antd';
 import { Grid, List, Map } from 'lucide-react';
 
 const MODE_CONFIG = {
@@ -11,6 +10,7 @@ const MODE_CONFIG = {
 
 /**
  * Dark-theme view switcher used on property listing pages.
+ * Native buttons avoid Ant text-button color defaults (black on dark).
  * @param {('grid'|'list'|'map')[]} modes
  */
 export default function ListingViewToggle({
@@ -21,29 +21,23 @@ export default function ListingViewToggle({
   className = '',
 }) {
   return (
-    <div
-      className={`hidden rounded-lg border border-gray-800 bg-[#212121] p-1 sm:flex ${className}`}
-    >
+    <div className={`cp-view-toggle ${className}`} role="group" aria-label="View mode">
       {modes.map((mode) => {
         const config = MODE_CONFIG[mode];
         if (!config) return null;
         const Icon = config.icon;
         const active = viewMode === mode;
         return (
-          <Button
+          <button
             key={mode}
-            type={active ? 'primary' : 'text'}
-            size="small"
-            icon={<Icon className="h-4 w-4" />}
+            type="button"
+            aria-pressed={active}
             onClick={() => onChange?.(mode)}
-            className={
-              active
-                ? 'bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]'
-                : 'text-gray-400 hover:text-[#ccff00]'
-            }
+            className={`cp-view-toggle__btn${active ? ' is-active' : ''}`}
           >
-            {showLabels ? config.label : null}
-          </Button>
+            <Icon className="h-4 w-4" aria-hidden />
+            {showLabels ? <span>{config.label}</span> : null}
+          </button>
         );
       })}
     </div>

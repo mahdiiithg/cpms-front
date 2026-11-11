@@ -1,15 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Input, Button, Select, AutoComplete } from 'antd';
+import { Input, Button, AutoComplete } from 'antd';
 import { Search, MapPin } from 'lucide-react';
+import { solidCtaClass } from '@/lib/brandTheme';
 
-const { Option } = Select;
-
-// Popular coastal locations for autocomplete
 const popularLocations = [
   'Malibu, California',
-  'Miami Beach, Florida', 
+  'Miami Beach, Florida',
   'Hamptons, New York',
   'Key West, Florida',
   'Newport Beach, California',
@@ -17,10 +15,13 @@ const popularLocations = [
   'Sausalito, California',
   'Santa Barbara, California',
   'Outer Banks, North Carolina',
-  'Cape Cod, Massachusetts'
+  'Cape Cod, Massachusetts',
 ];
 
-export default function PropertySearch({ onSearch, placeholder = "Search by location, property type, or amenities..." }) {
+export default function PropertySearch({
+  onSearch,
+  placeholder = 'Search by location, property type, or amenities...',
+}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -28,17 +29,17 @@ export default function PropertySearch({ onSearch, placeholder = "Search by loca
   const handleSearch = () => {
     onSearch({
       searchTerm,
-      location
+      location,
     });
   };
 
   const handleLocationSearch = (value) => {
     setLocation(value);
     if (value) {
-      const filtered = popularLocations.filter(loc => 
-        loc.toLowerCase().includes(value.toLowerCase())
+      const filtered = popularLocations.filter((loc) =>
+        loc.toLowerCase().includes(value.toLowerCase()),
       );
-      setSuggestions(filtered.map(loc => ({ value: loc })));
+      setSuggestions(filtered.map((loc) => ({ value: loc })));
     } else {
       setSuggestions([]);
     }
@@ -51,41 +52,43 @@ export default function PropertySearch({ onSearch, placeholder = "Search by loca
   };
 
   return (
-    <div className="rounded-2xl border border-gray-800 bg-[#1a1a1a] p-3 shadow-[0_0_20px_rgba(204,255,0,0.1)] sm:p-4">
+    <div className="cp-search rounded-2xl border border-cp-stroke bg-cp-raised p-3 shadow-[0_0_24px_rgba(204,255,0,0.08)] sm:p-4">
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-        {/* Location Search */}
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-white">Location</label>
-          <AutoComplete
-            value={location}
-            options={suggestions}
-            onSearch={handleLocationSearch}
-            onSelect={setLocation}
-            className="w-full"
-          >
-            <Input
-              prefix={<MapPin className="h-4 w-4 text-[#ccff00]" />}
-              placeholder="Where do you want to stay?"
-              onKeyPress={handleKeyPress}
-              className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
-            />
-          </AutoComplete>
+          <div className="cp-field">
+            <AutoComplete
+              value={location}
+              options={suggestions}
+              onSearch={handleLocationSearch}
+              onSelect={setLocation}
+              className="w-full"
+              variant="borderless"
+            >
+              <Input
+                prefix={<MapPin className="h-4 w-4 text-cp-lime" />}
+                placeholder="Where do you want to stay?"
+                onKeyPress={handleKeyPress}
+                variant="borderless"
+              />
+            </AutoComplete>
+          </div>
         </div>
 
-        {/* General Search */}
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-white">Search</label>
-          <Input
-            prefix={<Search className="h-4 w-4 text-[#ccff00]" />}
-            placeholder={placeholder}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyPress={handleKeyPress}
-            className="bg-[#212121] border-gray-700 text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
-          />
+          <div className="cp-field">
+            <Input
+              prefix={<Search className="h-4 w-4 text-cp-lime" />}
+              placeholder={placeholder}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={handleKeyPress}
+              variant="borderless"
+            />
+          </div>
         </div>
 
-        {/* Search Button */}
         <div className="space-y-1.5">
           <label className="hidden text-sm font-medium text-white opacity-0 md:block">
             Search
@@ -94,22 +97,21 @@ export default function PropertySearch({ onSearch, placeholder = "Search by loca
             type="primary"
             icon={<Search className="h-4 w-4" />}
             onClick={handleSearch}
-            className="h-10 w-full border-0 bg-[#ccff00] text-base font-medium text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:bg-[#ccff00] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]"
+            className={`h-[42px] w-full text-base ${solidCtaClass}`}
           >
             Search Properties
           </Button>
         </div>
       </div>
 
-      {/* Quick Location Buttons */}
-      <div className="mt-3 border-t border-gray-800 pt-3">
-        <div className="mb-1.5 text-sm text-gray-400">Popular destinations:</div>
+      <div className="mt-3 border-t border-cp-stroke pt-3">
+        <div className="mb-1.5 text-sm text-cp-subtle">Popular destinations:</div>
         <div className="flex flex-wrap gap-2">
           {popularLocations.slice(0, 6).map((loc) => (
             <Button
               key={loc}
               size="small"
-              className="text-xs bg-[#212121] border-gray-700 text-gray-300 hover:border-[#ccff00] hover:text-[#ccff00]"
+              className="cp-toolbar-btn !h-8 !text-xs"
               onClick={() => {
                 setLocation(loc);
                 onSearch({ searchTerm, location: loc });

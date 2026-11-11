@@ -67,7 +67,7 @@ const PropertyCard = ({ property }) => {
   };
 
   return (
-    <div className="h-fit w-full max-w-[610px] min-w-[280px] rounded-[30px] bg-[#1a1a1a] border border-gray-800 p-3 sm:min-w-[300px] sm:p-3.5 md:min-w-0 hover:border-[#ccff00]/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(204,255,0,0.2)]">
+    <div className="h-fit w-full max-w-[610px] min-w-[280px] rounded-[30px] border border-cp-stroke bg-cp-raised p-3 transition-all duration-300 hover:border-cp-lime/30 hover:shadow-[0_0_20px_rgba(204,255,0,0.18)] sm:min-w-[300px] sm:p-3.5 md:min-w-0">
       <div className="flex h-full flex-col">
         {/* Image Slider */}
         <div className="relative mb-4 h-44 w-full flex-shrink-0 sm:h-48 sm:rounded-3xl">
