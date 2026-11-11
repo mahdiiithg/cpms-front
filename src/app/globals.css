@@ -117,6 +117,25 @@ body {
   margin-inline-end: 8px;
 }
 
+/* Password / filled wrappers inside CpField stay borderless */
+.cp-field .ant-input-password,
+.cp-field .ant-input-affix-wrapper-focused,
+.cp-field .ant-input-outlined,
+.cp-field .ant-input-filled {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.cp-field .ant-input-password-icon,
+.cp-field .anticon.ant-input-password-icon {
+  color: #9ca3af !important;
+}
+
+.cp-field .ant-input-password-icon:hover {
+  color: #ccff00 !important;
+}
+
 /* Legacy standalone controls (NOT inside .cp-field — shell owns the stroke) */
 .cp-control.ant-input,
 .cp-control.ant-input-affix-wrapper,
