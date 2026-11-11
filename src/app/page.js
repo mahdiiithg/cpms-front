@@ -231,7 +231,7 @@ export default function HomePage() {
               <Button
                 size="large"
                 className="h-14 flex-1 rounded-xl border-2 border-[#ccff00] bg-transparent text-base font-semibold text-[#ccff00] transition-all duration-300 hover:scale-105 hover:bg-[#ccff00] hover:text-[#171717] hover:shadow-[0_0_20px_rgba(204,255,0,0.6)]"
-                href="/auth/signin"
+                href="/signin"
               >
                 Existing client? Login
               </Button>
