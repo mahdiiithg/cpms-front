@@ -107,15 +107,18 @@ const PropertyCard = ({ property }) => {
                 <Bath className="mr-1 h-[16px] w-[16px] flex-shrink-0" color="#ccff00" />
                 <span className="flex-1 text-[12px] text-gray-400 md:text-xs">{property.bathrooms} baths</span>
               </span>
-              {typeof property.squareFeet === 'number' && (
+              {typeof (property.squareFeet ?? property.propertySize) === 'number' && (
                 <span className="flex items-center">
                   <Maximize2 className="mr-1 h-[16px] w-[16px] flex-shrink-0" color="#ccff00" />
                   <span className="flex-1 text-[12px] text-gray-400 md:text-xs">
-                    {property.squareFeet.toLocaleString()} sqft
+                    {(property.squareFeet ?? property.propertySize).toLocaleString()}
+                    {property.squareFeet ? ' sqft' : ' m²'}
                   </span>
                 </span>
               )}
-              {typeof property.views === 'number' && !property.squareFeet && (
+              {typeof property.views === 'number' &&
+                property.squareFeet == null &&
+                property.propertySize == null && (
                 <span className="flex items-center">
                   <Eye className="mr-1 h-[16px] w-[16px] flex-shrink-0" color="#ccff00" />
                   <span className="flex-1 text-[12px] text-gray-400 md:text-xs">{property.views} views</span>

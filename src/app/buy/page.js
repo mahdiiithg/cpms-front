@@ -8,6 +8,7 @@ import SidebarFilters from '@/components/shared/SidebarFilters';
 import {
   ListingBreadcrumb,
   ListingCtaSection,
+  ListingHero,
   ListingPageShell,
   ListingResults,
   ListingResultsHeader,
@@ -17,6 +18,10 @@ import {
   sampleSaleProperties,
   filterSaleSampleProperties,
 } from '@/utils/sampleSaleProperties';
+import {
+  buildPropertyFilters,
+  unwrapPropertyList,
+} from '@/utils/listingQuery';
 
 export default function BuyPage() {
   const [filters, setFilters] = useState({
@@ -37,6 +42,7 @@ export default function BuyPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(20);
   const [properties, setProperties] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [usingSample, setUsingSample] = useState(false);
@@ -44,33 +50,30 @@ export default function BuyPage() {
   const offset = (currentPage - 1) * pageSize;
 
   const gqlFilters = useMemo(
-    () => ({
-      type: filters.type || undefined,
-      mode: 'sale',
-      minPrice: filters.minPrice ?? undefined,
-      maxPrice: filters.maxPrice ?? undefined,
-      minBedrooms: filters.minBedrooms ?? undefined,
-      location: filters.location || undefined,
-      amenities:
-        filters.amenities && filters.amenities.length
-          ? filters.amenities
-          : undefined,
-      coastalFeatures:
-        filters.features && filters.features.length
-          ? filters.features
-          : undefined,
-    }),
-    [filters],
+    () =>
+      buildPropertyFilters({
+        listingType: 'sale',
+        type: filters.type,
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice,
+        minBedrooms: filters.minBedrooms,
+        location: filters.location,
+        features: [
+          ...(filters.features || []),
+          ...(filters.amenities || []),
+        ],
+        limit: pageSize,
+        offset,
+      }),
+    [filters, pageSize, offset],
   );
-
-  const limit = pageSize;
 
   const {
     data: listData,
     loading: listLoading,
     error: listError,
   } = useQuery(GET_PROPERTIES, {
-    variables: { filters: gqlFilters, limit, offset },
+    variables: { filters: gqlFilters },
     skip: !!searchTerm,
     fetchPolicy: 'cache-and-network',
   });
@@ -80,38 +83,49 @@ export default function BuyPage() {
     loading: searchLoading,
     error: searchError,
   } = useQuery(SEARCH_PROPERTIES, {
-    variables: { query: searchTerm || '', filters: gqlFilters, limit, offset },
+    variables: { query: searchTerm || '', filters: gqlFilters },
     skip: !searchTerm,
     fetchPolicy: 'cache-and-network',
   });
 
   useEffect(() => {
-    const gqlProps = searchTerm
-      ? searchData?.searchProperties
-      : listData?.properties;
     const queryError = listError || searchError;
     const queryLoading = listLoading || searchLoading;
+    const { properties: apiProperties, totalCount: apiTotal } =
+      unwrapPropertyList(searchTerm ? searchData : listData, {
+        isSearch: !!searchTerm,
+      });
 
     setLoading(queryLoading);
 
-    if (gqlProps && gqlProps.length > 0) {
-      setProperties(gqlProps);
+    if (queryLoading) return;
+
+    if (!queryError && apiProperties.length > 0) {
+      setProperties(apiProperties);
+      setTotalCount(apiTotal || apiProperties.length);
       setError(null);
       setUsingSample(false);
       return;
     }
 
-    // Fall back to realistic local demo listings when API fails or returns empty
-    if (!queryLoading && (queryError || !gqlProps || gqlProps.length === 0)) {
+    // Offline / hard failure only — prefer live API inventory once backend is seeded
+    if (queryError) {
       const filtered = filterSaleSampleProperties(
         sampleSaleProperties,
         filters,
         searchTerm,
       );
       setProperties(filtered);
+      setTotalCount(filtered.length);
       setUsingSample(true);
-      setError(queryError || null);
+      setError(queryError);
+      return;
     }
+
+    setProperties([]);
+    setTotalCount(0);
+    setUsingSample(false);
+    setError(null);
   }, [
     listData,
     searchData,
@@ -220,32 +234,25 @@ export default function BuyPage() {
     <div className="min-h-screen bg-[#171717]">
       <ListingBreadcrumb current="Buy" />
 
-      <section className="bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] py-8 sm:py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
-          <div className="mb-8 text-center sm:mb-12">
-            <h1 className="mb-4 text-2xl font-bold text-white sm:mb-6 sm:text-3xl lg:text-4xl xl:text-5xl">
-              Properties for Sale
-            </h1>
-            <p className="mx-auto mb-6 max-w-3xl text-lg text-gray-400 sm:mb-8 sm:text-xl">
-              Discover your dream property from our exclusive collection of
-              luxury homes, modern condos, and premium villas.
-            </p>
-            <div className="mx-auto max-w-4xl">
-              <PropertySearch
-                onSearch={handlePropertySearch}
-                placeholder="Search properties by location, type, or amenities..."
-              />
-            </div>
-          </div>
-
+      <ListingHero
+        title="Properties for Sale"
+        description="Discover your dream property from our exclusive collection of luxury homes, modern condos, and premium villas."
+        footer={
           <PriceRangePills
             ranges={priceRanges}
             selectedMin={filters.minPrice}
             selectedMax={filters.maxPrice}
             onSelect={handlePriceRangeSelect}
           />
+        }
+      >
+        <div className="mx-auto max-w-4xl">
+          <PropertySearch
+            onSearch={handlePropertySearch}
+            placeholder="Search properties by location, type, or amenities..."
+          />
         </div>
-      </section>
+      </ListingHero>
 
       <ListingPageShell
         showFilters={showFilters}
@@ -264,7 +271,7 @@ export default function BuyPage() {
         <ListingResultsHeader
           title="Properties for Sale"
           loading={loading}
-          count={displayProperties.length}
+          count={usingSample ? displayProperties.length : totalCount}
           showingSample={usingSample}
           showFilters={showFilters}
           onToggleFilters={() => setShowFilters(!showFilters)}
@@ -277,13 +284,17 @@ export default function BuyPage() {
           properties={displayProperties}
           viewMode={viewMode}
           showingSample={usingSample}
-          sampleMessage="Browsing curated demo coastal sale listings. Live inventory will appear here when the server is connected."
-          emptyDescription="No properties found"
+          sampleMessage="Unable to reach the listings API — showing offline demo sale listings. Live inventory loads from GraphQL properties(filters) once the backend is connected."
+          emptyDescription="No sale properties found"
           currentPage={currentPage}
           pageSize={pageSize}
-          total={usingSample ? displayProperties.length : 1000}
+          total={usingSample ? displayProperties.length : totalCount}
           onPageChange={setCurrentPage}
-          showPagination={!usingSample || displayProperties.length > pageSize}
+          showPagination={
+            usingSample
+              ? displayProperties.length > pageSize
+              : totalCount > pageSize
+          }
         />
       </ListingPageShell>
 

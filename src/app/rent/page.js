@@ -9,11 +9,16 @@ import SidebarFilters from '@/components/shared/SidebarFilters';
 import {
   ListingBreadcrumb,
   ListingCtaSection,
+  ListingHero,
   ListingPageShell,
   ListingResults,
   ListingResultsHeader,
   PriceRangePills,
 } from '@/components/listings';
+import {
+  buildPropertyFilters,
+  unwrapPropertyList,
+} from '@/utils/listingQuery';
 
 export default function RentPage() {
   const [filters, setFilters] = useState({
@@ -35,33 +40,37 @@ export default function RentPage() {
   const [pageSize] = useState(20);
   const [rentalType, setRentalType] = useState('longTerm');
   const [properties, setProperties] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const offset = (currentPage - 1) * pageSize;
 
   const gqlFilters = useMemo(
-    () => ({
-      type: filters.type || undefined,
-      mode: 'rental',
-      minPrice: filters.minPrice ?? undefined,
-      maxPrice: filters.maxPrice ?? undefined,
-      minBedrooms: filters.minBedrooms ?? undefined,
-      location: filters.location || undefined,
-      amenities: filters.amenities?.length ? filters.amenities : undefined,
-      coastalFeatures: filters.features?.length ? filters.features : undefined,
-    }),
-    [filters],
+    () =>
+      buildPropertyFilters({
+        listingType: 'rent',
+        type: filters.type,
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice,
+        minBedrooms: filters.minBedrooms,
+        location: filters.location,
+        features: [
+          ...(filters.features || []),
+          ...(filters.amenities || []),
+        ],
+        limit: pageSize,
+        offset,
+      }),
+    [filters, pageSize, offset],
   );
-
-  const limit = pageSize;
 
   const {
     data: listData,
     loading: listLoading,
     error: listError,
   } = useQuery(GET_PROPERTIES, {
-    variables: { filters: gqlFilters, limit, offset },
+    variables: { filters: gqlFilters },
     skip: !!searchTerm,
     fetchPolicy: 'cache-and-network',
   });
@@ -71,26 +80,34 @@ export default function RentPage() {
     loading: searchLoading,
     error: searchError,
   } = useQuery(SEARCH_PROPERTIES, {
-    variables: { query: searchTerm || '', filters: gqlFilters, limit, offset },
+    variables: { query: searchTerm || '', filters: gqlFilters },
     skip: !searchTerm,
     fetchPolicy: 'cache-and-network',
   });
 
   useEffect(() => {
-    const gqlProps = searchTerm
-      ? searchData?.searchProperties
-      : listData?.properties;
-    if (gqlProps) {
-      setProperties(gqlProps);
-      setError(null);
-    }
-    setLoading(listLoading || searchLoading);
-  }, [listData, searchData, listLoading, searchLoading, searchTerm]);
+    const queryLoading = listLoading || searchLoading;
+    const queryError = listError || searchError;
+    const { properties: apiProperties, totalCount: apiTotal } =
+      unwrapPropertyList(searchTerm ? searchData : listData, {
+        isSearch: !!searchTerm,
+      });
 
-  useEffect(() => {
-    const anyError = listError || searchError;
-    if (anyError) setError(anyError);
-  }, [listError, searchError]);
+    setLoading(queryLoading);
+    if (queryLoading) return;
+
+    setProperties(apiProperties);
+    setTotalCount(apiTotal || apiProperties.length);
+    setError(queryError || null);
+  }, [
+    listData,
+    searchData,
+    listLoading,
+    searchLoading,
+    listError,
+    searchError,
+    searchTerm,
+  ]);
 
   const propertyTypes = [
     { value: 'villa', label: 'Villas' },
@@ -182,70 +199,62 @@ export default function RentPage() {
     <div className="min-h-screen bg-[#171717]">
       <ListingBreadcrumb current="Rent" />
 
-      <section className="bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] py-8 sm:py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
-          <div className="mb-8 text-center sm:mb-12">
-            <h1 className="mb-4 text-2xl font-bold text-white sm:mb-6 sm:text-3xl lg:text-4xl xl:text-5xl">
-              Properties for Rent
-            </h1>
-            <p className="mx-auto mb-6 max-w-3xl text-lg text-gray-400 sm:mb-8 sm:text-xl">
-              Find your perfect rental from our collection of apartments,
-              houses, condos, and luxury properties.
-            </p>
-
-            <div className="mb-6 flex justify-center">
-              <div className="flex flex-wrap justify-center gap-1 rounded-lg border border-gray-800 bg-[#212121] p-1">
-                {rentalDurations.map((duration) => (
-                  <Button
-                    key={duration.value}
-                    type={rentalType === duration.value ? 'primary' : 'text'}
-                    size="small"
-                    onClick={() => setRentalType(duration.value)}
-                    className={
-                      rentalType === duration.value
-                        ? 'bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]'
-                        : 'text-gray-400 hover:text-[#ccff00]'
-                    }
-                  >
-                    {duration.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            <div className="mx-auto max-w-2xl">
-              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-                <div className="flex-1">
-                  <Input
-                    size="large"
-                    placeholder="Search by location, property type, or area..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    prefix={<Search className="h-4 w-4 text-gray-400" />}
-                    onPressEnter={handleSearch}
-                    className="bg-[#212121] border-gray-700 text-white"
-                  />
-                </div>
-                <Button
-                  type="primary"
-                  size="large"
-                  onClick={handleSearch}
-                  className="border-0 bg-[#ccff00] text-[#171717] font-semibold shadow-[0_0_15px_rgba(204,255,0,0.6)]"
-                >
-                  Search Rentals
-                </Button>
-              </div>
-            </div>
-          </div>
-
+      <ListingHero
+        title="Properties for Rent"
+        description="Find your perfect rental from our collection of apartments, houses, condos, and luxury properties."
+        footer={
           <PriceRangePills
             ranges={getRentalPrices()}
             selectedMin={filters.minPrice}
             selectedMax={filters.maxPrice}
             onSelect={handlePriceRangeSelect}
           />
+        }
+      >
+        <div className="mb-3 flex justify-center sm:mb-4">
+          <div className="flex flex-wrap justify-center gap-1 rounded-lg border border-gray-800 bg-[#212121] p-1">
+            {rentalDurations.map((duration) => (
+              <Button
+                key={duration.value}
+                type={rentalType === duration.value ? 'primary' : 'text'}
+                size="small"
+                onClick={() => setRentalType(duration.value)}
+                className={
+                  rentalType === duration.value
+                    ? 'border-0 bg-[#ccff00] text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]'
+                    : 'text-gray-400 hover:text-[#ccff00]'
+                }
+              >
+                {duration.label}
+              </Button>
+            ))}
+          </div>
         </div>
-      </section>
+
+        <div className="mx-auto max-w-2xl">
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
+            <div className="flex-1">
+              <Input
+                size="large"
+                placeholder="Search by location, property type, or area..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                prefix={<Search className="h-4 w-4 text-gray-400" />}
+                onPressEnter={handleSearch}
+                className="border-gray-700 bg-[#212121] text-white"
+              />
+            </div>
+            <Button
+              type="primary"
+              size="large"
+              onClick={handleSearch}
+              className="border-0 bg-[#ccff00] font-semibold text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.6)]"
+            >
+              Search Rentals
+            </Button>
+          </div>
+        </div>
+      </ListingHero>
 
       <ListingPageShell
         showFilters={showFilters}
@@ -263,7 +272,7 @@ export default function RentPage() {
         <ListingResultsHeader
           title="Properties for Rent"
           loading={loading}
-          count={properties.length}
+          count={totalCount}
           countLabel="rental properties found"
           showFilters={showFilters}
           onToggleFilters={() => setShowFilters(!showFilters)}
@@ -285,9 +294,10 @@ export default function RentPage() {
             emptyDescription="No rental properties found"
             currentPage={currentPage}
             pageSize={pageSize}
-            total={1000}
+            total={totalCount}
             onPageChange={setCurrentPage}
             totalLabel="rental properties"
+            showPagination={totalCount > pageSize}
           />
         )}
       </ListingPageShell>

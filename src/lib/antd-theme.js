@@ -2,7 +2,9 @@ const antdTheme = {
   token: {
     fontFamily:
       '"Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-    // colorPrimary: '#ccff00',
+    colorPrimary: '#ccff00',
+    colorPrimaryHover: '#d4ff33',
+    colorTextLightSolid: '#171717',
     controlHeight: 45,
     borderRadius: 15,
   },
