@@ -8,6 +8,7 @@ import SidebarFilters from '@/components/shared/SidebarFilters';
 import {
   ListingBreadcrumb,
   ListingCtaSection,
+  ListingHero,
   ListingPageShell,
   ListingResults,
   ListingResultsHeader,
@@ -220,32 +221,25 @@ export default function BuyPage() {
     <div className="min-h-screen bg-[#171717]">
       <ListingBreadcrumb current="Buy" />
 
-      <section className="bg-gradient-to-br from-[#171717] via-[#1a1a1a] to-[#171717] py-8 sm:py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
-          <div className="mb-8 text-center sm:mb-12">
-            <h1 className="mb-4 text-2xl font-bold text-white sm:mb-6 sm:text-3xl lg:text-4xl xl:text-5xl">
-              Properties for Sale
-            </h1>
-            <p className="mx-auto mb-6 max-w-3xl text-lg text-gray-400 sm:mb-8 sm:text-xl">
-              Discover your dream property from our exclusive collection of
-              luxury homes, modern condos, and premium villas.
-            </p>
-            <div className="mx-auto max-w-4xl">
-              <PropertySearch
-                onSearch={handlePropertySearch}
-                placeholder="Search properties by location, type, or amenities..."
-              />
-            </div>
-          </div>
-
+      <ListingHero
+        title="Properties for Sale"
+        description="Discover your dream property from our exclusive collection of luxury homes, modern condos, and premium villas."
+        footer={
           <PriceRangePills
             ranges={priceRanges}
             selectedMin={filters.minPrice}
             selectedMax={filters.maxPrice}
             onSelect={handlePriceRangeSelect}
           />
+        }
+      >
+        <div className="mx-auto max-w-4xl">
+          <PropertySearch
+            onSearch={handlePropertySearch}
+            placeholder="Search properties by location, type, or amenities..."
+          />
         </div>
-      </section>
+      </ListingHero>
 
       <ListingPageShell
         showFilters={showFilters}

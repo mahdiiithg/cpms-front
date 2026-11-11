@@ -1,5 +1,6 @@
 export { default as ListingBreadcrumb } from './ListingBreadcrumb';
 export { default as ListingCtaSection } from './ListingCtaSection';
+export { default as ListingHero } from './ListingHero';
 export { default as ListingPageShell } from './ListingPageShell';
 export { default as ListingResults } from './ListingResults';
 export { default as ListingResultsHeader } from './ListingResultsHeader';

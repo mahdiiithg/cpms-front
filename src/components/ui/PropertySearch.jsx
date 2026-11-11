@@ -51,10 +51,10 @@ export default function PropertySearch({ onSearch, placeholder = "Search by loca
   };
 
   return (
-    <div className="bg-[#1a1a1a] border border-gray-800 rounded-2xl p-6 shadow-[0_0_20px_rgba(204,255,0,0.1)]">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="rounded-2xl border border-gray-800 bg-[#1a1a1a] p-3 shadow-[0_0_20px_rgba(204,255,0,0.1)] sm:p-4">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         {/* Location Search */}
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <label className="text-sm font-medium text-white">Location</label>
           <AutoComplete
             value={location}
@@ -73,7 +73,7 @@ export default function PropertySearch({ onSearch, placeholder = "Search by loca
         </div>
 
         {/* General Search */}
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <label className="text-sm font-medium text-white">Search</label>
           <Input
             prefix={<Search className="h-4 w-4 text-[#ccff00]" />}
@@ -86,13 +86,15 @@ export default function PropertySearch({ onSearch, placeholder = "Search by loca
         </div>
 
         {/* Search Button */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-white opacity-0">Search</label>
-          <Button 
+        <div className="space-y-1.5">
+          <label className="hidden text-sm font-medium text-white opacity-0 md:block">
+            Search
+          </label>
+          <Button
             type="primary"
             icon={<Search className="h-4 w-4" />}
             onClick={handleSearch}
-            className="w-full h-10 text-base font-medium bg-[#ccff00] hover:bg-[#ccff00] border-0 text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]"
+            className="h-10 w-full border-0 bg-[#ccff00] text-base font-medium text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.6)] hover:bg-[#ccff00] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]"
           >
             Search Properties
           </Button>
@@ -100,8 +102,8 @@ export default function PropertySearch({ onSearch, placeholder = "Search by loca
       </div>
 
       {/* Quick Location Buttons */}
-      <div className="mt-4 pt-4 border-t border-gray-800">
-        <div className="text-sm text-gray-400 mb-2">Popular destinations:</div>
+      <div className="mt-3 border-t border-gray-800 pt-3">
+        <div className="mb-1.5 text-sm text-gray-400">Popular destinations:</div>
         <div className="flex flex-wrap gap-2">
           {popularLocations.slice(0, 6).map((loc) => (
             <Button
