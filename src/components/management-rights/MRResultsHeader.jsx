@@ -1,19 +1,34 @@
-"use client";
+'use client';
 
-import { Select } from "antd";
-const { Option } = Select;
+import { Select } from 'antd';
+import CpField from '@/components/shared/CpField';
+
+const sortOptions = [
+  { value: 'date', label: 'Most Recent' },
+  { value: 'price-asc', label: 'Price: Low to High' },
+  { value: 'price-desc', label: 'Price: High to Low' },
+];
 
 export default function MRResultsHeader({ loading, total, sortBy, setSortBy }) {
   return (
-    <div className="flex items-center justify-between mb-3">
-      <div className="text-sm text-gray-600">{loading ? 'Loading…' : `${total} opportunities found`}</div>
+    <div className="mb-3 flex items-center justify-between gap-3">
+      <div className="text-sm text-cp-subtle">
+        {loading ? 'Loading…' : `${total} opportunities found`}
+      </div>
       <div className="flex items-center gap-2">
-        <span className="text-xs text-gray-600">Sort by</span>
-        <Select size="small" value={sortBy} onChange={setSortBy} style={{ width: 160 }}>
-          <Option value="date">Most Recent</Option>
-          <Option value="price-asc">Price: Low to High</Option>
-          <Option value="price-desc">Price: High to Low</Option>
-        </Select>
+        <span className="text-xs text-cp-subtle">Sort by</span>
+        <CpField className="cp-sort-field min-w-[200px] w-[220px]">
+          <Select
+            value={sortBy}
+            onChange={setSortBy}
+            className="w-full"
+            variant="borderless"
+            optionLabelProp="label"
+            popupMatchSelectWidth
+            dropdownStyle={{ minWidth: 220 }}
+            options={sortOptions}
+          />
+        </CpField>
       </div>
     </div>
   );

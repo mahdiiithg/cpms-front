@@ -25,6 +25,7 @@ import {
 import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
 import Link from 'next/link';
 import { ListingViewToggle, ListingsPropertyCard } from '@/components/listings';
+import CpField from '@/components/shared/CpField';
 import {
   buildPropertyFilters,
   unwrapPropertyList,
@@ -331,7 +332,7 @@ export default function PropertyListingsPage() {
                   <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Location
                   </label>
-                  <div className="cp-field">
+                  <CpField>
                     <Input
                       placeholder="City, suburb, or address"
                       value={filters.location}
@@ -339,7 +340,7 @@ export default function PropertyListingsPage() {
                       prefix={<MapPin className="h-4 w-4 text-cp-lime" />}
                       variant="borderless"
                     />
-                  </div>
+                  </CpField>
                 </div>
 
                 {/* Special Features */}
@@ -373,7 +374,7 @@ export default function PropertyListingsPage() {
             {/* Results Header */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
-                <div className="cp-field cp-sort-field min-w-[240px] w-[260px]">
+                <CpField className="cp-sort-field min-w-[240px] w-[260px]">
                   <Select
                     value={sortValue}
                     onChange={handleSortChange}
@@ -387,7 +388,7 @@ export default function PropertyListingsPage() {
                       label: option.label,
                     }))}
                   />
-                </div>
+                </CpField>
               </div>
 
               <ListingViewToggle
@@ -551,7 +552,7 @@ export default function PropertyListingsPage() {
             <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
               Location
             </label>
-            <div className="cp-field">
+            <CpField>
               <Input
                 placeholder="City, suburb, or address"
                 value={filters.location}
@@ -559,7 +560,7 @@ export default function PropertyListingsPage() {
                 prefix={<MapPin className="h-4 w-4 text-cp-lime" />}
                 variant="borderless"
               />
-            </div>
+            </CpField>
           </div>
 
           {/* Special Features */}

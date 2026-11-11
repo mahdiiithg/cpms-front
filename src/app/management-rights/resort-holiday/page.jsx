@@ -4,12 +4,11 @@ import { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import { SEARCH_PROPERTIES } from '@/lib/queries/property';
-import { Breadcrumb, Button, Card, Empty, Input, Pagination, Select, Spin, Tag, Checkbox, Drawer, Divider } from 'antd';
+import { Breadcrumb, Button, Card, Empty, Input, Pagination, Spin, Tag, Checkbox, Drawer, Divider } from 'antd';
 import { managementRights } from '@/data/managementRightsData';
 import MRTopSearchBar from '@/components/management-rights/MRTopSearchBar';
+import MRResultsHeader from '@/components/management-rights/MRResultsHeader';
 import MRPageHero from '@/components/management-rights/MRPageHero';
-
-const { Option } = Select;
 
 export default function ResortHolidayManagementRightsPage() {
   const meta = managementRights.resortHoliday;
@@ -175,18 +174,15 @@ export default function ResortHolidayManagementRightsPage() {
 
         {/* Results panel */}
         <div className="md:col-span-9">
-          {/* Sort and count bar */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="text-sm text-gray-600">{loading ? 'Loading…' : `${displayedTotal} opportunities found`}</div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-600">Sort by</span>
-              <Select size="small" value={sortBy} onChange={(v)=>{ setSortBy(v); setPage(1); }} style={{ width: 160 }}>
-                <Option value="date">Most Recent</Option>
-                <Option value="price-asc">Price: Low to High</Option>
-                <Option value="price-desc">Price: High to Low</Option>
-              </Select>
-            </div>
-          </div>
+          <MRResultsHeader
+            loading={loading}
+            total={displayedTotal}
+            sortBy={sortBy}
+            setSortBy={(v) => {
+              setSortBy(v);
+              setPage(1);
+            }}
+          />
 
           {/* Browse by region */}
           <div className="mb-6">

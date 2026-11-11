@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button, Select, Input, Checkbox } from 'antd';
+import CpField from '@/components/shared/CpField';
 
 const { Option } = Select;
 
@@ -61,7 +62,7 @@ export default function SidebarFilters({
           <label className="mb-2 block text-sm font-medium text-white">
             Property Type
           </label>
-          <div className="cp-field">
+          <CpField>
             <Select
               placeholder="Select property type"
               value={filters?.type}
@@ -76,7 +77,7 @@ export default function SidebarFilters({
                 </Option>
               ))}
             </Select>
-          </div>
+          </CpField>
         </div>
 
         <div>
@@ -84,7 +85,7 @@ export default function SidebarFilters({
             Price Range
           </label>
           <div className="flex gap-2">
-            <div className="cp-field">
+            <CpField>
               <Input
                 placeholder="Min Price"
                 value={filters?.minPrice ?? ''}
@@ -92,8 +93,8 @@ export default function SidebarFilters({
                 prefix="$"
                 variant="borderless"
               />
-            </div>
-            <div className="cp-field">
+            </CpField>
+            <CpField>
               <Input
                 placeholder="Max Price"
                 value={filters?.maxPrice ?? ''}
@@ -101,7 +102,7 @@ export default function SidebarFilters({
                 prefix="$"
                 variant="borderless"
               />
-            </div>
+            </CpField>
           </div>
         </div>
 
@@ -109,7 +110,7 @@ export default function SidebarFilters({
           <label className="mb-2 block text-sm font-medium text-white">
             Minimum Bedrooms
           </label>
-          <div className="cp-field">
+          <CpField>
             <Select
               placeholder="Any"
               value={filters?.minBedrooms}
@@ -124,7 +125,7 @@ export default function SidebarFilters({
                 </Option>
               ))}
             </Select>
-          </div>
+          </CpField>
         </div>
 
         <div>

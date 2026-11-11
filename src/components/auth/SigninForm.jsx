@@ -85,8 +85,8 @@ const SigninForm = (props) => {
           />
         </Form.Item>
 
-        <div className="mt-0 mb-7 flex items-center justify-start">
-          <Link href="/reset-password" style={{ color: '#6A7282' }}>
+        <div className="mb-7 mt-0 flex items-center justify-start">
+          <Link href="/reset-password" className="text-sm text-cp-subtle transition-colors hover:text-cp-lime">
             Forgot Password?
           </Link>
         </div>
@@ -98,6 +98,7 @@ const SigninForm = (props) => {
             size="large"
             block
             disabled={!isValid}
+            className="!border-0 !bg-cp-lime !font-semibold !text-cp-surface shadow-[0_0_15px_rgba(204,255,0,0.45)] hover:!bg-cp-lime-hover disabled:!opacity-50"
           >
             Login
           </Button>

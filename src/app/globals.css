@@ -311,6 +311,9 @@ body {
 
 .custom-segmented-auth {
   border-radius: 999px !important;
+  background: #212121 !important;
+  padding: 3px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 .custom-segmented-auth .ant-segmented-group {
@@ -321,6 +324,97 @@ body {
   flex: 1 1 50%;
   text-align: center;
   justify-content: center;
+  color: #9ca3af !important;
+}
+
+.custom-segmented-auth .ant-segmented-item-selected {
+  background: #171717 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
+}
+
+.custom-segmented-auth .ant-segmented-thumb {
+  background: #171717 !important;
+}
+
+/* Dark auth modal — match site canvas, not Ant white defaults */
+.cp-auth-modal .ant-modal-content,
+.cp-auth-modal__content {
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.55) !important;
+  color: #ffffff !important;
+}
+
+.cp-auth-modal .ant-modal-header,
+.cp-auth-modal__header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  margin-bottom: 0 !important;
+}
+
+.cp-auth-modal .ant-modal-title {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.cp-auth-modal .ant-modal-close {
+  color: #9ca3af !important;
+}
+
+.cp-auth-modal .ant-modal-close:hover {
+  color: #ccff00 !important;
+  background: rgba(204, 255, 0, 0.08) !important;
+}
+
+.cp-auth-modal .ant-modal-body,
+.cp-auth-modal__body {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+.cp-auth-modal__mask,
+.cp-auth-modal .ant-modal-mask {
+  background: rgba(0, 0, 0, 0.72) !important;
+}
+
+/* Textarea — was excluded from dark .ant-input rules and stayed white */
+textarea.ant-input,
+.ant-input-textarea textarea.ant-input,
+.ant-input-outlined.ant-input-textarea textarea {
+  background-color: #212121 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+textarea.ant-input:hover,
+.ant-input-textarea textarea.ant-input:hover {
+  border-color: rgba(204, 255, 0, 0.45) !important;
+}
+
+textarea.ant-input:focus,
+.ant-input-textarea textarea.ant-input:focus {
+  border-color: #ccff00 !important;
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
+}
+
+.cp-field textarea.ant-input,
+.cp-field .ant-input-textarea,
+.cp-field .ant-input-textarea textarea {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  padding: 0 !important;
+  min-height: 5.5rem !important;
+}
+
+.cp-field .ant-input-textarea-affix-wrapper,
+.cp-field .ant-input-data-count {
+  color: #9ca3af !important;
 }
 
 .custom-segmented-map-list-switch .ant-segmented-item-label {
