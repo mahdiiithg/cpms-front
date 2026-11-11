@@ -70,6 +70,29 @@ body {
   align-items: center !important;
 }
 
+/* Leave room for the select chevron so labels are not clipped */
+.cp-field .ant-select .ant-select-selector {
+  padding-inline-end: 22px !important;
+}
+
+.cp-field .ant-select-selection-item {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  padding-inline-end: 4px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  border-radius: 0 !important;
+}
+
+.cp-sort-field {
+  flex: 0 0 auto;
+}
+
+.cp-sort-field .ant-select {
+  min-width: 0 !important;
+}
+
 .cp-field .ant-input {
   padding: 0 !important;
   color: #fff !important;
@@ -94,14 +117,10 @@ body {
   margin-inline-end: 8px;
 }
 
-/* Legacy class kept as alias for gradual migration */
+/* Legacy standalone controls (NOT inside .cp-field — shell owns the stroke) */
 .cp-control.ant-input,
 .cp-control.ant-input-affix-wrapper,
-.cp-control .ant-input-affix-wrapper,
-.listing-sidebar-filters .ant-input,
-.listing-sidebar-filters .ant-input-affix-wrapper,
-.cp-search .ant-input,
-.cp-search .ant-input-affix-wrapper {
+.cp-control .ant-input-affix-wrapper {
   background-color: #212121 !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 12px !important;
@@ -111,9 +130,7 @@ body {
 }
 
 .cp-control.ant-input-affix-wrapper .ant-input,
-.cp-control .ant-input-affix-wrapper .ant-input,
-.listing-sidebar-filters .ant-input-affix-wrapper .ant-input,
-.cp-search .ant-input-affix-wrapper .ant-input {
+.cp-control .ant-input-affix-wrapper .ant-input {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -121,16 +138,13 @@ body {
   min-height: auto !important;
 }
 
-.cp-control.ant-select,
-.listing-sidebar-filters .ant-select,
-.cp-search .ant-select {
+.cp-control.ant-select {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
 }
 
-.cp-control.ant-select .ant-select-selector,
-.listing-sidebar-filters .ant-select .ant-select-selector {
+.cp-control.ant-select .ant-select-selector {
   background-color: #212121 !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 12px !important;
@@ -138,12 +152,43 @@ body {
   min-height: 42px !important;
 }
 
-.cp-search .ant-select-auto-complete .ant-select-selector {
+/* cp-field children must stay borderless even after global / legacy input rules */
+.cp-field .ant-select,
+.cp-field .ant-select-selector,
+.cp-field .ant-input,
+.cp-field .ant-input-affix-wrapper,
+.cp-field .ant-input-affix-wrapper .ant-input,
+.cp-field .ant-select-auto-complete,
+.cp-field .ant-select-selection-search,
+.cp-field .ant-select-selection-search-input,
+.cp-search .cp-field .ant-input,
+.cp-search .cp-field .ant-input-affix-wrapper,
+.cp-search .cp-field .ant-select-selector,
+.listing-sidebar-filters .cp-field .ant-input,
+.listing-sidebar-filters .cp-field .ant-input-affix-wrapper,
+.listing-sidebar-filters .cp-field .ant-select,
+.listing-sidebar-filters .cp-field .ant-select-selector {
+  width: 100% !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  outline: none !important;
+}
+
+.cp-search .cp-field .ant-select-auto-complete .ant-select-selector {
   padding: 0 !important;
   min-height: auto !important;
+}
+
+/* Search CTA matches .cp-field control height */
+.cp-search .cp-search-cta.ant-btn {
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  padding-block: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* Text buttons on dark (Clear All, etc.) — Ant defaults to near-black */
@@ -266,6 +311,9 @@ body {
 
 .custom-segmented-auth {
   border-radius: 999px !important;
+  background: #212121 !important;
+  padding: 3px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 .custom-segmented-auth .ant-segmented-group {
@@ -276,6 +324,97 @@ body {
   flex: 1 1 50%;
   text-align: center;
   justify-content: center;
+  color: #9ca3af !important;
+}
+
+.custom-segmented-auth .ant-segmented-item-selected {
+  background: #171717 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
+}
+
+.custom-segmented-auth .ant-segmented-thumb {
+  background: #171717 !important;
+}
+
+/* Dark auth modal — match site canvas, not Ant white defaults */
+.cp-auth-modal .ant-modal-content,
+.cp-auth-modal__content {
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.55) !important;
+  color: #ffffff !important;
+}
+
+.cp-auth-modal .ant-modal-header,
+.cp-auth-modal__header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  margin-bottom: 0 !important;
+}
+
+.cp-auth-modal .ant-modal-title {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.cp-auth-modal .ant-modal-close {
+  color: #9ca3af !important;
+}
+
+.cp-auth-modal .ant-modal-close:hover {
+  color: #ccff00 !important;
+  background: rgba(204, 255, 0, 0.08) !important;
+}
+
+.cp-auth-modal .ant-modal-body,
+.cp-auth-modal__body {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+.cp-auth-modal__mask,
+.cp-auth-modal .ant-modal-mask {
+  background: rgba(0, 0, 0, 0.72) !important;
+}
+
+/* Textarea — was excluded from dark .ant-input rules and stayed white */
+textarea.ant-input,
+.ant-input-textarea textarea.ant-input,
+.ant-input-outlined.ant-input-textarea textarea {
+  background-color: #212121 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+textarea.ant-input:hover,
+.ant-input-textarea textarea.ant-input:hover {
+  border-color: rgba(204, 255, 0, 0.45) !important;
+}
+
+textarea.ant-input:focus,
+.ant-input-textarea textarea.ant-input:focus {
+  border-color: #ccff00 !important;
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
+}
+
+.cp-field textarea.ant-input,
+.cp-field .ant-input-textarea,
+.cp-field .ant-input-textarea textarea {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  padding: 0 !important;
+  min-height: 5.5rem !important;
+}
+
+.cp-field .ant-input-textarea-affix-wrapper,
+.cp-field .ant-input-data-count {
+  color: #9ca3af !important;
 }
 
 .custom-segmented-map-list-switch .ant-segmented-item-label {
@@ -393,8 +532,9 @@ span.ant-select-selection-item {
   color: #ccff00 !important;
 }
 
-/* Default dark inputs — single soft stroke on the outer control only */
-.ant-input:not(textarea):not(.ant-input-disabled) {
+/* Default dark inputs — single soft stroke on the outer control only.
+   Skip anything already wrapped by .cp-field (shell owns the border). */
+.ant-input:not(textarea):not(.ant-input-disabled):not(.cp-field *) {
   background-color: #212121 !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: white !important;
@@ -402,11 +542,11 @@ span.ant-select-selection-item {
   box-shadow: none !important;
 }
 
-.ant-input:not(textarea):hover {
+.ant-input:not(textarea):not(.cp-field *):hover {
   border-color: rgba(204, 255, 0, 0.45) !important;
 }
 
-.ant-input:not(textarea):focus {
+.ant-input:not(textarea):not(.cp-field *):focus {
   border-color: #ccff00 !important;
   box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
 }
@@ -416,7 +556,7 @@ span.ant-select-selection-item {
 }
 
 /* Affix wrapper owns the border; nested input stays borderless */
-.ant-input-affix-wrapper {
+.ant-input-affix-wrapper:not(.cp-field *) {
   background-color: #212121 !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: white !important;
@@ -424,12 +564,12 @@ span.ant-select-selection-item {
   box-shadow: none !important;
 }
 
-.ant-input-affix-wrapper:hover {
+.ant-input-affix-wrapper:not(.cp-field *):hover {
   border-color: rgba(204, 255, 0, 0.45) !important;
 }
 
-.ant-input-affix-wrapper-focused,
-.ant-input-affix-wrapper:focus-within {
+.ant-input-affix-wrapper-focused:not(.cp-field *),
+.ant-input-affix-wrapper:not(.cp-field *):focus-within {
   border-color: #ccff00 !important;
   box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.25) !important;
 }
@@ -451,6 +591,15 @@ span.ant-select-selection-item {
 
 .ant-input-affix-wrapper .ant-input::placeholder {
   color: #9ca3af !important;
+}
+
+/* Final guard: .cp-field is the only visible stroke */
+.cp-field .ant-input,
+.cp-field .ant-input-affix-wrapper,
+.cp-field .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
 .ant-input-clear-icon {
@@ -688,6 +837,30 @@ span.ant-select-selection-item {
   background: transparent !important;
   border-bottom-color: #374151 !important;
   color: #fff !important;
+}
+
+.dark-listing-card.ant-card .ant-card-actions,
+.property-card.ant-card .ant-card-actions {
+  background: #212121 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark-listing-card.ant-card .ant-card-actions > li,
+.property-card.ant-card .ant-card-actions > li {
+  color: #9ca3af !important;
+  border-inline-end-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark-listing-card.ant-card .ant-card-meta-title,
+.property-card.ant-card .ant-card-meta-title,
+.dark-listing-card.ant-card a,
+.property-card.ant-card a {
+  color: #fff !important;
+}
+
+.dark-listing-card.ant-card a:hover,
+.property-card.ant-card a:hover {
+  color: #ccff00 !important;
 }
 
 /* Animation Keyframes */

@@ -6,7 +6,9 @@ const PropertiesList = ({ properties }) => {
   return (
     <>
       {properties?.map((property) => (
-        <PropertyCard key={property.id} property={property} />
+        <div key={property.id} className="h-full">
+          <PropertyCard property={property} />
+        </div>
       ))}
     </>
   );

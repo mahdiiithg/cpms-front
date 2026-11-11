@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Input, Button, AutoComplete } from 'antd';
 import { Search, MapPin } from 'lucide-react';
 import { solidCtaClass } from '@/lib/brandTheme';
+import CpField from '@/components/shared/CpField';
 
 const popularLocations = [
   'Malibu, California',
@@ -56,7 +57,7 @@ export default function PropertySearch({
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-white">Location</label>
-          <div className="cp-field">
+          <CpField>
             <AutoComplete
               value={location}
               options={suggestions}
@@ -72,12 +73,12 @@ export default function PropertySearch({
                 variant="borderless"
               />
             </AutoComplete>
-          </div>
+          </CpField>
         </div>
 
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-white">Search</label>
-          <div className="cp-field">
+          <CpField>
             <Input
               prefix={<Search className="h-4 w-4 text-cp-lime" />}
               placeholder={placeholder}
@@ -86,7 +87,7 @@ export default function PropertySearch({
               onKeyPress={handleKeyPress}
               variant="borderless"
             />
-          </div>
+          </CpField>
         </div>
 
         <div className="space-y-1.5">
@@ -97,7 +98,7 @@ export default function PropertySearch({
             type="primary"
             icon={<Search className="h-4 w-4" />}
             onClick={handleSearch}
-            className={`h-[42px] w-full text-base ${solidCtaClass}`}
+            className={`cp-search-cta w-full text-base ${solidCtaClass}`}
           >
             Search Properties
           </Button>

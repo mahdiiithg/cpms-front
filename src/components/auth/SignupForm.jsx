@@ -148,6 +148,7 @@ const SignupForm = ({ onSuccess }) => {
             block
             disabled={!isValid}
             loading={loading}
+            className="!border-0 !bg-cp-lime !font-semibold !text-cp-surface shadow-[0_0_15px_rgba(204,255,0,0.45)] hover:!bg-cp-lime-hover disabled:!opacity-50"
           >
             Sign Up
           </Button>

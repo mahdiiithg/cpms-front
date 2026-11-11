@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button, Dropdown, Avatar } from 'antd';
 import { useSession, signOut } from 'next-auth/react';
 import {
@@ -25,6 +25,7 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileExpandedItem, setMobileExpandedItem] = useState(null);
+  const closeTimerRef = useRef(null);
   const { data: session } = useSession();
   const navigationItems = [
     {
@@ -109,20 +110,33 @@ const Header = () => {
     },
   ];
 
+  const clearCloseTimer = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  };
+
   const handleMouseEnter = (itemId) => {
+    clearCloseTimer();
     setActiveDropdown(itemId);
   };
 
   const handleMouseLeave = () => {
-    setActiveDropdown(null);
+    clearCloseTimer();
+    // Short delay bridges the gap between the trigger and the fixed mega menu.
+    closeTimerRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+      closeTimerRef.current = null;
+    }, 160);
   };
 
   const handleDropdownEnter = () => {
-    // Keep dropdown open when mouse enters the dropdown area
+    clearCloseTimer();
   };
 
   const handleDropdownLeave = () => {
-    setActiveDropdown(null);
+    handleMouseLeave();
   };
 
   // Close mobile menu when clicking outside
@@ -189,7 +203,7 @@ const Header = () => {
                   key={item.id}
                   className="group relative"
                   onMouseEnter={() => handleMouseEnter(item.id)}
-                  onMouseLeave={() => setActiveDropdown(null)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <Link href={item.href}>
                     <button
@@ -212,68 +226,79 @@ const Header = () => {
                     </button>
                   </Link>
 
-                  {/* Individual Dropdown for each item */}
+                  {/* Mega menu: fixed panel + invisible hover bridge under header */}
                   {activeDropdown === item.id && (
-                    <div className="animate-in slide-in-from-top-2 fade-in-0 fixed top-16 left-0 z-40 mt-0 w-full transform border-b border-cp-stroke bg-cp-raised/98 shadow-2xl backdrop-blur-md duration-300">
-                      <div className="animate-in slide-in-from-top-4 fade-in-0 transform px-3 py-4 transition-all duration-300 ease-out sm:px-4 sm:py-6 lg:px-8 lg:py-8">
-                        <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
-                          {/* Main Content */}
-                          <div className="animate-in slide-in-from-left-4 fade-in-0 transform transition-all delay-100 duration-500 lg:col-span-1">
-                            <div className="mb-3 flex items-center space-x-2 sm:mb-4 sm:space-x-3">
-                              <div className="transform rounded-lg bg-[#ccff00]/10 p-1.5 transition-all duration-300 hover:scale-110 hover:bg-[#ccff00]/20 sm:p-2">
-                                {item.icon}
+                    <>
+                      <div
+                        aria-hidden
+                        className="pointer-events-auto fixed inset-x-0 top-14 z-40 h-4"
+                        onMouseEnter={handleDropdownEnter}
+                        onMouseLeave={handleDropdownLeave}
+                      />
+                      <div
+                        className="animate-in slide-in-from-top-2 fade-in-0 fixed top-16 left-0 z-40 w-full transform border-b border-cp-stroke bg-cp-raised/98 shadow-2xl backdrop-blur-md duration-300"
+                        onMouseEnter={handleDropdownEnter}
+                        onMouseLeave={handleDropdownLeave}
+                      >
+                        <div className="animate-in slide-in-from-top-4 fade-in-0 transform px-3 py-4 transition-all duration-300 ease-out sm:px-4 sm:py-6 lg:px-8 lg:py-8">
+                          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+                            <div className="animate-in slide-in-from-left-4 fade-in-0 transform transition-all delay-100 duration-500 lg:col-span-1">
+                              <div className="mb-3 flex items-center space-x-2 sm:mb-4 sm:space-x-3">
+                                <div className="transform rounded-lg bg-[#ccff00]/10 p-1.5 transition-all duration-300 hover:scale-110 hover:bg-[#ccff00]/20 sm:p-2">
+                                  {item.icon}
+                                </div>
+                                <div>
+                                  <h3 className="text-lg font-bold text-white">
+                                    {item.label}
+                                  </h3>
+                                  <p className="text-xs text-gray-400 sm:text-sm">
+                                    {item.description}
+                                  </p>
+                                </div>
                               </div>
-                              <div>
-                                <h3 className="text-lg font-bold text-white">
-                                  {item.label}
-                                </h3>
-                                <p className="text-xs text-gray-400 sm:text-sm">
-                                  {item.description}
-                                </p>
-                              </div>
+                              <Link href={item.href}>
+                                <Button
+                                  className="w-full transform border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] font-semibold text-[#171717] shadow-[0_0_15px_rgba(204,255,0,0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]"
+                                >
+                                  Explore {item.label}
+                                </Button>
+                              </Link>
                             </div>
-                            <Link href={item.href}>
-                              <Button
-                                className="w-full transform border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(204,255,0,0.5)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)]">
-                                Explore {item.label}
-                              </Button>
-                            </Link>
-                          </div>
 
-                          {/* Sections */}
-                          <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-3 lg:col-span-3 lg:gap-6">
-                            {item.sections.map((section, index) => (
-                              <div
-                                key={index}
-                                className={`animate-in slide-in-from-right-4 fade-in-0 transform transition-all duration-500 ease-out`}
-                                style={{
-                                  animationDelay: `${(index + 1) * 100}ms`,
-                                }}
-                              >
-                                <h4 className="mb-2 text-sm font-semibold text-white sm:mb-3 sm:text-base">
-                                  {section.title}
-                                </h4>
-                                <ul className="space-y-1 sm:space-y-2">
-                                  {section.items.map((subItem, itemIndex) => (
-                                    <li
-                                      key={itemIndex}
-                                      className="transform transition-all duration-300 hover:translate-x-1"
-                                    >
-                                      <Link
-                                        href={typeof subItem === 'string' ? item.href : subItem.href}
-                                        className="block transform py-0.5 text-xs text-gray-400 transition-all duration-300 hover:translate-x-1 hover:font-medium hover:text-[#ccff00] sm:py-1 sm:text-sm"
+                            <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-3 lg:col-span-3 lg:gap-6">
+                              {item.sections.map((section, index) => (
+                                <div
+                                  key={index}
+                                  className="animate-in slide-in-from-right-4 fade-in-0 transform transition-all duration-500 ease-out"
+                                  style={{
+                                    animationDelay: `${(index + 1) * 100}ms`,
+                                  }}
+                                >
+                                  <h4 className="mb-2 text-sm font-semibold text-white sm:mb-3 sm:text-base">
+                                    {section.title}
+                                  </h4>
+                                  <ul className="space-y-1 sm:space-y-2">
+                                    {section.items.map((subItem, itemIndex) => (
+                                      <li
+                                        key={itemIndex}
+                                        className="transform transition-all duration-300 hover:translate-x-1"
                                       >
-                                        {typeof subItem === 'string' ? subItem : subItem.label}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ))}
+                                        <Link
+                                          href={typeof subItem === 'string' ? item.href : subItem.href}
+                                          className="block transform py-0.5 text-xs text-gray-400 transition-all duration-300 hover:translate-x-1 hover:font-medium hover:text-[#ccff00] sm:py-1 sm:text-sm"
+                                        >
+                                          {typeof subItem === 'string' ? subItem : subItem.label}
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </>
                   )}
                 </div>
               ))}

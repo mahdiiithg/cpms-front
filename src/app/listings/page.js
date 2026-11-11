@@ -25,12 +25,12 @@ import {
 import { GET_PROPERTIES, SEARCH_PROPERTIES } from '@/lib/queries/property';
 import Link from 'next/link';
 import { ListingViewToggle, ListingsPropertyCard } from '@/components/listings';
+import CpField from '@/components/shared/CpField';
 import {
   buildPropertyFilters,
   unwrapPropertyList,
 } from '@/utils/listingQuery';
 
-const { Option } = Select;
 const { Search: AntSearch } = Input;
 
 export default function PropertyListingsPage() {
@@ -65,7 +65,6 @@ export default function PropertyListingsPage() {
   const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(24);
-  const [savedProperties, setSavedProperties] = useState(new Set());
   const [priceRange, setPriceRange] = useState([0, 2000000]);
   const [bedroomRange, setBedroomRange] = useState([1, 6]);
 
@@ -131,11 +130,12 @@ export default function PropertyListingsPage() {
   ];
 
   const sortOptions = [
-    { value: 'date', label: 'Newest First' },
-    { value: 'price', label: 'Price' },
-    { value: 'bedrooms', label: 'Bedrooms' },
-    { value: 'size', label: 'Size' },
-    { value: 'views', label: 'Most Viewed' }
+    { value: 'date-desc', label: 'Newest First' },
+    { value: 'price-asc', label: 'Price: Low to High' },
+    { value: 'price-desc', label: 'Price: High to Low' },
+    { value: 'bedrooms-desc', label: 'Bedrooms' },
+    { value: 'size-desc', label: 'Size' },
+    { value: 'views-desc', label: 'Most Viewed' },
   ];
 
   // Event handlers
@@ -150,25 +150,17 @@ export default function PropertyListingsPage() {
   };
 
   const handleSortChange = (value) => {
-    const [sortBy, order] = value.includes('-desc') 
-      ? [value.replace('-desc', ''), 'desc']
-      : [value, 'asc'];
-    
-    setFilters(prev => ({ ...prev, sortBy, sortOrder: order }));
+    const [sortBy, order] = value.endsWith('-desc')
+      ? [value.slice(0, -5), 'desc']
+      : value.endsWith('-asc')
+        ? [value.slice(0, -4), 'asc']
+        : [value, 'asc'];
+
+    setFilters((prev) => ({ ...prev, sortBy, sortOrder: order }));
     setCurrentPage(1);
   };
 
-  const toggleSaveProperty = (propertyId) => {
-    setSavedProperties(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(propertyId)) {
-        newSet.delete(propertyId);
-      } else {
-        newSet.add(propertyId);
-      }
-      return newSet;
-    });
-  };
+  const sortValue = `${filters.sortBy}-${filters.sortOrder === 'desc' ? 'desc' : 'asc'}`;
 
   const clearFilters = () => {
     setFilters({
@@ -340,7 +332,7 @@ export default function PropertyListingsPage() {
                   <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
                     Location
                   </label>
-                  <div className="cp-field">
+                  <CpField>
                     <Input
                       placeholder="City, suburb, or address"
                       value={filters.location}
@@ -348,7 +340,7 @@ export default function PropertyListingsPage() {
                       prefix={<MapPin className="h-4 w-4 text-cp-lime" />}
                       variant="borderless"
                     />
-                  </div>
+                  </CpField>
                 </div>
 
                 {/* Special Features */}
@@ -382,21 +374,21 @@ export default function PropertyListingsPage() {
             {/* Results Header */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
-                <div className="cp-field w-48">
+                <CpField className="cp-sort-field min-w-[240px] w-[260px]">
                   <Select
-                    value={`${filters.sortBy}${filters.sortOrder === 'desc' ? '-desc' : ''}`}
+                    value={sortValue}
                     onChange={handleSortChange}
                     className="w-full"
-                    size="large"
                     variant="borderless"
-                  >
-                    {sortOptions.map(option => (
-                      <Option key={option.value} value={option.value}>
-                        {option.label}
-                      </Option>
-                    ))}
-                  </Select>
-                </div>
+                    optionLabelProp="label"
+                    popupMatchSelectWidth
+                    dropdownStyle={{ minWidth: 260 }}
+                    options={sortOptions.map((option) => ({
+                      value: option.value,
+                      label: option.label,
+                    }))}
+                  />
+                </CpField>
               </div>
 
               <ListingViewToggle
@@ -441,14 +433,8 @@ export default function PropertyListingsPage() {
                     ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'
                     : 'space-y-4'
                 }>
-                  {properties.map(property => (
-                    <ListingsPropertyCard
-                      key={property.id}
-                      property={property}
-                      isListView={viewMode === 'list'}
-                      isSaved={savedProperties.has(property.id)}
-                      onToggleSave={toggleSaveProperty}
-                    />
+                  {properties.map((property) => (
+                    <ListingsPropertyCard key={property.id} property={property} />
                   ))}
                 </div>
 
@@ -566,7 +552,7 @@ export default function PropertyListingsPage() {
             <label className="block text-sm font-medium text-white mb-3 drop-shadow-[0_0_8px_rgba(204,255,0,0.2)]">
               Location
             </label>
-            <div className="cp-field">
+            <CpField>
               <Input
                 placeholder="City, suburb, or address"
                 value={filters.location}
@@ -574,7 +560,7 @@ export default function PropertyListingsPage() {
                 prefix={<MapPin className="h-4 w-4 text-cp-lime" />}
                 variant="borderless"
               />
-            </div>
+            </CpField>
           </div>
 
           {/* Special Features */}

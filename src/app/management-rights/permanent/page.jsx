@@ -11,7 +11,6 @@ import {
   Empty,
   Input,
   Pagination,
-  Select,
   Spin,
   Tag,
   Checkbox,
@@ -20,10 +19,10 @@ import {
 } from 'antd';
 import { managementRights } from '@/data/managementRightsData';
 import MRTopSearchBar from '@/components/management-rights/MRTopSearchBar';
+import MRResultsHeader from '@/components/management-rights/MRResultsHeader';
 import MRPageHero from '@/components/management-rights/MRPageHero';
 import MRPageCategoryTabs from '@/components/management-rights/MRPageCategoryTabs';
-
-const { Option } = Select;
+import CpField from '@/components/shared/CpField';
 
 export default function PermanentManagementRightsPage() {
   const meta = managementRights.permanent;
@@ -203,28 +202,32 @@ export default function PermanentManagementRightsPage() {
                   Price range (sale)
                 </label>
                 <div className="flex gap-2">
-                  <Input
-                    type="number"
-                    placeholder="Min"
-                    value={priceRange?.[0] ?? ''}
-                    onChange={(e) => {
-                      const v = Number(e.target.value || 0);
-                      setPriceRange([v, priceRange[1]]);
-                      setPage(1);
-                    }}
-                    className="border-gray-700 bg-[#212121] text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Max"
-                    value={priceRange?.[1] ?? ''}
-                    onChange={(e) => {
-                      const v = Number(e.target.value || 0);
-                      setPriceRange([priceRange[0], v]);
-                      setPage(1);
-                    }}
-                    className="border-gray-700 bg-[#212121] text-white placeholder-gray-500 hover:border-[#ccff00]/50 focus:border-[#ccff00] focus:shadow-[0_0_10px_rgba(204,255,0,0.3)]"
-                  />
+                  <CpField>
+                    <Input
+                      type="number"
+                      placeholder="Min"
+                      value={priceRange?.[0] ?? ''}
+                      onChange={(e) => {
+                        const v = Number(e.target.value || 0);
+                        setPriceRange([v, priceRange[1]]);
+                        setPage(1);
+                      }}
+                      variant="borderless"
+                    />
+                  </CpField>
+                  <CpField>
+                    <Input
+                      type="number"
+                      placeholder="Max"
+                      value={priceRange?.[1] ?? ''}
+                      onChange={(e) => {
+                        const v = Number(e.target.value || 0);
+                        setPriceRange([priceRange[0], v]);
+                        setPage(1);
+                      }}
+                      variant="borderless"
+                    />
+                  </CpField>
                 </div>
               </div>
               <div>
@@ -310,28 +313,15 @@ export default function PermanentManagementRightsPage() {
 
           {/* Results panel */}
           <div className="md:col-span-9">
-            {/* Sort and count bar */}
-            <div className="mb-3 flex items-center justify-between">
-              <div className="text-sm text-gray-400">
-                {loading ? 'Loading…' : `${displayedTotal} opportunities found`}
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400">Sort by</span>
-                <Select
-                  size="small"
-                  value={sortBy}
-                  onChange={(v) => {
-                    setSortBy(v);
-                    setPage(1);
-                  }}
-                  style={{ width: 160 }}
-                >
-                  <Option value="date">Most Recent</Option>
-                  <Option value="price-asc">Price: Low to High</Option>
-                  <Option value="price-desc">Price: High to Low</Option>
-                </Select>
-              </div>
-            </div>
+            <MRResultsHeader
+              loading={loading}
+              total={displayedTotal}
+              sortBy={sortBy}
+              setSortBy={(v) => {
+                setSortBy(v);
+                setPage(1);
+              }}
+            />
 
             {/* Browse by region */}
             <div className="mb-6">

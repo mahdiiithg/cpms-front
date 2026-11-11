@@ -45,6 +45,12 @@ export const solidCtaClass =
 /** Shared control class applied to Ant Input / Select wrappers */
 export const controlClass = 'cp-control';
 
+/** Outer shell for inputs/selects/textareas (pair with variant="borderless") */
+export const fieldShellClass = 'cp-field';
+
+/** Dark auth / dialog surface */
+export const modalSurfaceClass = 'cp-auth-modal';
+
 /** Soft section divider */
 export const hairlineClass = 'border-cp-stroke';
 
