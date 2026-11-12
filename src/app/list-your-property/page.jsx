@@ -223,7 +223,7 @@ export default function ListYourPropertyPage() {
               ) : (
                 <>
                   {labelNode}
-                  <span className="text-cp-faint"> (optional)</span>
+                  <span className="cp-optional-mark"> (optional)</span>
                 </>
               )
             }
