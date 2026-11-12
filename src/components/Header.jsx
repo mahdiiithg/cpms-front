@@ -17,9 +17,10 @@ import {
   ChevronRight,
   User,
   LogOut,
-  UserCircle,
 } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { userInitials } from '@/lib/demoContact';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,6 +28,8 @@ const Header = () => {
   const [mobileExpandedItem, setMobileExpandedItem] = useState(null);
   const closeTimerRef = useRef(null);
   const { data: session } = useSession();
+  const router = useRouter();
+  const avatarInitials = userInitials(session?.user?.name, session?.user?.email);
   const navigationItems = [
     {
       id: 'listings',
@@ -319,10 +322,16 @@ const Header = () => {
                   >
                     <Avatar
                       size="small"
-                      icon={<UserCircle className="h-4 w-4" />}
                       src={session.user?.image}
-                      className="bg-[#ccff00]"
-                    />
+                      style={{
+                        backgroundColor: '#ccff00',
+                        color: '#171717',
+                        fontWeight: 700,
+                        fontSize: 11,
+                      }}
+                    >
+                      {avatarInitials}
+                    </Avatar>
                     <span className="hidden sm:inline text-sm font-medium text-gray-300">
                       {session.user?.name?.split(' ')[0] || 'User'}
                     </span>
@@ -340,21 +349,8 @@ const Header = () => {
               
               <Button
                 className="hidden border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(204,255,0,0.5)] hover:shadow-[0_0_25px_rgba(204,255,0,0.8)] sm:block"
-                onClick={() => {
-                  const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE?.replace(/\D/g, '');
-                  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, '') || adminPhone;
-                  
-                  if (!whatsappNumber) {
-                    console.error('WhatsApp number not configured');
-                    return;
-                  }
-                  
-                  const message = encodeURIComponent(
-                    `Hello Coast Planet, I would like to list my property on your platform. Please contact me to discuss the details and process.`
-                  );
-                  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
-                  window.location.href = whatsappUrl;
-                }}>
+                onClick={() => router.push('/list-your-property')}
+              >
                 <span className="hidden sm:inline">List Your Property</span>
                 <span className="sm:hidden">List</span>
               </Button>
@@ -363,14 +359,8 @@ const Header = () => {
                   <Phone className="h-4 w-4 transition-transform duration-300 hover:scale-110" />
                 }
                 className="hidden border-2 border-[#ccff00] text-[#ccff00] bg-transparent hover:bg-[#ccff00] hover:text-[#171717] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(204,255,0,0.6)] sm:block"
-                onClick={() => {
-                  const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE?.replace(/\D/g, '');
-                  if (!adminPhone) {
-                    console.error('Admin phone number not configured');
-                    return;
-                  }
-                  window.location.href = `tel:+${adminPhone}`;
-                }}>
+                onClick={() => router.push('/contact')}
+              >
                 <span className="hidden lg:inline">Contact Us</span>
                 <span className="lg:hidden">Call</span>
               </Button>
@@ -477,15 +467,21 @@ const Header = () => {
                       <div className="flex items-center space-x-3 px-3 py-2 bg-[#212121] rounded-lg">
                         <Avatar
                           size="small"
-                          icon={<UserCircle className="h-4 w-4" />}
                           src={session.user?.image}
-                          className="bg-[#ccff00]"
-                        />
+                          style={{
+                            backgroundColor: '#ccff00',
+                            color: '#171717',
+                            fontWeight: 700,
+                            fontSize: 11,
+                          }}
+                        >
+                          {avatarInitials}
+                        </Avatar>
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-900">
+                          <p className="text-sm font-medium text-white">
                             {session.user?.name || 'User'}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-400">
                             {session.user?.email}
                           </p>
                         </div>
@@ -534,20 +530,8 @@ const Header = () => {
                   <Button
                     className="w-full border-0 bg-gradient-to-r from-[#ccff00] to-[#ccff00] text-[#171717] font-semibold text-sm shadow-[0_0_15px_rgba(204,255,0,0.5)]"
                     onClick={() => {
-                      const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE?.replace(/\D/g, '');
-                      const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, '') || adminPhone;
-                      
-                      if (!whatsappNumber) {
-                        console.error('WhatsApp number not configured');
-                        return;
-                      }
-                      
-                      const message = encodeURIComponent(
-                        `Hello Coast Planet, I would like to list my property on your platform. Please contact me to discuss the details and process.`
-                      );
-                      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
-                      window.location.href = whatsappUrl;
                       setMobileMenuOpen(false);
+                      router.push('/list-your-property');
                     }}
                   >
                     List Your Property
@@ -556,13 +540,8 @@ const Header = () => {
                     icon={<Phone className="h-3 w-3 sm:h-4 sm:w-4" />}
                     className="w-full text-sm border-2 border-[#ccff00] text-[#ccff00] bg-transparent hover:bg-[#ccff00] hover:text-[#171717] hover:shadow-[0_0_20px_rgba(204,255,0,0.6)]"
                     onClick={() => {
-                      const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE?.replace(/\D/g, '');
-                      if (!adminPhone) {
-                        console.error('Admin phone number not configured');
-                        return;
-                      }
-                      window.location.href = `tel:+${adminPhone}`;
                       setMobileMenuOpen(false);
+                      router.push('/contact');
                     }}
                   >
                     Contact Us

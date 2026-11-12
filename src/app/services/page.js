@@ -5,6 +5,7 @@ import { Button, Card, Tabs, Progress } from 'antd';
 import {
   Home,
   Building,
+  Building2,
   Settings,
   Users,
   CheckCircle,
@@ -23,6 +24,7 @@ import {
   Zap,
 } from 'lucide-react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { serviceCategories, clientTestimonials, processSteps, whyChooseUs } from '@/data/servicesData';
 
 // SEO Metadata
@@ -197,42 +199,28 @@ const ServicesPage = () => {
                 end-to-end solutions that protect and enhance your real estate
                 investments.
               </p>
-              <div className="flex flex-col justify-center gap-6 sm:flex-row animate-fade-in-up">
-                <button className="h-16 transform rounded-2xl border-0 bg-[#ccff00] px-10 text-xl font-semibold text-[#171717] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(204,255,0,0.5)]">
-                  <span className="mr-2">🏢</span>
+              <div className="relative z-20 flex flex-col items-center justify-center gap-4 pb-8 sm:flex-row sm:gap-6 animate-fade-in-up">
+                <a
+                  href="#services"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl border-0 bg-[#ccff00] px-8 text-lg font-semibold text-[#171717] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(204,255,0,0.5)] sm:h-16 sm:px-10 sm:text-xl"
+                >
+                  <Building2 className="h-5 w-5" />
                   Explore Our Services
-                </button>
-                <button className="h-16 transform rounded-2xl border border-[#ccff00]/30 bg-[#ccff00]/10 px-10 text-xl font-semibold text-[#ccff00] backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#ccff00]/20">
-                  <span className="mr-2">📞</span>
+                </a>
+                <Link
+                  href="/contact"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl border border-[#ccff00]/40 bg-[#ccff00]/10 px-8 text-lg font-semibold text-[#ccff00] backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#ccff00]/20 sm:h-16 sm:px-10 sm:text-xl"
+                >
+                  <Phone className="h-5 w-5" />
                   Schedule Consultation
-                </button>
+                </Link>
               </div>
-            </div>
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 transform animate-bounce text-[#ccff00]">
-            <div className="flex flex-col items-center">
-              <p className="mb-2 text-sm">Discover our services</p>
-              <svg
-                className="h-6 w-6 rotate-90 transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
             </div>
           </div>
         </section>
 
         {/* Why Choose Us Section */}
-        <section className="bg-[#1a1a1a] py-20">
+        <section id="services" className="scroll-mt-24 bg-[#1a1a1a] py-20">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-16 text-center">
               <div className="mb-6 inline-block rounded-full bg-[#ccff00]/10 border border-[#ccff00]/30 px-6 py-3 text-sm font-semibold text-[#ccff00]">

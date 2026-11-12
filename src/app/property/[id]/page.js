@@ -24,6 +24,7 @@ import PropertyCard from '@/components/ui/PropertyCard';
 import PropertyLocationMap from '@/components/ui/PropertyLocationMap';
 import { ListingBreadcrumb } from '@/components/listings';
 import { resolvePropertyLatLng } from '@/utils/propertyCoordinates';
+import { telHref, whatsappHref } from '@/lib/demoContact';
 
 /** Coerce API/memory values to a real array before .map/.filter. */
 function asArray(value) {
@@ -145,44 +146,20 @@ export default function PropertyDetailPage() {
       ? `${formatPrice(property.rentPrice) || 'Price on request'} / week`
       : formatPrice(property.salePrice) || 'Price on request';
 
-  const adminPhone = process.env.NEXT_PUBLIC_ADMIN_PHONE;
-  const whatsappBusinessNumber =
-    process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER || adminPhone;
-  const sanitizeDigits = (val) => (val || '').replace(/\D/g, '');
-
   const handleCallNow = () => {
     if (!ensureAuth('Please login to call our team.')) return;
-    const phoneDigits = sanitizeDigits(adminPhone);
-    if (!phoneDigits) {
-      toast.error('Admin contact number is not configured.');
-      return;
-    }
-    window.location.href = `tel:+${phoneDigits}`;
+    window.location.href = telHref();
   };
 
   const handleSendWhatsApp = () => {
     if (!ensureAuth('Please login to message our team.')) return;
-    const waDigits = sanitizeDigits(whatsappBusinessNumber);
-    if (!waDigits) {
-      toast.error('WhatsApp number is not configured.');
-      return;
-    }
-    if (waDigits.length < 8) {
-      toast.error(
-        'WhatsApp number must include country code (e.g., 971xxxxxxxxx).',
-      );
-      return;
-    }
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
     const link = `${origin}/property/${property.id}`;
-    const text = encodeURIComponent(
-      `Hello Coast Planet, I'm interested in "${property.title}" (ID: ${property.id}).\nProperty link: ${link}\nPlease contact me.`,
-    );
-    const waUrl = `https://wa.me/${waDigits}?text=${text}`;
-    const apiUrl = `https://api.whatsapp.com/send?phone=${waDigits}&text=${text}`;
+    const message = `Hello Coast Planet, I'm interested in "${property.title}" (ID: ${property.id}).\nProperty link: ${link}\nPlease contact me.`;
+    const waUrl = whatsappHref(message);
     const popup = window.open(waUrl, '_blank', 'noopener,noreferrer');
     if (!popup) {
-      window.location.href = apiUrl;
+      window.location.href = waUrl;
     }
   };
 
