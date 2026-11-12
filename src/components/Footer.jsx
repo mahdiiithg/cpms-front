@@ -85,7 +85,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="inline-block text-cp-muted transition-colors hover:translate-x-1 hover:text-cp-lime">
+                <Link href="/list-your-property" className="inline-block text-cp-muted transition-colors hover:translate-x-1 hover:text-cp-lime">
                   List Your Property
                 </Link>
               </li>
