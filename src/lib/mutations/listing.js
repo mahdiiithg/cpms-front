@@ -13,6 +13,7 @@ export const CREATE_LISTING = gql`
       rentPrice
       bedrooms
       bathrooms
+      status
       images
       location {
         address

@@ -190,15 +190,13 @@ export default function ListYourPropertyPage() {
         },
       });
 
-      const id = data?.createProperty?.id;
       const savedCity = data?.createProperty?.location?.city;
       toast.success(
         savedCity
-          ? `Property listed in ${savedCity} with photo gallery.`
-          : 'Property listed with photo gallery.'
+          ? `Submitted in ${savedCity} for approval. Track it under My listings.`
+          : 'Submitted for approval. Track it under My listings.',
       );
-      if (id) router.push(`/property/${id}`);
-      else router.push('/listings');
+      router.push('/dashboard/listings');
     } catch (error) {
       toast.error(error?.message || 'Could not save property.');
     }

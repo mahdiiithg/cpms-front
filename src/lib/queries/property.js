@@ -30,6 +30,8 @@ export const GET_PROPERTIES = gql`
         inquiries
         saves
         listingStatus
+        status
+        rejectionReason
         featured
         urgent
         contactPerson
@@ -97,6 +99,8 @@ export const GET_PROPERTY = gql`
       inquiries
       saves
       listingStatus
+      status
+      rejectionReason
       featured
       urgent
       contactPerson
@@ -174,6 +178,8 @@ export const SEARCH_PROPERTIES = gql`
         inquiries
         saves
         listingStatus
+        status
+        rejectionReason
         featured
         urgent
         contactPerson
@@ -196,5 +202,79 @@ export const SEARCH_PROPERTIES = gql`
   }
 `;
 
+export const GET_MY_PROPERTIES = gql`
+  query GetMyProperties {
+    myProperties {
+      id
+      title
+      description
+      type
+      listingType
+      bedrooms
+      bathrooms
+      salePrice
+      rentPrice
+      status
+      rejectionReason
+      listingStatus
+      isActive
+      images
+      location {
+        address
+        city
+        state
+        country
+      }
+      agent {
+        id
+        name
+        email
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const GET_PENDING_PROPERTIES = gql`
+  query GetPendingProperties {
+    pendingProperties {
+      id
+      title
+      description
+      type
+      listingType
+      bedrooms
+      bathrooms
+      salePrice
+      rentPrice
+      status
+      rejectionReason
+      listingStatus
+      images
+      location {
+        address
+        city
+        state
+        country
+      }
+      agent {
+        id
+        name
+        email
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 // Re-export if needed
-export default { GET_PROPERTIES, GET_PROPERTY, GET_NEARBY_PROPERTIES, SEARCH_PROPERTIES };
+export default {
+  GET_PROPERTIES,
+  GET_PROPERTY,
+  GET_NEARBY_PROPERTIES,
+  SEARCH_PROPERTIES,
+  GET_MY_PROPERTIES,
+  GET_PENDING_PROPERTIES,
+};

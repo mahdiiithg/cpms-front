@@ -92,7 +92,7 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      <div className="mb-10 grid gap-4 sm:grid-cols-2">
+      <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Link
           href="/dashboard/profile"
           className={`${panelClass} block p-6 transition hover:border-cp-lime/40`}
@@ -106,6 +106,22 @@ const DashboardPage = () => {
               <p className="mt-1 text-sm text-cp-muted">
                 Update name, email, phone, and location for your Coast Planet
                 account.
+              </p>
+            </div>
+          </div>
+        </Link>
+        <Link
+          href="/dashboard/listings"
+          className={`${panelClass} block p-6 transition hover:border-cp-lime/40`}
+        >
+          <div className="flex items-start gap-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cp-lime/30 bg-cp-lime/10 text-cp-lime">
+              <Building2 className="h-5 w-5" />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-white">My listings</h2>
+              <p className="mt-1 text-sm text-cp-muted">
+                See approval status, edit your properties, and track re-review.
               </p>
             </div>
           </div>
@@ -130,7 +146,10 @@ const DashboardPage = () => {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <Button type="primary" className={solidCtaClass} href="/dashboard/profile">
+        <Button type="primary" className={solidCtaClass} href="/dashboard/listings">
+          My listings
+        </Button>
+        <Button className={outlineCtaClass} href="/dashboard/profile">
           Edit profile
         </Button>
         <Button className={outlineCtaClass} href="/listings">

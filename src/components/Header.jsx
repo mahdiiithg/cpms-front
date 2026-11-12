@@ -10,6 +10,7 @@ import {
   ChevronDown,
   Home,
   Building,
+  Building2,
   Settings,
   Users,
   Globe,
@@ -182,6 +183,15 @@ const Header = () => {
       label: (
         <Link href="/dashboard" className="flex items-center space-x-2">
           <span>Dashboard</span>
+        </Link>
+      ),
+    },
+    {
+      key: 'my-listings',
+      icon: <Building2 className="h-4 w-4" />,
+      label: (
+        <Link href="/dashboard/listings" className="flex items-center space-x-2">
+          <span>My listings</span>
         </Link>
       ),
     },
@@ -520,6 +530,15 @@ const Header = () => {
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Dashboard
+                      </Button>
+                      <Button
+                        type="default"
+                        icon={<Building2 className="h-3 w-3 sm:h-4 sm:w-4" />}
+                        className="w-full text-sm"
+                        href="/dashboard/listings"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        My listings
                       </Button>
                       <Button
                         type="default"
