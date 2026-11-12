@@ -112,6 +112,7 @@ export const getUserFromDb = async (email, password) => {
       last_name: user.last_name || null,
       provider: user.provider,
       hasPassword: user.hasPassword,
+      admin: Boolean(user.admin),
       token: user.token,
     };
   } catch (error) {

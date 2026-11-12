@@ -23,6 +23,7 @@ export const LOGIN_USER = gql`
       last_name
       provider
       hasPassword
+      admin
       token
     }
   }
@@ -41,6 +42,7 @@ export const REGISTER_USER = gql`
       last_name
       provider
       hasPassword
+      admin
       token
     }
   }

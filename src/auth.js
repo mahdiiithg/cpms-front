@@ -28,6 +28,7 @@ const handleCredentialsAuth = (user, token) => {
   token.userId = user.id;
   token.provider = PROVIDER_TYPES.CREDENTIALS;
   token.last_name = user.last_name || null;
+  token.admin = Boolean(user.admin);
   // Keep a full display name for avatar initials (first + last)
   if (user.name) token.name = user.name;
   return token;
@@ -220,11 +221,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         provider: token.provider,
         // Ensure a unified userId is present for both providers
         userId: token.userId || token.id,
+        admin: Boolean(token.admin),
         user: {
           ...session.user,
           id: token.id,
           name: token.name || session.user?.name,
           last_name: token.last_name || null,
+          admin: Boolean(token.admin),
         },
       };
 
