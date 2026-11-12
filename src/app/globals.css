@@ -100,7 +100,31 @@ body {
 .cp-field .ant-input {
   padding: 0 !important;
   color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #ccff00 !important;
   min-height: auto !important;
+}
+
+.cp-field .ant-input::placeholder {
+  color: #d1d5db !important;
+  -webkit-text-fill-color: #d1d5db !important;
+  opacity: 1 !important;
+}
+
+/* Native file picker (if ever visible) — never black-on-dark */
+input[type='file'],
+input[type='file']::file-selector-button {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+input[type='file']::file-selector-button {
+  background: #212121 !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 9999px !important;
+  padding: 6px 14px !important;
+  margin-inline-end: 10px !important;
+  cursor: pointer !important;
 }
 
 /* Ant InputNumber inherits browser/dark-scheme black text unless forced */
@@ -118,8 +142,8 @@ body {
 }
 
 .cp-field .ant-input-number-input::placeholder {
-  color: #9ca3af !important;
-  -webkit-text-fill-color: #9ca3af !important;
+  color: #d1d5db !important;
+  -webkit-text-fill-color: #d1d5db !important;
   opacity: 1 !important;
 }
 
@@ -143,9 +167,8 @@ body {
   color: inherit !important;
 }
 
-.cp-field .ant-input::placeholder,
 .cp-field .ant-select-selection-placeholder {
-  color: #9ca3af !important;
+  color: #d1d5db !important;
 }
 
 .cp-field .ant-select-selection-search-input {

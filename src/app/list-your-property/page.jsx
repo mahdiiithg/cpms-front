@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useMutation } from '@apollo/client';
-import { Button, Form, Input, Select, InputNumber } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { Building2, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { CREATE_LISTING } from '@/lib/mutations/listing';
@@ -22,6 +22,19 @@ import {
 } from '@/lib/brandTheme';
 
 const { TextArea } = Input;
+
+/** Inline ink — Ant InputNumber ignored shared CSS in some browsers; keep digits light. */
+const lightFieldStyle = {
+  color: '#ffffff',
+  WebkitTextFillColor: '#ffffff',
+  caretColor: '#ccff00',
+};
+
+const toOptionalNumber = (value) => {
+  if (value === undefined || value === null || value === '') return undefined;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : undefined;
+};
 
 export default function ListYourPropertyPage() {
   const router = useRouter();
@@ -65,10 +78,16 @@ export default function ListYourPropertyPage() {
             description: values.description || '',
             type: values.type,
             listingType: values.listingType,
-            bedrooms: values.bedrooms,
-            bathrooms: values.bathrooms,
-            salePrice: values.listingType === 'sale' ? values.price : null,
-            rentPrice: values.listingType === 'rent' ? values.price : null,
+            bedrooms: toOptionalNumber(values.bedrooms),
+            bathrooms: toOptionalNumber(values.bathrooms),
+            salePrice:
+              values.listingType === 'sale'
+                ? toOptionalNumber(values.price)
+                : null,
+            rentPrice:
+              values.listingType === 'rent'
+                ? toOptionalNumber(values.price)
+                : null,
             images: photos,
             location: {
               city: values.city,
@@ -185,13 +204,13 @@ export default function ListYourPropertyPage() {
                 rules={[{ required: true, message: 'Price is required' }]}
               >
                 <CpField>
-                  <InputNumber
+                  <Input
                     variant="borderless"
                     size="large"
-                    className="w-full !text-white"
-                    controls={false}
-                    min={0}
+                    inputMode="decimal"
                     placeholder="850000"
+                    style={lightFieldStyle}
+                    className="!text-white placeholder:!text-cp-muted"
                   />
                 </CpField>
               </Form.Item>
@@ -200,13 +219,13 @@ export default function ListYourPropertyPage() {
                 label={<span className="text-cp-subtle">Beds</span>}
               >
                 <CpField>
-                  <InputNumber
+                  <Input
                     variant="borderless"
                     size="large"
-                    className="w-full !text-white"
-                    controls={false}
-                    min={0}
+                    inputMode="numeric"
                     placeholder="2"
+                    style={lightFieldStyle}
+                    className="!text-white placeholder:!text-cp-muted"
                   />
                 </CpField>
               </Form.Item>
@@ -215,13 +234,13 @@ export default function ListYourPropertyPage() {
                 label={<span className="text-cp-subtle">Baths</span>}
               >
                 <CpField>
-                  <InputNumber
+                  <Input
                     variant="borderless"
                     size="large"
-                    className="w-full !text-white"
-                    controls={false}
-                    min={0}
+                    inputMode="numeric"
                     placeholder="2"
+                    style={lightFieldStyle}
+                    className="!text-white placeholder:!text-cp-muted"
                   />
                 </CpField>
               </Form.Item>
