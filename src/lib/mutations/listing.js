@@ -20,6 +20,10 @@ export const CREATE_LISTING = gql`
         state
         country
         zipCode
+        coordinates {
+          latitude
+          longitude
+        }
       }
     }
   }
