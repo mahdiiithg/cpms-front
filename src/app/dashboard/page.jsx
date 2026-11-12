@@ -4,11 +4,8 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useQuery } from '@apollo/client';
 import { Button, Spin } from 'antd';
 import { Building2, Heart, UserRound, MapPin } from 'lucide-react';
-import { GET_PROPERTIES } from '@/lib/queries';
-import { unwrapPropertyList } from '@/utils/listingQuery';
 import {
   pageSurfaceClass,
   panelClass,
@@ -19,16 +16,6 @@ import {
 const DashboardPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
-
-  const { data: propertiesData, loading } = useQuery(GET_PROPERTIES, {
-    variables: {
-      filters: { listingStatus: 'active', limit: 6, offset: 0 },
-    },
-    errorPolicy: 'all',
-    fetchPolicy: 'cache-and-network',
-  });
-
-  const { properties, totalCount } = unwrapPropertyList(propertiesData);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -59,21 +46,27 @@ const DashboardPage = () => {
           Welcome back, {firstName}
         </h1>
         <p className="mt-2 max-w-2xl text-cp-muted">
-          Manage your Coast Planet profile and jump back into coastal property
-          listings.
+          Your submitted properties live under My listings — check approval
+          status, edit, and resubmit for review.
         </p>
       </div>
 
       <div className="mb-8 grid gap-4 sm:grid-cols-3">
-        <div className={`${panelClass} p-5`}>
+        <Link
+          href="/dashboard/listings"
+          className={`${panelClass} block p-5 transition hover:border-cp-lime/40`}
+        >
           <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-cp-lime/20 bg-cp-lime/10">
             <Building2 className="h-5 w-5 text-cp-lime" />
           </div>
-          <p className="text-sm text-cp-subtle">Active listings</p>
+          <p className="text-sm text-cp-subtle">My listings</p>
           <p className="mt-1 text-2xl font-semibold text-white">
-            {loading ? '—' : totalCount || properties.length}
+            Open →
           </p>
-        </div>
+          <p className="mt-1 text-xs text-cp-faint">
+            Pending, live, and re-approval status
+          </p>
+        </Link>
         <div className={`${panelClass} p-5`}>
           <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-cp-lime/20 bg-cp-lime/10">
             <MapPin className="h-5 w-5 text-cp-lime" />
@@ -94,11 +87,28 @@ const DashboardPage = () => {
 
       <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Link
-          href="/dashboard/profile"
+          href="/dashboard/listings"
           className={`${panelClass} block p-6 transition hover:border-cp-lime/40`}
         >
           <div className="flex items-start gap-4">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cp-lime text-cp-surface">
+              <Building2 className="h-5 w-5" />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-white">My listings</h2>
+              <p className="mt-1 text-sm text-cp-muted">
+                Find every property you submitted, with Pending / Live / Needs
+                re-approval badges.
+              </p>
+            </div>
+          </div>
+        </Link>
+        <Link
+          href="/dashboard/profile"
+          className={`${panelClass} block p-6 transition hover:border-cp-lime/40`}
+        >
+          <div className="flex items-start gap-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cp-lime/30 bg-cp-lime/10 text-cp-lime">
               <UserRound className="h-5 w-5" />
             </div>
             <div>
@@ -106,22 +116,6 @@ const DashboardPage = () => {
               <p className="mt-1 text-sm text-cp-muted">
                 Update name, email, phone, and location for your Coast Planet
                 account.
-              </p>
-            </div>
-          </div>
-        </Link>
-        <Link
-          href="/dashboard/listings"
-          className={`${panelClass} block p-6 transition hover:border-cp-lime/40`}
-        >
-          <div className="flex items-start gap-4">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cp-lime/30 bg-cp-lime/10 text-cp-lime">
-              <Building2 className="h-5 w-5" />
-            </div>
-            <div>
-              <h2 className="text-lg font-semibold text-white">My listings</h2>
-              <p className="mt-1 text-sm text-cp-muted">
-                See approval status, edit your properties, and track re-review.
               </p>
             </div>
           </div>

@@ -169,11 +169,11 @@ const Header = () => {
   // User dropdown menu items
   const userMenuItems = [
     {
-      key: 'profile',
-      icon: <User className="h-4 w-4" />,
+      key: 'my-listings',
+      icon: <Building2 className="h-4 w-4" />,
       label: (
-        <Link href="/dashboard/profile" className="flex items-center space-x-2">
-          <span>Profile</span>
+        <Link href="/dashboard/listings" className="flex items-center space-x-2">
+          <span>My listings</span>
         </Link>
       ),
     },
@@ -187,11 +187,11 @@ const Header = () => {
       ),
     },
     {
-      key: 'my-listings',
-      icon: <Building2 className="h-4 w-4" />,
+      key: 'profile',
+      icon: <User className="h-4 w-4" />,
       label: (
-        <Link href="/dashboard/listings" className="flex items-center space-x-2">
-          <span>My listings</span>
+        <Link href="/dashboard/profile" className="flex items-center space-x-2">
+          <span>Profile</span>
         </Link>
       ),
     },
@@ -338,33 +338,43 @@ const Header = () => {
             <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
               {/* User Profile Section - Show when logged in */}
               {session ? (
-                <Dropdown
-                  menu={{ items: userMenuItems }}
-                  placement="bottomRight"
-                  trigger={['click']}
-                >
+                <>
                   <Button
                     type="text"
-                    className="flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover:bg-[#212121]"
+                    className="hidden items-center gap-1.5 !text-cp-lime transition-all duration-300 hover:!bg-cp-lime/10 sm:inline-flex"
+                    icon={<Building2 className="h-4 w-4" />}
+                    onClick={() => router.push('/dashboard/listings')}
                   >
-                    <Avatar
-                      size="small"
-                      src={session.user?.image}
-                      style={{
-                        backgroundColor: '#ccff00',
-                        color: '#171717',
-                        fontWeight: 700,
-                        fontSize: 11,
-                      }}
-                    >
-                      {avatarInitials}
-                    </Avatar>
-                    <span className="hidden sm:inline text-sm font-medium text-gray-300">
-                      {session.user?.name?.split(' ')[0] || 'User'}
-                    </span>
-                    <ChevronDown className="h-3 w-3 text-gray-500" />
+                    My listings
                   </Button>
-                </Dropdown>
+                  <Dropdown
+                    menu={{ items: userMenuItems }}
+                    placement="bottomRight"
+                    trigger={['click']}
+                  >
+                    <Button
+                      type="text"
+                      className="flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover:bg-[#212121]"
+                    >
+                      <Avatar
+                        size="small"
+                        src={session.user?.image}
+                        style={{
+                          backgroundColor: '#ccff00',
+                          color: '#171717',
+                          fontWeight: 700,
+                          fontSize: 11,
+                        }}
+                      >
+                        {avatarInitials}
+                      </Avatar>
+                      <span className="hidden sm:inline text-sm font-medium text-gray-300">
+                        {session.user?.name?.split(' ')[0] || 'User'}
+                      </span>
+                      <ChevronDown className="h-3 w-3 text-gray-500" />
+                    </Button>
+                  </Dropdown>
+                </>
               ) : (
                 // Login button for non-authenticated users
                 <Button
