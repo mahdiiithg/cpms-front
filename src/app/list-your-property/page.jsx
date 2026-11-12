@@ -188,7 +188,8 @@ export default function ListYourPropertyPage() {
                   <InputNumber
                     variant="borderless"
                     size="large"
-                    className="w-full"
+                    className="w-full !text-white"
+                    controls={false}
                     min={0}
                     placeholder="850000"
                   />
@@ -202,8 +203,10 @@ export default function ListYourPropertyPage() {
                   <InputNumber
                     variant="borderless"
                     size="large"
-                    className="w-full"
+                    className="w-full !text-white"
+                    controls={false}
                     min={0}
+                    placeholder="2"
                   />
                 </CpField>
               </Form.Item>
@@ -215,8 +218,10 @@ export default function ListYourPropertyPage() {
                   <InputNumber
                     variant="borderless"
                     size="large"
-                    className="w-full"
+                    className="w-full !text-white"
+                    controls={false}
                     min={0}
+                    placeholder="2"
                   />
                 </CpField>
               </Form.Item>
