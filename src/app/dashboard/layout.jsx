@@ -1,14 +1,12 @@
-import SessionWrapper from '../../components/shared/SessionWrapper';
-import Header from '../../components/ui/Header';
+import Header from '@/components/Header';
+import { pageSurfaceClass } from '@/lib/brandTheme';
 
-const DashboardLayout = (props) => {
+const DashboardLayout = ({ children }) => {
   return (
-    <SessionWrapper>
-      <div className="flex h-screen flex-col overflow-y-auto bg-white p-3">
-        <Header />
-        {props.children}
-      </div>
-    </SessionWrapper>
+    <div className={`${pageSurfaceClass} flex min-h-screen flex-col`}>
+      <Header />
+      <main className="flex-1">{children}</main>
+    </div>
   );
 };
 

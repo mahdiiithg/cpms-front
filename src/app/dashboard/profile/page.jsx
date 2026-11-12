@@ -1,40 +1,62 @@
 'use client';
 
-import useMediaQuery from '@/hooks/useMediaQuery';
-import DashboardHeader from '@/components/ui/DashboardHeader';
+import { useEffect, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { UserRound } from 'lucide-react';
-import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Row, Col, Avatar, Typography, Divider } from 'antd';
-import ProfileForm from '@/components/ui/ProfileForm';
+import * as Yup from 'yup';
+import { Avatar, Spin } from 'antd';
+import { UserRound } from 'lucide-react';
 import { useMutation, useQuery } from '@apollo/client';
+import { toast } from 'sonner';
+import ProfileForm from '@/components/ui/ProfileForm';
 import { GET_USER } from '@/lib/queries';
 import { UPDATE_USER } from '@/lib/mutations/user';
-import { toast } from 'sonner';
-
-const { Text } = Typography;
+import { pageSurfaceClass, panelClass } from '@/lib/brandTheme';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
-  lastName: Yup.string().required('Last name is required'),
+  lastName: Yup.string().nullable(),
   email: Yup.string().email('Invalid email').required('Email is required'),
-  phone: Yup.string(),
-  city: Yup.string(),
+  phone: Yup.string().nullable(),
+  city: Yup.string().nullable(),
 });
 
-const ProfilePage = () => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const { data: session } = useSession();
+function formatJoinedDate(value) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toLocaleDateString('en-AU', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
 
-  const userId =
-    session?.provider === 'credentials' ? session?.user?.id : session?.userId;
+function initialsFrom(name, email) {
+  const parts = String(name || '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (parts.length >= 2) {
+    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  }
+  if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
+  if (email) return email.slice(0, 2).toUpperCase();
+  return 'CP';
+}
+
+const ProfilePage = () => {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  const userId = session?.userId || session?.user?.id;
 
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm({
     mode: 'onChange',
@@ -49,46 +71,66 @@ const ProfilePage = () => {
   });
 
   const { data: userData, loading: loadingGetUser } = useQuery(GET_USER, {
-    variables: {
-      id: userId,
-    },
+    variables: { id: userId },
     skip: !userId,
+    fetchPolicy: 'network-only',
     onCompleted: (data) => {
+      const user = data?.getUser;
+      if (!user) return;
       reset({
-        name: data.getUser.name || '',
-        lastName: data.getUser.last_name || '',
-        email: data.getUser.email || '',
-        phone: data.getUser.phone || '',
-        city: data.getUser.city || '',
+        name: user.name || '',
+        lastName: user.last_name || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        city: user.city || '',
+      });
+    },
+    onError: () => {
+      // Fall back to session identity if profile API is unavailable
+      reset({
+        name: session?.user?.name?.split(' ')?.[0] || '',
+        lastName: session?.user?.name?.split(' ')?.slice(1).join(' ') || '',
+        email: session?.user?.email || '',
+        phone: '',
+        city: '',
       });
     },
   });
 
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER);
 
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace('/signin?callbackUrl=%2Fdashboard%2Fprofile');
+    }
+  }, [status, router]);
+
   const user = userData?.getUser;
+  const displayName = useMemo(() => {
+    const full = [user?.name, user?.last_name].filter(Boolean).join(' ');
+    return full || session?.user?.name || 'Coast Planet member';
+  }, [user, session]);
+
+  const joinedLabel = formatJoinedDate(user?.createdAt);
 
   const onSubmit = async (data) => {
+    if (!userId) {
+      toast.error('You must be signed in to update your profile.');
+      return;
+    }
+
     try {
-      const updateVariables = {
-        id: userId,
-        input: {},
+      const input = {
+        name: data.name,
+        last_name: data.lastName || null,
+        email: data.email,
+        phone: data.phone || null,
+        city: data.city || null,
       };
 
-      if (data.name) updateVariables.input.name = data.name;
-      if (data.lastName) updateVariables.input.last_name = data.lastName;
-      if (data.email) updateVariables.input.email = data.email;
-      if (data.phone) updateVariables.input.phone = data.phone;
-      if (data.city) updateVariables.input.city = data.city;
-
       await updateUser({
-        variables: updateVariables,
-        refetchQueries: [
-          {
-            query: GET_USER,
-            variables: { id: userId },
-          },
-        ],
+        variables: { id: userId, input },
+        refetchQueries: [{ query: GET_USER, variables: { id: userId } }],
       });
 
       toast.success('Profile updated successfully.');
@@ -97,82 +139,71 @@ const ProfilePage = () => {
     }
   };
 
+  if (status === 'loading' || status === 'unauthenticated') {
+    return (
+      <div className={`${pageSurfaceClass} flex min-h-[50vh] items-center justify-center`}>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex h-full flex-col">
-      <DashboardHeader />
+    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mb-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cp-lime">
+          Account
+        </p>
+        <div className="mt-2 flex items-center gap-2">
+          <UserRound className="h-7 w-7 text-cp-lime" />
+          <h1 className="text-3xl font-semibold text-white sm:text-4xl">
+            Your profile
+          </h1>
+        </div>
+        <p className="mt-2 text-cp-muted">
+          Keep your Coast Planet contact details up to date for property
+          enquiries and account access.
+        </p>
+      </div>
 
-      <div className="flex flex-1 items-start justify-center">
-        <div className="flex h-full w-full max-w-[1200px] flex-col items-start justify-start gap-4 md:p-10 lg:p-32 lg:py-5">
-          {/* header */}
-          <div className="mb-4 flex h-fit w-full flex-wrap items-start justify-between gap-3 md:mb-8">
-            <div className="flex w-fit items-center justify-start gap-1">
-              <UserRound size={isMobile ? 23 : 38} />
-              <h1 className="text-xl uppercase md:text-2xl lg:text-4xl">
-                your profile
-              </h1>
-            </div>
-          </div>
-
-          {/* info section */}
-          <div className="w-full p-4 px-0">
-            <Row gutter={[16, 16]} align="middle">
-              <Col xs={24} md={4}>
-                <Avatar
-                  style={{
-                    backgroundColor: '#ccff00',
-                    verticalAlign: 'middle',
-                  }}
-                  size="large"
-                >
-                  {session?.user?.name?.split(' ')?.[0]}
-                </Avatar>
-              </Col>
-              <Col xs={24} md={20} className="space-y-2">
-                <Row gutter={16}>
-                  <Col xs={24} sm={12} md={6}>
-                    <Text type="secondary">Username:</Text>
-                    <div className="font-semibold">{user?.name}</div>
-                  </Col>
-                  <Col xs={24} sm={12} md={6}>
-                    <Text type="secondary">Membership Date:</Text>
-                    <div className="font-semibold">6/30/2025 (Test)</div>
-                  </Col>
-                  <Col xs={24} sm={12} md={6}>
-                    <Text type="secondary">Active Plan:</Text>
-                    <div className="font-semibold">Gold Plan (Test)</div>
-                  </Col>
-                  <Col xs={24} sm={12} md={6}>
-                    <Text type="secondary">Last Payment:</Text>
-                    <div className="font-semibold">
-                      4/25/2025 - 11:56 PM (Test)
-                    </div>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-            <div className="mt-4 flex w-full items-center gap-4">
-              <div className="w-fit">
-                <h2 className="text-lg font-normal md:text-2xl">
-                  User Settings
-                </h2>
-              </div>
-              <div className="flex-1">
-                <Divider />
-              </div>
-            </div>
-          </div>
-
-          {/* form */}
-          <div className="w-full">
-            <ProfileForm
-              loading={loadingGetUser || loadingUpdateUser}
-              control={control}
-              errors={errors}
-              handleSubmit={handleSubmit}
-              onSubmit={onSubmit}
-            />
+      <div className={`${panelClass} mb-6 p-6`}>
+        <div className="flex flex-wrap items-center gap-4">
+          <Avatar
+            size={64}
+            style={{
+              backgroundColor: '#ccff00',
+              color: '#171717',
+              fontWeight: 700,
+            }}
+          >
+            {initialsFrom(displayName, user?.email || session?.user?.email)}
+          </Avatar>
+          <div className="min-w-0 flex-1">
+            <h2 className="truncate text-xl font-semibold text-white">
+              {displayName}
+            </h2>
+            <p className="truncate text-sm text-cp-subtle">
+              {user?.email || session?.user?.email}
+            </p>
+            {joinedLabel ? (
+              <p className="mt-1 text-xs text-cp-faint">
+                Member since {joinedLabel}
+              </p>
+            ) : null}
           </div>
         </div>
+      </div>
+
+      <div className={`${panelClass} p-6`}>
+        <h3 className="mb-4 text-lg font-semibold text-white">
+          Profile details
+        </h3>
+        <ProfileForm
+          loading={loadingGetUser || loadingUpdateUser}
+          control={control}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+        />
       </div>
     </div>
   );

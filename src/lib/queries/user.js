@@ -11,6 +11,25 @@ export const GET_USER = gql`
       hasPassword
       city
       phone
+      createdAt
+      avatar
+    }
+  }
+`;
+
+export const GET_ME = gql`
+  query Me {
+    me {
+      id
+      email
+      name
+      last_name
+      provider
+      hasPassword
+      city
+      phone
+      createdAt
+      avatar
     }
   }
 `;

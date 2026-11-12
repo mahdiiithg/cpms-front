@@ -1,57 +1,46 @@
 'use client';
 
-import useMediaQuery from '@/hooks/useMediaQuery';
-import DashboardHeader from '@/components/ui/DashboardHeader';
-import GymsList from '@/components/GymsList';
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useQuery } from '@apollo/client';
 import { Heart } from 'lucide-react';
-import Empty from '@/components/ui/Empty';
-import { GET_USER_WISHLIST } from '@/lib/queries/propertyQueries';
+import { Button, Spin } from 'antd';
+import { pageSurfaceClass, panelClass, outlineCtaClass } from '@/lib/brandTheme';
 
 const WishListPage = () => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { status } = useSession();
 
-  const { data: wishListData, loading } = useQuery(GET_USER_WISHLIST, {
-    variables: {
-      userId:
-        session?.provider === 'credentials'
-          ? session?.user?.id
-          : session?.userId,
-    },
-  });
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace('/signin?callbackUrl=%2Fdashboard%2Fwishlist');
+    }
+  }, [status, router]);
 
-  const gymCount = wishListData?.getWishlistGyms?.length || 0;
+  if (status === 'loading' || status === 'unauthenticated') {
+    return (
+      <div className={`${pageSurfaceClass} flex min-h-[50vh] items-center justify-center`}>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
-    <div className="flex h-full flex-col">
-      <DashboardHeader />
-
-      <div className="flex flex-1 items-start justify-center">
-        <div className="flex h-full w-full max-w-[1200px] flex-col items-start justify-start gap-4 md:p-10 lg:p-32 lg:py-5">
-          {/* header */}
-          <div className="flex h-fit w-full items-start justify-start">
-            <div className="flex w-fit items-center justify-start gap-1">
-              <Heart size={isMobile ? 23 : 38} />
-              <h1 className="text-xl uppercase md:text-2xl lg:text-4xl">
-                Wishlist
-              </h1>
-            </div>
-          </div>
-          {/* list */}
-          <div className="w-full flex-1">
-            {gymCount === 0 && !loading ? (
-              <Empty message="Your wishlist is empty." />
-            ) : (
-              <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] sm:justify-items-stretch">
-                <GymsList
-                  gyms={wishListData?.getWishlistGyms}
-                  loading={loading}
-                />
-              </div>
-            )}
-          </div>
+    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mb-6 flex items-center gap-2">
+        <Heart className="h-7 w-7 text-cp-lime" />
+        <h1 className="text-3xl font-semibold text-white">Wishlist</h1>
+      </div>
+      <div className={`${panelClass} p-8 text-center`}>
+        <p className="text-cp-muted">
+          Saved properties will appear here. Browse listings to start building
+          your shortlist.
+        </p>
+        <div className="mt-6">
+          <Link href="/listings">
+            <Button className={outlineCtaClass}>Browse listings</Button>
+          </Link>
         </div>
       </div>
     </div>
