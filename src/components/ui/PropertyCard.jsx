@@ -69,12 +69,14 @@ const PropertyCard = ({ property }) => {
   return (
     <div className="flex h-full w-full max-w-[610px] min-w-[280px] flex-col rounded-[30px] border border-cp-stroke bg-cp-raised p-3 transition-all duration-300 hover:border-cp-lime/30 hover:shadow-[0_0_20px_rgba(204,255,0,0.18)] sm:min-w-[300px] sm:p-3.5 md:min-w-0">
       <div className="flex h-full min-h-0 flex-1 flex-col">
-        {/* Image — fixed aspect so broken/missing media cannot collapse the card */}
-        <div className="relative mb-4 aspect-[16/10] w-full flex-shrink-0 overflow-hidden rounded-3xl bg-cp-elevated sm:rounded-3xl">
-          <ImageSlider images={images} altText={property.title} containerClass="absolute inset-0 h-full w-full min-h-0" />
+        {/* Media shell — fixed aspect; ImageSlider must fill 100% (object-cover) */}
+        <div className="relative mb-4 aspect-[16/10] w-full flex-shrink-0 overflow-hidden rounded-3xl bg-cp-elevated">
+          <div className="absolute inset-0">
+            <ImageSlider images={images} altText={property.title} />
+          </div>
 
           {/* Badges */}
-          <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
+          <div className="pointer-events-none absolute top-2 left-2 z-10 flex flex-col gap-1">
             {property.featured && (
               <div className="rounded-full bg-[#ccff00] px-2 py-1 text-xs font-semibold text-[#171717] shadow-[0_0_10px_rgba(204,255,0,0.6)]">
                 Featured
@@ -85,7 +87,11 @@ const PropertyCard = ({ property }) => {
             </div>
           </div>
 
-          <BookmarkButton onClick={toggleAddToWishList} loading={loading} isActive={isInWishList()} />
+          <BookmarkButton
+            onClick={toggleAddToWishList}
+            loading={loading}
+            isActive={isInWishList()}
+          />
         </div>
 
         <div className="flex flex-1 flex-col gap-4 px-1.5 pb-2 sm:gap-5 sm:px-2 sm:pb-2.5">
