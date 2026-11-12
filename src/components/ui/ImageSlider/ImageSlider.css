@@ -1,4 +1,39 @@
-/* Place in your global CSS (not a CSS module) */
+/* Fill parent media shell — avoid half-height slick slides + dark void */
+.cp-image-slider,
+.cp-image-slider__carousel,
+.cp-image-slider__carousel .slick-slider,
+.cp-image-slider__carousel .slick-list,
+.cp-image-slider__carousel .slick-track,
+.cp-image-slider__carousel .slick-slide,
+.cp-image-slider__carousel .slick-slide > div {
+  height: 100% !important;
+}
+
+.cp-image-slider__carousel.ant-carousel {
+  height: 100%;
+}
+
+.cp-image-slider__carousel .slick-slide > div {
+  display: block !important;
+}
+
+.cp-image-slider__slide {
+  height: 100%;
+}
+
+.cp-image-slider__frame {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background: #212121;
+}
+
+.cp-image-slider__carousel .slick-dots {
+  bottom: 10px !important;
+  z-index: 2;
+}
 
 .custom-carousel .slick-dots li button {
   background-color: #d1d1d1 !important;
@@ -6,10 +41,11 @@
   width: 8px !important;
   height: 8px !important;
   padding: 0 !important;
+  opacity: 0.85;
 }
 
 .custom-carousel .slick-dots li.slick-active button {
-  background-color: #85e872 !important;
+  background-color: #ccff00 !important;
   width: 10px !important;
   height: 10px !important;
 }
