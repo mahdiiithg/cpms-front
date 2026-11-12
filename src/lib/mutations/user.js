@@ -11,6 +11,8 @@ export const UPDATE_USER = gql`
       hasPassword
       city
       phone
+      createdAt
+      avatar
     }
   }
 `;

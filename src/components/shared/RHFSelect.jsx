@@ -28,7 +28,6 @@ const RHFSelect = ({
       render={({ field, fieldState: { error } }) => (
         <Select
           {...field}
-          {...props}
           size="large"
           variant="filled"
           disabled={disabled}
@@ -39,6 +38,7 @@ const RHFSelect = ({
           onChange={(value) => field.onChange(value)}
           value={field.value === '' ? undefined : field.value}
           prefix={prefix}
+          {...props}
         >
           {options.map((opt) => (
             <Option key={opt.value} value={opt.value}>
