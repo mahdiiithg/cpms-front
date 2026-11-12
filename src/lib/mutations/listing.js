@@ -15,9 +15,11 @@ export const CREATE_LISTING = gql`
       bathrooms
       images
       location {
-        city
         address
+        city
+        state
         country
+        zipCode
       }
     }
   }
