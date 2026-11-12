@@ -8,8 +8,12 @@ import { useMutation } from '@apollo/client';
 import { Button, Form, Input, Select, InputNumber } from 'antd';
 import { Building2, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
-import { CREATE_PROPERTY } from '@/lib/mutations/propertyMutations';
+import { CREATE_LISTING } from '@/lib/mutations/listing';
 import CpField from '@/components/shared/CpField';
+import ListingPhotoUploader, {
+  MIN_LISTING_PHOTOS,
+  MAX_LISTING_PHOTOS,
+} from '@/components/listings/ListingPhotoUploader';
 import {
   pageSurfaceClass,
   panelClass,
@@ -23,7 +27,20 @@ export default function ListYourPropertyPage() {
   const router = useRouter();
   const { status } = useSession();
   const [form] = Form.useForm();
-  const [createProperty, { loading }] = useMutation(CREATE_PROPERTY);
+  const [photos, setPhotos] = useState([]);
+  const [photoError, setPhotoError] = useState('');
+  const [createListing, { loading }] = useMutation(CREATE_LISTING);
+
+  const validatePhotos = (list) => {
+    const count = Array.isArray(list) ? list.length : 0;
+    if (count < MIN_LISTING_PHOTOS) {
+      return `Please upload at least ${MIN_LISTING_PHOTOS} photos (you have ${count}).`;
+    }
+    if (count > MAX_LISTING_PHOTOS) {
+      return `Please upload at most ${MAX_LISTING_PHOTOS} photos (you have ${count}).`;
+    }
+    return '';
+  };
 
   const onFinish = async (values) => {
     if (status !== 'authenticated') {
@@ -32,8 +49,16 @@ export default function ListYourPropertyPage() {
       return;
     }
 
+    const err = validatePhotos(photos);
+    if (err) {
+      setPhotoError(err);
+      toast.error(err);
+      return;
+    }
+    setPhotoError('');
+
     try {
-      const { data } = await createProperty({
+      const { data } = await createListing({
         variables: {
           input: {
             title: values.title,
@@ -44,6 +69,7 @@ export default function ListYourPropertyPage() {
             bathrooms: values.bathrooms,
             salePrice: values.listingType === 'sale' ? values.price : null,
             rentPrice: values.listingType === 'rent' ? values.price : null,
+            images: photos,
             location: {
               city: values.city,
               address: values.address || '',
@@ -54,7 +80,7 @@ export default function ListYourPropertyPage() {
       });
 
       const id = data?.createProperty?.id;
-      toast.success('Property listed successfully.');
+      toast.success('Property listed with photo gallery.');
       if (id) router.push(`/property/${id}`);
       else router.push('/listings');
     } catch (error) {
@@ -64,7 +90,7 @@ export default function ListYourPropertyPage() {
 
   return (
     <div className={`${pageSurfaceClass} px-4 py-10 sm:px-6 lg:px-8`}>
-      <div className="mx-auto w-full max-w-2xl">
+      <div className="mx-auto w-full max-w-3xl">
         <Link
           href="/listings"
           className="mb-6 inline-flex items-center gap-2 text-sm text-cp-subtle hover:text-cp-lime"
@@ -83,18 +109,20 @@ export default function ListYourPropertyPage() {
               List your property
             </h1>
           </div>
-          <p className="mt-2 text-cp-muted">
-            Add a coastal listing to Coast Planet. Demo saves go to the memory
-            store and appear in browse results for this session.
+          <p className="mt-2 max-w-2xl text-cp-muted">
+            Add a coastal listing with {MIN_LISTING_PHOTOS}–{MAX_LISTING_PHOTOS}{' '}
+            photos. Demo listings are stored in the memory GraphQL shim for this
+            session.
           </p>
         </div>
 
-        <div className={`${panelClass} p-6`}>
+        <div className={`${panelClass} p-6 sm:p-8`}>
           <Form
             form={form}
             layout="vertical"
             onFinish={onFinish}
             initialValues={{ listingType: 'sale', type: 'apartment' }}
+            requiredMark="optional"
           >
             <Form.Item
               name="title"
@@ -102,7 +130,11 @@ export default function ListYourPropertyPage() {
               rules={[{ required: true, message: 'Title is required' }]}
             >
               <CpField>
-                <Input variant="borderless" placeholder="Oceanfront apartment" size="large" />
+                <Input
+                  variant="borderless"
+                  placeholder="Oceanfront apartment"
+                  size="large"
+                />
               </CpField>
             </Form.Item>
 
@@ -162,14 +194,30 @@ export default function ListYourPropertyPage() {
                   />
                 </CpField>
               </Form.Item>
-              <Form.Item name="bedrooms" label={<span className="text-cp-subtle">Beds</span>}>
+              <Form.Item
+                name="bedrooms"
+                label={<span className="text-cp-subtle">Beds</span>}
+              >
                 <CpField>
-                  <InputNumber variant="borderless" size="large" className="w-full" min={0} />
+                  <InputNumber
+                    variant="borderless"
+                    size="large"
+                    className="w-full"
+                    min={0}
+                  />
                 </CpField>
               </Form.Item>
-              <Form.Item name="bathrooms" label={<span className="text-cp-subtle">Baths</span>}>
+              <Form.Item
+                name="bathrooms"
+                label={<span className="text-cp-subtle">Baths</span>}
+              >
                 <CpField>
-                  <InputNumber variant="borderless" size="large" className="w-full" min={0} />
+                  <InputNumber
+                    variant="borderless"
+                    size="large"
+                    className="w-full"
+                    min={0}
+                  />
                 </CpField>
               </Form.Item>
             </div>
@@ -180,13 +228,24 @@ export default function ListYourPropertyPage() {
               rules={[{ required: true, message: 'City is required' }]}
             >
               <CpField>
-                <Input variant="borderless" size="large" placeholder="Gold Coast" />
+                <Input
+                  variant="borderless"
+                  size="large"
+                  placeholder="Gold Coast"
+                />
               </CpField>
             </Form.Item>
 
-            <Form.Item name="address" label={<span className="text-cp-subtle">Address</span>}>
+            <Form.Item
+              name="address"
+              label={<span className="text-cp-subtle">Address</span>}
+            >
               <CpField>
-                <Input variant="borderless" size="large" placeholder="Optional street address" />
+                <Input
+                  variant="borderless"
+                  size="large"
+                  placeholder="Optional street address"
+                />
               </CpField>
             </Form.Item>
 
@@ -202,6 +261,19 @@ export default function ListYourPropertyPage() {
                 />
               </CpField>
             </Form.Item>
+
+            <div className="mb-6 rounded-2xl border border-cp-stroke bg-cp-elevated/40 p-4">
+              <ListingPhotoUploader
+                value={photos}
+                onChange={(next) => {
+                  setPhotos(next);
+                  setPhotoError(validatePhotos(next));
+                }}
+              />
+              {photoError ? (
+                <p className="mt-2 text-sm text-red-400">{photoError}</p>
+              ) : null}
+            </div>
 
             <div className="flex flex-wrap justify-end gap-3 pt-2">
               <Button className={outlineCtaClass} href="/contact">
