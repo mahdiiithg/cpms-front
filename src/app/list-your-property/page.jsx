@@ -9,6 +9,8 @@ import { Button, Form, Input, Select } from 'antd';
 import { Building2, ArrowLeft, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
 import { CREATE_LISTING } from '@/lib/mutations/listing';
+import { GET_MY_PROPERTIES } from '@/lib/queries/property';
+import { upsertMyListingJournal } from '@/lib/myListingsJournal';
 import CpField from '@/components/shared/CpField';
 import ListingPhotoUploader, {
   MIN_LISTING_PHOTOS,
@@ -105,7 +107,7 @@ function FieldLabel({ children, optional = false }) {
 
 export default function ListYourPropertyPage() {
   const router = useRouter();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const [form] = Form.useForm();
   const [photos, setPhotos] = useState([]);
   const [photoError, setPhotoError] = useState('');
@@ -188,9 +190,36 @@ export default function ListYourPropertyPage() {
             },
           },
         },
+        refetchQueries: [{ query: GET_MY_PROPERTIES }],
+        awaitRefetchQueries: true,
+        update: (cache, result) => {
+          const created = result?.data?.createProperty;
+          if (!created) return;
+          try {
+            const existing = cache.readQuery({ query: GET_MY_PROPERTIES });
+            const prev = existing?.myProperties || [];
+            cache.writeQuery({
+              query: GET_MY_PROPERTIES,
+              data: {
+                myProperties: [
+                  created,
+                  ...prev.filter((p) => p.id !== created.id),
+                ],
+              },
+            });
+          } catch {
+            // Query may not be in cache yet — journal + refetch cover it
+          }
+        },
       });
 
-      const savedCity = data?.createProperty?.location?.city;
+      const created = data?.createProperty;
+      const userId = session?.userId || session?.user?.id;
+      if (created && userId) {
+        upsertMyListingJournal(userId, created);
+      }
+
+      const savedCity = created?.location?.city;
       toast.success(
         savedCity
           ? `Submitted in ${savedCity} for approval. Track it under My listings.`

@@ -10,6 +10,8 @@ import { ArrowLeft, Pencil } from 'lucide-react';
 import { toast } from 'sonner';
 import { GET_PROPERTY } from '@/lib/queries/property';
 import { UPDATE_PROPERTY } from '@/lib/mutations/propertyMutations';
+import { GET_MY_PROPERTIES } from '@/lib/queries/property';
+import { upsertMyListingJournal } from '@/lib/myListingsJournal';
 import { getStatusMeta } from '@/lib/listingStatus';
 import CpField from '@/components/shared/CpField';
 import {
@@ -95,9 +97,14 @@ export default function EditListingPage() {
             images: property?.images || [],
           },
         },
+        refetchQueries: [{ query: GET_MY_PROPERTIES }],
       });
 
-      const nextStatus = result?.updateProperty?.status;
+      const updated = result?.updateProperty;
+      const userId = session?.userId || session?.user?.id;
+      if (updated && userId) upsertMyListingJournal(userId, updated);
+
+      const nextStatus = updated?.status;
       if (nextStatus === 'pending_review') {
         toast.success('Saved. Listing needs re-approval before going live.');
       } else if (nextStatus === 'pending') {

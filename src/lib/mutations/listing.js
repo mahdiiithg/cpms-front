@@ -14,6 +14,8 @@ export const CREATE_LISTING = gql`
       bedrooms
       bathrooms
       status
+      rejectionReason
+      listingStatus
       images
       location {
         address
@@ -26,6 +28,13 @@ export const CREATE_LISTING = gql`
           longitude
         }
       }
+      agent {
+        id
+        name
+        email
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
