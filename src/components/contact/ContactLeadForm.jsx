@@ -62,7 +62,12 @@ export default function ContactLeadForm({
         </p>
       )}
 
-      <Form form={form} layout="vertical" onFinish={handleSubmit} className="space-y-4">
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={handleSubmit}
+        className="cp-dark-form space-y-4"
+      >
         <Row gutter={[16, 0]}>
           <Col xs={24} sm={12}>
             <Form.Item
