@@ -24,15 +24,30 @@ export function whatsappHref(message, phone = DEMO_WHATSAPP_NUMBER) {
   return `https://wa.me/${digits}?text=${text}`;
 }
 
-export function userInitials(name, email) {
-  const parts = String(name || '')
+/**
+ * Initials from first + last name (preferred), then email.
+ * Always prefer two-letter first+last when both exist (e.g. Alex Rivera → AR).
+ */
+export function userInitials(name, email, lastName) {
+  const firstParts = String(name || '')
     .trim()
     .split(/\s+/)
     .filter(Boolean);
-  if (parts.length >= 2) {
-    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  const explicitLast = String(lastName || '').trim();
+
+  let first = firstParts[0] || '';
+  let last = explicitLast || (firstParts.length >= 2 ? firstParts[firstParts.length - 1] : '');
+
+  // If name was already "Alex Rivera" and lastName also passed, avoid duplicating
+  if (explicitLast && firstParts.length >= 2) {
+    first = firstParts[0];
+    last = explicitLast;
   }
-  if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
+
+  if (first && last) {
+    return `${first[0]}${last[0]}`.toUpperCase();
+  }
+  if (first) return first.slice(0, 2).toUpperCase();
   if (email) return String(email).slice(0, 2).toUpperCase();
   return 'CP';
 }

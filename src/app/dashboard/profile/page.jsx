@@ -14,6 +14,7 @@ import ProfileForm from '@/components/ui/ProfileForm';
 import { GET_USER } from '@/lib/queries';
 import { UPDATE_USER } from '@/lib/mutations/user';
 import { pageSurfaceClass, panelClass } from '@/lib/brandTheme';
+import { userInitials } from '@/lib/demoContact';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -32,19 +33,6 @@ function formatJoinedDate(value) {
     month: 'short',
     day: 'numeric',
   });
-}
-
-function initialsFrom(name, email) {
-  const parts = String(name || '')
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
-  if (parts.length >= 2) {
-    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
-  }
-  if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
-  if (email) return email.slice(0, 2).toUpperCase();
-  return 'CP';
 }
 
 const ProfilePage = () => {
@@ -175,7 +163,11 @@ const ProfilePage = () => {
               fontWeight: 700,
             }}
           >
-            {initialsFrom(displayName, user?.email || session?.user?.email)}
+            {userInitials(
+              displayName,
+              user?.email || session?.user?.email,
+              user?.last_name,
+            )}
           </Avatar>
           <div className="min-w-0 flex-1">
             <h2 className="truncate text-xl font-semibold text-white">
