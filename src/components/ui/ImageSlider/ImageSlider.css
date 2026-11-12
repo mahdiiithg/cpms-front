@@ -1,47 +1,50 @@
-/* Fill parent media shell — avoid half-height slick slides + dark void */
-.cp-image-slider,
-.cp-image-slider__carousel,
-.cp-image-slider__carousel .slick-slider,
-.cp-image-slider__carousel .slick-list,
-.cp-image-slider__carousel .slick-track,
-.cp-image-slider__carousel .slick-slide,
-.cp-image-slider__carousel .slick-slide > div {
-  height: 100% !important;
-}
-
-.cp-image-slider__carousel.ant-carousel {
-  height: 100%;
-}
-
-.cp-image-slider__carousel .slick-slide > div {
-  display: block !important;
-}
-
-.cp-image-slider__slide {
-  height: 100%;
-}
-
-.cp-image-slider__frame {
+/* Full-bleed media shell for listing cards */
+.cp-image-slider {
   position: relative;
   height: 100%;
   width: 100%;
-  min-height: 100%;
   overflow: hidden;
   background: #212121;
 }
 
-.cp-image-slider__carousel .slick-dots {
-  bottom: 10px !important;
+.cp-image-slider__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
   z-index: 2;
+  display: flex;
+  transform: translateX(-50%);
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.35);
 }
 
+.cp-image-slider__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: #d1d1d1;
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.cp-image-slider__dot.is-active {
+  width: 10px;
+  height: 10px;
+  background: #ccff00;
+  opacity: 1;
+}
+
+/* Legacy class kept for any remaining references */
 .custom-carousel .slick-dots li button {
   background-color: #d1d1d1 !important;
   border-radius: 50% !important;
   width: 8px !important;
   height: 8px !important;
   padding: 0 !important;
-  opacity: 0.85;
 }
 
 .custom-carousel .slick-dots li.slick-active button {
