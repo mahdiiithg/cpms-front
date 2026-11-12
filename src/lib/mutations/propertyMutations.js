@@ -22,6 +22,10 @@ const PROPERTY_CORE = `
     state
     country
     zipCode
+    coordinates {
+      latitude
+      longitude
+    }
   }
   agent {
     id

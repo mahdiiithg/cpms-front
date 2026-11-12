@@ -38,11 +38,13 @@ export default function MyListingsPage() {
     }
   }, [status, router]);
 
-  // Keep local journal in sync when the server returns ownership rows
+  // Merge server rows into journal — never replace (avoids wiping a 1st listing
+  // when a cold isolate briefly returns only the latest create).
   useEffect(() => {
     const server = data?.myProperties;
     if (!userId || !Array.isArray(server) || server.length === 0) return;
-    writeMyListingsJournal(userId, server);
+    const merged = mergeListings(server, readMyListingsJournal(userId));
+    writeMyListingsJournal(userId, merged);
   }, [data?.myProperties, userId]);
 
   const listings = useMemo(() => {
