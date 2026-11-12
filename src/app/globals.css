@@ -24,6 +24,21 @@ body {
   color: #ffffff;
 }
 
+/* Ant Form labels + “(optional)” on dark Coast Planet surfaces */
+.cp-dark-form .ant-form-item-label > label,
+.cp-dark-form .ant-form-item-label > label .ant-form-item-optional,
+.cp-dark-form .ant-form-item-optional {
+  color: #9ca3af !important;
+}
+
+.cp-dark-form .ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  color: #ccff00 !important;
+}
+
+.cp-dark-form .ant-form-item-explain-error {
+  color: #f87171 !important;
+}
+
 /* ---------- Unified Coast Planet field shell (ONE soft stroke) ---------- */
 .cp-field {
   display: flex;
