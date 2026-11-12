@@ -209,6 +209,7 @@ export default function ListYourPropertyPage() {
           <Form
             form={form}
             layout="vertical"
+            className="cp-dark-form"
             onFinish={onFinish}
             initialValues={{
               listingType: 'sale',
@@ -216,7 +217,16 @@ export default function ListYourPropertyPage() {
               country: 'Australia',
               state: 'QLD',
             }}
-            requiredMark="optional"
+            requiredMark={(labelNode, { required }) =>
+              required ? (
+                labelNode
+              ) : (
+                <>
+                  {labelNode}
+                  <span className="text-cp-faint"> (optional)</span>
+                </>
+              )
+            }
           >
             <Form.Item
               name="title"
