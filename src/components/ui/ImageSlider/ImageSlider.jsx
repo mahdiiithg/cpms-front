@@ -1,9 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import { Carousel } from 'antd';
+import { useEffect, useState } from 'react';
 import { ImageOff } from 'lucide-react';
 import './ImageSlider.css';
+
+function normalizeSlides(images) {
+  return (Array.isArray(images) ? images : [])
+    .map((img) => (typeof img === 'string' ? img : img?.url))
+    .filter((src) => typeof src === 'string' && src.trim().length > 0);
+}
 
 function Placeholder({ altText }) {
   return (
@@ -20,13 +25,7 @@ function Placeholder({ altText }) {
   );
 }
 
-function SlideImage({ src, alt }) {
-  const [broken, setBroken] = useState(false);
-
-  if (!src || broken) {
-    return <Placeholder altText={alt} />;
-  }
-
+function CoverImage({ src, alt, onBroken }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -35,49 +34,82 @@ function SlideImage({ src, alt }) {
       className="absolute inset-0 h-full w-full object-cover object-center"
       loading="lazy"
       draggable={false}
-      onError={() => setBroken(true)}
+      onError={onBroken}
     />
   );
 }
 
 /**
- * Fills its parent (typically an aspect-ratio media shell on PropertyCard).
- * Ant Carousel/Slick needs an explicit height chain or slides collapse to
- * min-content and leave a dark void under the photo.
+ * Full-bleed media for PropertyCard shells.
+ * Avoids Ant Carousel/Slick height collapse that left a dark void under photos.
  */
 const ImageSlider = ({ images = [], altText = '', containerClass = '' }) => {
-  const slides = (Array.isArray(images) ? images : [])
-    .map((img) => (typeof img === 'string' ? img : img?.url))
-    .filter((src) => typeof src === 'string' && src.trim().length > 0);
+  const slides = normalizeSlides(images);
+  const [index, setIndex] = useState(0);
+  const [broken, setBroken] = useState(() => new Set());
+
+  useEffect(() => {
+    setIndex(0);
+    setBroken(new Set());
+  }, [slides.join('|')]);
+
+  const usable = slides
+    .map((src, i) => ({ src, i }))
+    .filter(({ i }) => !broken.has(i));
+
+  const active = usable.length
+    ? usable[Math.min(index, usable.length - 1)]
+    : null;
 
   return (
     <div
       className={`cp-image-slider relative h-full w-full overflow-hidden rounded-3xl bg-cp-elevated ${containerClass}`}
     >
-      {slides.length === 0 ? (
+      {!active ? (
         <Placeholder altText={altText} />
-      ) : slides.length === 1 ? (
-        <div className="absolute inset-0">
-          <SlideImage src={slides[0]} alt={altText || 'Property image'} />
-        </div>
       ) : (
-        <Carousel
-          dots
-          arrows={false}
-          effect="scrollx"
-          className="cp-image-slider__carousel custom-carousel"
-        >
-          {slides.map((image, index) => (
-            <div key={`${image}-${index}`} className="cp-image-slider__slide">
-              <div className="cp-image-slider__frame">
-                <SlideImage
-                  src={image}
-                  alt={`${altText || 'Property'} - Image ${index + 1}`}
+        <>
+          <CoverImage
+            key={active.src}
+            src={active.src}
+            alt={
+              slides.length > 1
+                ? `${altText || 'Property'} - Image ${active.i + 1}`
+                : altText || 'Property image'
+            }
+            onBroken={() =>
+              setBroken((prev) => {
+                const next = new Set(prev);
+                next.add(active.i);
+                return next;
+              })
+            }
+          />
+
+          {usable.length > 1 ? (
+            <div className="cp-image-slider__dots" role="tablist" aria-label="Property photos">
+              {usable.map((slide, dotIndex) => (
+                <button
+                  key={slide.src}
+                  type="button"
+                  role="tab"
+                  aria-selected={dotIndex === Math.min(index, usable.length - 1)}
+                  aria-label={`Show photo ${dotIndex + 1}`}
+                  className={`cp-image-slider__dot ${
+                    dotIndex === Math.min(index, usable.length - 1)
+                      ? 'is-active'
+                      : ''
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIndex(dotIndex);
+                  }}
                 />
-              </div>
+              ))}
             </div>
-          ))}
-        </Carousel>
+          ) : null}
+        </>
       )}
     </div>
   );
