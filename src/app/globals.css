@@ -24,17 +24,15 @@ body {
   color: #ffffff;
 }
 
-/* Ant Form labels + “(optional)” on dark Coast Planet surfaces */
+/* Ant Form labels on dark Coast Planet surfaces — one ink for name + optional */
 .cp-dark-form .ant-form-item-label > label,
-.cp-dark-form .ant-form-item-label > label .ant-form-item-optional,
-.cp-dark-form .ant-form-item-optional,
-.cp-dark-form .cp-optional-mark {
-  color: #d1d5db !important;
-  -webkit-text-fill-color: #d1d5db !important;
+.cp-dark-form .ant-form-item-label > label * {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
 }
 
-.cp-dark-form .ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
-  color: #ccff00 !important;
+.cp-dark-form .ant-form-item-optional {
+  display: none !important;
 }
 
 .cp-dark-form .ant-form-item-explain-error {

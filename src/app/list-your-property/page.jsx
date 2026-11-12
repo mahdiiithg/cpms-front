@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -14,6 +14,8 @@ import ListingPhotoUploader, {
   MIN_LISTING_PHOTOS,
   MAX_LISTING_PHOTOS,
 } from '@/components/listings/ListingPhotoUploader';
+import ListingLocationPicker from '@/components/listings/ListingLocationPicker';
+import { CITY_COORD_FALLBACKS } from '@/utils/geocode';
 import {
   pageSurfaceClass,
   panelClass,
@@ -89,13 +91,38 @@ const toRequiredInt = (value) => {
   return n === undefined ? 0 : Math.trunc(n);
 };
 
+/** One shared label ink — optional suffix must match the field name exactly. */
+const FIELD_LABEL_CLASS = 'text-cp-subtle';
+
+function FieldLabel({ children, optional = false }) {
+  return (
+    <span className={FIELD_LABEL_CLASS}>
+      {children}
+      {optional ? ' (optional)' : null}
+    </span>
+  );
+}
+
 export default function ListYourPropertyPage() {
   const router = useRouter();
   const { status } = useSession();
   const [form] = Form.useForm();
   const [photos, setPhotos] = useState([]);
   const [photoError, setPhotoError] = useState('');
+  const [coords, setCoords] = useState(null);
   const [createListing, { loading }] = useMutation(CREATE_LISTING);
+
+  const watchedCity = Form.useWatch('city', form);
+  const watchedAddress = Form.useWatch('address', form);
+  const watchedState = Form.useWatch('state', form);
+  const watchedCountry = Form.useWatch('country', form);
+
+  const mapSearchQuery = useMemo(() => {
+    return [watchedAddress, watchedCity, watchedState, watchedCountry]
+      .map((v) => String(v || '').trim())
+      .filter(Boolean)
+      .join(', ');
+  }, [watchedAddress, watchedCity, watchedState, watchedCountry]);
 
   const validatePhotos = (list) => {
     const count = Array.isArray(list) ? list.length : 0;
@@ -148,6 +175,16 @@ export default function ListYourPropertyPage() {
               state: String(values.state || '').trim(),
               country: String(values.country || 'Australia').trim(),
               zipCode: String(values.zipCode || '').trim() || null,
+              coordinates:
+                coords &&
+                Number.isFinite(Number(coords.latitude)) &&
+                Number.isFinite(Number(coords.longitude))
+                  ? {
+                      latitude: Number(coords.latitude),
+                      longitude: Number(coords.longitude),
+                    }
+                  : CITY_COORD_FALLBACKS[String(values.city || '').trim()] ||
+                    null,
             },
           },
         },
@@ -175,6 +212,40 @@ export default function ListYourPropertyPage() {
         ? { state: defaults.state, country: defaults.country }
         : {}),
     });
+    const fallback = CITY_COORD_FALLBACKS[city];
+    if (fallback) setCoords(fallback);
+  };
+
+  const onMapResolvedLocation = (resolved) => {
+    if (!resolved) return;
+    const next = {};
+    if (resolved.city) next.city = resolved.city;
+    if (resolved.state) {
+      const match = STATE_OPTIONS.find(
+        (s) =>
+          s.value === resolved.state ||
+          s.label.toLowerCase() === String(resolved.state).toLowerCase() ||
+          String(resolved.state).toLowerCase().includes(s.label.toLowerCase()),
+      );
+      next.state = match?.value || resolved.state;
+    }
+    if (resolved.country) {
+      const match = COUNTRY_OPTIONS.find(
+        (c) =>
+          c.value === resolved.country ||
+          String(resolved.country)
+            .toLowerCase()
+            .includes(c.value.toLowerCase()),
+      );
+      next.country = match?.value || resolved.country;
+    }
+    if (resolved.road && !form.getFieldValue('address')) {
+      next.address = resolved.road;
+    }
+    if (resolved.postcode && !form.getFieldValue('zipCode')) {
+      next.zipCode = resolved.postcode;
+    }
+    if (Object.keys(next).length) form.setFieldsValue(next);
   };
 
   return (
@@ -217,20 +288,11 @@ export default function ListYourPropertyPage() {
               country: 'Australia',
               state: 'QLD',
             }}
-            requiredMark={(labelNode, { required }) =>
-              required ? (
-                labelNode
-              ) : (
-                <>
-                  {labelNode}
-                  <span className="cp-optional-mark"> (optional)</span>
-                </>
-              )
-            }
+            requiredMark={false}
           >
             <Form.Item
               name="title"
-              label={<span className="text-cp-subtle">Title</span>}
+              label={<FieldLabel>Title</FieldLabel>}
               rules={[{ required: true, message: 'Title is required' }]}
             >
               <CpField>
@@ -245,7 +307,7 @@ export default function ListYourPropertyPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <Form.Item
                 name="listingType"
-                label={<span className="text-cp-subtle">Listing type</span>}
+                label={<FieldLabel>Listing type</FieldLabel>}
                 rules={[{ required: true }]}
               >
                 <CpField>
@@ -262,7 +324,7 @@ export default function ListYourPropertyPage() {
               </Form.Item>
               <Form.Item
                 name="type"
-                label={<span className="text-cp-subtle">Property type</span>}
+                label={<FieldLabel>Property type</FieldLabel>}
                 rules={[{ required: true }]}
               >
                 <CpField>
@@ -285,7 +347,7 @@ export default function ListYourPropertyPage() {
             <div className="grid gap-4 sm:grid-cols-3">
               <Form.Item
                 name="price"
-                label={<span className="text-cp-subtle">Price</span>}
+                label={<FieldLabel>Price</FieldLabel>}
                 rules={[{ required: true, message: 'Price is required' }]}
               >
                 <CpField>
@@ -301,7 +363,7 @@ export default function ListYourPropertyPage() {
               </Form.Item>
               <Form.Item
                 name="bedrooms"
-                label={<span className="text-cp-subtle">Beds</span>}
+                label={<FieldLabel optional>Beds</FieldLabel>}
               >
                 <CpField>
                   <Input
@@ -316,7 +378,7 @@ export default function ListYourPropertyPage() {
               </Form.Item>
               <Form.Item
                 name="bathrooms"
-                label={<span className="text-cp-subtle">Baths</span>}
+                label={<FieldLabel optional>Baths</FieldLabel>}
               >
                 <CpField>
                   <Input
@@ -341,7 +403,7 @@ export default function ListYourPropertyPage() {
 
             <Form.Item
               name="city"
-              label={<span className="text-cp-subtle">City</span>}
+              label={<FieldLabel>City</FieldLabel>}
               rules={[{ required: true, message: 'City is required' }]}
             >
               <CpField className="gap-2">
@@ -362,7 +424,7 @@ export default function ListYourPropertyPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <Form.Item
                 name="state"
-                label={<span className="text-cp-subtle">State / region</span>}
+                label={<FieldLabel>State / region</FieldLabel>}
                 rules={[{ required: true, message: 'State is required' }]}
               >
                 <CpField>
@@ -379,7 +441,7 @@ export default function ListYourPropertyPage() {
               </Form.Item>
               <Form.Item
                 name="country"
-                label={<span className="text-cp-subtle">Country</span>}
+                label={<FieldLabel>Country</FieldLabel>}
                 rules={[{ required: true, message: 'Country is required' }]}
               >
                 <CpField>
@@ -395,7 +457,7 @@ export default function ListYourPropertyPage() {
 
             <Form.Item
               name="address"
-              label={<span className="text-cp-subtle">Street address</span>}
+              label={<FieldLabel optional>Street address</FieldLabel>}
             >
               <CpField className="gap-2">
                 <MapPin className="h-4 w-4 shrink-0 text-cp-faint" />
@@ -411,7 +473,7 @@ export default function ListYourPropertyPage() {
 
             <Form.Item
               name="zipCode"
-              label={<span className="text-cp-subtle">Postcode</span>}
+              label={<FieldLabel optional>Postcode</FieldLabel>}
             >
               <CpField>
                 <Input
@@ -425,9 +487,23 @@ export default function ListYourPropertyPage() {
               </CpField>
             </Form.Item>
 
+            <div className="mb-6">
+              <p className="mb-1 text-sm font-medium text-white">Map pin</p>
+              <p className="mb-3 text-xs text-cp-subtle">
+                Click the map to drop a pin, or type city/address to move the
+                marker. Coordinates save with the listing.
+              </p>
+              <ListingLocationPicker
+                value={coords}
+                onChange={setCoords}
+                searchQuery={mapSearchQuery}
+                onResolvedLocation={onMapResolvedLocation}
+              />
+            </div>
+
             <Form.Item
               name="description"
-              label={<span className="text-cp-subtle">Description</span>}
+              label={<FieldLabel optional>Description</FieldLabel>}
             >
               <CpField className="!items-start !min-h-[7rem] !py-2">
                 <TextArea
