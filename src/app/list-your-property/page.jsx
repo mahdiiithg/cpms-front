@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useMutation } from '@apollo/client';
 import { Button, Form, Input, Select } from 'antd';
-import { Building2, ArrowLeft } from 'lucide-react';
+import { Building2, ArrowLeft, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
 import { CREATE_LISTING } from '@/lib/mutations/listing';
 import CpField from '@/components/shared/CpField';
@@ -30,10 +30,63 @@ const lightFieldStyle = {
   caretColor: '#ccff00',
 };
 
+const CITY_OPTIONS = [
+  { label: 'Gold Coast', value: 'Gold Coast' },
+  { label: 'Sunshine Coast', value: 'Sunshine Coast' },
+  { label: 'Brisbane', value: 'Brisbane' },
+  { label: 'Sydney', value: 'Sydney' },
+  { label: 'Melbourne', value: 'Melbourne' },
+  { label: 'Perth', value: 'Perth' },
+  { label: 'Adelaide', value: 'Adelaide' },
+  { label: 'Cairns', value: 'Cairns' },
+  { label: 'Dubai', value: 'Dubai' },
+  { label: 'Abu Dhabi', value: 'Abu Dhabi' },
+  { label: 'Miami', value: 'Miami' },
+];
+
+const STATE_OPTIONS = [
+  { label: 'Queensland', value: 'QLD' },
+  { label: 'New South Wales', value: 'NSW' },
+  { label: 'Victoria', value: 'VIC' },
+  { label: 'Western Australia', value: 'WA' },
+  { label: 'South Australia', value: 'SA' },
+  { label: 'Tasmania', value: 'TAS' },
+  { label: 'Australian Capital Territory', value: 'ACT' },
+  { label: 'Northern Territory', value: 'NT' },
+  { label: 'Dubai', value: 'Dubai' },
+  { label: 'Abu Dhabi', value: 'Abu Dhabi' },
+  { label: 'Florida', value: 'FL' },
+];
+
+const COUNTRY_OPTIONS = [
+  { label: 'Australia', value: 'Australia' },
+  { label: 'United Arab Emirates', value: 'United Arab Emirates' },
+  { label: 'United States', value: 'United States' },
+];
+
+const CITY_LOCATION_DEFAULTS = {
+  'Gold Coast': { state: 'QLD', country: 'Australia' },
+  'Sunshine Coast': { state: 'QLD', country: 'Australia' },
+  Brisbane: { state: 'QLD', country: 'Australia' },
+  Cairns: { state: 'QLD', country: 'Australia' },
+  Sydney: { state: 'NSW', country: 'Australia' },
+  Melbourne: { state: 'VIC', country: 'Australia' },
+  Perth: { state: 'WA', country: 'Australia' },
+  Adelaide: { state: 'SA', country: 'Australia' },
+  Dubai: { state: 'Dubai', country: 'United Arab Emirates' },
+  'Abu Dhabi': { state: 'Abu Dhabi', country: 'United Arab Emirates' },
+  Miami: { state: 'FL', country: 'United States' },
+};
+
 const toOptionalNumber = (value) => {
   if (value === undefined || value === null || value === '') return undefined;
   const n = Number(value);
   return Number.isFinite(n) ? n : undefined;
+};
+
+const toRequiredInt = (value) => {
+  const n = toOptionalNumber(value);
+  return n === undefined ? 0 : Math.trunc(n);
 };
 
 export default function ListYourPropertyPage() {
@@ -78,33 +131,50 @@ export default function ListYourPropertyPage() {
             description: values.description || '',
             type: values.type,
             listingType: values.listingType,
-            bedrooms: toOptionalNumber(values.bedrooms),
-            bathrooms: toOptionalNumber(values.bathrooms),
+            bedrooms: toRequiredInt(values.bedrooms),
+            bathrooms: toRequiredInt(values.bathrooms),
             salePrice:
               values.listingType === 'sale'
-                ? toOptionalNumber(values.price)
+                ? toOptionalNumber(values.price) ?? null
                 : null,
             rentPrice:
               values.listingType === 'rent'
-                ? toOptionalNumber(values.price)
+                ? toOptionalNumber(values.price) ?? null
                 : null,
             images: photos,
             location: {
-              city: values.city,
-              address: values.address || '',
-              country: 'Australia',
+              address: String(values.address || '').trim(),
+              city: String(values.city || '').trim(),
+              state: String(values.state || '').trim(),
+              country: String(values.country || 'Australia').trim(),
+              zipCode: String(values.zipCode || '').trim() || null,
             },
           },
         },
       });
 
       const id = data?.createProperty?.id;
-      toast.success('Property listed with photo gallery.');
+      const savedCity = data?.createProperty?.location?.city;
+      toast.success(
+        savedCity
+          ? `Property listed in ${savedCity} with photo gallery.`
+          : 'Property listed with photo gallery.'
+      );
       if (id) router.push(`/property/${id}`);
       else router.push('/listings');
     } catch (error) {
       toast.error(error?.message || 'Could not save property.');
     }
+  };
+
+  const onCityChange = (city) => {
+    const defaults = CITY_LOCATION_DEFAULTS[city];
+    form.setFieldsValue({
+      city,
+      ...(defaults
+        ? { state: defaults.state, country: defaults.country }
+        : {}),
+    });
   };
 
   return (
@@ -140,7 +210,12 @@ export default function ListYourPropertyPage() {
             form={form}
             layout="vertical"
             onFinish={onFinish}
-            initialValues={{ listingType: 'sale', type: 'apartment' }}
+            initialValues={{
+              listingType: 'sale',
+              type: 'apartment',
+              country: 'Australia',
+              state: 'QLD',
+            }}
             requiredMark="optional"
           >
             <Form.Item
@@ -246,29 +321,96 @@ export default function ListYourPropertyPage() {
               </Form.Item>
             </div>
 
+            <div className="mb-2 mt-1">
+              <p className="text-sm font-medium text-white">Location</p>
+              <p className="text-xs text-cp-faint">
+                City is required. State and country sync with Coast Planet
+                listing location objects.
+              </p>
+            </div>
+
             <Form.Item
               name="city"
               label={<span className="text-cp-subtle">City</span>}
               rules={[{ required: true, message: 'City is required' }]}
             >
-              <CpField>
+              <CpField className="gap-2">
+                <MapPin className="h-4 w-4 shrink-0 text-cp-faint" />
+                <Select
+                  variant="borderless"
+                  size="large"
+                  className="w-full"
+                  showSearch
+                  optionFilterProp="label"
+                  placeholder="Select city"
+                  options={CITY_OPTIONS}
+                  onChange={onCityChange}
+                />
+              </CpField>
+            </Form.Item>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Form.Item
+                name="state"
+                label={<span className="text-cp-subtle">State / region</span>}
+                rules={[{ required: true, message: 'State is required' }]}
+              >
+                <CpField>
+                  <Select
+                    variant="borderless"
+                    size="large"
+                    className="w-full"
+                    showSearch
+                    optionFilterProp="label"
+                    placeholder="Select state"
+                    options={STATE_OPTIONS}
+                  />
+                </CpField>
+              </Form.Item>
+              <Form.Item
+                name="country"
+                label={<span className="text-cp-subtle">Country</span>}
+                rules={[{ required: true, message: 'Country is required' }]}
+              >
+                <CpField>
+                  <Select
+                    variant="borderless"
+                    size="large"
+                    className="w-full"
+                    options={COUNTRY_OPTIONS}
+                  />
+                </CpField>
+              </Form.Item>
+            </div>
+
+            <Form.Item
+              name="address"
+              label={<span className="text-cp-subtle">Street address</span>}
+            >
+              <CpField className="gap-2">
+                <MapPin className="h-4 w-4 shrink-0 text-cp-faint" />
                 <Input
                   variant="borderless"
                   size="large"
-                  placeholder="Gold Coast"
+                  placeholder="Optional street address"
+                  style={lightFieldStyle}
+                  className="!text-white placeholder:!text-cp-muted"
                 />
               </CpField>
             </Form.Item>
 
             <Form.Item
-              name="address"
-              label={<span className="text-cp-subtle">Address</span>}
+              name="zipCode"
+              label={<span className="text-cp-subtle">Postcode</span>}
             >
               <CpField>
                 <Input
                   variant="borderless"
                   size="large"
-                  placeholder="Optional street address"
+                  inputMode="numeric"
+                  placeholder="Optional postcode"
+                  style={lightFieldStyle}
+                  className="!text-white placeholder:!text-cp-muted"
                 />
               </CpField>
             </Form.Item>
