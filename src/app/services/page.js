@@ -608,14 +608,20 @@ const ServicesPage = () => {
             </div>
 
             <div className="mb-12 flex flex-col justify-center gap-6 sm:flex-row">
-              <button className="h-16 transform rounded-2xl border-0 bg-gradient-to-r from-[#ccff00] to-[#9dff00] px-10 text-lg font-semibold text-[#171717] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(204,255,0,0.4)]">
-                <span className="mr-2">📞</span>
+              <Link
+                href="/contact"
+                className="inline-flex h-16 items-center justify-center gap-2 rounded-2xl border-0 bg-gradient-to-r from-[#ccff00] to-[#9dff00] px-10 text-lg font-semibold text-[#171717] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(204,255,0,0.4)]"
+              >
+                <Phone className="h-5 w-5" />
                 Schedule Free Consultation
-              </button>
-              <button className="h-16 transform rounded-2xl border border-[#ccff00]/30 bg-[#ccff00]/10 px-10 text-lg font-semibold text-[#ccff00] backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#ccff00]/20">
-                <span className="mr-2">💬</span>
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex h-16 items-center justify-center gap-2 rounded-2xl border border-[#ccff00]/30 bg-[#ccff00]/10 px-10 text-lg font-semibold text-[#ccff00] backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#ccff00]/20"
+              >
+                <Mail className="h-5 w-5" />
                 Get Quote
-              </button>
+              </Link>
             </div>
 
             {/* Contact Information */}
@@ -623,7 +629,11 @@ const ServicesPage = () => {
               <div className="text-center group">
                 <Phone className="mx-auto mb-3 h-8 w-8 text-[#ccff00] transition-transform duration-300 group-hover:scale-110" />
                 <h4 className="mb-2 font-semibold text-white">Call Us</h4>
-                <p className="text-gray-400">+1 (555) 123-4567</p>
+                <p className="text-gray-400">
+                  <a href="tel:+61400000142" className="hover:text-[#ccff00]">
+                    +61 400 000 142
+                  </a>
+                </p>
               </div>
               <div className="text-center group">
                 <Mail className="mx-auto mb-3 h-8 w-8 text-[#ccff00] transition-transform duration-300 group-hover:scale-110" />
