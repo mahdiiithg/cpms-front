@@ -27,8 +27,10 @@ body {
 /* Ant Form labels + “(optional)” on dark Coast Planet surfaces */
 .cp-dark-form .ant-form-item-label > label,
 .cp-dark-form .ant-form-item-label > label .ant-form-item-optional,
-.cp-dark-form .ant-form-item-optional {
-  color: #9ca3af !important;
+.cp-dark-form .ant-form-item-optional,
+.cp-dark-form .cp-optional-mark {
+  color: #d1d5db !important;
+  -webkit-text-fill-color: #d1d5db !important;
 }
 
 .cp-dark-form .ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
