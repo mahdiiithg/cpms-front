@@ -103,10 +103,13 @@ export const getUserFromDb = async (email, password) => {
       return null;
     }
 
+    const fullName = [user.name, user.last_name].filter(Boolean).join(' ').trim();
+
     return {
       id: user.id,
       email: user.email,
-      name: user.name,
+      name: fullName || user.name,
+      last_name: user.last_name || null,
       provider: user.provider,
       hasPassword: user.hasPassword,
       token: user.token,

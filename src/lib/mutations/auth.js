@@ -20,6 +20,7 @@ export const LOGIN_USER = gql`
       id
       email
       name
+      last_name
       provider
       hasPassword
       token
@@ -37,6 +38,7 @@ export const REGISTER_USER = gql`
       id
       email
       name
+      last_name
       provider
       hasPassword
       token

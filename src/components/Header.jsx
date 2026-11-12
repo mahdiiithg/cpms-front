@@ -20,7 +20,9 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@apollo/client';
 import { userInitials } from '@/lib/demoContact';
+import { GET_USER } from '@/lib/queries';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,7 +31,22 @@ const Header = () => {
   const closeTimerRef = useRef(null);
   const { data: session } = useSession();
   const router = useRouter();
-  const avatarInitials = userInitials(session?.user?.name, session?.user?.email);
+  const userId = session?.userId || session?.user?.id;
+  const { data: profileData } = useQuery(GET_USER, {
+    variables: { id: userId },
+    skip: !userId,
+    fetchPolicy: 'cache-first',
+  });
+  const profileUser = profileData?.getUser;
+  const displayName =
+    [profileUser?.name, profileUser?.last_name].filter(Boolean).join(' ') ||
+    session?.user?.name ||
+    '';
+  const avatarInitials = userInitials(
+    displayName || profileUser?.name || session?.user?.name,
+    session?.user?.email || profileUser?.email,
+    profileUser?.last_name || session?.user?.last_name,
+  );
   const navigationItems = [
     {
       id: 'listings',
