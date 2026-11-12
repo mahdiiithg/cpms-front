@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -10,6 +10,11 @@ import { Building2, Pencil, Plus } from 'lucide-react';
 import { GET_MY_PROPERTIES } from '@/lib/queries/property';
 import { getStatusMeta, formatListingPrice } from '@/lib/listingStatus';
 import {
+  mergeListings,
+  readMyListingsJournal,
+  writeMyListingsJournal,
+} from '@/lib/myListingsJournal';
+import {
   pageSurfaceClass,
   panelClass,
   solidCtaClass,
@@ -18,7 +23,8 @@ import {
 
 export default function MyListingsPage() {
   const router = useRouter();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+  const userId = session?.userId || session?.user?.id;
 
   const { data, loading, error, refetch } = useQuery(GET_MY_PROPERTIES, {
     skip: status !== 'authenticated',
@@ -32,6 +38,21 @@ export default function MyListingsPage() {
     }
   }, [status, router]);
 
+  // Merge server rows into journal — never replace (avoids wiping a 1st listing
+  // when a cold isolate briefly returns only the latest create).
+  useEffect(() => {
+    const server = data?.myProperties;
+    if (!userId || !Array.isArray(server) || server.length === 0) return;
+    const merged = mergeListings(server, readMyListingsJournal(userId));
+    writeMyListingsJournal(userId, merged);
+  }, [data?.myProperties, userId]);
+
+  const listings = useMemo(() => {
+    const server = data?.myProperties || [];
+    const journal = readMyListingsJournal(userId);
+    return mergeListings(server, journal);
+  }, [data?.myProperties, userId]);
+
   if (status === 'loading' || status === 'unauthenticated') {
     return (
       <div className={`${pageSurfaceClass} flex min-h-[50vh] items-center justify-center`}>
@@ -39,8 +60,6 @@ export default function MyListingsPage() {
       </div>
     );
   }
-
-  const listings = data?.myProperties || [];
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-8">

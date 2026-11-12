@@ -14,6 +14,8 @@ export const CREATE_LISTING = gql`
       bedrooms
       bathrooms
       status
+      rejectionReason
+      listingStatus
       images
       location {
         address
@@ -26,6 +28,50 @@ export const CREATE_LISTING = gql`
           longitude
         }
       }
+      agent {
+        id
+        name
+        email
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const UPDATE_LISTING = gql`
+  mutation UpdateListing($id: ID!, $input: PropertyInput!) {
+    updateProperty(id: $id, input: $input) {
+      id
+      title
+      description
+      type
+      listingType
+      salePrice
+      rentPrice
+      bedrooms
+      bathrooms
+      status
+      rejectionReason
+      images
+      location {
+        address
+        city
+        state
+        country
+        zipCode
+        coordinates {
+          latitude
+          longitude
+        }
+      }
+      agent {
+        id
+        name
+        email
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
