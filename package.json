@@ -1,11 +1,11 @@
 {
-  "name": "coast-planet",
+  "name": "sefir-evolution",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 3002 --experimental-https",
+    "dev": "next dev --webpack -p 3010",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3010",
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.graphql",
     "lint:fix": "eslint . --ext .js,.jsx,.graphql --fix"
@@ -50,6 +50,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-unused-imports": "^4.1.4",
+    "playwright": "^1.65.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4"

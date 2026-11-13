@@ -6,15 +6,19 @@ import Footer from '@/components/Footer';
 
 const LayoutWrapper = ({ children }) => {
   const pathname = usePathname();
-  
+
   // Don't show main header/footer on dashboard pages (they have their own layout)
   const isDashboardPage = pathname.startsWith('/dashboard');
+  // Evolution landing owns its chrome
+  const isSefirLanding = pathname === '/';
+
+  const hideChrome = isDashboardPage || isSefirLanding;
 
   return (
     <>
-      {!isDashboardPage && <Header />}
+      {!hideChrome && <Header />}
       {children}
-      {!isDashboardPage && <Footer />}
+      {!hideChrome && <Footer />}
     </>
   );
 };

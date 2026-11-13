@@ -1,0 +1,288 @@
+:root {
+  --sefir-bg: #05070d;
+  --sefir-raised: #0a0f19;
+  --sefir-panel: rgba(255, 255, 255, 0.035);
+  --sefir-text: #e8eef7;
+  --sefir-muted: #9fb4d9;
+  --sefir-teal: #3ddcb5;
+  --sefir-teal-deep: #14967a;
+  --sefir-stroke: rgba(255, 255, 255, 0.1);
+  --sefir-glow: rgba(61, 220, 181, 0.28);
+}
+
+.sefir-root {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(61, 220, 181, 0.12), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(159, 180, 217, 0.08), transparent 55%),
+    var(--sefir-bg);
+  color: var(--sefir-text);
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+.sefir-root ::selection {
+  background: rgba(61, 220, 181, 0.28);
+  color: var(--sefir-text);
+}
+
+.sefir-aurora {
+  background:
+    radial-gradient(ellipse 50% 40% at 70% 20%, rgba(61, 220, 181, 0.16), transparent 70%),
+    radial-gradient(ellipse 40% 35% at 20% 70%, rgba(122, 150, 200, 0.1), transparent 70%);
+}
+
+.sefir-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+}
+
+.sefir-glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--sefir-stroke);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 24px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+}
+
+.sefir-panel {
+  background: var(--sefir-panel);
+  border: 1px solid var(--sefir-stroke);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.sefir-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--sefir-teal);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.sefir-eyebrow::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--sefir-teal);
+  box-shadow: 0 0 0 4px rgba(61, 220, 181, 0.12);
+}
+
+.sefir-nav-link {
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  color: var(--sefir-muted);
+  font-size: 0.9rem;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.sefir-nav-link:hover {
+  color: var(--sefir-text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sefir-btn-primary,
+.sefir-btn-secondary {
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.85rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+.sefir-btn-primary {
+  background: linear-gradient(135deg, #3ddcb5, #1fad8d);
+  color: #04110d;
+  box-shadow: 0 10px 30px rgba(61, 220, 181, 0.22);
+}
+
+.sefir-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px rgba(61, 220, 181, 0.3);
+}
+
+.sefir-btn-secondary {
+  border: 1px solid var(--sefir-stroke);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--sefir-text);
+}
+
+.sefir-btn-secondary:hover {
+  border-color: rgba(61, 220, 181, 0.35);
+  background: rgba(61, 220, 181, 0.08);
+}
+
+.sefir-icon-btn {
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--sefir-stroke);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--sefir-text);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.sefir-icon-btn:hover {
+  border-color: rgba(61, 220, 181, 0.35);
+  background: rgba(61, 220, 181, 0.08);
+}
+
+.sefir-chip,
+.sefir-channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--sefir-stroke);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--sefir-muted);
+  padding: 0.55rem 0.95rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.sefir-chip:hover,
+.sefir-channel:hover,
+.sefir-chip:focus-visible,
+.sefir-channel:focus-visible {
+  color: var(--sefir-text);
+  border-color: rgba(61, 220, 181, 0.35);
+  outline: none;
+}
+
+.sefir-chip-active,
+.sefir-channel-active {
+  color: var(--sefir-teal);
+  border-color: rgba(61, 220, 181, 0.45);
+  background: rgba(61, 220, 181, 0.12);
+  box-shadow: 0 0 0 1px rgba(61, 220, 181, 0.12);
+}
+
+.sefir-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(61, 220, 181, 0.35);
+  background: rgba(61, 220, 181, 0.08);
+}
+
+.sefir-mark-core {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--sefir-teal);
+  box-shadow:
+    0 0 0 4px rgba(61, 220, 181, 0.12),
+    0 0 18px rgba(61, 220, 181, 0.55);
+}
+
+.sefir-hero-orb {
+  position: absolute;
+  inset: 10% 8% auto;
+  height: 70%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(61, 220, 181, 0.2), transparent 70%);
+  filter: blur(18px);
+  z-index: 0;
+}
+
+.sefir-hero-copy {
+  animation: sefir-rise 700ms ease both;
+}
+
+.sefir-cta-glow {
+  position: absolute;
+  inset: auto 10% -40% 10%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(61, 220, 181, 0.18), transparent 70%);
+  filter: blur(20px);
+}
+
+.sefir-radar {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--sefir-teal);
+  box-shadow: 0 0 0 0 rgba(61, 220, 181, 0.45);
+  animation: sefir-ping 1.6s ease-out infinite;
+}
+
+.sefir-node-breathe {
+  transform-origin: center;
+  animation: sefir-breathe 3.6s ease-in-out infinite;
+}
+
+@keyframes sefir-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sefir-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes sefir-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(61, 220, 181, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(61, 220, 181, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(61, 220, 181, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sefir-hero-copy,
+  .sefir-node-breathe,
+  .sefir-radar,
+  .sefir-btn-primary,
+  .sefir-btn-secondary,
+  .sefir-panel {
+    animation: none !important;
+    transition: none !important;
+  }
+}

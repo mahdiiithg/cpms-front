@@ -20,8 +20,8 @@
 /* Base public canvas — avoid white flash behind dark pages */
 html,
 body {
-  background-color: #171717;
-  color: #ffffff;
+  background-color: #05070d;
+  color: #e8eef7;
 }
 
 /* Ant Form labels on dark Coast Planet surfaces — one ink for name + optional */

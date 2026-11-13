@@ -1,26 +1,41 @@
 import { ApolloWrapper } from '@/lib/ApolloWrapper';
 import { ConfigProvider } from 'antd';
 import { SessionProvider } from 'next-auth/react';
-import { Poppins } from 'next/font/google';
+import { Manrope, Noto_Sans_Arabic, Syne } from 'next/font/google';
 import antdTheme from '@/lib/antd-theme';
 import './globals.css';
+import '@/styles/sefir-evolution.css';
 import { Toaster } from 'sonner';
 import { PushNotificationHandler } from '@/components/PushNotificationHandler';
 import { auth } from '@/auth';
 import { AuthPromptProvider } from '@/components/auth/AuthPromptProvider';
 import LayoutWrapper from '@/components/LayoutWrapper';
 
-const poppins = Poppins({
+const syne = Syne({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['500', '600', '700'],
   display: 'swap',
-  variable: '--font-poppins',
+  variable: '--font-syne',
+});
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-manrope',
+});
+
+const notoArabic = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-noto-arabic',
 });
 
 export const metadata = {
-  title: 'Coast Planet - Property Management',
+  title: 'Sefir — AI customer communication',
   description:
-    'Coast Planet - All-inclusive property management services for coastal properties. Professional property management, building management, and real estate services.',
+    'Sefir is an AI-powered customer communication platform for WhatsApp, Instagram, and Email — answering from approved knowledge, handing off to humans, and respecting opt-outs.',
 };
 
 async function loadSession() {
@@ -48,11 +63,20 @@ export default async function RootLayout({ children }) {
   const session = await loadSession();
 
   return (
-    <html lang="en" className={poppins.variable}>
+    <html
+      lang="en"
+      className={`${syne.variable} ${manrope.variable} ${notoArabic.variable}`}
+    >
       <head>
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
-      <body className={`${poppins.className} font-sans`}>
+      <body
+        className={`${manrope.className} font-sans`}
+        style={{
+          fontFamily:
+            'var(--font-manrope), var(--font-noto-arabic), ui-sans-serif, system-ui, sans-serif',
+        }}
+      >
         <SessionProvider
           session={session}
           refetchOnWindowFocus={false}
