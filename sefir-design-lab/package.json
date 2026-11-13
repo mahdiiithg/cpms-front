@@ -1,0 +1,9 @@
+{
+  "name": "sefir-design-lab",
+  "private": true,
+  "scripts": {
+    "dev:evolution": "npm --prefix .. run dev",
+    "dev:reinvention": "npm --prefix reinvention run dev",
+    "install:all": "cd .. && yarn install --ignore-engines && cd sefir-design-lab/reinvention && npm install"
+  }
+}
